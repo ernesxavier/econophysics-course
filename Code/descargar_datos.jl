@@ -1,7 +1,7 @@
 # Descarga precios diarios de Yahoo Finance y los guarda en Data/precios.csv.
 #
 # Uso (desde la raíz del repositorio):
-#     julia --project=scripts scripts/descargar_datos.jl
+#     julia --project=Code Code/descargar_datos.jl
 #
 # Los notebooks leen el CSV, así que en clase no se depende de la API de Yahoo.
 # Las fechas son fijas para que todos trabajen con los mismos datos.

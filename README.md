@@ -16,9 +16,9 @@ Matemáticas), con simulaciones en Julia.
 │   └── s01_hechos_estilizados.jl
 ├── Data/
 │   └── precios.csv            → IPC, USD/MXN, S&P 500 y Bitcoin (2000–sep 2026)
-├── scripts/
-│   └── descargar_datos.jl     → Regenera Data/precios.csv desde Yahoo Finance
-├── Code/                      → Notebooks del semestre anterior
+├── Code/                      → Código Julia con entorno compartido
+│   ├── descargar_datos.jl     → Regenera Data/precios.csv desde Yahoo Finance
+│   ├── sesion_*.ipynb         → Notebooks del semestre anterior:
 │   ├── sesion_1.ipynb         → Caminata aleatoria, colas pesadas, TLC, datos financieros
 │   ├── sesion_3.ipynb         → Redes: medidas básicas, familia Medici
 │   ├── sesion_4.ipynb         → Redes aleatorias: ER, WS, BA
@@ -34,8 +34,15 @@ Matemáticas), con simulaciones en Julia.
 
 ## Requisitos
 
-- Julia ≥ 1.10 (los cuadernos de Pluto se probaron con 1.13 y Pluto 1.0.4;
-  los notebooks anteriores se ejecutaron con 1.12)
+- Julia 1.13 (cuadernos de Pluto probados con Pluto 1.0.4)
+
+## Entornos de Julia
+
+- **`Code/`**: un solo `Project.toml` + `Manifest.toml` para los scripts y los
+  notebooks de Jupyter.
+- **Cuadernos de Pluto**: cada `sesiones/*.jl` guarda sus propios paquetes al
+  final del archivo. Pluto los instala solo; no requieren `activate` ni
+  `instantiate`.
 
 ## Uso
 
@@ -55,7 +62,7 @@ abre (tarda unos minutos).
 Para actualizar los datos:
 
 ```
-julia --project=scripts scripts/descargar_datos.jl
+julia --project=Code Code/descargar_datos.jl
 ```
 
 ### Notebooks del semestre anterior
