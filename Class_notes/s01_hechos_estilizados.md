@@ -17,11 +17,13 @@
 Sea $P_t > 0$ el precio de cierre de un activo en el día $t = 0, 1, \dots, N$.
 
 **Definición (retorno simple).**
+
 $$
 R_t = \frac{P_t - P_{t-1}}{P_{t-1}}.
 $$
 
 **Definición (retorno logarítmico).**
+
 $$
 r_t = \ln\frac{P_t}{P_{t-1}} = \ln P_t - \ln P_{t-1} = \ln(1 + R_t).
 $$
@@ -31,17 +33,20 @@ lo que permite comparar activos distintos.
 
 **Relación entre ambos.** Por el desarrollo de Taylor de $\ln(1+x)$ alrededor
 de $0$,
+
 $$
 r_t = R_t - \frac{R_t^2}{2} + \frac{R_t^3}{3} - \cdots,
 $$
+
 de modo que $r_t \approx R_t$ cuando $|R_t| \ll 1$. Con retornos diarios
-típicos ($|R_t| \sim 1\%$) la diferencia es del orden de $10^{-5}$. Además
+típicos ($|R_t| \sim 0.01$, es decir, 1%) la diferencia es del orden de $10^{-5}$. Además
 $r_t \le R_t$ siempre, porque $\ln(1+x) \le x$.
 
 ### 1.2 Aditividad temporal
 
 **Proposición.** El retorno logarítmico en un horizonte de $\Delta t$ días es
 la suma de los retornos diarios:
+
 $$
 r_t(\Delta t) \equiv \ln\frac{P_{t+\Delta t}}{P_t}
 = \sum_{s=1}^{\Delta t} r_{t+s}.
@@ -62,11 +67,13 @@ central (sección 6).
 
 Si los retornos diarios fueran independientes con varianza $\sigma^2$, por la
 proposición anterior
+
 $$
-\mathrm{Var}[r_t(\Delta t)] = \Delta t\,\sigma^2
+\mathrm{Var}[r_t(\Delta t)] = \Delta t\thinspace\sigma^2
 \quad\Longrightarrow\quad
 \sigma(\Delta t) = \sigma\sqrt{\Delta t}.
 $$
+
 Con unos 252 días hábiles al año, la **volatilidad anualizada** se reporta
 como $\sigma_{\text{anual}} = \sigma_{\text{diaria}}\sqrt{252}$. La regla de
 la raíz cuadrada es exacta sólo bajo independencia (más precisamente, bajo
@@ -83,10 +90,11 @@ Tratamos $r_t$ como realización de una variable aleatoria $X$ con media
 $\mu = \mathbb{E}[X]$ y varianza $\sigma^2 = \mathbb{E}[(X-\mu)^2]$.
 
 **Definición (momentos estandarizados).**
+
 $$
-\text{asimetría: } \gamma = \mathbb{E}\!\left[\left(\frac{X-\mu}{\sigma}\right)^3\right],
+\text{asimetría: } \gamma = \mathbb{E}\negthinspace\left[\left(\frac{X-\mu}{\sigma}\right)^3\right],
 \qquad
-\text{curtosis en exceso: } \kappa = \mathbb{E}\!\left[\left(\frac{X-\mu}{\sigma}\right)^4\right] - 3.
+\text{curtosis en exceso: } \kappa = \mathbb{E}\negthinspace\left[\left(\frac{X-\mu}{\sigma}\right)^4\right] - 3.
 $$
 
 - $\gamma$ mide la asimetría: $\gamma < 0$ significa que las caídas grandes
@@ -101,6 +109,7 @@ $a > 0$), así que no dependen de la volatilidad del activo.
 ### 2.2 Estimadores muestrales
 
 Con una muestra $r_1, \dots, r_N$:
+
 $$
 \hat\mu = \frac{1}{N}\sum_{t=1}^N r_t,
 \qquad
@@ -129,13 +138,15 @@ desviaciones estándar".
 $\mathbb{E}[Z^4] = 3$, es decir, $\kappa = 0$.
 
 *Demostración* **[Avanzado]**. Sea $\varphi(z) = e^{-z^2/2}/\sqrt{2\pi}$, que
-cumple $\varphi'(z) = -z\,\varphi(z)$. Integrando por partes con $u = z^3$,
-$dv = z\varphi(z)\,dz$, $v = -\varphi(z)$:
+cumple $\varphi'(z) = -z\thinspace\varphi(z)$. Integrando por partes con $u = z^3$,
+$dv = z\varphi(z)\thinspace dz$, $v = -\varphi(z)$:
+
 $$
-\mathbb{E}[Z^4] = \int_{-\infty}^{\infty} z^3 \cdot z\varphi(z)\,dz
-= \big[-z^3\varphi(z)\big]_{-\infty}^{\infty} + 3\int_{-\infty}^{\infty} z^2\varphi(z)\,dz
-= 0 + 3\,\mathbb{E}[Z^2] = 3. \quad\square
+\mathbb{E}[Z^4] = \int_{-\infty}^{\infty} z^3 \cdot z\varphi(z)\thinspace dz
+= \big[-z^3\varphi(z)\big]_{-\infty}^{\infty} + 3\int_{-\infty}^{\infty} z^2\varphi(z)\thinspace dz
+= 0 + 3\thinspace\mathbb{E}[Z^2] = 3. \quad\square
 $$
+
 En general, $\mathbb{E}[Z^{2n}] = (2n-1)!! = 1\cdot 3 \cdot 5 \cdots (2n-1)$.
 
 ---
@@ -144,12 +155,12 @@ En general, $\mathbb{E}[Z^{2n}] = (2n-1)!! = 1\cdot 3 \cdot 5 \cdots (2n-1)$.
 
 ### 3.1 Procesos estocásticos
 
-Una serie de retornos $\{r_t\}_{t \in \mathbb{Z}}$ es un **proceso
+Una serie de retornos $\lbrace r_t\rbrace_{t \in \mathbb{Z}}$ es un **proceso
 estocástico**: una familia de variables aleatorias indexada por el tiempo.
 Observamos una sola trayectoria, así que para estimar cualquier cosa
 necesitamos suponer que las propiedades estadísticas no cambian en el tiempo.
 
-**Definición (estacionariedad débil).** $\{r_t\}$ es débilmente estacionario
+**Definición (estacionariedad débil).** $\lbrace r_t\rbrace$ es débilmente estacionario
 si
 
 1. $\mathbb{E}[r_t] = \mu$ no depende de $t$;
@@ -164,13 +175,16 @@ aproximación. Esta es otra razón para trabajar con $r_t$.
 
 **Definición.** Para un proceso débilmente estacionario, la función de
 autocorrelación (ACF) es
+
 $$
 \rho(\tau) = \frac{C(\tau)}{C(0)} = \mathrm{corr}(r_t, r_{t+\tau}),
 \qquad \tau = 0, 1, 2, \dots
 $$
+
 Cumple $\rho(0) = 1$, $|\rho(\tau)| \le 1$ y $\rho(-\tau) = \rho(\tau)$.
 
 **Estimador muestral.**
+
 $$
 \hat\rho(\tau) =
 \frac{\sum_{t=1}^{N-\tau} (r_t - \hat\mu)(r_{t+\tau} - \hat\mu)}
@@ -180,10 +194,12 @@ $$
 **Resultado (Bartlett).** Si los $r_t$ son independientes e idénticamente
 distribuidos (i.i.d.) con varianza finita, entonces para cada $\tau \ge 1$
 fijo,
+
 $$
-\sqrt{N}\,\hat\rho(\tau) \xrightarrow{d} \mathcal{N}(0, 1)
+\sqrt{N}\thinspace\hat\rho(\tau) \xrightarrow{d} \mathcal{N}(0, 1)
 \qquad (N \to \infty).
 $$
+
 Por eso la franja $\pm 1.96/\sqrt{N}$ del cuaderno es un intervalo de 95%
 bajo la hipótesis nula de independencia: una barra fuera de la franja es
 evidencia (al 5%) de correlación en ese rezago.
@@ -201,7 +217,7 @@ evidencia (al 5%) de correlación en ese rezago.
 ### 3.3 Incorrelación no es independencia
 
 **Definición.** $X$ e $Y$ son **independientes** si
-$\mathbb{E}[f(X)\,g(Y)] = \mathbb{E}[f(X)]\,\mathbb{E}[g(Y)]$ para todo par de
+$\mathbb{E}[f(X)\thinspace g(Y)] = \mathbb{E}[f(X)]\thinspace\mathbb{E}[g(Y)]$ para todo par de
 funciones (acotadas) $f, g$. Son **incorreladas** si eso se cumple sólo para
 $f(x) = x$, $g(y) = y$.
 
@@ -220,18 +236,21 @@ no (sección 5).
 
 ### 4.1 Formulación como martingala
 
-Sea $\mathcal{F}_t$ la información disponible al cierre del día $t$ (todos
+Sea $\mathcal F_t$ la información disponible al cierre del día $t$ (todos
 los precios hasta $t$, como mínimo).
 
 **Definición.** El precio (descontado) sigue una **martingala** respecto a
-$\{\mathcal{F}_t\}$ si
+$\lbrace\mathcal F_t\rbrace$ si
+
 $$
-\mathbb{E}[P_{t+1} \mid \mathcal{F}_t] = P_t.
+\mathbb{E}[P_{t+1} \mid \mathcal F_t] = P_t.
 $$
+
 En términos de retornos, la versión que usaremos es que el exceso de retorno
 es una **diferencia de martingala**:
+
 $$
-\mathbb{E}[r_{t+1} - \mu \mid \mathcal{F}_t] = 0.
+\mathbb{E}[r_{t+1} - \mu \mid \mathcal F_t] = 0.
 $$
 
 **Hipótesis de mercado eficiente (forma débil).** Los precios incorporan toda
@@ -245,20 +264,21 @@ la regularidad desaparecería.
 
 ### 4.2 Consecuencia: ausencia de autocorrelación lineal
 
-**Proposición.** Si $\{r_t - \mu\}$ es una diferencia de martingala con
+**Proposición.** Si $\lbrace r_t - \mu\rbrace$ es una diferencia de martingala con
 varianza finita, entonces $\rho(\tau) = 0$ para todo $\tau \ge 1$.
 
 *Demostración.* Sea $x_t = r_t - \mu$. Como $x_t$ es conocido en
-$\mathcal{F}_{t+\tau-1}$ y por la ley de esperanzas iteradas,
+$\mathcal F_{t+\tau-1}$ y por la ley de esperanzas iteradas,
+
 $$
-\mathbb{E}[x_t\, x_{t+\tau}]
-= \mathbb{E}\big[\,x_t\,\mathbb{E}[x_{t+\tau} \mid \mathcal{F}_{t+\tau-1}]\,\big]
+\mathbb{E}[x_t\thinspace x_{t+\tau}]
+= \mathbb{E}\big[\thinspace x_t\thinspace\mathbb{E}[x_{t+\tau} \mid \mathcal F_{t+\tau-1}]\thinspace\big]
 = \mathbb{E}[x_t \cdot 0] = 0. \quad\square
 $$
 
 **Lo que la proposición NO dice.** La martingala restringe sólo la
 **media condicional** del retorno. No dice nada sobre la **varianza
-condicional** $\mathbb{E}[x_{t+1}^2 \mid \mathcal{F}_t]$, que puede depender
+condicional** $\mathbb{E}[x_{t+1}^2 \mid \mathcal F_t]$, que puede depender
 del pasado. Por eso la eficiencia es perfectamente compatible con el
 agrupamiento de volatilidad: la dirección es impredecible, el tamaño no.
 
@@ -286,9 +306,11 @@ magnitud más frecuentes de lo que predice una normal con la misma varianza.
 
 **Cómo se cuantifica.** Si $z \sim \mathcal{N}(0,1)$, la probabilidad de un
 movimiento mayor a $k$ desviaciones estándar es
+
 $$
 p_k = \mathbb{P}(|Z| > k) = 2\big(1 - \Phi(k)\big),
 $$
+
 donde $\Phi$ es la función de distribución normal estándar. En $N$ días, el
 número esperado de eventos es $N p_k$ y el **periodo de retorno** (tiempo
 promedio entre eventos) es $1/p_k$ días.
@@ -305,9 +327,11 @@ eventos con $|z| > 5$ ocurren varias veces por década.
 
 **Qué tan pesadas.** Una distribución tiene **cola de ley de potencias** con
 exponente $\alpha$ si
+
 $$
-\mathbb{P}(|r| > x) \sim C\,x^{-\alpha} \qquad (x \to \infty).
+\mathbb{P}(|r| > x) \sim C\thinspace x^{-\alpha} \qquad (x \to \infty).
 $$
+
 Para los retornos financieros se observa $\alpha$ entre 2 y 5, con valores
 típicos cercanos a 3 (la "ley cúbica inversa"). Consecuencia: los momentos
 $\mathbb{E}[|r|^n]$ con $n \ge \alpha$ divergen. Si $\alpha \approx 3$, la
@@ -328,20 +352,24 @@ eficiente en su forma débil (proposición 4.2).
 
 **Enunciado.** La autocorrelación de los retornos absolutos es positiva y
 decae lentamente:
+
 $$
 \rho_{|r|}(\tau) > 0 \quad \text{para } \tau \text{ de días a meses},
 \qquad
-\rho_{|r|}(\tau) \sim A\,\tau^{-\beta}, \quad \beta \in [0.2, 0.4].
+\rho_{|r|}(\tau) \sim A\thinspace\tau^{-\beta}, \quad \beta \in [0.2, 0.4].
 $$
+
 Lo mismo ocurre con $r_t^2$. Un decaimiento como ley de potencias, en lugar
 de exponencial $e^{-\tau/\tau_0}$, indica **memoria larga**: no hay una escala
 de tiempo característica a partir de la cual la volatilidad "olvide".
 
 **Un modelo mínimo.** Considera
+
 $$
-r_t = \sigma_t\,\varepsilon_t,
+r_t = \sigma_t\thinspace\varepsilon_t,
 $$
-donde $\varepsilon_t$ son i.i.d. con media 0 y varianza 1, y $\{\sigma_t\}$
+
+donde $\varepsilon_t$ son i.i.d. con media 0 y varianza 1, y $\lbrace\sigma_t\rbrace$
 es un proceso positivo (la volatilidad) independiente de los $\varepsilon$.
 
 **Proposición.** En este modelo:
@@ -351,12 +379,12 @@ es un proceso positivo (la volatilidad) independiente de los $\varepsilon$.
 2. $\mathrm{Cov}(r_t^2, r_{t+\tau}^2) = \mathrm{Cov}(\sigma_t^2, \sigma_{t+\tau}^2)$:
    si la volatilidad es persistente, los cuadrados están correlacionados.
 
-*Demostración.* Por independencia entre $\{\sigma\}$ y $\{\varepsilon\}$ y
+*Demostración.* Por independencia entre $\lbrace\sigma\rbrace$ y $\lbrace\varepsilon\rbrace$ y
 entre los $\varepsilon$:
 
-1. $\mathbb{E}[r_t r_{t+\tau}] = \mathbb{E}[\sigma_t\sigma_{t+\tau}]\,\mathbb{E}[\varepsilon_t]\,\mathbb{E}[\varepsilon_{t+\tau}] = 0$,
+1. $\mathbb{E}[r_t r_{t+\tau}] = \mathbb{E}[\sigma_t\sigma_{t+\tau}]\thinspace\mathbb{E}[\varepsilon_t]\thinspace\mathbb{E}[\varepsilon_{t+\tau}] = 0$,
    y $\mathbb{E}[r_t] = 0$.
-2. $\mathbb{E}[r_t^2 r_{t+\tau}^2] = \mathbb{E}[\sigma_t^2\sigma_{t+\tau}^2]\,\mathbb{E}[\varepsilon_t^2]\,\mathbb{E}[\varepsilon_{t+\tau}^2] = \mathbb{E}[\sigma_t^2\sigma_{t+\tau}^2]$
+2. $\mathbb{E}[r_t^2 r_{t+\tau}^2] = \mathbb{E}[\sigma_t^2\sigma_{t+\tau}^2]\thinspace\mathbb{E}[\varepsilon_t^2]\thinspace\mathbb{E}[\varepsilon_{t+\tau}^2] = \mathbb{E}[\sigma_t^2\sigma_{t+\tau}^2]$
    y $\mathbb{E}[r_t^2] = \mathbb{E}[\sigma_t^2]$. $\square$
 
 Este es el ejemplo de 3.3 en versión financiera: incorrelación sin
@@ -365,12 +393,14 @@ especificar $\sigma_t$, con la diferencia de que $\sigma_t$ depende de los
 retornos pasados.
 
 **Proposición [Avanzado].** Si además $\varepsilon_t \sim \mathcal{N}(0,1)$,
+
 $$
-\mathbb{E}[r^4]/\mathbb{E}[r^2]^2 = 3\,\frac{\mathbb{E}[\sigma^4]}{\mathbb{E}[\sigma^2]^2} \;\ge\; 3,
+\mathbb{E}[r^4]/\mathbb{E}[r^2]^2 = 3\thinspace\frac{\mathbb{E}[\sigma^4]}{\mathbb{E}[\sigma^2]^2} \ \ge\  3,
 $$
+
 con igualdad sólo si $\sigma$ es constante.
 
-*Demostración.* $\mathbb{E}[r^4] = \mathbb{E}[\sigma^4]\,\mathbb{E}[\varepsilon^4] = 3\,\mathbb{E}[\sigma^4]$
+*Demostración.* $\mathbb{E}[r^4] = \mathbb{E}[\sigma^4]\thinspace\mathbb{E}[\varepsilon^4] = 3\thinspace\mathbb{E}[\sigma^4]$
 y $\mathbb{E}[r^2] = \mathbb{E}[\sigma^2]$. La desigualdad es
 $\mathbb{E}[\sigma^4] \ge \mathbb{E}[\sigma^2]^2$, es decir,
 $\mathrm{Var}[\sigma^2] \ge 0$. $\square$
@@ -388,25 +418,28 @@ pero más lentamente de lo que predice la independencia.
 **El punto de referencia: teorema del límite central.** Si
 $r_1, r_2, \dots$ son i.i.d. con media $\mu$ y varianza $\sigma^2 < \infty$,
 entonces
+
 $$
-\frac{r_t(\Delta t) - \Delta t\,\mu}{\sigma\sqrt{\Delta t}}
+\frac{r_t(\Delta t) - \Delta t\thinspace\mu}{\sigma\sqrt{\Delta t}}
 \xrightarrow{d} \mathcal{N}(0, 1)
 \qquad (\Delta t \to \infty).
 $$
 
 **Proposición.** Si los retornos diarios son i.i.d. con curtosis en exceso
 $\kappa_1$ (finita), la curtosis en exceso de la suma de $n$ de ellos es
+
 $$
 \kappa_n = \frac{\kappa_1}{n}.
 $$
 
 *Demostración* **[Avanzado]**. Usamos **cumulantes**: $c_m$ es el coeficiente
 de $s^m/m!$ en $\ln\mathbb{E}[e^{sX}]$. Se cumple $c_2 = \sigma^2$ y
-$c_4 = \kappa\,\sigma^4$. Como el logaritmo de la función generadora de una
+$c_4 = \kappa\thinspace\sigma^4$. Como el logaritmo de la función generadora de una
 suma de independientes es la suma de los logaritmos, los cumulantes son
-aditivos: $c_m(S_n) = n\,c_m(X)$. Entonces
+aditivos: $c_m(S_n) = n\thinspace c_m(X)$. Entonces
+
 $$
-\kappa_n = \frac{c_4(S_n)}{c_2(S_n)^2} = \frac{n\,c_4}{n^2 c_2^2} = \frac{\kappa_1}{n}. \quad\square
+\kappa_n = \frac{c_4(S_n)}{c_2(S_n)^2} = \frac{n\thinspace c_4}{n^2 c_2^2} = \frac{\kappa_1}{n}. \quad\square
 $$
 
 **Contraste con los datos.** En el cuaderno, la curtosis empírica a
@@ -432,7 +465,7 @@ Conserva la media y la varianza; destruye las colas pesadas y toda estructura
 temporal.
 
 **Modelo nulo 2: barajado (permutación).** $\tilde r_t = r_{\pi(t)}$, donde
-$\pi$ es una permutación aleatoria uniforme de $\{1, \dots, N\}$. Conserva
+$\pi$ es una permutación aleatoria uniforme de $\lbrace1, \dots, N\rbrace$. Conserva
 **exactamente** la distribución empírica (mismo histograma, misma
 $\hat\kappa$) y destruye el orden temporal: bajo la permutación,
 $\mathbb{E}[\hat\rho(\tau)] = -1/(N-1) \approx 0$ para toda función de los

@@ -1,6 +1,6 @@
 # Repaso: álgebra lineal
 
-> Cada concepto tiene una clave (por ejemplo **L.I2**) y dice en qué semanas
+> Cada concepto tiene una clave (por ejemplo **[L.I2](#li2)**) y dice en qué semanas
 > se usa. El índice [README.md](README.md) indica qué repasar antes de cada
 > sesión. Los fragmentos de Julia corren en el entorno del curso
 > (`julia --project=Code`).
@@ -13,6 +13,8 @@
 
 ## Nivel básico
 
+<a id="lb1"></a>
+
 ### L.B1 Vectores, producto punto y norma
 *Semanas 5, 8.*
 
@@ -23,20 +25,24 @@ riqueza de $n$ agentes o el estado de $n$ nodos.
 $$
 x \cdot y = \sum_{i=1}^n x_i y_i,
 \qquad
-\|x\| = \sqrt{x \cdot x},
+\Vert x\Vert = \sqrt{x \cdot x},
 \qquad
-\cos\theta = \frac{x \cdot y}{\|x\|\,\|y\|}.
+\cos\theta = \frac{x \cdot y}{\Vert x\Vert\thinspace\Vert y\Vert}.
 $$
 
 - $x \cdot y = 0$: los vectores son **ortogonales** (perpendiculares).
-- $\|x - y\|$ es la distancia euclidiana entre $x$ e $y$.
+- $\Vert x - y\Vert$ es la distancia euclidiana entre $x$ e $y$.
 
 **La correlación es un coseno.** Si $\tilde x$ y $\tilde y$ son las series
 centradas (se les resta su media), la correlación de Pearson es
+
 $$
-\rho_{xy} = \frac{\tilde x \cdot \tilde y}{\|\tilde x\|\,\|\tilde y\|} = \cos\theta.
+\rho_{xy} = \frac{\tilde x \cdot \tilde y}{\Vert\tilde x\Vert\thinspace\Vert\tilde y\Vert} = \cos\theta.
 $$
+
 Correlación 1: apuntan en la misma dirección; 0: ortogonales; −1: opuestos.
+
+<a id="lb2"></a>
 
 ### L.B2 Matrices y sus operaciones
 *Semanas 3, 5, 8, 9.*
@@ -44,11 +50,11 @@ Correlación 1: apuntan en la misma dirección; 0: ortogonales; −1: opuestos.
 Una **matriz** $A \in \mathbb{R}^{m \times n}$ tiene $m$ filas y $n$
 columnas; $A_{ij}$ es el elemento de la fila $i$, columna $j$.
 
-- **Matriz por vector**: $(Ax)_i = \sum_j A_{ij}x_j$. Cada componente es el
-  producto punto de una fila de $A$ con $x$.
-- **Matriz por matriz**: $(AB)_{ij} = \sum_k A_{ik}B_{kj}$. Requiere que las
+- **Matriz por vector**: si $y = Ax$, entonces $y_i = \sum_j A_{ij}x_j$. Cada
+  componente es el producto punto de una fila de $A$ con $x$.
+- **Matriz por matriz**: si $M = AB$, entonces $M_{ij} = \sum_k A_{ik}B_{kj}$. Requiere que las
   columnas de $A$ coincidan con las filas de $B$. En general $AB \ne BA$.
-- **Transpuesta**: $(A^\top)_{ij} = A_{ji}$. $A$ es **simétrica** si
+- **Transpuesta**: $A^\top$ intercambia filas y columnas, $A^\top_{ij} = A_{ji}$. $A$ es **simétrica** si
   $A = A^\top$.
 - **Identidad** $I$: unos en la diagonal, ceros fuera. $AI = IA = A$.
 - **Inversa**: $A^{-1}$ cumple $AA^{-1} = I$. Existe sólo si $A$ es cuadrada
@@ -60,6 +66,8 @@ En Julia, `A * x` es el producto matricial, `A .* B` el producto elemento a
 elemento, `A'` la transpuesta y `A \ b` resuelve $Ax = b$ (mejor que
 calcular la inversa).
 
+<a id="lb3"></a>
+
 ### L.B3 Matrices como datos
 *Semanas 1, 5.*
 
@@ -67,8 +75,9 @@ Una tabla de retornos de $N$ activos durante $T$ días es una matriz
 $R \in \mathbb{R}^{T \times N}$: cada **columna** es un activo, cada
 **fila** un día. Si se estandariza cada columna (media 0, varianza 1) y se
 llama $Z$ al resultado, la **matriz de correlación** es
+
 $$
-C = \frac{1}{T-1}\,Z^\top Z \in \mathbb{R}^{N \times N},
+C = \frac{1}{T-1}\thinspace Z^\top Z \in \mathbb{R}^{N \times N},
 \qquad C_{ij} = \rho_{ij}.
 $$
 
@@ -80,11 +89,13 @@ Z = (R .- mean(R; dims = 1)) ./ std(R; dims = 1)
 C ≈ Z' * Z / (size(R, 1) - 1)         # true
 ```
 
+<a id="lb4"></a>
+
 ### L.B4 Matriz de adyacencia
 *Semanas 8, 9, 11, 12.*
 
 Una red con $n$ nodos se representa con la **matriz de adyacencia**
-$A \in \{0,1\}^{n \times n}$: $A_{ij} = 1$ si hay un enlace de $i$ a $j$.
+$A \in \lbrace0,1\rbrace^{n \times n}$: $A_{ij} = 1$ si hay un enlace de $i$ a $j$.
 
 - **No dirigida**: $A$ es simétrica. **Dirigida**: no necesariamente
   (por ejemplo, préstamos de un banco a otro).
@@ -106,20 +117,24 @@ k = A * ones(Int, 4)        # grados: [2, 2, 3, 1]
 
 ## Nivel intermedio
 
+<a id="li1"></a>
+
 ### L.I1 Eigenvalores y eigenvectores
 *Semanas 3, 5, 8, 12.*
 
 Un vector $v \ne 0$ es un **eigenvector** (vector propio) de la matriz
 cuadrada $A$, con **eigenvalor** $\lambda$, si
+
 $$
 Av = \lambda v.
 $$
+
 $A$ no cambia la dirección de $v$, sólo lo estira por un factor $\lambda$.
 
 - Los eigenvalores son las raíces del **polinomio característico**
   $\det(A - \lambda I) = 0$.
 - Para una matriz $2 \times 2$:
-  $\lambda^2 - \mathrm{tr}(A)\,\lambda + \det A = 0$.
+  $\lambda^2 - \mathrm{tr}(A)\thinspace\lambda + \det A = 0$.
 - Siempre: $\sum_i \lambda_i = \mathrm{tr}(A)$ y
   $\prod_i \lambda_i = \det A$.
 
@@ -127,8 +142,10 @@ $A$ no cambia la dirección de $v$, sólo lo estira por un factor $\lambda$.
 $x_{t+1} = Ax_t$), escribir $x_0$ en la base de eigenvectores desacopla el
 problema: cada componente se multiplica por su $\lambda_i$ en cada paso.
 Las componentes con $|\lambda_i| > 1$ crecen y las de $|\lambda_i| < 1$
-mueren. Esta idea aparece en las cadenas de Markov (E.I3), en la
-centralidad (L.I4) y en la estabilidad (L.A3).
+mueren. Esta idea aparece en las cadenas de Markov ([E.I3](procesos_estocasticos.md#ei3)), en la
+centralidad ([L.I4](#li4)) y en la estabilidad ([L.A3](#la3)).
+
+<a id="li2"></a>
 
 ### L.I2 Matrices simétricas y teorema espectral
 *Semanas 5, 8.*
@@ -137,7 +154,7 @@ centralidad (L.I4) y en la estabilidad (L.A3).
 
 1. todos sus eigenvalores son **reales**;
 2. tiene $n$ eigenvectores **ortonormales** $v_1, \dots, v_n$;
-3. se descompone como $A = \sum_i \lambda_i\,v_i v_i^\top$.
+3. se descompone como $A = \sum_i \lambda_i\thinspace v_i v_i^\top$.
 
 Las matrices de covarianza, de correlación y de adyacencia de redes no
 dirigidas son simétricas.
@@ -152,6 +169,8 @@ $\lambda_i \ge 0$ y $\sum_i \lambda_i = \mathrm{tr}(C) = N$ (unos en la
 diagonal). Por eso $\lambda_i / N$ se interpreta como la **fracción de la
 varianza total** en la dirección $v_i$.
 
+<a id="li3"></a>
+
 ### L.I3 Componentes principales y modo de mercado
 *Semana 5.*
 
@@ -159,7 +178,7 @@ El eigenvector $v_1$ con el mayor eigenvalor de $C$ es la combinación de
 activos con **mayor varianza**: la "dirección principal" de los datos.
 
 **Modelo de un factor.** Supón que todos los pares de activos tienen la
-misma correlación $\rho > 0$. Entonces $C = (1-\rho)I + \rho\,\mathbf{1}\mathbf{1}^\top$ y
+misma correlación $\rho > 0$. Entonces $C = (1-\rho)I + \rho\thinspace\mathbf{1}\mathbf{1}^\top$ y
 
 - $v_1 = \mathbf{1}/\sqrt{N}$ (todos los activos con el mismo peso) con
   $\lambda_1 = 1 + (N-1)\rho$;
@@ -181,6 +200,8 @@ C = (1 - ρ) * I(N) + ρ * ones(N, N)
 λ[end], 1 + (N - 1) * ρ            # 15.7 y 15.7
 ```
 
+<a id="li4"></a>
+
 ### L.I4 Potencias de matrices: caminos y centralidad
 *Semanas 3, 8, 9.*
 
@@ -192,13 +213,13 @@ $i$ al $j$. Consecuencias:
   dirigida; de ahí sale el coeficiente de agrupamiento.
 
 **Método de la potencia.** Para casi cualquier $x_0$, la sucesión
-$x_{t+1} = Ax_t/\|Ax_t\|$ converge al eigenvector del eigenvalor de mayor
+$x_{t+1} = Ax_t/\Vert Ax_t\Vert$ converge al eigenvector del eigenvalor de mayor
 valor absoluto. Es lo que pasa al iterar una cadena de Markov hasta su
-distribución estacionaria (E.I3).
+distribución estacionaria ([E.I3](procesos_estocasticos.md#ei3)).
 
 **Centralidad de eigenvector.** Un nodo es importante si está conectado con
 nodos importantes: $x_i \propto \sum_j A_{ij}x_j$, es decir, $Ax = \lambda x$.
-Se toma el eigenvector del mayor eigenvalor; **Perron-Frobenius** (L.A5)
+Se toma el eigenvector del mayor eigenvalor; **Perron-Frobenius** ([L.A5](#la5))
 garantiza que tiene todas sus componentes positivas. PageRank es una
 variante de esta idea.
 
@@ -210,18 +231,22 @@ v = eigvecs(Symmetric(float(A)))[:, end]      # eigenvector del mayor λ
 abs.(v) ./ sum(abs.(v))                       # centralidad: el nodo 3 es el más central
 ```
 
+<a id="li5"></a>
+
 ### L.I5 Distancia entre activos
 *Semanas 5, 8.*
 
 Para construir una red a partir de correlaciones hace falta una
 **distancia**. Si $\hat z_i$ es la serie estandarizada del activo $i$
-dividida entre su norma ($\|\hat z_i\| = 1$), entonces
+dividida entre su norma ($\Vert\hat z_i\Vert = 1$), entonces
 $\hat z_i \cdot \hat z_j = \rho_{ij}$ y
+
 $$
-\|\hat z_i - \hat z_j\|^2 = 2 - 2\rho_{ij}
+\Vert\hat z_i - \hat z_j\Vert^2 = 2 - 2\rho_{ij}
 \quad\Longrightarrow\quad
 d_{ij} = \sqrt{2(1 - \rho_{ij})}.
 $$
+
 Como es una distancia euclidiana entre vectores, cumple la desigualdad del
 triángulo. Va de 0 ($\rho = 1$) a 2 ($\rho = -1$). Con ella se construye el
 **árbol de expansión mínima** de Mantegna (1999): conectar los $N$ activos
@@ -230,6 +255,8 @@ con $N-1$ enlaces de distancia total mínima.
 ---
 
 ## Nivel avanzado
+
+<a id="la1"></a>
 
 ### L.A1 El Laplaciano de una red
 *Semana 8.*
@@ -251,6 +278,8 @@ $$
   promedio de sus vecinos. La velocidad de convergencia al consenso la fija
   $\lambda_2$ (relacionado con el modelo de votante, semana 11).
 
+<a id="la2"></a>
+
 ### L.A2 Matrices aleatorias y Marchenko-Pastur
 *Semana 5.*
 
@@ -259,11 +288,13 @@ matriz de correlación muestral no sería la identidad: el ruido de
 estimación dispersa sus eigenvalores. Para $N, T \to \infty$ con
 $Q = T/N \ge 1$ fijo, la densidad de eigenvalores converge a la ley de
 **Marchenko-Pastur**:
+
 $$
-\rho(\lambda) = \frac{Q}{2\pi}\,\frac{\sqrt{(\lambda_+ - \lambda)(\lambda - \lambda_-)}}{\lambda},
+\rho(\lambda) = \frac{Q}{2\pi}\thinspace\frac{\sqrt{(\lambda_+ - \lambda)(\lambda - \lambda_-)}}{\lambda},
 \qquad
 \lambda_\pm = \left(1 \pm \frac{1}{\sqrt{Q}}\right)^2,
 $$
+
 para $\lambda \in [\lambda_-, \lambda_+]$, y cero fuera.
 
 **Uso.** Los eigenvalores empíricos dentro de $[\lambda_-, \lambda_+]$ son
@@ -280,16 +311,20 @@ Q = T / N
 extrema(λ), ((1 - 1/sqrt(Q))^2, (1 + 1/sqrt(Q))^2)   # ≈ (0.25, 2.25)
 ```
 
+<a id="la3"></a>
+
 ### L.A3 Jacobiano y estabilidad lineal
 *Semanas 12, 14.*
 
 **Tiempo continuo.** Para $\dot x = f(x)$ con $x \in \mathbb{R}^n$, un
-**punto fijo** $x^*$ cumple $f(x^*) = 0$. Cerca de él,
-$\dot{\delta} \approx J\,\delta$ con $\delta = x - x^*$ y el **jacobiano**
+**punto fijo** $x^\ast$ cumple $f(x^\ast) = 0$. Cerca de él,
+$\dot{\delta} \approx J\thinspace\delta$ con $\delta = x - x^\ast$ y el **jacobiano**
+
 $$
-J_{ij} = \left.\frac{\partial f_i}{\partial x_j}\right|_{x^*}.
+J_{ij} = \left.\frac{\partial f_i}{\partial x_j}\right|_{x^\ast }.
 $$
-$x^*$ es **estable** si todos los eigenvalores de $J$ tienen parte real
+
+$x^\ast$ es **estable** si todos los eigenvalores de $J$ tienen parte real
 negativa, e inestable si alguno la tiene positiva.
 
 En dos dimensiones basta con la traza $\tau$ y el determinante $\Delta$ de
@@ -306,13 +341,17 @@ sale del círculo unitario: por $+1$ (bifurcación de horquilla), por $-1$
 (bifurcación de Hopf: aparecen oscilaciones). El modelo de Brock-Hommes
 (semana 14) pasa por varias de ellas al aumentar la intensidad de elección.
 
+<a id="la4"></a>
+
 ### L.A4 Series de matrices y puntos fijos
 *Semanas 8, 9.*
 
 **Radio espectral**: $r(A) = \max_i |\lambda_i|$. Si $r(A) < 1$,
+
 $$
 (I - A)^{-1} = I + A + A^2 + \cdots = \sum_{k=0}^\infty A^k.
 $$
+
 Interpretación: un choque inicial $s$ se propaga como $s + As + A^2 s + \cdots$;
 el efecto total es $(I - A)^{-1}s$. Esta estructura aparece en:
 
@@ -325,6 +364,8 @@ el efecto total es $(I - A)^{-1}s$. Esta estructura aparece en:
   $p = \Phi(p)$, donde cada banco paga lo mínimo entre lo que debe y lo que
   tiene (sus activos más lo que le pagan los demás). Se resuelve iterando
   $p_{t+1} = \Phi(p_t)$ desde $p_0$ = deuda total.
+
+<a id="la5"></a>
 
 ### L.A5 Teorema de Perron-Frobenius
 *Semanas 3, 8.*
@@ -352,7 +393,7 @@ la centralidad de eigenvector está bien definida en una red conexa.
 </details>
 
 <details>
-<summary><b>2 (B).</b> En la red con matriz <i>A</i> del ejemplo de L.B4, ¿cuántos enlaces hay?</summary>
+<summary><b>2 (B).</b> En la red con matriz <i>A</i> del ejemplo de [L.B4](#lb4), ¿cuántos enlaces hay?</summary>
 
 La suma de grados es $2 + 2 + 3 + 1 = 8$, así que hay $8/2 = 4$ enlaces.
 </details>
@@ -368,14 +409,14 @@ $40 \times 40$: una fila y una columna por activo.
 
 $\mathrm{tr} = 4$, $\det = 3$: $\lambda^2 - 4\lambda + 3 = 0$, así que
 $\lambda = 3$ y $\lambda = 1$. Eigenvectores: $(1, 1)/\sqrt2$ y
-$(1, -1)/\sqrt2$. Es el modelo de un factor de L.I3 con $N = 2$ y
+$(1, -1)/\sqrt2$. Es el modelo de un factor de [L.I3](#li3) con $N = 2$ y
 $\rho = 1/2$ escalado por 2.
 </details>
 
 <details>
 <summary><b>5 (I).</b> En una matriz de correlación de 100 acciones, el mayor eigenvalor vale 30. ¿Qué fracción de la varianza total explica el modo de mercado? Con el modelo de un factor, ¿qué correlación promedio sugiere?</summary>
 
-$30/100 = 30\%$. De $1 + 99\rho = 30$ sale $\rho \approx 0.29$.
+$30/100 = 0.3$: el 30%. De $1 + 99\rho = 30$ sale $\rho \approx 0.29$.
 </details>
 
 <details>

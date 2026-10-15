@@ -1,6 +1,6 @@
 # Repaso: procesos estocásticos
 
-> Cada concepto tiene una clave (por ejemplo **E.I3**) y dice en qué semanas
+> Cada concepto tiene una clave (por ejemplo **[E.I3](#ei3)**) y dice en qué semanas
 > se usa. El índice [README.md](README.md) indica qué repasar antes de cada
 > sesión. Supone el repaso de [probabilidad](probabilidad.md) hasta el nivel
 > correspondiente. Los fragmentos de Julia corren en el entorno del curso
@@ -14,10 +14,12 @@
 
 ## Nivel básico
 
+<a id="eb1"></a>
+
 ### E.B1 Qué es un proceso estocástico
 *Semanas 1, 3.*
 
-Un **proceso estocástico** $\{X_t\}$ es una colección de variables aleatorias
+Un **proceso estocástico** $\lbrace X_t\rbrace$ es una colección de variables aleatorias
 indexadas por el tiempo: el precio de cada día, la riqueza de un agente en
 cada paso de la simulación, la fracción de agentes optimistas.
 
@@ -38,6 +40,8 @@ rng = Xoshiro(42)          # misma semilla → mismos números
 ε = randn(rng, 1_000)      # ruido blanco gaussiano
 ```
 
+<a id="eb2"></a>
+
 ### E.B2 Caminata aleatoria
 *Semanas 1, 3, 11.*
 
@@ -46,8 +50,10 @@ S_n = S_0 + \sum_{i=1}^n \xi_i,
 \qquad \xi_i \text{ i.i.d.}
 $$
 
-En la **caminata simple**, $\xi_i = +1$ o $-1$ con probabilidad $1/2$. Por
-P.B2 y P.I1:
+En la **caminata simple**, $\xi_i = +1$ o $-1$ con probabilidad $1/2$, así
+que cada paso tiene media 0 y varianza 1. Como los pasos son independientes,
+por [P.B2](probabilidad.md#pb2):
+
 $$
 \mathbb{E}[S_n] = S_0, \qquad \mathrm{Var}[S_n] = n.
 $$
@@ -65,6 +71,8 @@ caminatas = [cumsum(rand(rng, (-1, 1), 1_000)) for _ in 1:5_000]
 var([c[end] for c in caminatas])   # ≈ 1000
 ```
 
+<a id="eb3"></a>
+
 ### E.B3 Promediar simulaciones
 *Semanas 3 en adelante.*
 
@@ -73,17 +81,19 @@ algo hay que **promediar**. Hay dos formas:
 
 - **Promedio de ensamble**: correr $M$ simulaciones independientes y
   promediar el valor en el tiempo $t$. Error estándar $\sigma/\sqrt{M}$
-  (P.B5).
+  ([P.B5](probabilidad.md#pb5)).
 - **Promedio temporal**: correr una sola simulación larga y promediar a lo
   largo del tiempo, después de descartar el **transitorio** inicial.
 
 Si el proceso es estacionario y **ergódico**, ambos promedios coinciden.
-No siempre lo son: en el crecimiento multiplicativo (E.I6) el promedio de
+No siempre lo son: en el crecimiento multiplicativo ([E.I6](#ei6)) el promedio de
 ensamble y la trayectoria típica se comportan muy distinto.
 
 ---
 
 ## Nivel intermedio
+
+<a id="ei1"></a>
 
 ### E.I1 Estacionariedad y autocorrelación
 *Semanas 1, 3, 14.*
@@ -114,26 +124,33 @@ for t in 2:length(x); x[t] = ϕ * x[t-1] + randn(rng); end
 autocor(x, 1:5)            # ≈ 0.8, 0.64, 0.51, ...
 ```
 
+<a id="ei2"></a>
+
 ### E.I2 Martingalas
 *Semanas 1, 3.*
 
-$\{X_t\}$ es una **martingala** respecto a la información $\mathcal{F}_t$ si
+$\lbrace X_t\rbrace$ es una **martingala** respecto a la información $\mathcal F_t$ si
+
 $$
-\mathbb{E}[X_{t+1} \mid \mathcal{F}_t] = X_t.
+\mathbb{E}[X_{t+1} \mid \mathcal F_t] = X_t.
 $$
+
 "La mejor predicción del valor de mañana es el valor de hoy." Es la
 formalización de un **juego justo** y de la hipótesis de mercado eficiente.
 
 - La caminata aleatoria con $\mathbb{E}[\xi] = 0$ es una martingala.
 - Los incrementos $X_{t+1} - X_t$ de una martingala son **incorrelados**
-  entre sí (demostración en las notas de la sesión 1), pero no
+  entre sí (demostración en las [notas de la sesión 1](../s01_hechos_estilizados.md)), pero no
   necesariamente independientes: su varianza puede depender del pasado.
+
+<a id="ei3"></a>
 
 ### E.I3 Cadenas de Markov
 *Semanas 3, 11.*
 
 Un proceso con estados discretos es una **cadena de Markov** si el futuro
 depende del pasado sólo a través del presente:
+
 $$
 \mathbb{P}(X_{t+1} = j \mid X_t = i, X_{t-1}, \dots) = \mathbb{P}(X_{t+1} = j \mid X_t = i) = P_{ij}.
 $$
@@ -147,11 +164,13 @@ $$
   cualquier condición inicial.
 
 **Ejemplo: dos estados** (calma, turbulencia):
+
 $$
-P = \begin{pmatrix} 1-p & p \\ q & 1-q \end{pmatrix},
+P = \begin{pmatrix} 1-p & p \cr q & 1-q \end{pmatrix},
 \qquad
-\pi = \left(\frac{q}{p+q},\; \frac{p}{p+q}\right).
+\pi = \left(\frac{q}{p+q},\  \frac{p}{p+q}\right).
 $$
+
 El tiempo medio que se permanece en calma es $1/p$ días.
 
 El modelo de hormigas de Kirman (semana 11) es una cadena de Markov sobre el
@@ -166,21 +185,26 @@ vals, vecs = eigen(P')                  # eigenvectores izquierdos de P
 π_est                                   # ≈ [0.8, 0.2]
 ```
 
+<a id="ei4"></a>
+
 ### E.I4 Modelos de volatilidad: ARCH y GARCH
 *Semanas 3, 14.*
 
 Idea: el retorno es ruido con una volatilidad que **cambia en el tiempo y
 depende del pasado**,
+
 $$
-r_t = \sigma_t\,\varepsilon_t,
+r_t = \sigma_t\thinspace\varepsilon_t,
 \qquad \varepsilon_t \text{ i.i.d. } \mathcal{N}(0,1).
 $$
 
 **GARCH(1,1)** (Bollerslev, 1986):
+
 $$
-\sigma_t^2 = \omega + a\,r_{t-1}^2 + b\,\sigma_{t-1}^2,
-\qquad \omega > 0,\; a, b \ge 0.
+\sigma_t^2 = \omega + a\thinspace r_{t-1}^2 + b\thinspace\sigma_{t-1}^2,
+\qquad \omega > 0,\  a, b \ge 0.
 $$
+
 (En la literatura se usan $\alpha$ y $\beta$ en lugar de $a$ y $b$; aquí
 cambiamos de letra para no confundirlos con los exponentes de cola.)
 
@@ -189,37 +213,43 @@ cambiamos de letra para no confundirlos con los exponentes de cola.)
 - Es estacionario si $a + b < 1$, con varianza incondicional
   $\omega/(1 - a - b)$. Con datos diarios se estima típicamente
   $a + b \approx 0.98$: volatilidad muy persistente.
-- $\mathbb{E}[r_t \mid \mathcal{F}_{t-1}] = 0$: los retornos son una
+- $\mathbb{E}[r_t \mid \mathcal F_{t-1}] = 0$: los retornos son una
   diferencia de martingala, sin autocorrelación lineal.
 - Genera colas pesadas aunque $\varepsilon_t$ sea normal.
 - La autocorrelación de $r_t^2$ decae **exponencialmente** como $(a+b)^\tau$,
   más rápido que la ley de potencias observada.
+
+<a id="ei5"></a>
 
 ### E.I5 Ecuación de Langevin y Euler-Maruyama
 *Semanas 3, 7.*
 
 Una **ecuación diferencial estocástica** escribe el cambio de $X$ como
 "tendencia + ruido":
+
 $$
-dX_t = A(X_t)\,dt + B(X_t)\,dW_t,
+dX_t = A(X_t)\thinspace dt + B(X_t)\thinspace dW_t,
 $$
+
 donde $A$ es la **deriva**, $B$ la intensidad del ruido y $dW_t$ un
 incremento de movimiento browniano: normal con media 0 y varianza $dt$.
 
 **Simulación (Euler-Maruyama).** Con paso $\Delta t$ y $Z_k$ i.i.d.
 $\mathcal{N}(0,1)$:
+
 $$
-X_{k+1} = X_k + A(X_k)\,\Delta t + B(X_k)\,\sqrt{\Delta t}\,Z_k.
+X_{k+1} = X_k + A(X_k)\thinspace\Delta t + B(X_k)\thinspace\sqrt{\Delta t}\thinspace Z_k.
 $$
+
 El ruido escala con $\sqrt{\Delta t}$, no con $\Delta t$: es la difusión de
-E.B2.
+[E.B2](#eb2).
 
 **Dos ejemplos del curso:**
 
 | Proceso | Ecuación | Comportamiento |
 |---|---|---|
-| Ornstein-Uhlenbeck | $dX = -\theta X\,dt + \sigma\,dW$ | Regresa a 0; estacionario con varianza $\sigma^2/2\theta$ |
-| Movimiento browniano geométrico (GBM) | $dP = \mu P\,dt + \sigma P\,dW$ | Precio siempre positivo; retornos logarítmicos normales e i.i.d. |
+| Ornstein-Uhlenbeck | $dX = -\theta X\thinspace dt + \sigma\thinspace dW$ | Regresa a 0; estacionario con varianza $\sigma^2/2\theta$ |
+| Movimiento browniano geométrico (GBM) | $dP = \mu P\thinspace dt + \sigma P\thinspace dW$ | Precio siempre positivo; retornos logarítmicos normales e i.i.d. |
 
 ```julia
 using Random
@@ -233,13 +263,15 @@ end
 gbm(100.0, 0.05, 0.2, 1.0, 1/252)   # un año de precios diarios
 ```
 
+<a id="ei6"></a>
+
 ### E.I6 Crecimiento multiplicativo: Gibrat y Kesten
 *Semanas 4, 6, 7.*
 
 **Gibrat.** El tamaño de una empresa crece por un factor aleatorio:
-$x_{t+1} = a_t\,x_t$ con $a_t > 0$ i.i.d. Entonces
+$x_{t+1} = a_t\thinspace x_t$ con $a_t > 0$ i.i.d. Entonces
 $\ln x_t = \ln x_0 + \sum_{s<t} \ln a_s$ es una caminata aleatoria y $x_t$ es
-aproximadamente **lognormal** (P.I6). La varianza de $\ln x_t$ crece sin
+aproximadamente **lognormal** ([P.I6](probabilidad.md#pi6)). La varianza de $\ln x_t$ crece sin
 límite: no hay distribución estacionaria.
 
 **Promedio vs. trayectoria típica.** Con $a = 1.5$ o $0.6$ con probabilidad
@@ -250,13 +282,15 @@ $1/2$:
   **trayectoria típica** decrece.
 
 El promedio lo sostienen unas pocas trayectorias afortunadas. Es un ejemplo
-de proceso **no ergódico** (E.B3) y una aplicación de Jensen (P.A5).
+de proceso **no ergódico** ([E.B3](#eb3)) y una aplicación de Jensen ([P.A5](probabilidad.md#pa5)).
 
 **Kesten.** Se añade un término aditivo (o una barrera inferior):
+
 $$
-x_{t+1} = a_t\,x_t + b_t,
+x_{t+1} = a_t\thinspace x_t + b_t,
 \qquad \mathbb{E}[\ln a_t] < 0.
 $$
+
 La parte multiplicativa contrae en promedio y $b_t$ impide llegar a cero. El
 resultado es una distribución **estacionaria con cola de ley de potencias**,
 $\bar F(x) \sim x^{-\alpha}$. Es un mecanismo genérico para leyes de
@@ -265,6 +299,8 @@ potencias en tamaños de empresas, ciudades y riqueza (semanas 4 y 7).
 ---
 
 ## Nivel avanzado
+
+<a id="ea1"></a>
 
 ### E.A1 Movimiento browniano
 *Semana 3.*
@@ -275,64 +311,82 @@ de la caminata aleatoria. Se caracteriza por:
 1. $W_0 = 0$ y trayectorias continuas.
 2. Incrementos independientes: $W_{t} - W_{s}$ es independiente del pasado
    hasta $s$.
-3. $W_t - W_s \sim \mathcal{N}(0,\, t - s)$.
+3. $W_t - W_s \sim \mathcal{N}(0,\thinspace t - s)$.
 
 Propiedades contraintuitivas: sus trayectorias son continuas pero **no
 derivables en ningún punto**, y son autosimilares: $W_{ct}$ tiene la misma
-distribución que $\sqrt{c}\,W_t$. La regla heurística que resume el cálculo
+distribución que $\sqrt{c}\thinspace W_t$. La regla heurística que resume el cálculo
 estocástico es $(dW_t)^2 = dt$.
+
+<a id="ea2"></a>
 
 ### E.A2 Lema de Itô
 *Semana 3.*
 
-Si $dX = A\,dt + B\,dW$ y $f(x)$ es dos veces derivable, entonces
+Si $dX = A\thinspace dt + B\thinspace dW$ y $f(x)$ es dos veces derivable, entonces
+
 $$
-df(X_t) = \left(A\,f'(X_t) + \tfrac12 B^2 f''(X_t)\right)dt + B\,f'(X_t)\,dW_t.
+df(X_t) = \left(A\thinspace f'(X_t) + \tfrac12 B^2 f''(X_t)\right)dt + B\thinspace f'(X_t)\thinspace dW_t.
 $$
+
 El término $\tfrac12 B^2 f''$ no existe en el cálculo ordinario: viene de
 $(dW)^2 = dt$ en el desarrollo de Taylor a segundo orden.
 
 **Aplicación al GBM.** Con $f(P) = \ln P$, $A = \mu P$, $B = \sigma P$:
+
 $$
-d\ln P = \left(\mu - \tfrac12\sigma^2\right)dt + \sigma\,dW
-\;\Longrightarrow\;
-P_t = P_0\exp\!\Big(\big(\mu - \tfrac12\sigma^2\big)t + \sigma W_t\Big).
+d\ln P = \left(\mu - \tfrac12\sigma^2\right)dt + \sigma\thinspace dW
+\quad\Longrightarrow\quad
+P_t = P_0\exp\negthinspace\Big(\big(\mu - \tfrac12\sigma^2\big)t + \sigma W_t\Big).
 $$
+
 El precio medio crece a tasa $\mu$, pero la **mediana** crece a tasa
-$\mu - \sigma^2/2$: la versión continua del ejemplo de Gibrat (E.I6).
+$\mu - \sigma^2/2$: la versión continua del ejemplo de Gibrat ([E.I6](#ei6)).
+
+<a id="ea3"></a>
 
 ### E.A3 Ecuación maestra
 *Semanas 3, 11.*
 
 Para un proceso de Markov en tiempo continuo con estados discretos $n$ y
 tasas de transición $W(m \to n)$, la probabilidad $P_n(t)$ evoluciona según
+
 $$
-\frac{dP_n}{dt} = \sum_{m \ne n}\Big[W(m \to n)\,P_m(t) - W(n \to m)\,P_n(t)\Big].
+\frac{dP_n}{dt} = \sum_{m \ne n}\Big[W(m \to n)\thinspace P_m(t) - W(n \to m)\thinspace P_n(t)\Big].
 $$
+
 "Lo que entra menos lo que sale." En el estado estacionario, el lado
 izquierdo es 0. Si además cada par de estados se equilibra por separado,
-$W(m \to n)\,P_m = W(n \to m)\,P_n$, se dice que hay **balance detallado**;
+$W(m \to n)\thinspace P_m = W(n \to m)\thinspace P_n$, se dice que hay **balance detallado**;
 es la condición que usa el algoritmo de Metropolis (semana 10).
+
+<a id="ea4"></a>
 
 ### E.A4 Ecuación de Fokker-Planck
 *Semanas 3, 7.*
 
-Si $X_t$ sigue $dX = A(X)\,dt + B(X)\,dW$, su densidad $p(x, t)$ satisface
+Si $X_t$ sigue $dX = A(X)\thinspace dt + B(X)\thinspace dW$, su densidad $p(x, t)$ satisface
+
 $$
-\frac{\partial p}{\partial t} = -\frac{\partial}{\partial x}\big[A(x)\,p\big] + \frac12\frac{\partial^2}{\partial x^2}\big[B(x)^2\,p\big].
+\frac{\partial p}{\partial t} = -\frac{\partial}{\partial x}\big[A(x)\thinspace p\big] + \frac12\frac{\partial^2}{\partial x^2}\big[B(x)^2\thinspace p\big].
 $$
+
 El primer término transporta la densidad (deriva); el segundo la ensancha
 (difusión). Con $A = 0$ y $B$ constante es la **ecuación del calor**; por
 eso Black-Scholes se reduce a una ecuación de difusión.
 
 **Solución estacionaria** (con flujo nulo en las fronteras):
+
 $$
-p_s(x) \propto \frac{1}{B(x)^2}\exp\!\left(\int^x \frac{2A(y)}{B(y)^2}\,dy\right).
+p_s(x) \propto \frac{1}{B(x)^2}\exp\negthinspace\left(\int^x \frac{2A(y)}{B(y)^2}\thinspace dy\right).
 $$
+
 Ejemplo: en Ornstein-Uhlenbeck, $2A/B^2 = -2\theta x/\sigma^2$, así que
 $p_s$ es normal con varianza $\sigma^2/2\theta$. En el modelo de
 Bouchaud-Mézard (semana 7), $B \propto x$ y la misma fórmula da una cola de
 Pareto.
+
+<a id="ea5"></a>
 
 ### E.A5 Exponente de Kesten
 *Semana 4.*
@@ -340,15 +394,19 @@ Pareto.
 Para $x_{t+1} = a_t x_t + b_t$ con $\mathbb{E}[\ln a] < 0$ y
 $\mathbb{P}(a > 1) > 0$, el exponente de la cola estacionaria es la
 solución $\alpha > 0$ de
+
 $$
 \mathbb{E}[a^\alpha] = 1.
 $$
+
 Argumento heurístico: para $x$ grande el término $b$ es despreciable, y una
 cola $\mathbb{P}(x > X) \sim X^{-\alpha}$ se conserva bajo
 $x \mapsto a x$ sólo si $\mathbb{E}[a^\alpha] = 1$. Por ejemplo, si $\ln a$
 es normal con media $m < 0$ y varianza $s^2$, entonces
 $\mathbb{E}[a^\alpha] = e^{\alpha m + \alpha^2 s^2/2} = 1$ da
 $\alpha = -2m/s^2$.
+
+<a id="ea6"></a>
 
 ### E.A6 Tiempos de primer paso y absorción
 *Semanas 3, 11.*
@@ -357,13 +415,15 @@ El **tiempo de primer paso** $T$ es el primer momento en que el proceso
 alcanza un nivel o estado. Si ese estado es **absorbente** (no se sale de
 él), $T$ es el tiempo de absorción.
 
-Para la caminata simple en $\{0, 1, \dots, N\}$ que empieza en $k$ y se
+Para la caminata simple en $\lbrace0, 1, \dots, N\rbrace$ que empieza en $k$ y se
 absorbe en 0 o en $N$ (la **ruina del jugador**):
+
 $$
 \mathbb{P}(\text{llegar a } N \text{ antes que a } 0) = \frac{k}{N},
 \qquad
 \mathbb{E}[T] = k(N - k).
 $$
+
 Se obtienen planteando una ecuación de recurrencia para cada estado inicial
 (condicionando en el primer paso). El modelo de votante (semana 11) es de
 este tipo: el consenso es un estado absorbente y el tiempo de consenso crece
@@ -418,7 +478,7 @@ periodo.
 <details>
 <summary><b>7 (A).</b> Usa el lema de Itô para encontrar d(X²) cuando X = W (movimiento browniano).</summary>
 
-Con $A = 0$, $B = 1$, $f(x) = x^2$: $d(W^2) = dt + 2W\,dW$. En particular,
+Con $A = 0$, $B = 1$, $f(x) = x^2$: $d(W^2) = dt + 2W\thinspace dW$. En particular,
 $\mathbb{E}[W_t^2] = t$.
 </details>
 

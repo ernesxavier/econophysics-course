@@ -1,6 +1,6 @@
 # Repaso: física estadística
 
-> Cada concepto tiene una clave (por ejemplo **F.I3**) y dice en qué semanas
+> Cada concepto tiene una clave (por ejemplo **[F.I3](#fi3)**) y dice en qué semanas
 > se usa. El índice [README.md](README.md) indica qué repasar antes de cada
 > sesión. Supone [probabilidad](probabilidad.md) y [cálculo](calculo.md)
 > hasta el nivel correspondiente. Los fragmentos de Julia corren en el
@@ -16,13 +16,15 @@
 
 ## Nivel básico
 
+<a id="fb1"></a>
+
 ### F.B1 De lo micro a lo macro
 *Semanas 1, 6, 10.*
 
 La física estadística explica propiedades **macroscópicas** (presión,
 temperatura, magnetización) a partir de reglas **microscópicas** para
 muchísimas partículas, sin seguir a cada una. Funciona porque, con muchos
-componentes, los promedios fluctúan poco (ley de los grandes números, P.B5):
+componentes, los promedios fluctúan poco (ley de los grandes números, [P.B5](probabilidad.md#pb5)):
 nadie predice una molécula, pero la presión de un gas sí se predice.
 
 - **Microestado**: la descripción completa del sistema (la posición de cada
@@ -46,15 +48,18 @@ usa el mismo razonamiento con agentes en lugar de partículas:
 **Cuidado con la analogía.** "Equilibrio" en física estadística significa
 una **distribución estacionaria** en la que los agentes siguen cambiando de
 estado; no es un equilibrio walrasiano ni de Nash. Y muchas reglas
-económicas no conservan nada ni cumplen balance detallado (E.A3): son
+económicas no conservan nada ni cumplen balance detallado ([E.A3](procesos_estocasticos.md#ea3)): son
 sistemas **fuera de equilibrio**, y las fórmulas de equilibrio no siempre
 aplican.
+
+<a id="fb2"></a>
 
 ### F.B2 Entropía como conteo
 *Semanas 6, 7.*
 
 Para un macroestado, sea $W$ el número de microestados compatibles con él.
 La **entropía** (en unidades donde la constante de Boltzmann vale 1) es
+
 $$
 S = \ln W.
 $$
@@ -66,7 +71,9 @@ cerca de 50: **el macroestado más probable es el de mayor entropía**.
 
 Ésta es la idea detrás de la semana 6: si el dinero total se conserva y los
 intercambios lo reparten al azar, la distribución que se observa es la que
-tiene más formas de realizarse, y resulta ser la **exponencial** (C.A1).
+tiene más formas de realizarse, y resulta ser la **exponencial** ([C.A1](calculo.md#ca1)).
+
+<a id="fb3"></a>
 
 ### F.B3 Temperatura: ruido contra orden
 *Semanas 6, 10, 11.*
@@ -85,6 +92,8 @@ En el curso, la temperatura $T$ (o su inverso $\beta = 1/T$) mide cuánto
 En el intercambio de dinero (semana 6), la "temperatura" es otra cosa:
 $T = \langle m\rangle$, el dinero promedio por agente. Ambas comparten el
 papel matemático de escala en $e^{-E/T}$.
+
+<a id="fb4"></a>
 
 ### F.B4 Transiciones de fase
 *Semanas 7, 8, 10, 11, 13.*
@@ -113,46 +122,58 @@ abrupto aparece sólo cuando el número de agentes crece.
 
 ## Nivel intermedio
 
+<a id="fi1"></a>
+
 ### F.I1 Distribución de Boltzmann y función de partición
 *Semanas 6, 10.*
 
 Un sistema en equilibrio a temperatura $T = 1/\beta$ ocupa el estado $i$,
 con energía $E_i$, con probabilidad
+
 $$
 p_i = \frac{e^{-\beta E_i}}{Z},
 \qquad
 Z = \sum_i e^{-\beta E_i}.
 $$
+
 $Z$ es la **función de partición**: normaliza las probabilidades y, además,
 contiene toda la termodinámica. Por ejemplo, la energía promedio es
+
 $$
-\langle E\rangle = \sum_i E_i\,p_i = -\frac{\partial \ln Z}{\partial \beta}.
+\langle E\rangle = \sum_i E_i\thinspace p_i = -\frac{\partial \ln Z}{\partial \beta}.
 $$
 
 La distribución de Boltzmann es la de **máxima entropía** con energía
-promedio fija; la derivación está en C.A1.
+promedio fija; la derivación está en [C.A1](calculo.md#ca1).
 
 **Ejemplo: un espín en un campo.** Dos estados $s = \pm 1$ con energía
 $E = -hs$:
+
 $$
 \mathbb{P}(s = +1) = \frac{e^{\beta h}}{e^{\beta h} + e^{-\beta h}} = \sigma(2\beta h),
 \qquad
 \langle s\rangle = \tanh(\beta h).
 $$
-La logística y la tangente hiperbólica (C.B4) son la física de un sistema
+
+La logística y la tangente hiperbólica ([C.B4](calculo.md#cb4)) son la física de un sistema
 de dos estados.
+
+<a id="fi2"></a>
 
 ### F.I2 Logit = Boltzmann
 *Semana 10.*
 
 **Modelo de elección discreta** (McFadden). Un agente elige la opción $i$
 entre varias con utilidad
+
 $$
 U_i = u_i + \varepsilon_i,
 $$
+
 donde $u_i$ es la parte observable y $\varepsilon_i$ un choque aleatorio.
 Si los $\varepsilon_i$ son i.i.d. con distribución de Gumbel de escala
 $1/\beta$, la probabilidad de que $i$ sea la mejor es
+
 $$
 \mathbb{P}(i) = \frac{e^{\beta u_i}}{\sum_j e^{\beta u_j}}.
 $$
@@ -164,13 +185,17 @@ estadística: $\beta$ es la intensidad de elección y $1/\beta$ la
 explotan esta equivalencia para añadir interacciones sociales: el resultado
 es un modelo de Ising.
 
+<a id="fi3"></a>
+
 ### F.I3 Modelo de Ising
 *Semanas 10, 11.*
 
-$N$ espines $s_i \in \{-1, +1\}$ en los nodos de una red, con energía
+$N$ espines $s_i \in \lbrace-1, +1\rbrace$ en los nodos de una red, con energía
+
 $$
 H(s) = -J\sum_{\langle i,j\rangle} s_i s_j - h\sum_i s_i,
 $$
+
 donde $\langle i,j\rangle$ recorre los pares de vecinos.
 
 - $J > 0$: a cada espín le conviene alinearse con sus vecinos
@@ -186,8 +211,10 @@ Con $h = 0$ y en dos dimensiones o más:
   espontáneo, $|m| > 0$, **sin que nada externo lo favorezca**. El signo lo
   decide el azar inicial.
 
-En la red cuadrada, $T_c = 2J/\ln(1+\sqrt2) \approx 2.269\,J$ (Onsager, 1944).
+En la red cuadrada, $T_c = 2J/\ln(1+\sqrt2) \approx 2.269\thinspace J$ (Onsager, 1944).
 En una dimensión no hay transición a $T > 0$.
+
+<a id="fi4"></a>
 
 ### F.I4 Aproximación de campo medio
 *Semanas 10, 11.*
@@ -195,11 +222,13 @@ En una dimensión no hay transición a $T > 0$.
 Cada espín siente el **campo local** $h_i = J\sum_{j \in \text{vecinos}} s_j + h$.
 La aproximación de campo medio reemplaza a los vecinos por su promedio:
 con $z$ vecinos, $h_i \approx Jzm + h$. Usando el resultado de un espín
-(F.I1),
+([F.I1](#fi1)),
+
 $$
 m = \tanh\big(\beta(Jzm + h)\big).
 $$
-Es una ecuación de punto fijo que se resuelve gráficamente (C.I5):
+
+Es una ecuación de punto fijo que se resuelve gráficamente ([C.I5](calculo.md#ci5)):
 
 - Con $h = 0$, hay solución $m \ne 0$ si y sólo si $\beta Jz > 1$:
   $T_c^{\text{cm}} = Jz$. (En la red cuadrada, $z = 4$ da $T_c = 4J$,
@@ -216,6 +245,8 @@ la historia. En lectura económica: un cambio gradual de incentivos puede
 producir un cambio de comportamiento repentino, y revertir el incentivo no
 basta para revertirlo.
 
+<a id="fi5"></a>
+
 ### F.I5 Simulación de Monte Carlo: algoritmo de Metropolis
 *Semana 10.*
 
@@ -228,7 +259,7 @@ calcular $Z$ (que tiene $2^N$ términos):
    baja la energía; a veces si la sube.
 4. Repetir. $N$ intentos forman un **barrido**.
 
-La regla cumple **balance detallado** (E.A3) respecto a la distribución de
+La regla cumple **balance detallado** ([E.A3](procesos_estocasticos.md#ea3)) respecto a la distribución de
 Boltzmann, así que la cadena de Markov converge a ella. Hay que descartar
 los primeros barridos (**termalización**) antes de medir.
 
@@ -256,6 +287,8 @@ end
 [ising(32, T) for T in (1.5, 2.0, 2.5, 3.5)]   # |m| alto abajo de T_c ≈ 2.27, pequeño arriba
 ```
 
+<a id="fi6"></a>
+
 ### F.I6 Modelos cinéticos de intercambio
 *Semanas 6, 7.*
 
@@ -278,34 +311,43 @@ choque que redistribuye dinero entre dos de ellos, **conservando** el total
 
 ## Nivel avanzado
 
+<a id="fa1"></a>
+
 ### F.A1 Energía libre y teoría de Landau
 *Semana 10.*
 
 La **energía libre** es
+
 $$
 F = -T\ln Z = \langle E\rangle - TS.
 $$
+
 En equilibrio, el sistema minimiza $F$: a $T$ baja domina la energía
 (orden); a $T$ alta domina la entropía (desorden).
 
 **Teoría de Landau.** Cerca de $T_c$, el parámetro de orden $m$ es pequeño y
 la energía libre por espín se desarrolla en potencias (con simetría
 $m \to -m$ si $h = 0$):
+
 $$
-f(m) = f_0 + a\,(T - T_c)\,m^2 + b\,m^4, \qquad a, b > 0.
+f(m) = f_0 + a\thinspace(T - T_c)\thinspace m^2 + b\thinspace m^4, \qquad a, b > 0.
 $$
+
 - $T > T_c$: el mínimo está en $m = 0$.
 - $T < T_c$: el coeficiente de $m^2$ es negativo y aparecen dos mínimos en
   $m = \pm\sqrt{a(T_c - T)/2b}$.
 
 Así, $m \propto (T_c - T)^{1/2}$: el mismo resultado que da el desarrollo
-de Taylor de $\tanh$ en el campo medio (C.I1).
+de Taylor de $\tanh$ en el campo medio ([C.I1](calculo.md#ci1)).
+
+<a id="fa2"></a>
 
 ### F.A2 Exponentes críticos y universalidad
 *Semanas 1, 10, 13.*
 
 Cerca del punto crítico, las cantidades se comportan como **leyes de
 potencias** en $|T - T_c|$:
+
 $$
 m \sim (T_c - T)^{b},
 \qquad
@@ -313,6 +355,7 @@ m \sim (T_c - T)^{b},
 \qquad
 m \sim h^{1/d} \text{ en } T = T_c.
 $$
+
 (Se suelen llamar $\beta, \gamma, \delta$; aquí usamos $b, g, d$ para no
 confundirlos con otras letras del curso.)
 
@@ -328,10 +371,12 @@ Los detalles microscópicos no importan cerca del punto crítico, porque las
 correlaciones se extienden a todas las escalas (la longitud de correlación
 diverge).
 
-Por eso la universalidad de los hechos estilizados (sesión 1) sugiere a los
+Por eso la universalidad de los hechos estilizados ([sesión 1](../s01_hechos_estilizados.md)) sugiere a los
 físicos que los mercados podrían estar cerca de un punto crítico. Es una
 hipótesis atractiva, pero no demostrada: hay otros mecanismos que generan
-leyes de potencias (Kesten, E.I6).
+leyes de potencias (Kesten, [E.I6](procesos_estocasticos.md#ei6)).
+
+<a id="fa3"></a>
 
 ### F.A3 Campo aleatorio, avalanchas y crisis
 *Semana 10.*
@@ -339,9 +384,11 @@ leyes de potencias (Kesten, E.I6).
 **Modelo de Ising con campo aleatorio.** Cada agente tiene su propio
 incentivo privado $h_i$, tomado de una distribución con dispersión $R$, más
 un campo común $h$ que varía lentamente:
+
 $$
 H = -J\sum_{\langle i,j\rangle}s_is_j - \sum_i (h + h_i)s_i.
 $$
+
 A temperatura cero, cuando $h$ sube, un agente cambia de opinión, eso
 empuja a sus vecinos y puede desencadenar una **avalancha**.
 
@@ -353,6 +400,8 @@ empuja a sus vecinos y puede desencadenar una **avalancha**.
 
 Bouchaud (2013) lo usa para explicar cambios abruptos de opinión,
 pánicos bancarios y caídas del consumo.
+
+<a id="fa4"></a>
 
 ### F.A4 Vidrios de espín
 *Semanas 10, 13.*
@@ -367,6 +416,8 @@ Las técnicas desarrolladas para estos sistemas (modelo de
 Sherrington-Kirkpatrick, método de réplicas) resolvieron analíticamente el
 juego de la minoría y se aplican a problemas de optimización y de
 coordinación con muchos equilibrios (Bouchaud, Marsili & Nadal, 2023).
+
+<a id="fa5"></a>
 
 ### F.A5 Percolación
 *Semanas 8, 9.*
