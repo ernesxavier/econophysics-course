@@ -12,6 +12,7 @@ Matemáticas), con simulaciones en Julia.
 ├── Class_notes/
 │   ├── s01_hechos_estilizados.md → Notas formales, sesión 1
 │   ├── s02_colas_pesadas.md   → Notas formales, sesión 2
+│   ├── s03_procesos_estocasticos.md → Notas formales, sesión 3
 │   └── repaso/                → Repaso de matemáticas por niveles (índice por semana)
 │       └── figuras/           → Figuras de las notas (generadas con Code/figuras_repaso.jl)
 ├── docs/
@@ -23,6 +24,7 @@ Matemáticas), con simulaciones en Julia.
 ├── Code/                      → Todo el código Julia, un solo entorno
 │   ├── s01_hechos_estilizados.jl → Cuaderno de Pluto, sesión 1 (programa nuevo)
 │   ├── s02_colas_pesadas.jl   → Cuaderno de Pluto, sesión 2
+│   ├── s03_procesos_estocasticos.jl → Cuaderno de Pluto, sesión 3
 │   ├── descargar_datos.jl     → Regenera Data/precios.csv desde Yahoo Finance
 │   ├── descargar_inegi.jl     → Regenera Data/localidades_2020.csv desde INEGI
 │   ├── figuras_repaso.jl      → Regenera las figuras de Class_notes/repaso/figuras/
