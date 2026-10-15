@@ -13,6 +13,7 @@ Matemáticas), con simulaciones en Julia.
 │   ├── s01_hechos_estilizados.md → Notas formales, sesión 1
 │   ├── s02_colas_pesadas.md   → Notas formales, sesión 2
 │   ├── s03_procesos_estocasticos.md → Notas formales, sesión 3
+│   ├── s04_crecimiento_multiplicativo.md → Notas formales, sesión 4
 │   └── repaso/                → Repaso de matemáticas por niveles (índice por semana)
 │       └── figuras/           → Figuras de las notas (generadas con Code/figuras_repaso.jl)
 ├── docs/
@@ -20,13 +21,15 @@ Matemáticas), con simulaciones en Julia.
 │   └── benchmark.md           → Econofísica en otras universidades
 ├── Data/
 │   ├── precios.csv            → IPC, USD/MXN, S&P 500 y Bitcoin (2000–sep 2026)
-│   └── localidades_2020.csv   → Población por localidad, Censo 2020 (INEGI), ≥ 100 hab.
+│   ├── localidades_2020.csv   → Población por localidad, Censo 2020 (INEGI), ≥ 100 hab.
+│   └── municipios_2010_2020.csv → Población por municipio, Censos 2010 y 2020 (INEGI)
 ├── Code/                      → Todo el código Julia, un solo entorno
 │   ├── s01_hechos_estilizados.jl → Cuaderno de Pluto, sesión 1 (programa nuevo)
 │   ├── s02_colas_pesadas.jl   → Cuaderno de Pluto, sesión 2
 │   ├── s03_procesos_estocasticos.jl → Cuaderno de Pluto, sesión 3
+│   ├── s04_crecimiento_multiplicativo.jl → Cuaderno de Pluto, sesión 4
 │   ├── descargar_datos.jl     → Regenera Data/precios.csv desde Yahoo Finance
-│   ├── descargar_inegi.jl     → Regenera Data/localidades_2020.csv desde INEGI
+│   ├── descargar_inegi.jl     → Regenera los datos de INEGI (localidades y municipios)
 │   ├── figuras_repaso.jl      → Regenera las figuras de Class_notes/repaso/figuras/
 │   │   Notebooks del semestre anterior:
 │   ├── sesion_1.ipynb         → Caminata aleatoria, colas pesadas, TLC, datos financieros
