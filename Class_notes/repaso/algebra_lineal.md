@@ -413,7 +413,28 @@ $40 \times 40$: una fila y una columna por activo.
 </details>
 
 <details>
-<summary><b>4 (I).</b> Encuentra los eigenvalores de la matriz [[2, 1], [1, 2]] y sus eigenvectores.</summary>
+<summary><b>4 (B).</b> Calcula <i>Ax</i> con <i>A</i> = [[1, 2], [0, 3]] y <i>x</i> = (1, 1).</summary>
+
+Cada componente es el producto punto de una fila de $A$ con $x$:
+$1 \cdot 1 + 2 \cdot 1 = 3$ y $0 \cdot 1 + 3 \cdot 1 = 3$. Entonces
+$Ax = (3, 3)$.
+</details>
+
+<details>
+<summary><b>5 (B).</b> Tres bancos: A le presta a B y B le presta a C. Escribe la matriz de adyacencia dirigida (fila = quien presta). ¿Es simétrica?</summary>
+
+| presta \ recibe | A | B | C |
+|---|---|---|---|
+| **A** | 0 | 1 | 0 |
+| **B** | 0 | 0 | 1 |
+| **C** | 0 | 0 | 0 |
+
+No es simétrica: que A le preste a B no implica que B le preste a A. Las
+redes dirigidas en general no lo son.
+</details>
+
+<details>
+<summary><b>6 (I).</b> Encuentra los eigenvalores de la matriz [[2, 1], [1, 2]] y sus eigenvectores.</summary>
 
 $\mathrm{tr} = 4$, $\det = 3$: $\lambda^2 - 4\lambda + 3 = 0$, así que
 $\lambda = 3$ y $\lambda = 1$. Eigenvectores: $(1, 1)/\sqrt2$ y
@@ -422,26 +443,26 @@ $\rho = 1/2$ escalado por 2.
 </details>
 
 <details>
-<summary><b>5 (I).</b> En una matriz de correlación de 100 acciones, el mayor eigenvalor vale 30. ¿Qué fracción de la varianza total explica el modo de mercado? Con el modelo de un factor, ¿qué correlación promedio sugiere?</summary>
+<summary><b>7 (I).</b> En una matriz de correlación de 100 acciones, el mayor eigenvalor vale 30. ¿Qué fracción de la varianza total explica el modo de mercado? Con el modelo de un factor, ¿qué correlación promedio sugiere?</summary>
 
 $30/100 = 0.3$: el 30%. De $1 + 99\rho = 30$ sale $\rho \approx 0.29$.
 </details>
 
 <details>
-<summary><b>6 (I).</b> ¿Qué distancia de Mantegna corresponde a ρ = 0.5? ¿Y a ρ = 0?</summary>
+<summary><b>8 (I).</b> ¿Qué distancia de Mantegna corresponde a ρ = 0.5? ¿Y a ρ = 0?</summary>
 
 $d = \sqrt{2(1-0.5)} = 1$; con $\rho = 0$, $d = \sqrt2 \approx 1.41$.
 </details>
 
 <details>
-<summary><b>7 (A).</b> Con N = 100 activos y T = 400 días de ruido puro, ¿dónde termina el espectro de Marchenko-Pastur? Si el segundo eigenvalor empírico es 3.1, ¿es señal?</summary>
+<summary><b>9 (A).</b> Con N = 100 activos y T = 400 días de ruido puro, ¿dónde termina el espectro de Marchenko-Pastur? Si el segundo eigenvalor empírico es 3.1, ¿es señal?</summary>
 
 $Q = 4$, $\lambda_+ = (1 + 1/2)^2 = 2.25$. Como $3.1 > 2.25$, el segundo
 eigenvalor sobresale del ruido: probablemente es un sector.
 </details>
 
 <details>
-<summary><b>8 (A).</b> El jacobiano en un punto fijo es [[−1, 2], [−3, 1]]. ¿Es estable?</summary>
+<summary><b>10 (A).</b> El jacobiano en un punto fijo es [[−1, 2], [−3, 1]]. ¿Es estable?</summary>
 
 $\tau = 0$, $\Delta = -1 + 6 = 5 > 0$: eigenvalores $\pm i\sqrt5$, imaginarios
 puros. El análisis lineal predice órbitas cerradas (un **centro**); la

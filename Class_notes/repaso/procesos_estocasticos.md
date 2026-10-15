@@ -454,7 +454,33 @@ $0.5/\sqrt{25} = 0.1$.
 </details>
 
 <details>
-<summary><b>3 (I).</b> Un AR(1) tiene ρ(1) = 0.5. ¿Cuánto vale ρ(3)? ¿Puede describir el agrupamiento de volatilidad de los datos?</summary>
+<summary><b>3 (B).</b> Corres la misma simulación dos veces y obtienes resultados distintos. ¿Por qué? ¿Cómo logras que salgan iguales?</summary>
+
+Porque cada corrida usa números pseudoaleatorios distintos. Para que sea
+reproducible hay que fijar la semilla, por ejemplo `rng = Xoshiro(42)`, y
+pasar `rng` a todas las funciones que generan números aleatorios.
+</details>
+
+<details>
+<summary><b>4 (B).</b> ¿Cuál de estas series se parece más a ruido blanco: (a) lanzamientos de una moneda codificados como +1 y −1, (b) el precio diario de una acción, (c) la temperatura diaria de una ciudad?</summary>
+
+La (a): valores independientes con media 0 y varianza constante. El precio
+(b) es una caminata aleatoria: el de hoy depende del de ayer. La
+temperatura (c) tiene memoria (un día caluroso suele seguir a otro) y un
+ciclo anual.
+</details>
+
+<details>
+<summary><b>5 (B).</b> Para medir la riqueza promedio en un modelo de agentes, ¿qué diferencia hay entre promediar 50 corridas en el paso 1000 y promediar una sola corrida larga a lo largo del tiempo?</summary>
+
+Lo primero es un promedio de ensamble; lo segundo, un promedio temporal (en
+el que hay que descartar el transitorio inicial). Coinciden si el proceso es
+estacionario y ergódico; en un proceso multiplicativo, por ejemplo, pueden
+ser muy distintos.
+</details>
+
+<details>
+<summary><b>6 (I).</b> Un AR(1) tiene ρ(1) = 0.5. ¿Cuánto vale ρ(3)? ¿Puede describir el agrupamiento de volatilidad de los datos?</summary>
 
 $\rho(3) = 0.5^3 = 0.125$. Decae exponencialmente, mientras que la
 autocorrelación de $|r|$ en los datos decae como ley de potencias y sigue
@@ -463,20 +489,20 @@ autocorrelación lineal, que los datos no tienen.
 </details>
 
 <details>
-<summary><b>4 (I).</b> En la cadena de dos estados con p = 0.05 y q = 0.20, ¿qué fracción del tiempo pasa el mercado en turbulencia? ¿Cuánto dura en promedio un episodio turbulento?</summary>
+<summary><b>7 (I).</b> En la cadena de dos estados con p = 0.05 y q = 0.20, ¿qué fracción del tiempo pasa el mercado en turbulencia? ¿Cuánto dura en promedio un episodio turbulento?</summary>
 
 $\pi_{\text{turb}} = p/(p+q) = 0.2$. Un episodio turbulento dura en promedio
 $1/q = 5$ días.
 </details>
 
 <details>
-<summary><b>5 (I).</b> En un GARCH(1,1) con ω = 0.02, a = 0.08 y b = 0.90, ¿cuál es la varianza incondicional?</summary>
+<summary><b>8 (I).</b> En un GARCH(1,1) con ω = 0.02, a = 0.08 y b = 0.90, ¿cuál es la varianza incondicional?</summary>
 
 $\omega/(1 - a - b) = 0.02/0.02 = 1$.
 </details>
 
 <details>
-<summary><b>6 (I).</b> Si en cada periodo tu riqueza se multiplica por 2 o por 0.4 con igual probabilidad, ¿crece tu riqueza típica?</summary>
+<summary><b>9 (I).</b> Si en cada periodo tu riqueza se multiplica por 2 o por 0.4 con igual probabilidad, ¿crece tu riqueza típica?</summary>
 
 $\mathbb{E}[a] = 1.2$, pero $\mathbb{E}[\ln a] = \tfrac12\ln 0.8 < 0$: la
 trayectoria típica decrece, aunque el promedio de ensamble crezca 20% por
@@ -484,14 +510,14 @@ periodo.
 </details>
 
 <details>
-<summary><b>7 (A).</b> Usa el lema de Itô para encontrar d(X²) cuando X = W (movimiento browniano).</summary>
+<summary><b>10 (A).</b> Usa el lema de Itô para encontrar d(X²) cuando X = W (movimiento browniano).</summary>
 
 Con $A = 0$, $B = 1$, $f(x) = x^2$: $d(W^2) = dt + 2W\thinspace dW$. En particular,
 $\mathbb{E}[W_t^2] = t$.
 </details>
 
 <details>
-<summary><b>8 (A).</b> En el proceso de Kesten, ln <i>a</i> es normal con media −0.02 y desviación estándar 0.2. ¿Cuál es el exponente de la cola?</summary>
+<summary><b>11 (A).</b> En el proceso de Kesten, ln <i>a</i> es normal con media −0.02 y desviación estándar 0.2. ¿Cuál es el exponente de la cola?</summary>
 
 $\alpha = -2m/s^2 = 0.04/0.04 = 1$: una ley de Zipf.
 </details>

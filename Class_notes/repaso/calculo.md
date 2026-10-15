@@ -545,14 +545,28 @@ la logística.
 </details>
 
 <details>
-<summary><b>4 (I).</b> ¿Para qué valores de α tiene media finita una densidad ∝ <i>x</i><sup>−(α+1)</sup> en [1, ∞)?</summary>
+<summary><b>4 (B).</b> En el logit, la probabilidad de elegir A es σ(β(<i>u</i><sub>A</sub> − <i>u</i><sub>B</sub>)). ¿Cuánto vale si las dos utilidades son iguales? ¿Y si β(<i>u</i><sub>A</sub> − <i>u</i><sub>B</sub>) = 2?</summary>
+
+Con utilidades iguales, $\sigma(0) = 1/2$: cualquiera de las dos con igual
+probabilidad. Con 2, $\sigma(2) = 1/(1 + e^{-2}) \approx 0.88$.
+</details>
+
+<details>
+<summary><b>5 (B).</b> Una densidad vale 0.5 en el intervalo [0, 2] y 0 fuera de él. ¿Con qué probabilidad cae <i>X</i> entre 0.5 y 1.5? ¿Es una densidad válida?</summary>
+
+La probabilidad es el área bajo la densidad: $0.5 \times 1 = 0.5$. Es válida
+porque es no negativa y su área total es $0.5 \times 2 = 1$.
+</details>
+
+<details>
+<summary><b>6 (I).</b> ¿Para qué valores de α tiene media finita una densidad ∝ <i>x</i><sup>−(α+1)</sup> en [1, ∞)?</summary>
 
 $\mathbb{E}[X] = \int_1^\infty x \cdot x^{-(\alpha+1)}dx = \int_1^\infty x^{-\alpha}dx$,
 finita si y sólo si $\alpha > 1$.
 </details>
 
 <details>
-<summary><b>5 (I).</b> Encuentra los puntos fijos de ẋ = <i>x</i>(1 − <i>x</i>)(<i>x</i> − 0.3) y decide su estabilidad.</summary>
+<summary><b>7 (I).</b> Encuentra los puntos fijos de ẋ = <i>x</i>(1 − <i>x</i>)(<i>x</i> − 0.3) y decide su estabilidad.</summary>
 
 $x^\ast  = 0, 0.3, 1$. Con $f(x) = x(1-x)(x - 0.3)$: $f'(0) = -0.3 < 0$
 (estable), $f'(0.3) = 0.3 \cdot 0.7 > 0$ (inestable), $f'(1) = -0.7 < 0$
@@ -561,7 +575,7 @@ termina en 0 o en 1.
 </details>
 
 <details>
-<summary><b>6 (I).</b> ¿Por qué m = 0 deja de ser estable cuando βJ > 1 en m = tanh(βJm)?</summary>
+<summary><b>8 (I).</b> ¿Por qué m = 0 deja de ser estable cuando βJ > 1 en m = tanh(βJm)?</summary>
 
 Con $g(m) = \tanh(\beta J m)$, $g'(0) = \beta J$. Para la iteración, el
 punto fijo es estable si $|g'(0)| < 1$; con $\beta J > 1$ deja de serlo y la
@@ -569,14 +583,14 @@ iteración se aleja hacia $\pm m^\ast$.
 </details>
 
 <details>
-<summary><b>7 (A).</b> Maximiza la entropía −∑ <i>p</i><sub><i>i</i></sub> ln <i>p</i><sub><i>i</i></sub> de <i>n</i> estados con la única restricción ∑ <i>p</i><sub><i>i</i></sub> = 1.</summary>
+<summary><b>9 (A).</b> Maximiza la entropía −∑ <i>p</i><sub><i>i</i></sub> ln <i>p</i><sub><i>i</i></sub> de <i>n</i> estados con la única restricción ∑ <i>p</i><sub><i>i</i></sub> = 1.</summary>
 
 $-\ln p_i - 1 - \lambda_0 = 0$ da $p_i$ constante, es decir, $p_i = 1/n$: sin
 más información, la distribución de máxima entropía es la uniforme.
 </details>
 
 <details>
-<summary><b>8 (A).</b> Verifica que <i>V</i> = <i>dx</i> − <i>c</i> ln <i>x</i> + <i>by</i> − <i>a</i> ln <i>y</i> se conserva en Lotka-Volterra.</summary>
+<summary><b>10 (A).</b> Verifica que <i>V</i> = <i>dx</i> − <i>c</i> ln <i>x</i> + <i>by</i> − <i>a</i> ln <i>y</i> se conserva en Lotka-Volterra.</summary>
 
 $\dot V = (d - c/x)\dot x + (b - a/y)\dot y = (d - c/x)\thinspace x(a - by) + (b - a/y)\thinspace y(dx - c)$
 $= (dx - c)(a - by) + (by - a)(dx - c) = 0$.

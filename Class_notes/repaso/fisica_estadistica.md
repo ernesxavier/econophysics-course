@@ -480,33 +480,51 @@ Orden: la fracción de nodos en el componente más grande.
 </details>
 
 <details>
-<summary><b>4 (I).</b> Un sistema tiene tres estados con energías 0, 1 y 2. Con β = ln 2, ¿cuál es la probabilidad de cada uno?</summary>
+<summary><b>4 (B).</b> En un modelo de 1000 agentes que intercambian dinero, ¿qué es un microestado y qué es un macroestado? Da un ejemplo de cada uno.</summary>
+
+Un microestado es la lista completa de cuánto dinero tiene cada uno de los
+1000 agentes. Un macroestado es una descripción agregada, como el
+histograma del dinero o el índice de Gini. Muchos microestados distintos
+dan el mismo macroestado.
+</details>
+
+<details>
+<summary><b>5 (B).</b> En tu simulación, el parámetro de orden cambia de forma gradual, no abrupta. ¿Quiere decir que no hay transición de fase?</summary>
+
+No necesariamente. Con un número finito de agentes la transición se ve
+suavizada; el cambio abrupto aparece en el límite de muchos agentes.
+Repetir la simulación con más agentes y ver si el cambio se vuelve más
+brusco es la forma de comprobarlo.
+</details>
+
+<details>
+<summary><b>6 (I).</b> Un sistema tiene tres estados con energías 0, 1 y 2. Con β = ln 2, ¿cuál es la probabilidad de cada uno?</summary>
 
 $e^{-\beta E} = 1, 1/2, 1/4$; $Z = 7/4$; probabilidades $4/7, 2/7, 1/7$.
 </details>
 
 <details>
-<summary><b>5 (I).</b> En el logit binario, la opción A tiene utilidad 1 y B utilidad 0. ¿Con qué probabilidad se elige A si β = 0? ¿Y si β → ∞?</summary>
+<summary><b>7 (I).</b> En el logit binario, la opción A tiene utilidad 1 y B utilidad 0. ¿Con qué probabilidad se elige A si β = 0? ¿Y si β → ∞?</summary>
 
 $\mathbb{P}(A) = \sigma(\beta \cdot 1)$: con $\beta = 0$, $1/2$; con
 $\beta \to \infty$, 1.
 </details>
 
 <details>
-<summary><b>6 (I).</b> En campo medio con <i>z</i> = 6 vecinos y <i>J</i> = 1, ¿cuál es la temperatura crítica? ¿Hay consenso espontáneo en <i>T</i> = 5?</summary>
+<summary><b>8 (I).</b> En campo medio con <i>z</i> = 6 vecinos y <i>J</i> = 1, ¿cuál es la temperatura crítica? ¿Hay consenso espontáneo en <i>T</i> = 5?</summary>
 
 $T_c = Jz = 6$. Como $5 < 6$, sí: $\beta Jz = 6/5 > 1$ y hay soluciones
 $m \ne 0$.
 </details>
 
 <details>
-<summary><b>7 (I).</b> En Metropolis con β = 1, un volteo sube la energía en 4. ¿Con qué probabilidad se acepta? ¿Y si la baja en 4?</summary>
+<summary><b>9 (I).</b> En Metropolis con β = 1, un volteo sube la energía en 4. ¿Con qué probabilidad se acepta? ¿Y si la baja en 4?</summary>
 
 $e^{-4} \approx 0.018$; si la baja, se acepta siempre.
 </details>
 
 <details>
-<summary><b>8 (A).</b> Usa el desarrollo tanh <i>x</i> ≈ <i>x</i> − <i>x</i>³/3 para encontrar cómo crece <i>m</i> justo debajo de <i>T</i><sub>c</sub> en campo medio.</summary>
+<summary><b>10 (A).</b> Usa el desarrollo tanh <i>x</i> ≈ <i>x</i> − <i>x</i>³/3 para encontrar cómo crece <i>m</i> justo debajo de <i>T</i><sub>c</sub> en campo medio.</summary>
 
 Con $K = \beta Jz$: $m \approx Km - K^3m^3/3$, así que
 $m^2 \approx 3(K - 1)/K^3$ y $m \propto (K - 1)^{1/2} \propto (T_c - T)^{1/2}$:

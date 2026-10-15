@@ -454,7 +454,23 @@ multiplicar $N$ por 4, es decir, 10 000 datos.
 </details>
 
 <details>
-<summary><b>4 (I).</b> Dos activos tienen la misma volatilidad σ y correlación ρ. ¿Cuál es la volatilidad de un portafolio 50/50?</summary>
+<summary><b>4 (B).</b> Tienes 1000 datos y un bin de ancho 0.5 que contiene 120. ¿Qué altura tiene esa barra en un histograma normalizado como densidad?</summary>
+
+$120/(1000 \times 0.5) = 0.24$. Se divide entre el número de datos y entre el
+ancho del bin, para que el área total del histograma sea 1.
+</details>
+
+<details>
+<summary><b>5 (B).</b> Un activo tiene retornos diarios con media 0 y desviación estándar de 2%. Si fueran normales, ¿cada cuánto esperarías una caída de más de 4%?</summary>
+
+Una caída de 4% es $z = -2$, y $\mathbb{P}(Z < -2) \approx 0.023$: alrededor de
+un día de cada 44, unas seis veces al año. (Sólo caídas; contando
+también subidas de más de 4%, el doble.) En datos reales ocurre con más
+frecuencia, por las colas pesadas.
+</details>
+
+<details>
+<summary><b>6 (I).</b> Dos activos tienen la misma volatilidad σ y correlación ρ. ¿Cuál es la volatilidad de un portafolio 50/50?</summary>
 
 $\mathrm{Var} = \tfrac14\sigma^2 + \tfrac14\sigma^2 + 2\cdot\tfrac14\rho\sigma^2 = \tfrac{1+\rho}{2}\sigma^2$,
 así que la volatilidad es $\sigma\sqrt{(1+\rho)/2}$. Con $\rho = 1$ no hay
@@ -462,14 +478,14 @@ diversificación; con $\rho = 0$ se reduce por $1/\sqrt2$.
 </details>
 
 <details>
-<summary><b>5 (I).</b> En una gráfica log-log, la CCDF de los tamaños de ciudad es una recta de pendiente −1. ¿Cuál es el exponente de la densidad? ¿Tiene media finita?</summary>
+<summary><b>7 (I).</b> En una gráfica log-log, la CCDF de los tamaños de ciudad es una recta de pendiente −1. ¿Cuál es el exponente de la densidad? ¿Tiene media finita?</summary>
 
 $\alpha = 1$ en la CCDF, así que la densidad decae como $x^{-2}$. La media
 requiere $\alpha > 1$: en el límite $\alpha = 1$ diverge (logarítmicamente).
 </details>
 
 <details>
-<summary><b>6 (I).</b> ¿Por qué el TLC lleva a la lognormal cuando el crecimiento es multiplicativo?</summary>
+<summary><b>8 (I).</b> ¿Por qué el TLC lleva a la lognormal cuando el crecimiento es multiplicativo?</summary>
 
 Si $x_n = x_0 \prod a_i$, entonces $\ln x_n = \ln x_0 + \sum \ln a_i$. El
 TLC aplica a la suma de logaritmos, así que $\ln x_n$ es aproximadamente
@@ -477,14 +493,14 @@ normal y $x_n$ es aproximadamente lognormal.
 </details>
 
 <details>
-<summary><b>7 (A).</b> Muestra que la suma de dos normales independientes es normal usando funciones características.</summary>
+<summary><b>9 (A).</b> Muestra que la suma de dos normales independientes es normal usando funciones características.</summary>
 
 $\varphi_{X+Y}(s) = \varphi_X(s)\varphi_Y(s) = e^{i\mu_1 s - \sigma_1^2 s^2/2}e^{i\mu_2 s - \sigma_2^2 s^2/2} = e^{i(\mu_1+\mu_2)s - (\sigma_1^2+\sigma_2^2)s^2/2}$,
 que es la función característica de $\mathcal{N}(\mu_1+\mu_2, \sigma_1^2+\sigma_2^2)$.
 </details>
 
 <details>
-<summary><b>8 (A).</b> Si <i>X</i> ~ Pareto(α, 1), ¿qué distribución tiene ln <i>X</i>? Úsalo para justificar el estimador de máxima verosimilitud de α.</summary>
+<summary><b>10 (A).</b> Si <i>X</i> ~ Pareto(α, 1), ¿qué distribución tiene ln <i>X</i>? Úsalo para justificar el estimador de máxima verosimilitud de α.</summary>
 
 $\mathbb{P}(\ln X > y) = \mathbb{P}(X > e^y) = e^{-\alpha y}$: exponencial con
 tasa $\alpha$ y media $1/\alpha$. El estimador natural de $1/\alpha$ es la
