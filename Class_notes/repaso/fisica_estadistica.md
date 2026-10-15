@@ -237,6 +237,10 @@ Es una ecuación de punto fijo que se resuelve gráficamente ([C.I5](calculo.md#
 - Brock-Durlauf obtienen la misma ecuación con $h$ = utilidad privada de
   adoptar y $J$ = utilidad social de coincidir con los demás.
 
+![Solución gráfica del campo medio y magnetización de equilibrio](figuras/campo_medio.png)
+
+*Izquierda: las soluciones son los cruces de y = m con tanh(βJ m). Derecha: por encima de βJ = 1 aparecen dos estados de consenso y el desorden se vuelve inestable.*
+
 **Histéresis.** Con $\beta Jz > 1$ y $h$ variando, hay un rango de $h$ con
 tres soluciones. El sistema se queda en la rama en la que está hasta que
 ésta desaparece, y entonces **salta**. Si $h$ sube y luego baja, el salto
@@ -244,6 +248,10 @@ de ida y el de regreso ocurren en valores distintos: el estado depende de
 la historia. En lectura económica: un cambio gradual de incentivos puede
 producir un cambio de comportamiento repentino, y revertir el incentivo no
 basta para revertirlo.
+
+![Ciclo de histéresis de la adopción neta frente al incentivo común](figuras/histeresis.png)
+
+*Con βJz = 1.5, al subir el incentivo h la adopción salta hacia arriba en h ≈ 0.21; al bajarlo, salta hacia abajo en h ≈ −0.21. Entre ambos valores, el estado depende de la historia.*
 
 <a id="fi5"></a>
 
@@ -265,6 +273,10 @@ los primeros barridos (**termalización**) antes de medir.
 
 Para el Ising, voltear $s_i$ cambia la energía en
 $\Delta E = 2s_i\big(J\sum_{j} s_j + h\big)$.
+
+![Magnetización del modelo de Ising simulado frente a la solución exacta de Onsager](figuras/ising.png)
+
+*La simulación sigue la solución exacta lejos de Tc. Cerca y por encima de Tc, la red finita conserva una magnetización residual que desaparecería en una red infinita.*
 
 ```julia
 using Random, Statistics
@@ -306,6 +318,10 @@ choque que redistribuye dinero entre dos de ellos, **conservando** el total
   menos pobres extremos y la desigualdad baja.
 - **Ahorro heterogéneo** (cada agente con su $\lambda_i$): aparece una cola
   de **Pareto** con exponente cercano a 1.
+
+![Distribución del dinero en el modelo de intercambio, sin ahorro y con ahorro del 50 por ciento](figuras/intercambio.png)
+
+*Distribución estacionaria del dinero. Sin ahorro es exponencial, una recta en escala semilog; con ahorro del 50% se aproxima por una gamma: hay muchos menos agentes con muy poco dinero.*
 
 ---
 

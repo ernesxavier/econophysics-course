@@ -47,6 +47,10 @@ Elegir bien la escala permite **reconocer la forma** de una relación:
 | $y = a + bx$ | escala lineal | $b$ |
 | $y = Ce^{-\lambda x}$ (exponencial) | **semilog**: eje $y$ logarítmico | $-\lambda$ |
 | $y = Cx^{-\alpha}$ (ley de potencias) | **log-log**: ambos ejes logarítmicos | $-\alpha$ |
+![Exponencial y ley de potencias en escala lineal, semilog y log-log](figuras/escalas.png)
+
+*La misma exponencial y la misma ley de potencias en tres escalas. Cada una se vuelve recta sólo en su escala: semilog para la exponencial, log-log para la ley de potencias.*
+
 
 Para estimar la pendiente en log-log a partir de dos puntos:
 $-\alpha = \dfrac{\ln y_2 - \ln y_1}{\ln x_2 - \ln x_1}$. Si la recta baja
@@ -286,6 +290,10 @@ $f'(0) = r > 0$ (inestable) y $f'(K) = -r < 0$ (estable).
 se mueve a la derecha; donde $f < 0$, a la izquierda. Los puntos fijos son
 los cruces con cero.
 
+![Retrato de fase de una ecuación con tres puntos fijos](figuras/retrato_fase.png)
+
+*Donde f(x) > 0, x crece; donde f(x) < 0, decrece. Los puntos fijos con pendiente negativa (0 y 1) atraen; el de pendiente positiva (0.3) repele.*
+
 ```julia
 f(x) = 0.5 * x * (1 - x / 100)                   # logística con r = 0.5, K = 100
 function euler(f, x0, Δt, n)
@@ -321,6 +329,10 @@ $\beta J$:
 
 **Solución por iteración.** $x_{k+1} = g(x_k)$ converge a $x^\ast$ si
 $|g'(x^\ast)| < 1$ cerca del punto fijo.
+
+![Solución gráfica de m igual a tanh de beta J m y diagrama de bifurcación](figuras/campo_medio.png)
+
+*Izquierda: las soluciones son los cruces de y = m con tanh(βJ m); con βJ > 1 aparecen dos cruces nuevos. Derecha: la magnetización de equilibrio en función de βJ; la rama m = 0 se vuelve inestable en βJ = 1.*
 
 ```julia
 function punto_fijo(g, x0; tol = 1e-12, maxit = 10_000)
@@ -493,6 +505,10 @@ hoy depende de las predicciones hechas con precios pasados.
 - **Exponente de Lyapunov**:
   $\lambda = \lim_{n\to\infty}\frac1n\sum_{k} \ln|F'(x_k)|$. Si $\lambda > 0$,
   dos condiciones iniciales cercanas se separan exponencialmente: caos.
+
+![Diagrama de bifurcación del mapa logístico](figuras/bifurcacion.png)
+
+*Valores que visita el mapa logístico después del transitorio, para cada r. El punto fijo se duplica en r = 3, siguen más duplicaciones y desde r ≈ 3.57 aparece el caos, con ventanas periódicas.*
 
 ```julia
 using Plots

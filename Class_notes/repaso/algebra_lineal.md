@@ -138,6 +138,10 @@ $A$ no cambia la dirección de $v$, sólo lo estira por un factor $\lambda$.
 - Siempre: $\sum_i \lambda_i = \mathrm{tr}(A)$ y
   $\prod_i \lambda_i = \det A$.
 
+![Una matriz simétrica transforma el círculo unitario en una elipse alineada con sus eigenvectores](figuras/eigen.png)
+
+*A transforma el círculo unitario en una elipse. Los eigenvectores (naranja) sólo se estiran, v₁ por 3 y v₂ por 1, y marcan los ejes de la elipse. Cualquier otro vector, como x, además cambia de dirección.*
+
 **Por qué importan.** Si $A$ actúa repetidamente (una dinámica
 $x_{t+1} = Ax_t$), escribir $x_0$ en la base de eigenvectores desacopla el
 problema: cada componente se multiplica por su $\lambda_i$ en cada paso.
@@ -302,6 +306,10 @@ indistinguibles del ruido. Los que quedan por encima de $\lambda_+$ (el modo
 de mercado y algunos sectores) son **señal** (Laloux et al., 1999). Barajar
 cada serie por separado, como en el laboratorio, produce numéricamente este
 mismo espectro de ruido.
+
+![Espectro de matrices de correlación: ruido puro frente a datos con estructura de mercado y sectores](figuras/marchenko_pastur.png)
+
+*Izquierda: con activos independientes, los eigenvalores llenan el intervalo de Marchenko-Pastur. Derecha: con un factor de mercado y 4 sectores salen 4 eigenvalores del ruido (el modo de mercado, λ₁ ≈ 27, y 3 contrastes entre sectores); el resto queda a la izquierda de la curva porque esos factores absorben parte de la varianza.*
 
 ```julia
 using LinearAlgebra, Statistics, Random

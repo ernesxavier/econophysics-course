@@ -64,6 +64,10 @@ $$
 - El logaritmo del precio como caminata aleatoria ($\ln P_t = \ln P_0 + \sum r_i$)
   es el modelo de Bachelier (1900), el punto de partida de la econofísica.
 
+![Treinta caminatas aleatorias con las curvas más y menos dos raíz de n](figuras/caminata.png)
+
+*La dispersión de las trayectorias crece como √n: casi todas quedan dentro de ±2√n.*
+
 ```julia
 using Random, Statistics
 rng = Xoshiro(1)
@@ -283,6 +287,10 @@ $1/2$:
 
 El promedio lo sostienen unas pocas trayectorias afortunadas. Es un ejemplo
 de proceso **no ergódico** ([E.B3](#eb3)) y una aplicación de Jensen ([P.A5](probabilidad.md#pa5)).
+
+![Promedio de ensamble creciente y mediana decreciente en un proceso multiplicativo](figuras/gibrat.png)
+
+*El promedio de ensamble crece, pero la mediana, que es la trayectoria típica, decrece. El promedio lo sostienen unas pocas trayectorias con mucha suerte.*
 
 **Kesten.** Se añade un término aditivo (o una barrera inferior):
 

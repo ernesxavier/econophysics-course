@@ -64,6 +64,10 @@ de los intervalos así construidos contendría el valor verdadero. No es
 correcto decir "hay 95% de probabilidad de que $\theta$ esté en este
 intervalo": $\theta$ es fijo; lo aleatorio es el intervalo.
 
+![Cincuenta intervalos de confianza del 95 por ciento, tres de los cuales no contienen la media verdadera](figuras/intervalos.png)
+
+*Cada barra es un intervalo construido con una muestra distinta. Cerca del 5% no contienen el valor verdadero: eso, y nada más, significa «95% de confianza».*
+
 **Ejemplo: la media se estima mal; la volatilidad, bien.** Con 6000 días y
 volatilidad diaria $\sigma = 0.012$ (1.2%), el error estándar de la media es
 $0.012/\sqrt{6000} \approx 0.00015$. Si el retorno medio estimado es

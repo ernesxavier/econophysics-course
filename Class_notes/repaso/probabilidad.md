@@ -222,6 +222,10 @@ fallan:
 | Varianza finita | El límite es una distribución estable, no normal | Semana 2 ([P.A2](#pa2)) |
 | Suma (no producto) | Un producto de factores tiende a la **lognormal** | Semana 4 ([P.I6](#pi6)) |
 
+![Densidad de la suma estandarizada de 1, 2, 5 y 30 exponenciales comparada con la normal](figuras/tlc.png)
+
+*Densidad de la suma estandarizada de n exponenciales. Con n = 1 es muy asimétrica; con n = 30 casi coincide con la normal (línea punteada).*
+
 ```julia
 using Distributions, Statistics, Random
 rng = Xoshiro(1)
@@ -284,6 +288,10 @@ $$
 - **Cola pesada** se usa en sentido amplio para cualquier cola más lenta que
   exponencial (incluye la lognormal, que no es ley de potencias pero en un
   rango finito puede parecerlo).
+
+![CCDF de una exponencial y de una ley de potencias en tres escalas](figuras/escalas.png)
+
+*En log-log (derecha), la CCDF de una ley de potencias es una recta de pendiente −α, aquí con α = 2; la exponencial se desploma.*
 
 ```julia
 using Distributions, Random, Plots
