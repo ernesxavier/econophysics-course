@@ -9,6 +9,3 @@ Data/raw/
 .ipynb_checkpoints/
 .vscode/
 
-# Herramientas locales para construir los cuadernos de Pluto (no se publican)
-Code/construir_cuaderno.jl
-Code/fuentes/

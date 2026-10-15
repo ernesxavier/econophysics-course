@@ -42,6 +42,9 @@ Matemáticas), con simulaciones en Julia.
 │   ├── sesion_9.ipynb         → Modelo de Axelrod
 │   ├── Project.toml
 │   └── Manifest.toml
+├── src/                       → Fuentes de los cuadernos de Pluto (formato #%%)
+│   ├── construir_cuaderno.jl  → Genera y ejecuta un cuaderno a partir de su fuente
+│   └── sNN_tema.jl            → Fuente de Code/sNN_tema.jl (sesiones 2 a 4)
 └── README.md
 ```
 
@@ -75,6 +78,20 @@ y en el navegador abrir `Code/s01_hechos_estilizados.jl`.
 **Notebooks de Jupyter del semestre anterior:** abrir `Code/sesion_*.ipynb` en
 VS Code o Jupyter con el entorno `Code`.
 
+**Construir un cuaderno desde su fuente.** Cada cuaderno de Pluto tiene una
+fuente en `src/` con marcadores `#%%` (celda visible) y `#%% hide` (código
+oculto), más fácil de editar como texto. Este comando genera el cuaderno, lo
+ejecuta sin interfaz, reporta las celdas con error y guarda las gráficas en
+la carpeta de salidas para revisarlas:
+
+```
+julia --project=Code src/construir_cuaderno.jl src/s02_colas_pesadas.jl Code/s02_colas_pesadas.jl /tmp/salidas
+```
+
+La fuente y el cuaderno deben coincidir. Los cambios grandes se hacen en la
+fuente y se regenera el cuaderno; si se edita el cuaderno en Pluto, hay que
+pasar el cambio a la fuente antes de volver a generarlo.
+
 **Actualizar los datos:**
 
 ```
@@ -94,7 +111,7 @@ julia -e 'using Pkg; Pkg.activate("Code"); Pkg.update()'
       estocásticos, crecimiento multiplicativo, matrices aleatorias, modelos
       cinéticos, Bouchaud-Mézard, contagio, Ising, votante y Kirman, minoría,
       Brock-Hommes.
-- [ ] Módulo compartido `src/` con funciones comunes (`gini`, `ccdf`, `hill`, ...).
+- [ ] Módulo compartido con funciones comunes (`gini`, `ccdf`, `hill`, ...). Ya no puede ir en `src/`, que ahora guarda las fuentes de los cuadernos; por ejemplo, `Code/comun.jl`.
 - [x] Datos en CSV para no depender de la API de Yahoo.
 - [ ] Migrar el resto de las sesiones a Pluto.jl.
 - [ ] Notebooks anteriores: en `sesion_1` la celda 31 grafica `Normal(...)`
