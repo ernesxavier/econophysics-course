@@ -47,5 +47,7 @@ Después, abrir cualquier `Code/sesion_*.ipynb` en VS Code o Jupyter.
       Brock-Hommes.
 - [ ] Módulo compartido `src/` con funciones comunes (`gini`, `ccdf`, `hill`, ...).
 - [ ] Datos en CSV para no depender de la API de Yahoo.
-- [ ] Decidir Jupyter vs. Pluto.jl.
+- [ ] Migrar a Pluto.jl (deslizadores para las transiciones de fase).
+- [ ] Notebooks con huecos y ejercicios separados en ruta básica y avanzada.
+- [ ] Examen diagnóstico de matemáticas (semana 1).
 - [ ] Lista de artículos para presentaciones.
