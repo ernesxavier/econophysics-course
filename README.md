@@ -12,13 +12,12 @@ Matemáticas), con simulaciones en Julia.
 ├── docs/
 │   ├── diagnostico.md         → Revisión del curso anterior
 │   └── benchmark.md           → Econofísica en otras universidades
-├── sesiones/                  → Cuadernos de Pluto del programa nuevo
-│   └── s01_hechos_estilizados.jl
 ├── Data/
 │   └── precios.csv            → IPC, USD/MXN, S&P 500 y Bitcoin (2000–sep 2026)
-├── Code/                      → Código Julia con entorno compartido
+├── Code/                      → Todo el código Julia, un solo entorno
+│   ├── s01_hechos_estilizados.jl → Cuaderno de Pluto, sesión 1 (programa nuevo)
 │   ├── descargar_datos.jl     → Regenera Data/precios.csv desde Yahoo Finance
-│   ├── sesion_*.ipynb         → Notebooks del semestre anterior:
+│   │   Notebooks del semestre anterior:
 │   ├── sesion_1.ipynb         → Caminata aleatoria, colas pesadas, TLC, datos financieros
 │   ├── sesion_3.ipynb         → Redes: medidas básicas, familia Medici
 │   ├── sesion_4.ipynb         → Redes aleatorias: ER, WS, BA
@@ -36,42 +35,43 @@ Matemáticas), con simulaciones en Julia.
 
 - Julia 1.13 (cuadernos de Pluto probados con Pluto 1.0.4)
 
-## Entornos de Julia
+## Entorno de Julia
 
-- **`Code/`**: un solo `Project.toml` + `Manifest.toml` para los scripts y los
-  notebooks de Jupyter.
-- **Cuadernos de Pluto**: cada `sesiones/*.jl` guarda sus propios paquetes al
-  final del archivo. Pluto los instala solo; no requieren `activate` ni
-  `instantiate`.
+Todo el repositorio usa **un solo entorno**: `Code/Project.toml` +
+`Code/Manifest.toml`. Incluye Pluto, así que no hace falta instalar nada en el
+entorno global. Los cuadernos de Pluto activan este entorno en su primera
+celda de paquetes (`Pkg.activate(@__DIR__)`).
 
 ## Uso
 
-### Cuadernos de Pluto (programa nuevo)
+Desde la raíz del repositorio, la primera vez:
 
-Sólo hace falta instalar Pluto una vez:
-
-```julia
-using Pkg; Pkg.add("Pluto")
-using Pluto; Pluto.run()
+```
+julia --project=Code -e 'using Pkg; Pkg.instantiate()'
 ```
 
-En el navegador, abrir `sesiones/s01_hechos_estilizados.jl`. Cada cuaderno
-trae sus paquetes con versiones fijas; Pluto los instala la primera vez que se
-abre (tarda unos minutos).
+**Cuadernos de Pluto:**
 
-Para actualizar los datos:
+```
+julia --project=Code -e 'using Pluto; Pluto.run()'
+```
+
+y en el navegador abrir `Code/s01_hechos_estilizados.jl`.
+
+**Notebooks de Jupyter del semestre anterior:** abrir `Code/sesion_*.ipynb` en
+VS Code o Jupyter con el entorno `Code`.
+
+**Actualizar los datos:**
 
 ```
 julia --project=Code Code/descargar_datos.jl
 ```
 
-### Notebooks del semestre anterior
+**Actualizar paquetes** (por ejemplo, al cambiar de versión de Julia):
 
-```julia
-using Pkg; Pkg.activate("Code"); Pkg.instantiate()
 ```
-
-Después, abrir cualquier `Code/sesion_*.ipynb` en VS Code o Jupyter.
+julia -e 'using Pkg; Pkg.activate("Code"); Pkg.update()'
+```
 
 ## Pendientes
 
@@ -83,6 +83,9 @@ Después, abrir cualquier `Code/sesion_*.ipynb` en VS Code o Jupyter.
 - [ ] Módulo compartido `src/` con funciones comunes (`gini`, `ccdf`, `hill`, ...).
 - [x] Datos en CSV para no depender de la API de Yahoo.
 - [ ] Migrar el resto de las sesiones a Pluto.jl.
+- [ ] Notebooks anteriores: en `sesion_1` la celda 31 grafica `Normal(...)`
+      antes de cargar `StatsPlots`; en `sesion_8` la celda 16 da error
+      (`agentes.feliz`), igual que en el original.
 - [ ] Notebooks con huecos y ejercicios separados en ruta básica y avanzada.
 - [ ] Examen diagnóstico de matemáticas (semana 1).
 - [ ] Lista de artículos para presentaciones.
