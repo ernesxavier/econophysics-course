@@ -9,6 +9,8 @@ Matemáticas), con simulaciones en Julia.
 ├── programa/
 │   ├── programa.md            → Programa rediseñado (15 semanas)
 │   └── programa-anterior.md   → Programa del semestre anterior
+├── Class_notes/
+│   └── s01_hechos_estilizados.md → Notas formales, sesión 1
 ├── docs/
 │   ├── diagnostico.md         → Revisión del curso anterior
 │   └── benchmark.md           → Econofísica en otras universidades
