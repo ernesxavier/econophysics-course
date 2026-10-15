@@ -1,0 +1,10 @@
+# Calificaciones de estudiantes: nunca subir
+notas*.xlsx
+*calificaciones*
+
+# Datos descargados (se regeneran con los scripts)
+Data/raw/
+
+# Jupyter / editores
+.ipynb_checkpoints/
+.vscode/
