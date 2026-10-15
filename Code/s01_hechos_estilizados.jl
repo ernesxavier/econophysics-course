@@ -130,7 +130,7 @@ md"""
 Usamos precios de cierre diarios (ajustados por dividendos) de cuatro activos
 muy distintos: un índice bursátil mexicano, un tipo de cambio, un índice
 estadounidense y una criptomoneda. Los datos se descargaron de Yahoo Finance
-con `scripts/descargar_datos.jl` y están en `Data/precios.csv`.
+con `Code/descargar_datos.jl` y están en `Data/precios.csv`.
 """
 
 # ╔═╡ 04ef5d74-c856-11f1-9302-2b5486d2a3ae
