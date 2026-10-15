@@ -177,8 +177,9 @@ tecnológica.
 ## Bibliografía
 
 ### Textos base
-- Mantegna, R. N., & Stanley, H. E. (2000). *An Introduction to Econophysics:
+- Mantegna, R. N., & Stanley, H. E. (1999). *An Introduction to Econophysics:
   Correlations and Complexity in Finance*. Cambridge University Press.
+  https://doi.org/10.1017/CBO9780511755767
 - Slanina, F. (2014). *Essentials of Econophysics Modelling*. Oxford University Press.
 - Requião da Cunha, C. (2021). *Introduction to Econophysics: Contemporary
   Approaches with Python Simulations*. CRC Press.
@@ -197,7 +198,7 @@ tecnológica.
 - Jackson, M. O. (2008). *Social and Economic Networks*. Princeton University Press.
 - Kirman, A. (2011). *Complex Economics: Individual and Collective
   Rationality*. Routledge.
-- Thurner, S., Hanel, R., & Klimek, P. (2018). *Introduction to the Theory of
+- Thurner, S., Klimek, P., & Hanel, R. (2018). *Introduction to the Theory of
   Complex Systems*. Oxford University Press.
 - Gardiner, C. (2021). *Elements of Stochastic Methods*. AIP Publishing.
 - Garibaldi, U., & Scalas, E. (2010). *Finitary Probabilistic Methods in
@@ -213,48 +214,70 @@ tecnológica.
 ### Artículos
 - Acemoglu, D., Ozdaglar, A., & Tahbaz-Salehi, A. (2015). Systemic risk and
   stability in financial networks. *American Economic Review*, 105(2), 564–608.
+  https://doi.org/10.1257/aer.20130456
 - Battiston, S., Puliga, M., Kaushik, R., Tasca, P., & Caldarelli, G. (2012).
-  DebtRank: Too central to fail? *Scientific Reports*, 2, 541.
-- Battiston, S., et al. (2016). Complexity theory and financial regulation.
-  *Science*, 351(6275), 818–819.
+  DebtRank: Too central to fail? Financial networks, the FED and systemic risk.
+  *Scientific Reports*, 2, 541. https://doi.org/10.1038/srep00541
+- Battiston, S., Farmer, J. D., Flache, A., Garlaschelli, D., Haldane, A. G.,
+  Heesterbeek, H., Hommes, C., Jaeger, C., May, R., & Scheffer, M. (2016).
+  Complexity theory and financial regulation. *Science*, 351(6275), 818–819.
+  https://doi.org/10.1126/science.aad0299
 - Bouchaud, J.-P., & Mézard, M. (2000). Wealth condensation in a simple model
-  of economy. *Physica A*, 282, 536–545.
+  of economy. *Physica A*, 282(3–4), 536–545.
+  https://doi.org/10.1016/S0378-4371(00)00205-3
 - Bouchaud, J.-P., Marsili, M., & Nadal, J.-P. (2023). Application of spin
-  glass ideas in social sciences, economics and finance.
+  glass ideas in social sciences, economics and finance. En *Spin Glass Theory
+  and Far Beyond* (pp. 561–579). World Scientific.
+  https://doi.org/10.1142/9789811273926_0027
 - Brock, W. A., & Durlauf, S. N. (2001). Discrete choice with social
   interactions. *Review of Economic Studies*, 68(2), 235–260.
+  https://doi.org/10.1111/1467-937X.00168
 - Castellano, C., Fortunato, S., & Loreto, V. (2009). Statistical physics of
-  social dynamics. *Reviews of Modern Physics*, 81, 591–646.
+  social dynamics. *Reviews of Modern Physics*, 81(2), 591–646.
+  https://doi.org/10.1103/RevModPhys.81.591
 - Challet, D., & Zhang, Y.-C. (1997). Emergence of cooperation and organization
-  in an evolutionary game. *Physica A*, 246, 407–418.
+  in an evolutionary game. *Physica A*, 246(3–4), 407–418.
+  https://doi.org/10.1016/S0378-4371(97)00419-6
 - Clauset, A., Shalizi, C. R., & Newman, M. E. J. (2009). Power-law
   distributions in empirical data. *SIAM Review*, 51(4), 661–703.
+  https://doi.org/10.1137/070710111
 - Cont, R. (2001). Empirical properties of asset returns: stylized facts and
-  statistical issues. *Quantitative Finance*, 1, 223–236.
+  statistical issues. *Quantitative Finance*, 1(2), 223–236.
+  https://doi.org/10.1080/713665670
 - Eisenberg, L., & Noe, T. H. (2001). Systemic risk in financial systems.
   *Management Science*, 47(2), 236–249.
+  https://doi.org/10.1287/mnsc.47.2.236.9835
 - Gabaix, X. (2009). Power laws in economics and finance. *Annual Review of
   Economics*, 1, 255–294.
+  https://doi.org/10.1146/annurev.economics.050708.142940
 - Giardina, I., & Bouchaud, J.-P. (2003). Bubbles, crashes and intermittency in
-  agent based market models. *European Physical Journal B*, 31, 421–437.
+  agent based market models. *European Physical Journal B*, 31(3), 421–437.
+  https://doi.org/10.1140/epjb/e2003-00050-6
 - Glasserman, P., & Young, H. P. (2016). Contagion in financial networks.
   *Journal of Economic Literature*, 54(3), 779–831.
+  https://doi.org/10.1257/jel.20151228
 - Goodwin, R. M. (1967). A growth cycle. En C. H. Feinstein (Ed.),
-  *Socialism, Capitalism and Economic Growth*. Cambridge University Press.
+  *Socialism, Capitalism and Economic Growth: Essays Presented to Maurice Dobb*
+  (pp. 54–58). Cambridge University Press.
 - Kirman, A. (1993). Ants, rationality, and recruitment. *Quarterly Journal of
-  Economics*, 108(1), 137–156.
+  Economics*, 108(1), 137–156. https://doi.org/10.2307/2118498
 - Laloux, L., Cizeau, P., Bouchaud, J.-P., & Potters, M. (1999). Noise
-  dressing of financial correlation matrices. *Physical Review Letters*, 83, 1467.
+  dressing of financial correlation matrices. *Physical Review Letters*,
+  83(7), 1467–1470. https://doi.org/10.1103/PhysRevLett.83.1467
 - LeBaron, B. (2006). Agent-based financial markets: Matching stylized facts
-  with style. En D. Colander (Ed.), *Post Walrasian Macroeconomics*.
-  Cambridge University Press.
+  with style. En D. Colander (Ed.), *Post Walrasian Macroeconomics*
+  (pp. 221–236). Cambridge University Press.
+  https://doi.org/10.1017/CBO9780511617751.013
 - Lux, T., & Marchesi, M. (1999). Scaling and criticality in a stochastic
-  multi-agent model of a financial market. *Nature*, 397, 498–500.
+  multi-agent model of a financial market. *Nature*, 397(6719), 498–500.
+  https://doi.org/10.1038/17290
 - Mantegna, R. N. (1999). Hierarchical structure in financial markets.
-  *European Physical Journal B*, 11, 193–197.
+  *European Physical Journal B*, 11(1), 193–197.
+  https://doi.org/10.1007/s100510050929
 - Nowak, M. A., & May, R. M. (1992). Evolutionary games and spatial chaos.
-  *Nature*, 359, 826–829.
+  *Nature*, 359(6398), 826–829. https://doi.org/10.1038/359826a0
 - Watts, D. J. (2002). A simple model of global cascades on random networks.
-  *PNAS*, 99(9), 5766–5771.
+  *PNAS*, 99(9), 5766–5771. https://doi.org/10.1073/pnas.082090499
 - Yakovenko, V. M., & Rosser, J. B. (2009). Colloquium: Statistical mechanics
-  of money, wealth, and income. *Reviews of Modern Physics*, 81, 1703–1725.
+  of money, wealth, and income. *Reviews of Modern Physics*, 81(4), 1703–1725.
+  https://doi.org/10.1103/RevModPhys.81.1703
