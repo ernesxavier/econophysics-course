@@ -15,6 +15,7 @@ Matemáticas), con simulaciones en Julia.
 │   ├── s03_procesos_estocasticos.md → Notas formales, sesión 3
 │   ├── s04_crecimiento_multiplicativo.md → Notas formales, sesión 4
 │   ├── s05_correlaciones.md   → Notas formales, sesión 5
+│   ├── s06_intercambio.md     → Notas formales, sesión 6
 │   └── repaso/                → Repaso de matemáticas por niveles (índice por semana)
 │       └── figuras/           → Figuras de las notas (generadas con Code/figuras_repaso.jl)
 ├── docs/
@@ -24,6 +25,7 @@ Matemáticas), con simulaciones en Julia.
 │   ├── precios.csv            → IPC, USD/MXN, S&P 500 y Bitcoin (2000–sep 2026)
 │   ├── sp100_precios.csv      → 95 acciones del S&P 100 (2015–sep 2026)
 │   ├── sp100_sectores.csv     → Nombre y sector GICS de esas acciones
+│   ├── enigh2024_hogares.csv  → Ingreso mensual por hogar, ENIGH 2024 (INEGI)
 │   ├── localidades_2020.csv   → Población por localidad, Censo 2020 (INEGI), ≥ 100 hab.
 │   └── municipios_2010_2020.csv → Población por municipio, Censos 2010 y 2020 (INEGI)
 ├── Code/                      → Todo el código Julia, un solo entorno
@@ -32,8 +34,10 @@ Matemáticas), con simulaciones en Julia.
 │   ├── s03_procesos_estocasticos.jl → Cuaderno de Pluto, sesión 3
 │   ├── s04_crecimiento_multiplicativo.jl → Cuaderno de Pluto, sesión 4
 │   ├── s05_correlaciones.jl   → Cuaderno de Pluto, sesión 5
+│   ├── s06_intercambio.jl     → Cuaderno de Pluto, sesión 6
 │   ├── descargar_datos.jl     → Regenera Data/precios.csv desde Yahoo Finance
 │   ├── descargar_sp100.jl     → Regenera los datos del S&P 100 (Yahoo Finance)
+│   ├── descargar_enigh.jl     → Regenera los datos de la ENIGH 2024 (INEGI)
 │   ├── descargar_inegi.jl     → Regenera los datos de INEGI (localidades y municipios)
 │   ├── figuras_repaso.jl      → Regenera las figuras de Class_notes/repaso/figuras/
 │   │   Notebooks del semestre anterior:
@@ -49,7 +53,7 @@ Matemáticas), con simulaciones en Julia.
 │   └── Manifest.toml
 ├── src/                       → Fuentes de los cuadernos de Pluto (formato #%%)
 │   ├── construir_cuaderno.jl  → Genera y ejecuta un cuaderno a partir de su fuente
-│   └── sNN_tema.jl            → Fuente de Code/sNN_tema.jl (sesiones 2 a 5)
+│   └── sNN_tema.jl            → Fuente de Code/sNN_tema.jl (sesiones 2 a 6)
 └── README.md
 ```
 
@@ -102,6 +106,7 @@ pasar el cambio a la fuente antes de volver a generarlo.
 ```
 julia --project=Code Code/descargar_datos.jl
 julia --project=Code Code/descargar_sp100.jl
+julia --project=Code Code/descargar_enigh.jl
 ```
 
 **Actualizar paquetes** (por ejemplo, al cambiar de versión de Julia):
