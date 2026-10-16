@@ -35,14 +35,17 @@ function yahoo(ticker; inicio = INICIO, fin = FIN)
     unique!(df, :fecha)
 end
 
-datos = mapreduce(vcat, ACTIVOS) do (ticker, nombre)
-    df = yahoo(ticker)
-    df.activo .= nombre
-    println(rpad(nombre, 12), nrow(df), " días  (", first(df.fecha), " a ", last(df.fecha), ")")
-    df
-end
+# Al incluir este archivo desde otro script solo se define `yahoo`
+if abspath(PROGRAM_FILE) == @__FILE__
+    datos = mapreduce(vcat, ACTIVOS) do (ticker, nombre)
+        df = yahoo(ticker)
+        df.activo .= nombre
+        println(rpad(nombre, 12), nrow(df), " días  (", first(df.fecha), " a ", last(df.fecha), ")")
+        df
+    end
 
-destino = joinpath(@__DIR__, "..", "Data", "precios.csv")
-mkpath(dirname(destino))
-CSV.write(destino, select(datos, :fecha, :activo, :cierre))
-println("Guardado en ", normpath(destino))
+    destino = joinpath(@__DIR__, "..", "Data", "precios.csv")
+    mkpath(dirname(destino))
+    CSV.write(destino, select(datos, :fecha, :activo, :cierre))
+    println("Guardado en ", normpath(destino))
+end

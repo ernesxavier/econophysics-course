@@ -21,6 +21,8 @@ Matemáticas), con simulaciones en Julia.
 │   └── benchmark.md           → Econofísica en otras universidades
 ├── Data/
 │   ├── precios.csv            → IPC, USD/MXN, S&P 500 y Bitcoin (2000–sep 2026)
+│   ├── sp100_precios.csv      → 95 acciones del S&P 100 (2015–sep 2026)
+│   ├── sp100_sectores.csv     → Nombre y sector GICS de esas acciones
 │   ├── localidades_2020.csv   → Población por localidad, Censo 2020 (INEGI), ≥ 100 hab.
 │   └── municipios_2010_2020.csv → Población por municipio, Censos 2010 y 2020 (INEGI)
 ├── Code/                      → Todo el código Julia, un solo entorno
@@ -29,6 +31,7 @@ Matemáticas), con simulaciones en Julia.
 │   ├── s03_procesos_estocasticos.jl → Cuaderno de Pluto, sesión 3
 │   ├── s04_crecimiento_multiplicativo.jl → Cuaderno de Pluto, sesión 4
 │   ├── descargar_datos.jl     → Regenera Data/precios.csv desde Yahoo Finance
+│   ├── descargar_sp100.jl     → Regenera los datos del S&P 100 (Yahoo Finance)
 │   ├── descargar_inegi.jl     → Regenera los datos de INEGI (localidades y municipios)
 │   ├── figuras_repaso.jl      → Regenera las figuras de Class_notes/repaso/figuras/
 │   │   Notebooks del semestre anterior:
@@ -96,6 +99,7 @@ pasar el cambio a la fuente antes de volver a generarlo.
 
 ```
 julia --project=Code Code/descargar_datos.jl
+julia --project=Code Code/descargar_sp100.jl
 ```
 
 **Actualizar paquetes** (por ejemplo, al cambiar de versión de Julia):

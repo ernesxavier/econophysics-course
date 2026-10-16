@@ -1,0 +1,96 @@
+ticker,nombre,sector
+AAPL,Apple Inc.,Tecnología
+ABBV,AbbVie,Salud
+ABT,Abbott Laboratories,Salud
+ACN,Accenture,Tecnología
+ADBE,Adobe Inc.,Tecnología
+AMAT,Applied Materials,Tecnología
+AMD,Advanced Micro Devices,Tecnología
+AMGN,Amgen,Salud
+AMT,American Tower,Bienes raíces
+AMZN,Amazon,Consumo discrecional
+ANET,Arista Networks,Tecnología
+AVGO,Broadcom,Tecnología
+AXP,American Express,Finanzas
+BA,Boeing,Industria
+BAC,Bank of America,Finanzas
+BKNG,Booking Holdings,Consumo discrecional
+BLK,BlackRock,Finanzas
+BMY,Bristol Myers Squibb,Salud
+BNY,BNY Mellon,Finanzas
+BRK-B,Berkshire Hathaway (Class B),Finanzas
+C,Citigroup,Finanzas
+CAT,Caterpillar Inc.,Industria
+CMCSA,Comcast,Comunicaciones
+COF,Capital One,Finanzas
+COP,ConocoPhillips,Energía
+COST,Costco,Consumo básico
+CRM,Salesforce,Tecnología
+CSCO,Cisco,Tecnología
+CVS,CVS Health,Salud
+CVX,Chevron Corporation,Energía
+DE,Deere & Company,Industria
+DHR,Danaher Corporation,Salud
+DIS,Walt Disney Company (The),Comunicaciones
+DUK,Duke Energy,Servicios públicos
+EMR,Emerson Electric,Industria
+FDX,FedEx,Industria
+GD,General Dynamics,Industria
+GE,GE Aerospace,Industria
+GILD,Gilead Sciences,Salud
+GM,General Motors,Consumo discrecional
+GOOGL,Alphabet Inc. (Class A),Comunicaciones
+GS,Goldman Sachs,Finanzas
+HD,Home Depot,Consumo discrecional
+IBM,IBM,Tecnología
+INTC,Intel,Tecnología
+INTU,Intuit,Tecnología
+ISRG,Intuitive Surgical,Salud
+JNJ,Johnson & Johnson,Salud
+JPM,JPMorgan Chase,Finanzas
+KO,Coca-Cola Company (The),Consumo básico
+LIN,Linde plc,Materiales
+LLY,Eli Lilly and Company,Salud
+LMT,Lockheed Martin,Industria
+LOW,Lowe's,Consumo discrecional
+LRCX,Lam Research,Tecnología
+MA,Mastercard,Finanzas
+MCD,McDonald's,Consumo discrecional
+MDLZ,Mondelēz International,Consumo básico
+MDT,Medtronic,Salud
+META,Meta Platforms,Comunicaciones
+MMM,3M,Industria
+MO,Altria,Consumo básico
+MRK,Merck & Co.,Salud
+MS,Morgan Stanley,Finanzas
+MSFT,Microsoft,Tecnología
+MU,Micron Technology,Tecnología
+NEE,NextEra Energy,Servicios públicos
+NFLX,"Netflix, Inc.",Comunicaciones
+NOW,ServiceNow,Tecnología
+NVDA,Nvidia,Tecnología
+ORCL,Oracle Corporation,Tecnología
+PANW,Palo Alto Networks,Tecnología
+PEP,PepsiCo,Consumo básico
+PFE,Pfizer,Salud
+PG,Procter & Gamble,Consumo básico
+PM,Philip Morris International,Consumo básico
+QCOM,Qualcomm,Tecnología
+RTX,RTX Corporation,Industria
+SBUX,Starbucks,Consumo discrecional
+SCHW,Charles Schwab Corporation,Finanzas
+SO,Southern Company,Servicios públicos
+T,AT&T,Comunicaciones
+TMO,Thermo Fisher Scientific,Salud
+TMUS,T-Mobile US,Comunicaciones
+TSLA,"Tesla, Inc.",Consumo discrecional
+TXN,Texas Instruments,Tecnología
+UNH,UnitedHealth Group,Salud
+UNP,Union Pacific Corporation,Industria
+UPS,United Parcel Service,Industria
+USB,U.S. Bancorp,Finanzas
+V,Visa Inc.,Finanzas
+VZ,Verizon,Comunicaciones
+WFC,Wells Fargo,Finanzas
+WMT,Walmart,Consumo básico
+XOM,ExxonMobil,Energía
