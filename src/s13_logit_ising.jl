@@ -1,6 +1,6 @@
 #%% hide
 md"""
-# Sesiones 13 y 14: Ising y elección discreta
+# Sesión 13: Logit, Boltzmann e Ising
 
 **Objetivos de la sesión**
 1. Repasar la **función logística** y el modelo **logit** de elección
@@ -11,9 +11,6 @@ md"""
    obtener el **modelo de Ising**.
 4. Simular el Ising con el algoritmo de **Metropolis** y encontrar su
    transición de fase.
-5. Resolver el **campo medio** gráficamente y compararlo con la simulación.
-6. Observar la **histéresis**: cambios graduales de incentivos que producen
-   saltos de comportamiento que no se revierten.
 
 **Cómo usar este cuaderno.** Pluto es reactivo: al mover un deslizador, todo
 lo que depende de él se recalcula. Las secciones marcadas **[Avanzado]** son
@@ -25,9 +22,8 @@ opcionales.
 
 **Repaso recomendado** (en `Class_notes/repaso/`): C.B4 (función logística),
 F.B3 (temperatura), F.B4 (transiciones de fase), F.I1 (Boltzmann), F.I2
-(logit = Boltzmann), F.I3 (Ising), F.I4 (campo medio), F.I5 (Metropolis),
-C.I5 (puntos fijos). Ruta avanzada: F.A1 (Landau), F.A3 (campo aleatorio y
-avalanchas).
+(logit = Boltzmann), F.I3 (Ising), F.I5 (Metropolis). Ruta avanzada: E.A3
+(ecuación maestra).
 """
 
 #%% hide
@@ -219,9 +215,10 @@ algoritmo de **Metropolis** (repaso F.I5) hace esto:
    probabilidad ``e^{-\beta\,\Delta E}``: a veces se equivoca, por el ruido.
 
 ``N`` revisiones forman un **barrido**. Tras muchos barridos, las
-configuraciones aparecen con la probabilidad de Boltzmann, ``e^{-\beta H}/Z``.
-(La regla logit de la sección 1, aplicada a cada revisión, llega a la misma
-distribución; se llama **dinámica de baño térmico**.)
+configuraciones aparecen con la probabilidad de Boltzmann, ``e^{-\beta H}/Z``
+(por balance detallado; repaso E.A3). La regla logit de la sección 1, aplicada
+a cada revisión, llega a la misma distribución; se llama **dinámica de baño
+térmico**.
 
 Ponemos a los agentes en una cuadrícula de 60 × 60, cada uno con 4 vecinos,
 con ``J = 1`` y ``h = 0``. El único parámetro es la temperatura ``T = 1/\beta``:
@@ -293,216 +290,6 @@ transición sólo es abrupta en el límite de muchos agentes (repaso F.B4).
 
 #%% hide
 md"""
-## 5. Campo medio: la solución gráfica
-
-En la red cada agente sólo ve a 4 vecinos. Brock y Durlauf estudiaron el
-caso en que a cada agente le importa el **promedio** de toda la población:
-su utilidad social es ``J\, s_i\, m``. En ese caso, el campo que siente el
-agente es ``h + Jm``, el mismo para todos, y la regla logit da (repaso F.I1
-y F.I4)
-
-```math
-\mathbb{P}(s_i = +1) = \sigma\big(2\beta(h + Jm)\big)
-\quad\Longrightarrow\quad
-\mathbb{E}[s_i] = \tanh\big(\beta(h + Jm)\big) .
-```
-
-Si la población es grande, el promedio de las elecciones es ``m`` mismo:
-
-```math
-m = \tanh\big(\beta(h + Jm)\big) .
-```
-
-Es una ecuación de **punto fijo** (repaso C.I5): ``m`` aparece en los dos
-lados. Se resuelve buscando dónde se cruzan la recta ``y = m`` y la curva
-``y = \tanh(\beta(h + Jm))``.
-
-Fijamos ``\beta = 1`` (así ``J`` y ``h`` se miden en unidades del ruido).
-
-Intensidad de la interacción ``J``: $(@bind J_cm Slider([0.5, 0.8, 1.0, 1.2, 1.5, 2.0], default = 1.5, show_value = true))
-
-Incentivo común ``h``: $(@bind h_cm Slider([-0.4, -0.2, -0.1, 0.0, 0.1, 0.2, 0.4], default = 0.0, show_value = true))
-"""
-
-#%% hide
-let
-    x = range(-1.2, 1.2, length = 400)
-    sol = soluciones_cm(J_cm, h_cm)
-    p = plot(x, x; color = GRIS, lw = 1.5, label = "y = m", xlims = (-1.2, 1.2), ylims = (-1.2, 1.2),
-             aspect_ratio = :equal, xlabel = "adopción neta m", ylabel = "y", legend = :topleft,
-             title = "J = $J_cm, h = $h_cm: $(length(sol) == 1 ? "1 solución" : "$(length(sol)) soluciones")",
-             size = (520, 500))
-    plot!(p, x, tanh.(h_cm .+ J_cm .* x); color = AZUL, lw = 2.5, label = "y = tanh(h + J m)")
-    for m in sol
-        estable = J_cm * (1 - tanh(h_cm + J_cm * m)^2) < 1
-        scatter!(p, [m], [m]; ms = 7, color = estable ? NARANJA : BLANCO, msc = NARANJA, msw = 2,
-                 label = "")
-    end
-    scatter!(p, [NaN], [NaN]; ms = 7, color = NARANJA, msw = 0, label = "Equilibrio estable")
-    scatter!(p, [NaN], [NaN]; ms = 7, color = BLANCO, msc = NARANJA, msw = 2, label = "Equilibrio inestable")
-end
-
-#%% hide
-md"""
-- Con ``J < 1`` y ``h = 0`` hay una sola solución, ``m = 0``: la población se
-  divide a la mitad. La conformidad es demasiado débil frente al ruido.
-- Con ``J > 1`` y ``h = 0``, la pendiente de ``\tanh`` en el origen es mayor que
-  1 y aparecen **dos soluciones más**, ``\pm m^\ast``: dos consensos posibles.
-  ``m = 0`` se vuelve **inestable**: cualquier desviación se amplifica.
-- La transición está en ``\beta J = 1``. En lenguaje de Brock y Durlauf: hay
-  **equilibrios múltiples** cuando la interacción social es más fuerte que el
-  ruido.
-- Con ``h \ne 0`` y ``J`` grande puede haber tres soluciones, y una de ellas va
-  **contra** el incentivo: la población puede estar atrapada en el consenso
-  "equivocado".
-
-**¿Funciona?** Simulamos 2,000 agentes que interactúan con el promedio de
-todos (con ``h = 0``) y los comparamos con la solución gráfica.
-"""
-
-#%%
-barrido_cm = let
-    Js = 0.4:0.1:2.0
-    (J = Js, m = [mean(abs.(campo_medio(2_000, J, 0.0; barridos = 400, rng = Xoshiro(round(Int, 10J))).m[201:end]))
-                  for J in Js])
-end;
-
-#%% hide
-let
-    x = range(0.4, 2.0, length = 300)
-    p = plot(x, [maximum(abs.(soluciones_cm(J, 0.0))) for J in x]; color = NARANJA, lw = 2.5,
-             label = "Campo medio: mayor solución de m = tanh(J m)", xlabel = "interacción βJ",
-             ylabel = "|m|", ylims = (0, 1.05), legend = :topleft,
-             title = "2,000 agentes que miran el promedio de todos")
-    scatter!(p, barrido_cm.J, barrido_cm.m; color = AZUL, ms = 5, msw = 0, label = "Simulación (baño térmico)")
-    vline!(p, [1]; color = GRIS, ls = :dash, label = "βJ = 1")
-end
-
-#%% hide
-md"""
-Aquí la simulación sigue a la teoría en todo el rango: cuando todos
-interactúan con todos, el campo medio es **exacto** para ``N`` grande. En la
-red cuadrada no lo es: con ``z = 4`` vecinos el campo medio predice
-``T_c = Jz = 4``, mientras que la solución exacta es 2.269. El campo medio
-ignora las fluctuaciones locales y **sobreestima** el orden (repaso F.I4).
-"""
-
-#%% hide
-md"""
-## 6. Laboratorio: histéresis
-
-Ahora fijamos la interacción y movemos **lentamente** el incentivo ``h``:
-primero de ``-0.6`` a ``0.6`` (por ejemplo, un subsidio que crece) y luego de
-regreso. En cada valor de ``h`` dejamos que la población se ajuste unos
-barridos y medimos ``m``.
-
-Interacción ``\beta J``: $(@bind J_hist Slider([0.8, 1.2, 1.5, 2.0], default = 1.5, show_value = true))
-"""
-
-#%%
-ciclo = histeresis(2_000, J_hist; hs = -0.6:0.02:0.6);
-
-#%% hide
-let
-    p = plot(ciclo.h_sube, ciclo.m_sube; color = AZUL, lw = 2, marker = :circle, ms = 2.5, msw = 0,
-             label = "Simulación: h sube", xlabel = "incentivo común h", ylabel = "adopción neta m",
-             ylims = (-1.05, 1.05), legend = :topleft, title = "Ciclo de histéresis con βJ = $J_hist")
-    plot!(p, ciclo.h_baja, ciclo.m_baja; color = NARANJA, lw = 2, marker = :square, ms = 2.5, msw = 0,
-          label = "Simulación: h baja")
-    for (ramas, c) in ((rama_cm(J_hist, -0.6:0.005:0.6, -1.0), AZUL), (rama_cm(J_hist, 0.6:-0.005:-0.6, 1.0), NARANJA))
-        plot!(p, ramas.h, ramas.m; color = c, lw = 1, ls = :dash, label = "")
-    end
-    plot!(p, [NaN], [NaN]; color = GRIS, ls = :dash, label = "Campo medio")
-    if J_hist > 1
-        hc = salto_cm(J_hist)
-        vline!(p, [-hc, hc]; color = GRIS_CLARO, ls = :dot, label = "Saltos teóricos: h = ±$(round(hc, digits = 2))")
-    end
-    p
-end
-
-#%% hide
-md"""
-Con ``\beta J > 1``:
-
-- Al subir ``h``, la población se queda en la rama de **no adopción** aunque
-  el incentivo ya sea positivo. Sigue ahí hasta que esa rama desaparece, y
-  entonces **salta** de golpe a casi la adopción total.
-- Al bajar ``h``, se queda en la rama de **adopción** hasta un valor negativo
-  de ``h``, y entonces salta hacia abajo.
-- Entre los dos saltos, el estado de la población depende de **su historia**,
-  no sólo del incentivo actual.
-
-**Lecturas económicas.** Un cambio gradual en los incentivos (precios,
-regulación, información) puede producir un cambio de comportamiento
-**repentino**: adopción de tecnologías, cambios de normas sociales, corridas
-bancarias. Y revertir el incentivo no basta para revertir el
-comportamiento: hay que ir mucho más allá. Con ``\beta J < 1`` (mueve el
-deslizador a 0.8) la respuesta es suave y reversible.
-
-Los saltos de la simulación ocurren un poco **después** que los teóricos.
-Cerca del punto donde desaparece una rama, la población se ajusta muy
-despacio (en física se llama *frenado crítico*), y 20 barridos por valor de
-``h`` no bastan para completar el salto. Con un cambio más lento del
-incentivo, los saltos se acercan a los teóricos.
-"""
-
-#%% hide
-md"""
-## 7. [Avanzado] Campo aleatorio, avalanchas y crisis
-
-En la sección 6 todos los agentes eran iguales salvo por el ruido. En la
-realidad, cada agente tiene su propio incentivo privado ``h_i``: unos están
-casi convencidos de adoptar, otros muy lejos. Este es el **modelo de Ising
-con campo aleatorio** (repaso F.A3). A temperatura cero (sin ruido), el
-agente ``i`` adopta si
-
-```math
-h + h_i + J m > 0 ,
-```
-
-con ``h_i`` normal con media 0 y desviación estándar ``R``: la
-**heterogeneidad**. Cuando ``h`` sube un poco, adopta el agente más cercano
-a su umbral; eso sube ``m``, lo que puede convencer al siguiente, y así: una
-**avalancha**.
-
-Heterogeneidad ``R``: $(@bind R_rfim Slider([0.4, 0.6, 0.8, 1.0, 1.5], default = 0.6, show_value = true))
-"""
-
-#%%
-avalanchas = campo_aleatorio(10_000, 1.0, R_rfim);
-
-#%% hide
-let
-    d = avalanchas
-    p1 = plot(d.h, d.m; color = AZUL, lw = 2, seriestype = :steppost, ylims = (-1.05, 1.05),
-              xlabel = "incentivo común h", ylabel = "adopción neta m", legend = false, xlims = (-2, 2),
-              title = "J = 1, R = $R_rfim")
-    s = sort(unique(d.tamaños))
-    P = [mean(d.tamaños .>= x) for x in s]
-    p2 = scatter(s, P; xscale = :log10, yscale = :log10, color = AZUL, ms = 3, msw = 0, legend = false,
-                 xlabel = "tamaño de la avalancha (agentes)", ylabel = "P(tamaño ≥ s)",
-                 title = "Avalancha más grande: $(miles(maximum(d.tamaños))) de 10,000")
-    plot(p1, p2; layout = (1, 2), size = (920, 360), bottom_margin = 5Plots.mm)
-end
-
-#%% hide
-md"""
-- Con **poca heterogeneidad** (``R = 0.4`` o ``0.6``), hay una avalancha
-  gigante: una fracción grande de la población cambia de golpe. Es una
-  **crisis**.
-- Con **mucha heterogeneidad** (``R = 1.5``), todas las avalanchas son
-  pequeñas y la adopción crece suavemente.
-- En medio, cerca de ``R_c = J\sqrt{2/\pi} \approx 0.8``, las avalanchas tienen
-  **todos los tamaños**: su distribución es una ley de potencias.
-
-Bouchaud (2013) usa este modelo para explicar cambios abruptos de opinión,
-pánicos y caídas del consumo: la diversidad de opiniones protege contra los
-saltos colectivos, y cuando la diversidad baja, el sistema se vuelve frágil.
-La derivación de ``R_c`` está en las notas formales.
-"""
-
-#%% hide
-md"""
 ## Resumen
 
 | Concepto | Idea |
@@ -512,9 +299,6 @@ md"""
 | Brock-Durlauf | Logit + conformidad = modelo de Ising |
 | Metropolis | Revisiones con ruido que muestrean ``e^{-\beta H}/Z`` |
 | Transición de fase | Red cuadrada: consenso espontáneo debajo de ``T_c \approx 2.269\,J`` |
-| Campo medio | ``m = \tanh(\beta(h + Jm))``; equilibrios múltiples si ``\beta J > 1`` |
-| Histéresis | Saltos al mover ``h``; el estado depende de la historia |
-| Campo aleatorio [Avanzado] | Poca heterogeneidad → crisis; mucha → cambio suave |
 """
 
 #%% hide
@@ -565,36 +349,24 @@ md"""
 5. En la sección 0, dos ciudades con las mismas reglas terminan en consensos
    opuestos. ¿Qué implica esto para un estudio empírico que compara
    ciudades?
-6. Un gobierno subsidia una tecnología y, cuando la adopción ya es alta,
-   retira el subsidio. Según la sección 6, ¿qué puede pasar? ¿De qué
-   depende?
-7. ¿Por qué el campo medio funciona perfecto en la sección 5 y no en la red
-   cuadrada de la sección 4?
 
 ### Ruta avanzada
 
-8. Demuestra que si ``\varepsilon_A`` y ``\varepsilon_B`` son Gumbel
+6. Demuestra que si ``\varepsilon_A`` y ``\varepsilon_B`` son Gumbel
    independientes con escala ``1/\beta``, la diferencia
    ``\varepsilon_A - \varepsilon_B`` tiene distribución logística, y deduce la
    fórmula logit.
-9. Usa el desarrollo de Taylor de ``\tanh`` para mostrar que, con ``h = 0`` y
-   ``\beta J`` un poco mayor que 1, ``m^\ast \approx \sqrt{3(\beta J - 1)}``.
-   Compara con la gráfica de la sección 5.
-10. Repite el barrido de temperatura de la sección 4 con una red de
-    Erdős-Rényi con grado promedio 4 en lugar de la cuadrícula. ¿Dónde está
-    ahora la transición? ¿Se acerca más al campo medio?
-11. En la sección 7, mide el tamaño de la avalancha más grande para varios
-    valores de ``R`` y para ``N = 1{,}000`` y ``10{,}000``. ¿Cómo ubicarías
-    ``R_c`` con estos datos?
+7. Repite el barrido de temperatura de la sección 4 con una red de
+   Erdős-Rényi con grado promedio 4 en lugar de la cuadrícula. ¿Dónde está
+   ahora la transición?
 
 ## Para la próxima sesión
 
-- Lectura: Sen y Chakrabarti (2014), capítulos 2 y 3; Requião da Cunha
-  (2021), capítulo 6. Para la ruta avanzada, Brock y Durlauf (2001) y
-  Bouchaud, Marsili y Nadal (2023).
-- En la sesión 15 empieza el módulo de agentes: modelos de opinión
-  (votante, Kirman), herding en mercados y segregación de Schelling. La
-  imitación de hoy será el mecanismo central.
+- Lectura: Sen y Chakrabarti (2014), capítulo 2. Para la ruta avanzada,
+  Brock y Durlauf (2001).
+- En la sesión 14 resolveremos el modelo cuando cada agente mira el promedio
+  de toda la población (**campo medio**) y veremos cómo cambios graduales en
+  los incentivos producen saltos irreversibles (**histéresis**) y avalanchas.
 """
 
 #%% hide
@@ -636,17 +408,6 @@ end;
 σ(x) = 1 / (1 + exp(-x))
 
 #%%
-"Número entero con comas como separador de miles."
-miles(x) = replace(string(round(Int, x)), r"(?<=\d)(?=(\d{3})+$)" => ",")
-
-#%%
-"Datos ordenados de mayor a menor y su CCDF empírica, P(X ≥ x)."
-function ccdf_empirica(x)
-    s = sort(x; rev = true)
-    s, (1:length(s)) ./ length(s)
-end
-
-#%%
 """
 Modelo de Ising en una cuadrícula L × L con fronteras periódicas, J = 1 y
 h = 0, simulado con Metropolis. `inicio` puede ser `:azar` u `:ordenado`
@@ -677,115 +438,6 @@ end
 onsager(T) = T < 2 / log(1 + sqrt(2)) ? (1 - sinh(2 / T)^(-4))^(1 / 8) : 0.0
 
 #%%
-"""
-Modelo de campo medio con N agentes y β = 1: cada revisión elige un agente
-al azar y le asigna +1 con probabilidad logística σ(2(h + J m)), donde m es
-la adopción neta de los demás (baño térmico). Devuelve la última
-configuración y m después de cada barrido.
-"""
-function campo_medio(N, J, h; barridos = 400, rng = Xoshiro(1), s = rand(rng, [-1, 1], N))
-    s = copy(s)
-    total = sum(s)
-    m = Float64[]
-    for _ in 1:barridos
-        for _ in 1:N
-            i = rand(rng, 1:N)
-            m_otros = (total - s[i]) / (N - 1)
-            nuevo = rand(rng) < σ(2 * (h + J * m_otros)) ? 1 : -1
-            total += nuevo - s[i]
-            s[i] = nuevo
-        end
-        push!(m, total / N)
-    end
-    (s = s, m = m)
-end
-
-#%%
-"Soluciones de m = tanh(h + J m) en [-1, 1], encontradas por cambio de signo y bisección."
-function soluciones_cm(J, h)
-    f(m) = tanh(h + J * m) - m
-    xs = range(-1.0, 1.0, length = 2001)
-    raices = Float64[]
-    for k in 1:length(xs)-1
-        a, b = xs[k], xs[k+1]
-        f(a) == 0 && push!(raices, a)
-        if f(a) * f(b) < 0
-            for _ in 1:60
-                c = (a + b) / 2
-                f(a) * f(c) <= 0 ? (b = c) : (a = c)
-            end
-            push!(raices, (a + b) / 2)
-        end
-    end
-    raices
-end
-
-#%%
-"Rama de campo medio que se sigue al mover h lentamente: se itera m = tanh(h + J m) desde la solución anterior."
-function rama_cm(J, hs, m0)
-    m = m0
-    ms = map(hs) do h
-        for _ in 1:5_000
-            m = tanh(h + J * m)
-        end
-        m
-    end
-    (h = collect(hs), m = ms)
-end
-
-#%%
-"Valor de h donde desaparece una rama en el campo medio (J > 1)."
-function salto_cm(J)
-    m = sqrt(1 - 1 / J)       # donde la pendiente de tanh(h + J m) es 1
-    J * m - atanh(m)
-end
-
-#%%
-"Ciclo de histéresis simulado: h sube y luego baja, con 20 barridos en cada valor."
-function histeresis(N, J; hs = -0.6:0.02:0.6, barridos = 20, rng = Xoshiro(4))
-    s = fill(-1, N)
-    m_sube, m_baja = Float64[], Float64[]
-    for h in hs
-        r = campo_medio(N, J, h; barridos, rng, s)
-        s = r.s
-        push!(m_sube, mean(r.m[end-4:end]))
-    end
-    for h in reverse(hs)
-        r = campo_medio(N, J, h; barridos, rng, s)
-        s = r.s
-        push!(m_baja, mean(r.m[end-4:end]))
-    end
-    (h_sube = collect(hs), m_sube = m_sube, h_baja = collect(reverse(hs)), m_baja = m_baja)
-end
-
-#%%
-"""
-Ising con campo aleatorio a temperatura cero en campo medio. Los incentivos
-privados h_i son normales con desviación R. Se sube h desde -∞: los agentes
-adoptan en orden de h_i decreciente, y cada adopción sube el campo de todos
-en 2J/N. Devuelve m después de cada avalancha, el h en que ocurrió y el
-tamaño de cada avalancha.
-"""
-function campo_aleatorio(N, J, R; rng = Xoshiro(5))
-    hi = sort(R .* randn(rng, N); rev = true)
-    arriba = 0                       # agentes que ya adoptaron
-    hs, ms, tamaños = Float64[], Float64[], Int[]
-    while arriba < N
-        m = 2arriba / N - 1
-        h = -hi[arriba+1] - J * m    # h justo para que adopte el siguiente
-        inicio = arriba
-        arriba += 1
-        while arriba < N && h + hi[arriba+1] + J * (2arriba / N - 1) > 0
-            arriba += 1
-        end
-        push!(hs, h)
-        push!(ms, 2arriba / N - 1)
-        push!(tamaños, arriba - inicio)
-    end
-    (h = [-5.0; hs], m = [-1.0; ms], tamaños = tamaños)
-end
-
-#%%
 "Muestra si la respuesta de un ejercicio es correcta."
 function verificar(f, esperado; rtol = 1e-8, pista = md"")
     caja(tipo, titulo, texto) = Markdown.MD(Markdown.Admonition(tipo, titulo, [texto]))
@@ -798,10 +450,11 @@ function verificar(f, esperado; rtol = 1e-8, pista = md"")
         caja("warning", "Pendiente", md"Reemplaza `missing` por tu código.")
     elseif resultado isa AbstractArray && esperado isa AbstractArray && size(resultado) == size(esperado) &&
            all(isapprox.(resultado, esperado; rtol, atol = 1e-12))
-        caja("correct", "¡Correcto!", md"Bien hecho.")
-    elseif resultado isa typeof(esperado) && all(isapprox.(resultado, esperado; rtol, atol = 1e-12))
-        caja("correct", "¡Correcto!", md"Bien hecho.")
+        caja("correct", "Correcto", md"Tu función reproduce los valores esperados.")
+    elseif resultado isa Number && esperado isa Number && isapprox(resultado, esperado; rtol, atol = 1e-12)
+        caja("correct", "Correcto", md"Tu función reproduce el valor esperado.")
     else
-        caja("danger", "Todavía no", pista)
+        caja("danger", "No coincide todavía",
+             md"Obtuviste `$(resultado)` y se esperaba `$(esperado)`. $pista")
     end
 end

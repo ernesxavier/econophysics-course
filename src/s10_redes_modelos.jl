@@ -1,6 +1,6 @@
 #%% hide
 md"""
-# Sesiones 10 y 11: Redes: estructura y modelos
+# Sesión 10: Redes: medidas y modelos
 
 **Objetivos de la sesión**
 1. Representar una red con su **matriz de adyacencia** y calcular con ella
@@ -10,10 +10,6 @@ md"""
 3. Conocer tres modelos de redes aleatorias: **Erdős-Rényi**,
    **Watts-Strogatz** y **Barabási-Albert**, y qué propiedad de las redes
    reales explica cada uno.
-4. Comparar los modelos con una red real: la red de correlaciones del
-   S&P 100 de la sesión 7.
-5. Medir la **robustez**: qué pasa cuando fallan nodos al azar y cuando se
-   ataca a los más conectados.
 
 **Cómo usar este cuaderno.** Pluto es reactivo: al mover un deslizador, todo
 lo que depende de él se recalcula. Las secciones marcadas **[Avanzado]** son
@@ -23,10 +19,11 @@ opcionales.
 `julia --project=Code -e 'using Pluto; Pluto.run()'` y abrir
 `Code/s10_redes_modelos.jl`.
 
-**Repaso recomendado** (en `Class_notes/repaso/`): L.B4 (matriz de
-adyacencia), F.B4 (transiciones de fase), P.I5 (leyes de potencias), L.I4
-(potencias de matrices y centralidad). Ruta avanzada: L.A1 (Laplaciano),
-L.A5 (Perron-Frobenius), F.A5 (percolación).
+**Repaso recomendado** (en `Class_notes/repaso/`): P.B1 (distribuciones),
+L.B4 (matriz de adyacencia), C.B2 (escalas log-log), F.B4 (transiciones de
+fase). Para las notas formales: P.I5 (leyes de potencias), L.I4 (potencias
+de matrices y centralidad), S.I3 (comparar datos con una distribución). Ruta
+avanzada: L.A5 (Perron-Frobenius), F.A5 (percolación).
 """
 
 #%% hide
@@ -343,8 +340,8 @@ md"""
 En Erdős-Rényi nadie tiene más de $(maximum(degree(er))) enlaces: la cola de la
 Poisson cae más rápido que cualquier potencia. En Barabási-Albert hay
 **concentradores** (*hubs*) con cientos de enlaces, y la CCDF es una recta
-de pendiente ``-2`` en escala log-log (repaso P.I5). A una red con esta cola
-se le llama **libre de escala**.
+de pendiente ``-2`` en escala log-log (repaso C.B2 y P.I5). A una red con esta
+cola se le llama **libre de escala**.
 
 **Lo que no explica.** El agrupamiento de Barabási-Albert también tiende a
 cero al crecer ``N``: $(round(global_clustering_coefficient(ba), digits = 3))
@@ -359,361 +356,16 @@ en esta red. Ningún modelo simple tiene todo; cada uno aísla un mecanismo.
 
 #%% hide
 md"""
-## 4. Laboratorio: la red del mercado
-
-En la sesión 7 construimos el árbol de expansión mínima de 95 acciones del
-S&P 100. Un árbol no tiene triángulos por construcción, así que su
-agrupamiento es cero: no sirve para compararlo con los modelos. Usemos otra
-red, más simple: conectamos dos acciones si su correlación supera un
-**umbral** ``u``,
-
-```math
-A_{ij} = 1 \quad\text{si}\quad \rho_{ij} > u .
-```
-"""
-
-#%%
-begin
-    precios = CSV.read(joinpath(@__DIR__, "..", "Data", "sp100_precios.csv"), DataFrame)
-    sectores = CSV.read(joinpath(@__DIR__, "..", "Data", "sp100_sectores.csv"), DataFrame)
-    ancho = unstack(precios, :fecha, :ticker, :cierre)    # una columna por acción
-    tickers = names(ancho)[2:end]
-    R = diff(log.(Matrix{Float64}(ancho[:, 2:end])); dims = 1)   # rendimientos: T × N
-    C = cor(R)
-    N = size(C, 1)
-end;
-
-#%% hide
-md"""
-Umbral de correlación ``u``: $(@bind u_mercado Slider([0.4, 0.45, 0.5, 0.55, 0.6], default = 0.5, show_value = true))
-"""
-
-#%%
-mercado = SimpleGraph((C .> u_mercado) .& .!I(N));
-
-#%% hide
-let
-    sector = [sectores.sector[findfirst(==(t), sectores.ticker)] for t in tickers]
-    destacados = ["Finanzas", "Tecnología", "Servicios públicos"]
-    paleta = Dict("Finanzas" => AZUL, "Tecnología" => NARANJA, "Servicios públicos" => VERDE)
-    colores = [get(paleta, s, GRIS_CLARO) for s in sector]
-    kk = degree(mercado)
-    p = dibujar_red(mercado, posiciones_mercado; tam = 3 .+ 0.35 .* kk, colores,
-                    size = (720, 520), alpha_enlaces = 0.12,
-                    title = "Acciones con correlación mayor que $u_mercado: $(ne(mercado)) enlaces")
-    for s in destacados
-        scatter!(p, [NaN], [NaN]; color = paleta[s], ms = 6, msw = 0, label = s)
-    end
-    scatter!(p, [NaN], [NaN]; color = GRIS_CLARO, ms = 6, msw = 0, label = "Otros sectores")
-    for i in sortperm(kk; rev = true)[1:5]
-        annotate!(p, posiciones_mercado[i, 1], posiciones_mercado[i, 2] + 0.06, text(tickers[i], 8, GRIS))
-    end
-    plot!(p; legend = :bottomleft)
-end
-
-#%% hide
-md"""
-Las posiciones vienen de las distancias ``d_{ij} = \sqrt{2(1-\rho_{ij})}`` de la
-sesión 7: acciones cercanas en la gráfica se mueven juntas. El tamaño de
-cada punto es su grado; las cinco acciones con más enlaces tienen su
-ticker. Los bancos y gestores de inversión forman el núcleo más denso.
-
-Ahora la comparación: dos redes aleatorias con el **mismo número de nodos y
-de enlaces** que la red del mercado. (En Barabási-Albert el número de enlaces
-es aproximado: cada nodo nuevo llega con un número entero de enlaces.)
-"""
-
-#%%
-comparacion = let
-    m = ne(mercado)
-    er_m = erdos_renyi(N, m; seed = 1)
-    ba_m = barabasi_albert(N, max(1, round(Int, m / N)); seed = 1)
-    [("Mercado", mercado), ("Erdős-Rényi", er_m), ("Barabási-Albert", ba_m)]
-end;
-
-#%% hide
-let
-    filas = map(comparacion) do (nombre, g)
-        kk = degree(g)
-        "| $nombre | $(ne(g)) | $(round(mean(kk), digits = 1)) | $(maximum(kk)) | " *
-        "$(round(global_clustering_coefficient(g), digits = 2)) | " *
-        "$(round(distancia_promedio(g), digits = 2)) | $(round(Int, 100 * componente_gigante(g)))% |"
-    end
-    Markdown.parse("""
-    | Red | Enlaces | Grado promedio | Grado máximo | Agrupamiento | Distancia promedio | Componente gigante |
-    |---|---|---|---|---|---|---|
-    $(join(filas, "\n"))
-    """)
-end
-
-#%% hide
-let
-    p = plot(; xlabel = "grado k", ylabel = "P(K ≥ k)", legend = :topright, ylims = (0, 1.02),
-             title = "Distribución de grados: mercado contra los modelos")
-    for ((nombre, g), color, m) in zip(comparacion, (AZUL, NARANJA, GRIS), (:circle, :diamond, :square))
-        s, P = ccdf_empirica(degree(g))
-        plot!(p, s, P; seriestype = :steppost, color, lw = 2, label = nombre)
-    end
-    p
-end
-
-#%% hide
-md"""
-Con ``u = 0.5``:
-
-- El **agrupamiento** del mercado es varias veces el de las dos redes
-  aleatorias. Si JPM está correlacionada con BAC y con C, BAC y C también lo
-  están: los sectores forman grupos cerrados. Ni Erdős-Rényi ni
-  Barabási-Albert lo reproducen.
-- Los **grados** son mucho más desiguales que en Erdős-Rényi: hay acciones
-  con más de 30 enlaces y varias aisladas. Pero tampoco es una cola de
-  Pareto limpia como la de Barabási-Albert: con 95 nodos no hay espacio para
-  una cola larga.
-- Una parte de las acciones queda **fuera** del componente gigante: casi
-  todas son defensivas (farmacéuticas, telefónicas, supermercados) o tienen
-  una dinámica muy propia (Tesla, Netflix), poco correlacionada con el
-  resto.
-
-Mueve el umbral. Con ``u`` bajo casi todo está conectado con todo; con ``u``
-alto la red se rompe en islas por sector. El agrupamiento alto se mantiene
-en todo el rango: es una propiedad de los datos, no del umbral.
-"""
-
-#%% hide
-md"""
-## 5. Laboratorio: robustez ante fallas y ataques
-
-¿Qué tan frágil es una red? Quitemos nodos y midamos qué fracción de los
-``N`` nodos originales sigue en el componente gigante. Dos escenarios:
-
-- **Fallas aleatorias**: los nodos se quitan en orden al azar (una empresa
-  quiebra por razones propias).
-- **Ataque dirigido**: se quitan primero los de mayor grado (un regulador o
-  un choque que pega justo a los más conectados).
-
-Usamos redes de Erdős-Rényi y de Barabási-Albert con 10,000 nodos y
-``\langle k\rangle = 4``, las de la sección 3.3.
-"""
-
-#%%
-robustez = Dict(
-    (nombre, escenario) => curva_robustez(g, escenario == "Fallas" ? randperm(Xoshiro(3), nv(g)) :
-                                              sortperm(degree(g); rev = true))
-    for (nombre, g) in (("Erdős-Rényi", er), ("Barabási-Albert", ba)), escenario in ("Fallas", "Ataque"));
-
-#%% hide
-let
-    f = (0:nv(er)) ./ nv(er)
-    p = plot(; xlabel = "fracción de nodos eliminados f", ylabel = "fracción en el componente gigante",
-             xlims = (0, 1), ylims = (0, 1.02), legend = :topright,
-             title = "Robustez de dos redes con ⟨k⟩ = 4 (N = 10,000)")
-    for (nombre, color) in (("Erdős-Rényi", NARANJA), ("Barabási-Albert", AZUL))
-        plot!(p, f, robustez[(nombre, "Fallas")]; color, lw = 2, label = "$nombre, fallas al azar")
-        plot!(p, f, robustez[(nombre, "Ataque")]; color, lw = 2, ls = :dash, label = "$nombre, ataque")
-    end
-    p
-end
-
-#%% hide
-md"""
-- Ante **fallas al azar**, las dos redes se degradan poco a poco y casi
-  igual. La de Barabási-Albert conserva un componente gigante un poco más
-  de tiempo, hasta que se quita más del 80% de los nodos: al azar casi
-  siempre se quita un nodo de grado bajo, y los concentradores mantienen
-  unido lo que queda. En una red libre de escala infinita no habría umbral
-  (sección 6.3).
-- Ante un **ataque**, la diferencia es enorme. La red de Barabási-Albert se
-  rompe con apenas el 15% de sus nodos: al quitar los concentradores
-  desaparece justo lo que la mantenía conectada. La de Erdős-Rényi resiste
-  hasta cerca del 37%, porque no tiene nodos especiales.
-
-Albert, Jeong y Barabási (2000) mostraron este contraste en redes reales,
-como internet: las redes libres de escala son **robustas ante fallas pero
-frágiles ante ataques**. En la sesión 12 veremos la versión
-financiera: una red interbancaria con bancos muy conectados resiste bien
-los choques pequeños y dispersos, y es vulnerable cuando cae un banco
-central.
-
-**Ahora con el mercado.** ¿Qué pasa si quitamos primero las acciones más
-conectadas de la red de correlaciones?
-"""
-
-#%% hide
-let
-    f = (0:N) ./ N
-    azar = mean(curva_robustez(mercado, randperm(Xoshiro(s), N)) for s in 1:200)
-    ataque = curva_robustez(mercado, sortperm(degree(mercado); rev = true))
-    plot(f, azar; color = AZUL, lw = 2, label = "Fallas al azar (promedio de 200)",
-         xlabel = "fracción de acciones eliminadas", ylabel = "fracción en el componente gigante",
-         ylims = (0, 1.02), xlims = (0, 1), legend = :topright,
-         title = "Red del mercado con u = $u_mercado")
-    plot!(f, ataque; color = NARANJA, lw = 2, ls = :dash, label = "Ataque a las más conectadas")
-end
-
-#%% hide
-md"""
-Quitar las acciones más conectadas (casi todas financieras) parte la red
-mucho antes que quitarlas al azar. En la red de correlaciones, "quitar" una
-acción no es una quiebra: significa que, sin los bancos y los gestores de
-inversión, el resto del mercado se ve como grupos sectoriales casi
-independientes. El sector financiero es el que **liga** a los demás.
-"""
-
-#%% hide
-md"""
-## 6. [Avanzado] Espectro, modelo de configuración y percolación
-
-### 6.1 El Laplaciano
-
-El **Laplaciano** de la red es ``L = D - A``, con ``D`` la matriz diagonal
-de grados (repaso L.A1). Sus eigenvalores son reales y no negativos, y:
-
-- el número de eigenvalores **iguales a cero** es el número de componentes
-  conexas;
-- el segundo eigenvalor más pequeño, ``\lambda_2``, mide qué tan difícil es
-  partir la red en dos; su eigenvector, el **vector de Fiedler**, sugiere la
-  partición: los nodos con componente positiva de un lado, los negativos del
-  otro.
-"""
-
-#%%
-espectro = let
-    λ = eigvals(Symmetric(Float64.(Matrix(laplacian_matrix(mercado)))))
-    gigante = connected_components(mercado)[argmax(length.(connected_components(mercado)))]
-    sub, _ = induced_subgraph(mercado, gigante)
-    F = eigen(Symmetric(Float64.(Matrix(laplacian_matrix(sub)))))
-    (λ = λ, ceros = count(<(1e-9), λ), componentes = length(connected_components(mercado)),
-     gigante = gigante, fiedler = F.vectors[:, 2])
-end;
-
-#%% hide
-let
-    sector = [sectores.sector[findfirst(==(tickers[i]), sectores.ticker)] for i in espectro.gigante]
-    nombres = sort(unique(sector))
-    pos = [count(sector .== s .&& espectro.fiedler .> 0) for s in nombres]
-    neg = [count(sector .== s .&& espectro.fiedler .<= 0) for s in nombres]
-    orden = sortperm(pos .- neg)
-    p = bar(1:length(nombres), pos[orden]; color = AZUL, lw = 0, label = "Componente positiva",
-            xticks = (1:length(nombres), nombres[orden]), xrotation = 35, ylabel = "acciones",
-            legend = :topleft, bottom_margin = 10Plots.mm, size = (760, 360),
-            ylims = (-maximum(neg) - 1.5, maximum(pos) + 1.5),
-            title = "Vector de Fiedler del componente gigante (u = $u_mercado)")
-    bar!(p, 1:length(nombres), -neg[orden]; color = NARANJA, lw = 0, label = "Componente negativa")
-    hline!(p, [0]; color = GRIS, lw = 1, label = "")
-end
-
-#%% hide
-md"""
-La red tiene $(espectro.componentes) componentes conexas (contando las
-acciones aisladas) y el Laplaciano tiene exactamente $(espectro.ceros)
-eigenvalores iguales a cero. El vector de Fiedler del componente gigante
-separa a las acciones **defensivas** (servicios públicos, consumo básico,
-farmacéuticas) de las **cíclicas** (tecnología, finanzas, industria): la
-misma división que el segundo eigenvector de la matriz de correlación en la
-sesión 7, encontrada ahora sólo con la red.
-
-### 6.2 Modelo de configuración y asortatividad
-
-¿El agrupamiento alto del mercado se debe a que algunas acciones tienen
-muchos enlaces? Para saberlo, comparamos con un **modelo de configuración**:
-una red al azar con **exactamente los mismos grados** que la real. Se
-obtiene recableando la red real muchas veces: se toman dos enlaces
-``a{-}b`` y ``c{-}d`` y se cambian por ``a{-}d`` y ``c{-}b``, lo que no
-cambia el grado de nadie.
-
-La **asortatividad** es la correlación entre los grados de los dos extremos
-de cada enlace. Si es positiva, los nodos muy conectados se conectan entre
-sí; si es negativa, los concentradores se conectan con nodos de grado bajo.
-"""
-
-#%%
-recableada = recablear(mercado, 20ne(mercado));
-
-#%% hide
-let
-    ag(g) = round(global_clustering_coefficient(g), digits = 2)
-    as(g) = round(assortativity(g), digits = 2)
-    ba_m = comparacion[3][2]
-    Markdown.parse("""
-    | Red | Agrupamiento | Asortatividad |
-    |---|---|---|
-    | Mercado | $(ag(mercado)) | $(as(mercado)) |
-    | Configuración (mismos grados) | $(ag(recableada)) | $(as(recableada)) |
-    | Barabási-Albert | $(ag(ba_m)) | $(as(ba_m)) |
-    """)
-end
-
-#%% hide
-md"""
-Con los mismos grados, el agrupamiento baja de forma notable: la
-heterogeneidad de los grados explica una parte, y el resto es estructura de
-sectores. La asortatividad del mercado es positiva, como en las redes
-sociales: las acciones muy conectadas se conectan entre sí (el núcleo
-financiero). En la red recableada y en Barabási-Albert es negativa: con
-grados tan desiguales y una sola arista por par, los concentradores no
-tienen suficientes concentradores con quién conectarse.
-
-### 6.3 El umbral de percolación
-
-Quitar nodos al azar con probabilidad ``f`` es un problema de **percolación**
-(repaso F.A5). Para una red con distribución de grados dada y sin otra
-estructura, el componente gigante existe si un vecino típico tiene al menos
-otro vecino más (criterio de Molloy y Reed):
-
-```math
-\kappa = \frac{\langle k^2\rangle}{\langle k\rangle} > 2 .
-```
-
-Al quitar una fracción ``f`` de los nodos al azar, ``\kappa`` cambia y el
-componente gigante desaparece en
-
-```math
-f_c = 1 - \frac{1}{\kappa - 1} .
-```
-
-Para Erdős-Rényi, ``\kappa = c + 1`` y ``f_c = 1 - 1/c``. Para una red libre
-de escala con ``P(K \ge k) \sim k^{-2}``, ``\langle k^2\rangle`` diverge al
-crecer ``N`` y ``f_c \to 1``: **no hay umbral**. La derivación está en las
-notas formales.
-"""
-
-#%% hide
-let
-    filas = map((("Erdős-Rényi", er), ("Barabási-Albert", ba))) do (nombre, g)
-        kk = degree(g)
-        κ = mean(kk .^ 2) / mean(kk)
-        S = robustez[(nombre, "Fallas")]
-        f_sim = (findfirst(<(0.01), S) - 1) / nv(g)
-        "| $nombre | $(round(κ, digits = 1)) | $(round(1 - 1 / (κ - 1), digits = 2)) | $(round(f_sim, digits = 2)) |"
-    end
-    Markdown.parse("""
-    | Red (N = 10,000) | ``\\kappa`` | ``f_c`` teórico | ``f`` donde el gigante baja de 1% |
-    |---|---|---|---|
-    $(join(filas, "\n"))
-    """)
-end
-
-#%% hide
-md"""
-La teoría acierta en Erdős-Rényi. En Barabási-Albert, ``f_c`` es cercano a 1
-y crece (lentamente, como ``\ln N``) con el tamaño de la red; cerca del umbral
-el componente gigante es tan pequeño que la simulación lo pierde antes.
-"""
-
-#%% hide
-md"""
 ## Resumen
 
 | Concepto | Idea |
 |---|---|
 | Matriz de adyacencia ``A`` | Grados ``k = A\mathbf 1``; triángulos ``\mathrm{tr}(A^3)/6`` |
 | Centralidades | Grado, cercanía, intermediación, eigenvector: cada una mide un tipo de importancia |
-| Agrupamiento | ¿Mis vecinos se conocen? Alto en redes sociales y en el mercado |
+| Agrupamiento | ¿Mis vecinos se conocen? Alto en redes sociales y económicas |
 | Erdős-Rényi | Grados Poisson; componente gigante en ``c = 1``; agrupamiento casi 0 |
 | Watts-Strogatz | Pocos atajos bastan para distancias cortas con agrupamiento alto |
 | Barabási-Albert | Conexión preferencial → ``P(K \ge k) \sim k^{-2}``, concentradores |
-| Robustez | Libres de escala: aguantan fallas al azar, caen ante ataques a los concentradores |
-| Red del mercado | Agrupamiento alto por sectores; núcleo financiero que liga a los demás |
 """
 
 #%% hide
@@ -760,33 +412,22 @@ md"""
    más que el grado, y explica por qué.
 4. ¿Por qué el agrupamiento de una red de Erdős-Rényi grande es casi cero?
    ¿Qué propiedad de las redes sociales viola ese modelo?
-5. En la red del mercado, ¿qué representa un enlace? ¿Qué significa que una
-   acción tenga grado alto?
-6. Las cadenas de suministro tienen algunos proveedores de los que dependen
-   muchas empresas (por ejemplo, fabricantes de semiconductores). Según la
-   sección 5, ¿ante qué tipo de choque son vulnerables?
-7. ¿Por qué no usamos el árbol de expansión mínima de la sesión 7 para
-   comparar el agrupamiento con los modelos?
+5. ¿Qué ingrediente adicional convierte una red de enlaces aleatorios en una
+   red con concentradores (*hubs*) como la de Barabási-Albert?
 
 ### Ruta avanzada
 
-8. Demuestra que en Erdős-Rényi el grado tiende a una Poisson con media
+6. Demuestra que en Erdős-Rényi el grado tiende a una Poisson con media
    ``c`` cuando ``N \to \infty`` con ``c = p(N-1)`` fijo.
-9. Calcula el vector de Fiedler de la red de los Médici. ¿Qué dos grupos
-   separa? ¿Dónde quedan los Médici y los Strozzi?
-10. Repite la tabla de la sección 6.3 con redes de Barabási-Albert de 1,000,
-    10,000 y 100,000 nodos. ¿Cómo cambia ``\kappa``? ¿Y ``f_c``?
-11. Modifica `curva_robustez` para un ataque **adaptativo**: después de
-    cada eliminación, recalcula los grados y quita el de mayor grado en la
-    red que queda. ¿Es más dañino que el ataque de la sección 5?
+7. Deriva ``C(0) = 3(K-2)/(4(K-1))`` para el anillo de Watts-Strogatz.
 
 ## Para la próxima sesión
 
-- Lectura: Newman (2018), capítulos 6 y 7 (medidas) y 10 y 11 (redes
-  aleatorias); para la ruta avanzada, capítulos 12, 13 y 15.
-- En la sesión 12 la red deja de ser el objeto de estudio y se vuelve el
-  **medio** por donde se propaga algo: cascadas de quiebras en una red
-  interbancaria.
+- Lectura: Slanina (2014), capítulo 6; para la ruta avanzada, Newman (2018),
+  capítulos 12, 13 y 15.
+- En la **sesión 11** (`Code/s11_redes_mercado.jl`) pondremos estos tres
+  modelos frente a la red de correlaciones del S&P 100 y mediremos qué pasa
+  cuando fallan nodos al azar o cuando se ataca a los más conectados.
 """
 
 #%% hide
@@ -800,12 +441,10 @@ leerlas para seguir la sesión.
 
 #%%
 begin
-    # Usa el entorno del curso (Code/Project.toml) en lugar del gestor de
-    # paquetes propio de Pluto: un solo entorno para todo el repositorio.
     import Pkg
     Pkg.activate(@__DIR__)
     Pkg.instantiate()
-    using PlutoUI, CSV, DataFrames, Statistics, LinearAlgebra, Random, Graphs, Plots, Markdown
+    using PlutoUI, DataFrames, Statistics, LinearAlgebra, Random, Graphs, Plots, Markdown
     gr()
     default(size = (720, 320), legend = false, grid = :y, gridalpha = 0.15,
             framestyle = :axes, titlefontsize = 11, guidefontsize = 9,
@@ -825,8 +464,6 @@ begin
 end;
 
 #%%
-# Red de matrimonios entre familias florentinas (Padgett y Ansell, 1993), sin
-# los Pucci, que no tienen enlaces.
 familias, red_medici = let
     nombres = ["Acciaiuoli", "Albizzi", "Barbadori", "Bischeri", "Castellani", "Ginori",
                "Guadagni", "Lamberteschi", "Médici", "Pazzi", "Peruzzi", "Ridolfi",
@@ -846,13 +483,6 @@ familias, red_medici = let
 end;
 
 #%%
-"Datos ordenados de mayor a menor y su CCDF empírica, P(X ≥ x)."
-function ccdf_empirica(x)
-    s = sort(x; rev = true)
-    s, (1:length(s)) ./ length(s)
-end
-
-#%%
 "Grados distintos (mayores que cero) y la fracción de nodos con grado mayor o igual, P(K ≥ k)."
 function ccdf_grados(k)
     s = sort(unique(filter(>(0), k)))
@@ -862,16 +492,6 @@ end
 #%%
 "Fracción de los nodos que está en el componente conexo más grande."
 componente_gigante(g) = maximum(length.(connected_components(g))) / nv(g)
-
-#%%
-"Distancia promedio entre pares de nodos del componente gigante."
-function distancia_promedio(g)
-    cc = connected_components(g)
-    sub, _ = induced_subgraph(g, cc[argmax(length.(cc))])
-    n = nv(sub)
-    n < 2 && return 0.0
-    sum(sum(gdistances(sub, v)) for v in vertices(sub)) / (n * (n - 1))
-end
 
 #%%
 "Solución de S = 1 - exp(-cS), la fracción en el componente gigante de Erdős-Rényi."
@@ -895,14 +515,13 @@ barrido_ws = let
         Lm = mean(mean(gdistances(g, s)) * 1000 / 999 for s in 1:20:1000)
         (global_clustering_coefficient(g), Lm)
     end
-    (p = [1e-5; ps[2:end]], C = first.(res), L = last.(res))   # p = 0 se dibuja en 10⁻⁵
+    (p = [1e-5; ps[2:end]], C = first.(res), L = last.(res))
 end;
 
 #%%
 """
 Posiciones 2D para dibujar una red: escalamiento multidimensional clásico de
-las distancias en la red, refinado con mayorización de estrés. Los pares sin
-camino se tratan como si estuvieran a la distancia máxima más uno.
+las distancias en la red, refinado con mayorización de estrés.
 """
 function disposicion(g; iter = 200)
     n = nv(g)
@@ -924,15 +543,6 @@ function disposicion(g; iter = 200)
 end
 
 #%%
-"Posiciones de las acciones a partir de la distancia de correlación (escalamiento multidimensional clásico)."
-posiciones_mercado = let
-    D2 = 2 .* (1 .- C)
-    Jc = I - fill(1 / N, N, N)
-    F = eigen(Symmetric(-Jc * D2 * Jc / 2))
-    F.vectors[:, end-1:end] .* sqrt.(F.values[end-1:end])'
-end;
-
-#%%
 "Dibuja una red con posiciones `X` (n × 2). Los enlaces en `resaltar` van en naranja."
 function dibujar_red(g, X; tam = 4, colores = AZUL, alpha_enlaces = 0.5, resaltar = Tuple{Int,Int}[],
                      kwargs...)
@@ -948,56 +558,6 @@ function dibujar_red(g, X; tam = 4, colores = AZUL, alpha_enlaces = 0.5, resalta
         plot!(p, X[[a, b], 1], X[[a, b], 2]; color = NARANJA, lw = 1.5, label = "")
     end
     scatter!(p, X[:, 1], X[:, 2]; ms = tam, color = colores, msw = 0.5, msc = BLANCO, label = "")
-end
-
-#%%
-"""
-Fracción de los nodos originales en el componente gigante al quitar los
-nodos en el `orden` dado. El resultado `S[q + 1]` corresponde a `q` nodos
-quitados. Se calcula al revés: se agregan los nodos del último al primero y
-se unen sus grupos con una estructura de conjuntos disjuntos.
-"""
-function curva_robustez(g, orden)
-    n = nv(g)
-    jefe, tam = collect(1:n), ones(Int, n)
-    activo = falses(n)
-    raiz(i) = jefe[i] == i ? i : (jefe[i] = raiz(jefe[i]))
-    S = zeros(n + 1)
-    mayor = 0
-    for (t, v) in enumerate(reverse(orden))
-        activo[v] = true
-        for u in neighbors(g, v)
-            activo[u] || continue
-            a, b = raiz(u), raiz(v)
-            a == b && continue
-            tam[a] < tam[b] && ((a, b) = (b, a))
-            jefe[b] = a
-            tam[a] += tam[b]
-        end
-        mayor = max(mayor, tam[raiz(v)])
-        S[n-t+1] = mayor / n
-    end
-    S
-end
-
-#%%
-"Recablea `veces` pares de enlaces (a-b, c-d) → (a-d, c-b) sin cambiar los grados."
-function recablear(g, veces; rng = Xoshiro(3))
-    h = copy(g)
-    E = [(src(e), dst(e)) for e in edges(h)]
-    hechos = 0
-    while hechos < veces
-        i, j = rand(rng, 1:length(E), 2)
-        i == j && continue
-        (a, b), (c, d) = E[i], E[j]
-        rand(rng, Bool) && ((c, d) = (d, c))
-        (a == d || c == b || has_edge(h, a, d) || has_edge(h, c, b)) && continue
-        rem_edge!(h, a, b); rem_edge!(h, c, d)
-        add_edge!(h, a, d); add_edge!(h, c, b)
-        E[i], E[j] = (a, d), (c, b)
-        hechos += 1
-    end
-    h
 end
 
 #%%

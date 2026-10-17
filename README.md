@@ -19,9 +19,11 @@ Matemáticas), con simulaciones en Julia.
 │   ├── s07_correlaciones.md       → Notas formales, sesión 7
 │   ├── s08_intercambio.md         → Notas formales, sesión 8
 │   ├── s09_condensacion.md        → Notas formales, sesión 9
-│   ├── s10_redes_modelos.md       → Notas formales, sesiones 10 y 11 (se divide en la fase 3)
+│   ├── s10_redes_modelos.md       → Notas formales, sesión 10
+│   ├── s11_redes_mercado.md       → Notas formales, sesión 11
 │   ├── s12_contagio.md            → Notas formales, sesión 12
-│   ├── s13_logit_ising.md         → Notas formales, sesiones 13 y 14 (se divide en la fase 3)
+│   ├── s13_logit_ising.md         → Notas formales, sesión 13
+│   ├── s14_campo_medio.md         → Notas formales, sesión 14
 │   ├── s15_votante_kirman.md      → Notas formales, sesiones 15 y 16 (se divide en la fase 3)
 │   ├── s17_replicador_goodwin.md  → Notas formales, sesiones 17 y 18 (se divide en la fase 3)
 │   ├── s19_juego_minoria.md       → Notas formales, sesión 19
@@ -51,9 +53,11 @@ Matemáticas), con simulaciones en Julia.
 │   ├── s07_correlaciones.jl       → Cuaderno de Pluto, sesión 7
 │   ├── s08_intercambio.jl         → Cuaderno de Pluto, sesión 8
 │   ├── s09_condensacion.jl        → Cuaderno de Pluto, sesión 9
-│   ├── s10_redes_modelos.jl       → Cuaderno de Pluto, sesiones 10 y 11 (se divide en la fase 3)
+│   ├── s10_redes_modelos.jl       → Cuaderno de Pluto, sesión 10
+│   ├── s11_redes_mercado.jl       → Cuaderno de Pluto, sesión 11
 │   ├── s12_contagio.jl            → Cuaderno de Pluto, sesión 12
-│   ├── s13_logit_ising.jl         → Cuaderno de Pluto, sesiones 13 y 14 (se divide en la fase 3)
+│   ├── s13_logit_ising.jl         → Cuaderno de Pluto, sesión 13
+│   ├── s14_campo_medio.jl         → Cuaderno de Pluto, sesión 14
 │   ├── s15_votante_kirman.jl      → Cuaderno de Pluto, sesiones 15 y 16 (se divide en la fase 3)
 │   ├── s17_replicador_goodwin.jl  → Cuaderno de Pluto, sesiones 17 y 18 (se divide en la fase 3)
 │   ├── s19_juego_minoria.jl       → Cuaderno de Pluto, sesión 19
@@ -78,7 +82,7 @@ Matemáticas), con simulaciones en Julia.
 ├── src/                       → Fuentes de los cuadernos de Pluto (formato #%%)
 │   ├── construir_cuaderno.jl  → Genera y ejecuta un cuaderno a partir de su fuente
 │   ├── revisar_material.jl    → Revisa claves de repaso, enlaces y referencias a sesiones
-│   └── sNN_tema.jl            → Fuente de Code/sNN_tema.jl (16 de 20 fuentes; el resto llega con la fase 3)
+│   └── sNN_tema.jl            → Fuente de Code/sNN_tema.jl (18 de 20 fuentes; el resto llega con la fase 3)
 └── README.md
 ```
 

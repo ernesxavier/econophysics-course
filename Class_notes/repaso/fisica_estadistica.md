@@ -96,7 +96,7 @@ papel matemático de escala en $e^{-E/T}$.
 <a id="fb4"></a>
 
 ### F.B4 Transiciones de fase
-*Sesiones 9, 11, 13, 15, 16, 19.*
+*Sesiones 9, 10, 11, 13, 15, 16, 19.*
 
 Una **transición de fase** es un cambio **cualitativo y abrupto** en el
 comportamiento colectivo cuando un parámetro cruza un valor crítico.
@@ -110,7 +110,7 @@ comportamiento colectivo cuando un parámetro cruza un valor crítico.
 | Sesión | Sistema | Control | Orden |
 |---|---|---|---|
 | 9 | Bouchaud-Mézard | Intensidad de intercambio | Fracción de la riqueza en pocos agentes (condensación) |
-| 11 | Redes aleatorias | Grado promedio $\langle k\rangle$ | Tamaño del componente gigante |
+| 10, 11 | Redes aleatorias | Grado promedio $\langle k\rangle$ o nodos eliminados $f$ | Tamaño del componente gigante |
 | 13 | Ising, Brock-Durlauf | $\beta J$ | Magnetización, adopción neta |
 | 15 | Votante, Kirman | Ruido, red | Consenso o bimodalidad |
 | 19 | Juego de la minoría | $\alpha = 2^M/N$ | Volatilidad $\sigma^2/N$, predictibilidad |
@@ -436,7 +436,7 @@ coordinación con muchos equilibrios (Bouchaud, Marsili & Nadal, 2023).
 <a id="fa5"></a>
 
 ### F.A5 Percolación
-*Sesiones 11, 12.*
+*Sesiones 10, 11, 12.*
 
 En una red, cada enlace (o nodo) está presente con probabilidad $p$. La
 pregunta: ¿existe un **componente gigante** que contenga una fracción

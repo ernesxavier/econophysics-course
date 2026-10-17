@@ -16,14 +16,12 @@ macro bind(def, element)
     #! format: on
 end
 
-# ╔═╡ e0d7f1a0-ca74-11f1-8329-cb6e66e5960d
+# ╔═╡ 3f1c7932-ca7c-11f1-87f7-1b451f36d22a
 begin
-    # Usa el entorno del curso (Code/Project.toml) en lugar del gestor de
-    # paquetes propio de Pluto: un solo entorno para todo el repositorio.
     import Pkg
     Pkg.activate(@__DIR__)
     Pkg.instantiate()
-    using PlutoUI, CSV, DataFrames, Statistics, LinearAlgebra, Random, Graphs, Plots, Markdown
+    using PlutoUI, DataFrames, Statistics, LinearAlgebra, Random, Graphs, Plots, Markdown
     gr()
     default(size = (720, 320), legend = false, grid = :y, gridalpha = 0.15,
             framestyle = :axes, titlefontsize = 11, guidefontsize = 9,
@@ -31,9 +29,9 @@ begin
             background_color_legend = nothing, margin = 3Plots.mm)
 end
 
-# ╔═╡ e0d7f010-ca74-11f1-85ba-21c553f7f4ca
+# ╔═╡ 3f1c782e-ca7c-11f1-83c4-4b057b6f87b4
 md"""
-# Sesiones 10 y 11: Redes: estructura y modelos
+# Sesión 10: Redes: medidas y modelos
 
 **Objetivos de la sesión**
 1. Representar una red con su **matriz de adyacencia** y calcular con ella
@@ -43,10 +41,6 @@ md"""
 3. Conocer tres modelos de redes aleatorias: **Erdős-Rényi**,
    **Watts-Strogatz** y **Barabási-Albert**, y qué propiedad de las redes
    reales explica cada uno.
-4. Comparar los modelos con una red real: la red de correlaciones del
-   S&P 100 de la sesión 7.
-5. Medir la **robustez**: qué pasa cuando fallan nodos al azar y cuando se
-   ataca a los más conectados.
 
 **Cómo usar este cuaderno.** Pluto es reactivo: al mover un deslizador, todo
 lo que depende de él se recalcula. Las secciones marcadas **[Avanzado]** son
@@ -56,16 +50,17 @@ opcionales.
 `julia --project=Code -e 'using Pluto; Pluto.run()'` y abrir
 `Code/s10_redes_modelos.jl`.
 
-**Repaso recomendado** (en `Class_notes/repaso/`): L.B4 (matriz de
-adyacencia), F.B4 (transiciones de fase), P.I5 (leyes de potencias), L.I4
-(potencias de matrices y centralidad). Ruta avanzada: L.A1 (Laplaciano),
-L.A5 (Perron-Frobenius), F.A5 (percolación).
+**Repaso recomendado** (en `Class_notes/repaso/`): P.B1 (distribuciones),
+L.B4 (matriz de adyacencia), C.B2 (escalas log-log), F.B4 (transiciones de
+fase). Para las notas formales: P.I5 (leyes de potencias), L.I4 (potencias
+de matrices y centralidad), S.I3 (comparar datos con una distribución). Ruta
+avanzada: L.A5 (Perron-Frobenius), F.A5 (percolación).
 """
 
-# ╔═╡ e0d7f042-ca74-11f1-9e89-f1daead71c66
+# ╔═╡ 3f1c786a-ca7c-11f1-9bc6-911dc6ac43ab
 TableOfContents(title = "Contenido")
 
-# ╔═╡ e0d7f042-ca74-11f1-9b9b-bf61222ef90e
+# ╔═╡ 3f1c7874-ca7c-11f1-9e8a-edff5d711a12
 md"""
 ## 0. El fenómeno: ¿por qué ganaron los Médici?
 
@@ -79,7 +74,7 @@ Abajo está la red de matrimonios entre 15 familias de la élite florentina.
 Cada línea es al menos un matrimonio entre las dos familias.
 """
 
-# ╔═╡ e0d7f054-ca74-11f1-a7f8-7fc69afd2677
+# ╔═╡ 3f1c787e-ca7c-11f1-9604-55c861728af1
 md"""
 Los Médici están en el centro: **conectan** a familias que no tienen otra
 manera de comunicarse entre sí. Los Strozzi tienen casi tantos enlaces, pero
@@ -88,7 +83,7 @@ números, y después a preguntarnos qué **mecanismos** generan las redes que
 vemos en la economía.
 """
 
-# ╔═╡ e0d7f060-ca74-11f1-afcf-3f0be9b73f95
+# ╔═╡ 3f1c787e-ca7c-11f1-9eae-b9184073ebfa
 md"""
 ## 1. Repaso: la matriz de adyacencia
 
@@ -100,7 +95,7 @@ La gráfica muestra la matriz de las familias florentinas: cada cuadro
 oscuro es un 1.
 """
 
-# ╔═╡ e0d7f074-ca74-11f1-8a52-ad95f92bac20
+# ╔═╡ 3f1c7892-ca7c-11f1-b712-bd8f734a5168
 md"""
 Casi todo lo que vamos a medir sale de operaciones con ``A``:
 
@@ -114,7 +109,7 @@ Casi todo lo que vamos a medir sale de operaciones con ``A``:
   por 2 sentidos), así que hay ``\mathrm{tr}(A^3)/6`` triángulos (repaso L.I4).
 """
 
-# ╔═╡ e0d7f07e-ca74-11f1-8b47-1d213bbd6cf6
+# ╔═╡ 3f1c78a8-ca7c-11f1-a863-89a42ec26fec
 md"""
 ## 2. Medidas: centralidad y agrupamiento
 
@@ -145,7 +140,7 @@ está. En redes sociales suele ser alto: los amigos de mis amigos tienden a
 ser mis amigos.
 """
 
-# ╔═╡ e0d7f09c-ca74-11f1-b29a-c519129128eb
+# ╔═╡ 3f1c78ba-ca7c-11f1-ac59-3344252f4ce5
 md"""
 Las cuatro medidas ponen a los Médici en primer lugar, pero la
 **intermediación** es la que los separa del resto: es el doble que la de los
@@ -159,7 +154,7 @@ conectados entre sí. Ser el centro de una estrella, y no parte de un grupo
 cerrado, es precisamente lo que les daba poder.
 """
 
-# ╔═╡ e0d7f09c-ca74-11f1-b78e-39caf369d470
+# ╔═╡ 3f1c78c4-ca7c-11f1-a6ea-9d3e6e333a65
 md"""
 ## 3. Tres modelos de redes aleatorias
 
@@ -185,7 +180,7 @@ grupo conectado más grande.
 Grado promedio ``c``: $(@bind c_er Slider([0.5, 0.8, 1.0, 1.2, 1.5, 2.0, 3.0], default = 1.2, show_value = true))
 """
 
-# ╔═╡ e0d7f0a6-ca74-11f1-a645-15ea44c6a556
+# ╔═╡ 3f1c78ce-ca7c-11f1-8e03-17005ed9a426
 md"""
 Con ``c < 1`` la red está hecha de islas pequeñas. En ``c = 1``, en promedio
 **un vecino por nodo**, aparece de golpe un componente gigante que contiene
@@ -199,7 +194,7 @@ cualquier par: el agrupamiento es ``C = p = c/(N-1)``, casi cero. Las redes
 sociales y económicas tienen agrupamiento alto.
 """
 
-# ╔═╡ e0d7f0b0-ca74-11f1-96a8-1b361c208b90
+# ╔═╡ 3f1c78da-ca7c-11f1-b0c8-a72fa8dcd0ff
 md"""
 ### 3.2 Watts-Strogatz: mundo pequeño
 
@@ -211,7 +206,7 @@ probabilidad ``p``: uno de sus extremos se mueve a un nodo al azar.
 Probabilidad de recableado ``p``: $(@bind p_ws Slider([0.0, 0.02, 0.05, 0.1, 0.3, 1.0], default = 0.05, show_value = true))
 """
 
-# ╔═╡ e0d7f0ba-ca74-11f1-aa26-9fd7ac2b4a39
+# ╔═╡ 3f1c78e2-ca7c-11f1-85cd-e73770578747
 md"""
 Los enlaces recableados (en naranja) son **atajos**. Basta con que el 1% de
 los enlaces sea un atajo para que la distancia promedio caiga a una fracción
@@ -225,7 +220,7 @@ de separación" de Milgram.
 ``K``. No hay nodos con cientos de enlaces.
 """
 
-# ╔═╡ e0d7f0c4-ca74-11f1-b9ca-9761fa94be5d
+# ╔═╡ 3f1c78ec-ca7c-11f1-8a5c-bd33a27031ea
 md"""
 ### 3.3 Barabási-Albert: conexión preferencial
 
@@ -250,19 +245,19 @@ Comparemos 10,000 nodos de Barabási-Albert con una red de Erdős-Rényi con el
 mismo grado promedio, ``\langle k\rangle = 4``.
 """
 
-# ╔═╡ e0d7f0c4-ca74-11f1-bbdb-b3ccf448dfde
+# ╔═╡ 3f1c78ec-ca7c-11f1-9511-97cbb51bb086
 ba = barabasi_albert(10_000, 2; seed = 1);
 
-# ╔═╡ e0d7f0ce-ca74-11f1-824c-875a93ceb7bd
+# ╔═╡ 3f1c78f6-ca7c-11f1-9b2c-4d12e396b95e
 er = erdos_renyi(10_000, ne(ba); seed = 1);
 
-# ╔═╡ e0d7f0d8-ca74-11f1-ba7d-15b1e3992707
+# ╔═╡ 3f1c7900-ca7c-11f1-8846-d94805673f3f
 md"""
 En Erdős-Rényi nadie tiene más de $(maximum(degree(er))) enlaces: la cola de la
 Poisson cae más rápido que cualquier potencia. En Barabási-Albert hay
 **concentradores** (*hubs*) con cientos de enlaces, y la CCDF es una recta
-de pendiente ``-2`` en escala log-log (repaso P.I5). A una red con esta cola
-se le llama **libre de escala**.
+de pendiente ``-2`` en escala log-log (repaso C.B2 y P.I5). A una red con esta
+cola se le llama **libre de escala**.
 
 **Lo que no explica.** El agrupamiento de Barabási-Albert también tiende a
 cero al crecer ``N``: $(round(global_clustering_coefficient(ba), digits = 3))
@@ -275,224 +270,7 @@ en esta red. Ningún modelo simple tiene todo; cada uno aísla un mecanismo.
 | Barabási-Albert | Crecimiento + conexión preferencial | Pareto, ``P(K \ge k) \sim k^{-2}`` | Casi 0 | Muy corta |
 """
 
-# ╔═╡ e0d7f0e2-ca74-11f1-aee2-abe41cc8a11b
-md"""
-## 4. Laboratorio: la red del mercado
-
-En la sesión 7 construimos el árbol de expansión mínima de 95 acciones del
-S&P 100. Un árbol no tiene triángulos por construcción, así que su
-agrupamiento es cero: no sirve para compararlo con los modelos. Usemos otra
-red, más simple: conectamos dos acciones si su correlación supera un
-**umbral** ``u``,
-
-```math
-A_{ij} = 1 \quad\text{si}\quad \rho_{ij} > u .
-```
-"""
-
-# ╔═╡ e0d7f0e2-ca74-11f1-a9a3-f3ada2b8760a
-begin
-    precios = CSV.read(joinpath(@__DIR__, "..", "Data", "sp100_precios.csv"), DataFrame)
-    sectores = CSV.read(joinpath(@__DIR__, "..", "Data", "sp100_sectores.csv"), DataFrame)
-    ancho = unstack(precios, :fecha, :ticker, :cierre)    # una columna por acción
-    tickers = names(ancho)[2:end]
-    R = diff(log.(Matrix{Float64}(ancho[:, 2:end])); dims = 1)   # rendimientos: T × N
-    C = cor(R)
-    N = size(C, 1)
-end;
-
-# ╔═╡ e0d7f0ec-ca74-11f1-a8f5-d9a143cba875
-md"""
-Umbral de correlación ``u``: $(@bind u_mercado Slider([0.4, 0.45, 0.5, 0.55, 0.6], default = 0.5, show_value = true))
-"""
-
-# ╔═╡ e0d7f0ec-ca74-11f1-a0a3-f3233fb283d3
-mercado = SimpleGraph((C .> u_mercado) .& .!I(N));
-
-# ╔═╡ e0d7f0f8-ca74-11f1-8d5d-c9e53198e7fb
-md"""
-Las posiciones vienen de las distancias ``d_{ij} = \sqrt{2(1-\rho_{ij})}`` de la
-sesión 7: acciones cercanas en la gráfica se mueven juntas. El tamaño de
-cada punto es su grado; las cinco acciones con más enlaces tienen su
-ticker. Los bancos y gestores de inversión forman el núcleo más denso.
-
-Ahora la comparación: dos redes aleatorias con el **mismo número de nodos y
-de enlaces** que la red del mercado. (En Barabási-Albert el número de enlaces
-es aproximado: cada nodo nuevo llega con un número entero de enlaces.)
-"""
-
-# ╔═╡ e0d7f100-ca74-11f1-8ff7-971ebab08b0b
-comparacion = let
-    m = ne(mercado)
-    er_m = erdos_renyi(N, m; seed = 1)
-    ba_m = barabasi_albert(N, max(1, round(Int, m / N)); seed = 1)
-    [("Mercado", mercado), ("Erdős-Rényi", er_m), ("Barabási-Albert", ba_m)]
-end;
-
-# ╔═╡ e0d7f114-ca74-11f1-a56a-9774d0bbef1d
-md"""
-Con ``u = 0.5``:
-
-- El **agrupamiento** del mercado es varias veces el de las dos redes
-  aleatorias. Si JPM está correlacionada con BAC y con C, BAC y C también lo
-  están: los sectores forman grupos cerrados. Ni Erdős-Rényi ni
-  Barabási-Albert lo reproducen.
-- Los **grados** son mucho más desiguales que en Erdős-Rényi: hay acciones
-  con más de 30 enlaces y varias aisladas. Pero tampoco es una cola de
-  Pareto limpia como la de Barabási-Albert: con 95 nodos no hay espacio para
-  una cola larga.
-- Una parte de las acciones queda **fuera** del componente gigante: casi
-  todas son defensivas (farmacéuticas, telefónicas, supermercados) o tienen
-  una dinámica muy propia (Tesla, Netflix), poco correlacionada con el
-  resto.
-
-Mueve el umbral. Con ``u`` bajo casi todo está conectado con todo; con ``u``
-alto la red se rompe en islas por sector. El agrupamiento alto se mantiene
-en todo el rango: es una propiedad de los datos, no del umbral.
-"""
-
-# ╔═╡ e0d7f11e-ca74-11f1-b080-05a7a7f7a26c
-md"""
-## 5. Laboratorio: robustez ante fallas y ataques
-
-¿Qué tan frágil es una red? Quitemos nodos y midamos qué fracción de los
-``N`` nodos originales sigue en el componente gigante. Dos escenarios:
-
-- **Fallas aleatorias**: los nodos se quitan en orden al azar (una empresa
-  quiebra por razones propias).
-- **Ataque dirigido**: se quitan primero los de mayor grado (un regulador o
-  un choque que pega justo a los más conectados).
-
-Usamos redes de Erdős-Rényi y de Barabási-Albert con 10,000 nodos y
-``\langle k\rangle = 4``, las de la sección 3.3.
-"""
-
-# ╔═╡ e0d7f12a-ca74-11f1-8ee3-c92beb47ee9a
-md"""
-- Ante **fallas al azar**, las dos redes se degradan poco a poco y casi
-  igual. La de Barabási-Albert conserva un componente gigante un poco más
-  de tiempo, hasta que se quita más del 80% de los nodos: al azar casi
-  siempre se quita un nodo de grado bajo, y los concentradores mantienen
-  unido lo que queda. En una red libre de escala infinita no habría umbral
-  (sección 6.3).
-- Ante un **ataque**, la diferencia es enorme. La red de Barabási-Albert se
-  rompe con apenas el 15% de sus nodos: al quitar los concentradores
-  desaparece justo lo que la mantenía conectada. La de Erdős-Rényi resiste
-  hasta cerca del 37%, porque no tiene nodos especiales.
-
-Albert, Jeong y Barabási (2000) mostraron este contraste en redes reales,
-como internet: las redes libres de escala son **robustas ante fallas pero
-frágiles ante ataques**. En la sesión 12 veremos la versión
-financiera: una red interbancaria con bancos muy conectados resiste bien
-los choques pequeños y dispersos, y es vulnerable cuando cae un banco
-central.
-
-**Ahora con el mercado.** ¿Qué pasa si quitamos primero las acciones más
-conectadas de la red de correlaciones?
-"""
-
-# ╔═╡ e0d7f132-ca74-11f1-b28e-03d6f5878f33
-md"""
-Quitar las acciones más conectadas (casi todas financieras) parte la red
-mucho antes que quitarlas al azar. En la red de correlaciones, "quitar" una
-acción no es una quiebra: significa que, sin los bancos y los gestores de
-inversión, el resto del mercado se ve como grupos sectoriales casi
-independientes. El sector financiero es el que **liga** a los demás.
-"""
-
-# ╔═╡ e0d7f13c-ca74-11f1-906c-ffab47990745
-md"""
-## 6. [Avanzado] Espectro, modelo de configuración y percolación
-
-### 6.1 El Laplaciano
-
-El **Laplaciano** de la red es ``L = D - A``, con ``D`` la matriz diagonal
-de grados (repaso L.A1). Sus eigenvalores son reales y no negativos, y:
-
-- el número de eigenvalores **iguales a cero** es el número de componentes
-  conexas;
-- el segundo eigenvalor más pequeño, ``\lambda_2``, mide qué tan difícil es
-  partir la red en dos; su eigenvector, el **vector de Fiedler**, sugiere la
-  partición: los nodos con componente positiva de un lado, los negativos del
-  otro.
-"""
-
-# ╔═╡ e0d7f146-ca74-11f1-a7c4-2396f7e8dc36
-espectro = let
-    λ = eigvals(Symmetric(Float64.(Matrix(laplacian_matrix(mercado)))))
-    gigante = connected_components(mercado)[argmax(length.(connected_components(mercado)))]
-    sub, _ = induced_subgraph(mercado, gigante)
-    F = eigen(Symmetric(Float64.(Matrix(laplacian_matrix(sub)))))
-    (λ = λ, ceros = count(<(1e-9), λ), componentes = length(connected_components(mercado)),
-     gigante = gigante, fiedler = F.vectors[:, 2])
-end;
-
-# ╔═╡ e0d7f150-ca74-11f1-a081-0b4de8b76ae2
-md"""
-La red tiene $(espectro.componentes) componentes conexas (contando las
-acciones aisladas) y el Laplaciano tiene exactamente $(espectro.ceros)
-eigenvalores iguales a cero. El vector de Fiedler del componente gigante
-separa a las acciones **defensivas** (servicios públicos, consumo básico,
-farmacéuticas) de las **cíclicas** (tecnología, finanzas, industria): la
-misma división que el segundo eigenvector de la matriz de correlación en la
-sesión 7, encontrada ahora sólo con la red.
-
-### 6.2 Modelo de configuración y asortatividad
-
-¿El agrupamiento alto del mercado se debe a que algunas acciones tienen
-muchos enlaces? Para saberlo, comparamos con un **modelo de configuración**:
-una red al azar con **exactamente los mismos grados** que la real. Se
-obtiene recableando la red real muchas veces: se toman dos enlaces
-``a{-}b`` y ``c{-}d`` y se cambian por ``a{-}d`` y ``c{-}b``, lo que no
-cambia el grado de nadie.
-
-La **asortatividad** es la correlación entre los grados de los dos extremos
-de cada enlace. Si es positiva, los nodos muy conectados se conectan entre
-sí; si es negativa, los concentradores se conectan con nodos de grado bajo.
-"""
-
-# ╔═╡ e0d7f164-ca74-11f1-95a1-a589fe28970b
-md"""
-Con los mismos grados, el agrupamiento baja de forma notable: la
-heterogeneidad de los grados explica una parte, y el resto es estructura de
-sectores. La asortatividad del mercado es positiva, como en las redes
-sociales: las acciones muy conectadas se conectan entre sí (el núcleo
-financiero). En la red recableada y en Barabási-Albert es negativa: con
-grados tan desiguales y una sola arista por par, los concentradores no
-tienen suficientes concentradores con quién conectarse.
-
-### 6.3 El umbral de percolación
-
-Quitar nodos al azar con probabilidad ``f`` es un problema de **percolación**
-(repaso F.A5). Para una red con distribución de grados dada y sin otra
-estructura, el componente gigante existe si un vecino típico tiene al menos
-otro vecino más (criterio de Molloy y Reed):
-
-```math
-\kappa = \frac{\langle k^2\rangle}{\langle k\rangle} > 2 .
-```
-
-Al quitar una fracción ``f`` de los nodos al azar, ``\kappa`` cambia y el
-componente gigante desaparece en
-
-```math
-f_c = 1 - \frac{1}{\kappa - 1} .
-```
-
-Para Erdős-Rényi, ``\kappa = c + 1`` y ``f_c = 1 - 1/c``. Para una red libre
-de escala con ``P(K \ge k) \sim k^{-2}``, ``\langle k^2\rangle`` diverge al
-crecer ``N`` y ``f_c \to 1``: **no hay umbral**. La derivación está en las
-notas formales.
-"""
-
-# ╔═╡ e0d7f16e-ca74-11f1-908b-d58a58becb77
-md"""
-La teoría acierta en Erdős-Rényi. En Barabási-Albert, ``f_c`` es cercano a 1
-y crece (lentamente, como ``\ln N``) con el tamaño de la red; cerca del umbral
-el componente gigante es tan pequeño que la simulación lo pierde antes.
-"""
-
-# ╔═╡ e0d7f16e-ca74-11f1-8ea9-2f1713b828b4
+# ╔═╡ 3f1c790c-ca7c-11f1-975f-d1cda142c972
 md"""
 ## Resumen
 
@@ -500,15 +278,13 @@ md"""
 |---|---|
 | Matriz de adyacencia ``A`` | Grados ``k = A\mathbf 1``; triángulos ``\mathrm{tr}(A^3)/6`` |
 | Centralidades | Grado, cercanía, intermediación, eigenvector: cada una mide un tipo de importancia |
-| Agrupamiento | ¿Mis vecinos se conocen? Alto en redes sociales y en el mercado |
+| Agrupamiento | ¿Mis vecinos se conocen? Alto en redes sociales y económicas |
 | Erdős-Rényi | Grados Poisson; componente gigante en ``c = 1``; agrupamiento casi 0 |
 | Watts-Strogatz | Pocos atajos bastan para distancias cortas con agrupamiento alto |
 | Barabási-Albert | Conexión preferencial → ``P(K \ge k) \sim k^{-2}``, concentradores |
-| Robustez | Libres de escala: aguantan fallas al azar, caen ante ataques a los concentradores |
-| Red del mercado | Agrupamiento alto por sectores; núcleo financiero que liga a los demás |
 """
 
-# ╔═╡ e0d7f178-ca74-11f1-bb3f-815556fb8bbc
+# ╔═╡ 3f1c790c-ca7c-11f1-bd28-3d0588bceb32
 md"""
 ## Ejercicios
 
@@ -518,24 +294,24 @@ md"""
 partir de su matriz de adyacencia.
 """
 
-# ╔═╡ e0d7f178-ca74-11f1-b3c0-7594c103d6e9
+# ╔═╡ 3f1c7914-ca7c-11f1-bc4c-13f118b24c40
 function grados(A)
     missing  # reemplaza esta línea
 end
 
-# ╔═╡ e0d7f182-ca74-11f1-afc7-17a1140e258e
+# ╔═╡ 3f1c791e-ca7c-11f1-bd8b-9512a0c7e3eb
 md"""
 **2.** Escribe `agrupamiento(A, i)`, el coeficiente de agrupamiento del nodo
 ``i``. Pista: ``(A^3)_{ii}`` es el doble del número de enlaces entre los
 vecinos de ``i``. Si el grado es menor que 2, devuelve `0.0`.
 """
 
-# ╔═╡ e0d7f18a-ca74-11f1-a4b3-7106b38824f6
+# ╔═╡ 3f1c791e-ca7c-11f1-b9e8-a59aa6dbf0f5
 function agrupamiento(A, i)
     missing  # reemplaza esta línea
 end
 
-# ╔═╡ e0d7f196-ca74-11f1-9933-f1be81c6fd18
+# ╔═╡ 3f1c7928-ca7c-11f1-ac93-2755dde07f93
 md"""
 ### Ruta básica: interpretación
 
@@ -543,36 +319,25 @@ md"""
    más que el grado, y explica por qué.
 4. ¿Por qué el agrupamiento de una red de Erdős-Rényi grande es casi cero?
    ¿Qué propiedad de las redes sociales viola ese modelo?
-5. En la red del mercado, ¿qué representa un enlace? ¿Qué significa que una
-   acción tenga grado alto?
-6. Las cadenas de suministro tienen algunos proveedores de los que dependen
-   muchas empresas (por ejemplo, fabricantes de semiconductores). Según la
-   sección 5, ¿ante qué tipo de choque son vulnerables?
-7. ¿Por qué no usamos el árbol de expansión mínima de la sesión 7 para
-   comparar el agrupamiento con los modelos?
+5. ¿Qué ingrediente adicional convierte una red de enlaces aleatorios en una
+   red con concentradores (*hubs*) como la de Barabási-Albert?
 
 ### Ruta avanzada
 
-8. Demuestra que en Erdős-Rényi el grado tiende a una Poisson con media
+6. Demuestra que en Erdős-Rényi el grado tiende a una Poisson con media
    ``c`` cuando ``N \to \infty`` con ``c = p(N-1)`` fijo.
-9. Calcula el vector de Fiedler de la red de los Médici. ¿Qué dos grupos
-   separa? ¿Dónde quedan los Médici y los Strozzi?
-10. Repite la tabla de la sección 6.3 con redes de Barabási-Albert de 1,000,
-    10,000 y 100,000 nodos. ¿Cómo cambia ``\kappa``? ¿Y ``f_c``?
-11. Modifica `curva_robustez` para un ataque **adaptativo**: después de
-    cada eliminación, recalcula los grados y quita el de mayor grado en la
-    red que queda. ¿Es más dañino que el ataque de la sección 5?
+7. Deriva ``C(0) = 3(K-2)/(4(K-1))`` para el anillo de Watts-Strogatz.
 
 ## Para la próxima sesión
 
-- Lectura: Newman (2018), capítulos 6 y 7 (medidas) y 10 y 11 (redes
-  aleatorias); para la ruta avanzada, capítulos 12, 13 y 15.
-- En la sesión 12 la red deja de ser el objeto de estudio y se vuelve el
-  **medio** por donde se propaga algo: cascadas de quiebras en una red
-  interbancaria.
+- Lectura: Slanina (2014), capítulo 6; para la ruta avanzada, Newman (2018),
+  capítulos 12, 13 y 15.
+- En la **sesión 11** (`Code/s11_redes_mercado.jl`) pondremos estos tres
+  modelos frente a la red de correlaciones del S&P 100 y mediremos qué pasa
+  cuando fallan nodos al azar o cuando se ataca a los más conectados.
 """
 
-# ╔═╡ e0d7f196-ca74-11f1-bc2a-ad4892dd329f
+# ╔═╡ 3f1c7932-ca7c-11f1-bd24-cbdbfa5934ad
 md"""
 ---
 ## Apéndice: paquetes y funciones auxiliares
@@ -581,7 +346,7 @@ Estas celdas definen herramientas que usa el cuaderno. No es necesario
 leerlas para seguir la sesión.
 """
 
-# ╔═╡ e0d7f1a0-ca74-11f1-8d69-3de6af162fd1
+# ╔═╡ 3f1c793a-ca7c-11f1-b44c-2daf4fceb1a6
 begin
     const AZUL       = "#2a78d6"   # serie principal
     const NARANJA    = "#eb6834"   # segunda serie o teoría
@@ -592,25 +357,7 @@ begin
     const RAMPA      = ["#86b6ef", "#3987e5", "#1c5cab", "#0d366b"]   # azul secuencial
 end;
 
-# ╔═╡ e0d7f146-ca74-11f1-a3a2-3700e60a40cb
-let
-    sector = [sectores.sector[findfirst(==(tickers[i]), sectores.ticker)] for i in espectro.gigante]
-    nombres = sort(unique(sector))
-    pos = [count(sector .== s .&& espectro.fiedler .> 0) for s in nombres]
-    neg = [count(sector .== s .&& espectro.fiedler .<= 0) for s in nombres]
-    orden = sortperm(pos .- neg)
-    p = bar(1:length(nombres), pos[orden]; color = AZUL, lw = 0, label = "Componente positiva",
-            xticks = (1:length(nombres), nombres[orden]), xrotation = 35, ylabel = "acciones",
-            legend = :topleft, bottom_margin = 10Plots.mm, size = (760, 360),
-            ylims = (-maximum(neg) - 1.5, maximum(pos) + 1.5),
-            title = "Vector de Fiedler del componente gigante (u = $u_mercado)")
-    bar!(p, 1:length(nombres), -neg[orden]; color = NARANJA, lw = 0, label = "Componente negativa")
-    hline!(p, [0]; color = GRIS, lw = 1, label = "")
-end
-
-# ╔═╡ e0d7f1aa-ca74-11f1-b923-774e4347483a
-# Red de matrimonios entre familias florentinas (Padgett y Ansell, 1993), sin
-# los Pucci, que no tienen enlaces.
+# ╔═╡ 3f1c793a-ca7c-11f1-853e-079bc1b5d3a5
 familias, red_medici = let
     nombres = ["Acciaiuoli", "Albizzi", "Barbadori", "Bischeri", "Castellani", "Ginori",
                "Guadagni", "Lamberteschi", "Médici", "Pazzi", "Peruzzi", "Ridolfi",
@@ -629,21 +376,21 @@ familias, red_medici = let
     nombres, g
 end;
 
-# ╔═╡ e0d7f060-ca74-11f1-a27e-83987e394361
+# ╔═╡ 3f1c7888-ca7c-11f1-a340-7b1e96cc191f
 A = Matrix(adjacency_matrix(red_medici));
 
-# ╔═╡ e0d7f074-ca74-11f1-8c9a-1110cd7f4307
+# ╔═╡ 3f1c789c-ca7c-11f1-9d83-2b469ea35840
 k = A * ones(Int, size(A, 1))   # grados
 
-# ╔═╡ e0d7f074-ca74-11f1-b1da-1772f0d64673
+# ╔═╡ 3f1c789c-ca7c-11f1-9e04-4dbf989a995c
 sum(k) ÷ 2, tr(A^3) ÷ 6        # enlaces y triángulos
 
-# ╔═╡ e0d7f06a-ca74-11f1-82dc-0d6b4bea7c1a
+# ╔═╡ 3f1c7888-ca7c-11f1-b92d-ed73bbed2139
 heatmap(familias, familias, A; color = cgrad([BLANCO, AZUL]), yflip = true,
         aspect_ratio = :equal, colorbar = false, xrotation = 60, size = (560, 520),
         title = "Matriz de adyacencia (oscuro = 1)", tickfontsize = 7)
 
-# ╔═╡ e0d7f07e-ca74-11f1-9f60-d143f7948b81
+# ╔═╡ 3f1c789c-ca7c-11f1-90cf-cdf6661d485d
 md"""
 Hay $(sum(k) ÷ 2) enlaces y sólo $(tr(A^3) ÷ 6) triángulos. Los Médici tienen
 grado $(k[findfirst(==("Médici"), familias)]), el mayor de la red, pero los
@@ -651,7 +398,7 @@ Strozzi y los Guadagni tienen 4: el grado por sí solo no explica la
 diferencia.
 """
 
-# ╔═╡ e0d7f086-ca74-11f1-84fd-7f1498de11af
+# ╔═╡ 3f1c78a8-ca7c-11f1-8a14-530b694f00a5
 medidas = DataFrame(familia = familias,
                     grado = degree(red_medici),
                     cercania = closeness_centrality(red_medici),
@@ -659,7 +406,7 @@ medidas = DataFrame(familia = familias,
                     eigenvector = eigenvector_centrality(red_medici),
                     agrupamiento = local_clustering_coefficient(red_medici));
 
-# ╔═╡ e0d7f092-ca74-11f1-829b-896ab59aa9d7
+# ╔═╡ 3f1c78b0-ca7c-11f1-82aa-b1d5eb4ebe00
 let
     d = sort(medidas, :intermediacion; rev = true)
     redondear(x) = x isa AbstractFloat ? round(x, digits = 2) : x
@@ -667,7 +414,7 @@ let
     rename!(d, ["Familia", "Grado", "Cercanía", "Intermediación", "Eigenvector", "Agrupamiento"])
 end
 
-# ╔═╡ e0d7f092-ca74-11f1-a925-65fcb32491bf
+# ╔═╡ 3f1c78b0-ca7c-11f1-9bc8-7144bc9c2836
 let
     d = sort(medidas, :intermediacion; rev = true)
     f(c) = d[!, c] ./ maximum(d[!, c])
@@ -683,32 +430,14 @@ let
     p
 end
 
-# ╔═╡ e0d7f1aa-ca74-11f1-8406-bd261d657865
-"Datos ordenados de mayor a menor y su CCDF empírica, P(X ≥ x)."
-function ccdf_empirica(x)
-    s = sort(x; rev = true)
-    s, (1:length(s)) ./ length(s)
-end
-
-# ╔═╡ e0d7f10a-ca74-11f1-8a66-99071333a2ad
-let
-    p = plot(; xlabel = "grado k", ylabel = "P(K ≥ k)", legend = :topright, ylims = (0, 1.02),
-             title = "Distribución de grados: mercado contra los modelos")
-    for ((nombre, g), color, m) in zip(comparacion, (AZUL, NARANJA, GRIS), (:circle, :diamond, :square))
-        s, P = ccdf_empirica(degree(g))
-        plot!(p, s, P; seriestype = :steppost, color, lw = 2, label = nombre)
-    end
-    p
-end
-
-# ╔═╡ e0d7f1b4-ca74-11f1-9bc3-5b0b1b1e6fca
+# ╔═╡ 3f1c7946-ca7c-11f1-a025-ff523b8bb362
 "Grados distintos (mayores que cero) y la fracción de nodos con grado mayor o igual, P(K ≥ k)."
 function ccdf_grados(k)
     s = sort(unique(filter(>(0), k)))
     s, [mean(k .>= x) for x in s]
 end
 
-# ╔═╡ e0d7f0d8-ca74-11f1-a759-cb2780abcf5f
+# ╔═╡ 3f1c78f6-ca7c-11f1-a955-9b8575ccde5b
 let
     p = plot(; xscale = :log10, yscale = :log10, xlabel = "grado k", ylabel = "P(K ≥ k)",
              legend = :topright, ylims = (5e-5, 1.5), title = "Distribución de grados, ⟨k⟩ = 4")
@@ -721,36 +450,11 @@ let
           label = "m(m+1)/(k(k+1)), pendiente -2")
 end
 
-# ╔═╡ e0d7f1b4-ca74-11f1-bf50-0361413a394a
+# ╔═╡ 3f1c7946-ca7c-11f1-b137-a343ee898337
 "Fracción de los nodos que está en el componente conexo más grande."
 componente_gigante(g) = maximum(length.(connected_components(g))) / nv(g)
 
-# ╔═╡ e0d7f1bc-ca74-11f1-b6c9-9dbd5873fc5d
-"Distancia promedio entre pares de nodos del componente gigante."
-function distancia_promedio(g)
-    cc = connected_components(g)
-    sub, _ = induced_subgraph(g, cc[argmax(length.(cc))])
-    n = nv(sub)
-    n < 2 && return 0.0
-    sum(sum(gdistances(sub, v)) for v in vertices(sub)) / (n * (n - 1))
-end
-
-# ╔═╡ e0d7f10a-ca74-11f1-9443-edad34e7271c
-let
-    filas = map(comparacion) do (nombre, g)
-        kk = degree(g)
-        "| $nombre | $(ne(g)) | $(round(mean(kk), digits = 1)) | $(maximum(kk)) | " *
-        "$(round(global_clustering_coefficient(g), digits = 2)) | " *
-        "$(round(distancia_promedio(g), digits = 2)) | $(round(Int, 100 * componente_gigante(g)))% |"
-    end
-    Markdown.parse("""
-    | Red | Enlaces | Grado promedio | Grado máximo | Agrupamiento | Distancia promedio | Componente gigante |
-    |---|---|---|---|---|---|---|
-    $(join(filas, "\n"))
-    """)
-end
-
-# ╔═╡ e0d7f1bc-ca74-11f1-80cf-6978cccf2a02
+# ╔═╡ 3f1c7950-ca7c-11f1-b253-85ef6d7832d4
 "Solución de S = 1 - exp(-cS), la fracción en el componente gigante de Erdős-Rényi."
 function S_teoria(c)
     S = 1.0
@@ -760,10 +464,10 @@ function S_teoria(c)
     S < 1e-6 ? 0.0 : S
 end
 
-# ╔═╡ e0d7f1bc-ca74-11f1-9881-8de605711fcc
+# ╔═╡ 3f1c7950-ca7c-11f1-ad79-67fa3b209fcc
 grid_c = 0.2:0.2:4.0;
 
-# ╔═╡ e0d7f1c8-ca74-11f1-953e-4f9a33b48dfa
+# ╔═╡ 3f1c795a-ca7c-11f1-a261-7573734e3cb5
 "Agrupamiento y distancia promedio de Watts-Strogatz (N = 1000, K = 10) en función de p."
 barrido_ws = let
     ps = [0.0; exp10.(range(-4, 0, length = 13))]
@@ -772,14 +476,13 @@ barrido_ws = let
         Lm = mean(mean(gdistances(g, s)) * 1000 / 999 for s in 1:20:1000)
         (global_clustering_coefficient(g), Lm)
     end
-    (p = [1e-5; ps[2:end]], C = first.(res), L = last.(res))   # p = 0 se dibuja en 10⁻⁵
+    (p = [1e-5; ps[2:end]], C = first.(res), L = last.(res))
 end;
 
-# ╔═╡ e0d7f1c8-ca74-11f1-83df-413a0a06496e
+# ╔═╡ 3f1c795a-ca7c-11f1-b6e3-27e6fcc1c69d
 """
 Posiciones 2D para dibujar una red: escalamiento multidimensional clásico de
-las distancias en la red, refinado con mayorización de estrés. Los pares sin
-camino se tratan como si estuvieran a la distancia máxima más uno.
+las distancias en la red, refinado con mayorización de estrés.
 """
 function disposicion(g; iter = 200)
     n = nv(g)
@@ -800,16 +503,7 @@ function disposicion(g; iter = 200)
     X
 end
 
-# ╔═╡ e0d7f1d2-ca74-11f1-905e-7db29ba59dae
-"Posiciones de las acciones a partir de la distancia de correlación (escalamiento multidimensional clásico)."
-posiciones_mercado = let
-    D2 = 2 .* (1 .- C)
-    Jc = I - fill(1 / N, N, N)
-    F = eigen(Symmetric(-Jc * D2 * Jc / 2))
-    F.vectors[:, end-1:end] .* sqrt.(F.values[end-1:end])'
-end;
-
-# ╔═╡ e0d7f1dc-ca74-11f1-b0ad-3f7dad281bd3
+# ╔═╡ 3f1c7964-ca7c-11f1-a779-4d2cd4335275
 "Dibuja una red con posiciones `X` (n × 2). Los enlaces en `resaltar` van en naranja."
 function dibujar_red(g, X; tam = 4, colores = AZUL, alpha_enlaces = 0.5, resaltar = Tuple{Int,Int}[],
                      kwargs...)
@@ -827,7 +521,7 @@ function dibujar_red(g, X; tam = 4, colores = AZUL, alpha_enlaces = 0.5, resalta
     scatter!(p, X[:, 1], X[:, 2]; ms = tam, color = colores, msw = 0.5, msc = BLANCO, label = "")
 end
 
-# ╔═╡ e0d7f04c-ca74-11f1-a061-b1a98b66a858
+# ╔═╡ 3f1c7874-ca7c-11f1-a05b-d7aa35ea1c12
 let
     X = disposicion(red_medici)
     tam = 4 .+ 3 .* degree(red_medici)
@@ -838,7 +532,7 @@ let
     p
 end
 
-# ╔═╡ e0d7f0a6-ca74-11f1-ad28-215f81fe1756
+# ╔═╡ 3f1c78c4-ca7c-11f1-9cce-83accb58ba0e
 let
     g = erdos_renyi(300, c_er / 299; seed = 4)
     X = disposicion(g)
@@ -856,7 +550,7 @@ let
     plot(p1, p2; layout = (1, 2), size = (920, 400))
 end
 
-# ╔═╡ e0d7f0ba-ca74-11f1-85f1-1f7b7566fda6
+# ╔═╡ 3f1c78da-ca7c-11f1-86ef-57becda0850f
 let
     n = 40
     g = watts_strogatz(n, 4, p_ws; seed = 2)
@@ -875,141 +569,7 @@ let
     plot(p1, p2; layout = (1, 2), size = (920, 400))
 end
 
-# ╔═╡ e0d7f0f8-ca74-11f1-9901-4b55f77e5795
-let
-    sector = [sectores.sector[findfirst(==(t), sectores.ticker)] for t in tickers]
-    destacados = ["Finanzas", "Tecnología", "Servicios públicos"]
-    paleta = Dict("Finanzas" => AZUL, "Tecnología" => NARANJA, "Servicios públicos" => VERDE)
-    colores = [get(paleta, s, GRIS_CLARO) for s in sector]
-    kk = degree(mercado)
-    p = dibujar_red(mercado, posiciones_mercado; tam = 3 .+ 0.35 .* kk, colores,
-                    size = (720, 520), alpha_enlaces = 0.12,
-                    title = "Acciones con correlación mayor que $u_mercado: $(ne(mercado)) enlaces")
-    for s in destacados
-        scatter!(p, [NaN], [NaN]; color = paleta[s], ms = 6, msw = 0, label = s)
-    end
-    scatter!(p, [NaN], [NaN]; color = GRIS_CLARO, ms = 6, msw = 0, label = "Otros sectores")
-    for i in sortperm(kk; rev = true)[1:5]
-        annotate!(p, posiciones_mercado[i, 1], posiciones_mercado[i, 2] + 0.06, text(tickers[i], 8, GRIS))
-    end
-    plot!(p; legend = :bottomleft)
-end
-
-# ╔═╡ e0d7f1dc-ca74-11f1-ac2a-692208ea9ece
-"""
-Fracción de los nodos originales en el componente gigante al quitar los
-nodos en el `orden` dado. El resultado `S[q + 1]` corresponde a `q` nodos
-quitados. Se calcula al revés: se agregan los nodos del último al primero y
-se unen sus grupos con una estructura de conjuntos disjuntos.
-"""
-function curva_robustez(g, orden)
-    n = nv(g)
-    jefe, tam = collect(1:n), ones(Int, n)
-    activo = falses(n)
-    raiz(i) = jefe[i] == i ? i : (jefe[i] = raiz(jefe[i]))
-    S = zeros(n + 1)
-    mayor = 0
-    for (t, v) in enumerate(reverse(orden))
-        activo[v] = true
-        for u in neighbors(g, v)
-            activo[u] || continue
-            a, b = raiz(u), raiz(v)
-            a == b && continue
-            tam[a] < tam[b] && ((a, b) = (b, a))
-            jefe[b] = a
-            tam[a] += tam[b]
-        end
-        mayor = max(mayor, tam[raiz(v)])
-        S[n-t+1] = mayor / n
-    end
-    S
-end
-
-# ╔═╡ e0d7f11e-ca74-11f1-91b6-ab68e2e26691
-robustez = Dict(
-    (nombre, escenario) => curva_robustez(g, escenario == "Fallas" ? randperm(Xoshiro(3), nv(g)) :
-                                              sortperm(degree(g); rev = true))
-    for (nombre, g) in (("Erdős-Rényi", er), ("Barabási-Albert", ba)), escenario in ("Fallas", "Ataque"));
-
-# ╔═╡ e0d7f12a-ca74-11f1-b254-f944186e4f0e
-let
-    f = (0:nv(er)) ./ nv(er)
-    p = plot(; xlabel = "fracción de nodos eliminados f", ylabel = "fracción en el componente gigante",
-             xlims = (0, 1), ylims = (0, 1.02), legend = :topright,
-             title = "Robustez de dos redes con ⟨k⟩ = 4 (N = 10,000)")
-    for (nombre, color) in (("Erdős-Rényi", NARANJA), ("Barabási-Albert", AZUL))
-        plot!(p, f, robustez[(nombre, "Fallas")]; color, lw = 2, label = "$nombre, fallas al azar")
-        plot!(p, f, robustez[(nombre, "Ataque")]; color, lw = 2, ls = :dash, label = "$nombre, ataque")
-    end
-    p
-end
-
-# ╔═╡ e0d7f164-ca74-11f1-bf05-4bd8e4b2230b
-let
-    filas = map((("Erdős-Rényi", er), ("Barabási-Albert", ba))) do (nombre, g)
-        kk = degree(g)
-        κ = mean(kk .^ 2) / mean(kk)
-        S = robustez[(nombre, "Fallas")]
-        f_sim = (findfirst(<(0.01), S) - 1) / nv(g)
-        "| $nombre | $(round(κ, digits = 1)) | $(round(1 - 1 / (κ - 1), digits = 2)) | $(round(f_sim, digits = 2)) |"
-    end
-    Markdown.parse("""
-    | Red (N = 10,000) | ``\\kappa`` | ``f_c`` teórico | ``f`` donde el gigante baja de 1% |
-    |---|---|---|---|
-    $(join(filas, "\n"))
-    """)
-end
-
-# ╔═╡ e0d7f132-ca74-11f1-9b64-555ca9122714
-let
-    f = (0:N) ./ N
-    azar = mean(curva_robustez(mercado, randperm(Xoshiro(s), N)) for s in 1:200)
-    ataque = curva_robustez(mercado, sortperm(degree(mercado); rev = true))
-    plot(f, azar; color = AZUL, lw = 2, label = "Fallas al azar (promedio de 200)",
-         xlabel = "fracción de acciones eliminadas", ylabel = "fracción en el componente gigante",
-         ylims = (0, 1.02), xlims = (0, 1), legend = :topright,
-         title = "Red del mercado con u = $u_mercado")
-    plot!(f, ataque; color = NARANJA, lw = 2, ls = :dash, label = "Ataque a las más conectadas")
-end
-
-# ╔═╡ e0d7f1e6-ca74-11f1-bc5d-b1aa0b9e1c75
-"Recablea `veces` pares de enlaces (a-b, c-d) → (a-d, c-b) sin cambiar los grados."
-function recablear(g, veces; rng = Xoshiro(3))
-    h = copy(g)
-    E = [(src(e), dst(e)) for e in edges(h)]
-    hechos = 0
-    while hechos < veces
-        i, j = rand(rng, 1:length(E), 2)
-        i == j && continue
-        (a, b), (c, d) = E[i], E[j]
-        rand(rng, Bool) && ((c, d) = (d, c))
-        (a == d || c == b || has_edge(h, a, d) || has_edge(h, c, b)) && continue
-        rem_edge!(h, a, b); rem_edge!(h, c, d)
-        add_edge!(h, a, d); add_edge!(h, c, b)
-        E[i], E[j] = (a, d), (c, b)
-        hechos += 1
-    end
-    h
-end
-
-# ╔═╡ e0d7f15c-ca74-11f1-bb62-bd05aa38f413
-recableada = recablear(mercado, 20ne(mercado));
-
-# ╔═╡ e0d7f15c-ca74-11f1-810a-9f6ba8acc819
-let
-    ag(g) = round(global_clustering_coefficient(g), digits = 2)
-    as(g) = round(assortativity(g), digits = 2)
-    ba_m = comparacion[3][2]
-    Markdown.parse("""
-    | Red | Agrupamiento | Asortatividad |
-    |---|---|---|
-    | Mercado | $(ag(mercado)) | $(as(mercado)) |
-    | Configuración (mismos grados) | $(ag(recableada)) | $(as(recableada)) |
-    | Barabási-Albert | $(ag(ba_m)) | $(as(ba_m)) |
-    """)
-end
-
-# ╔═╡ e0d7f1e6-ca74-11f1-81c4-1300a34d4b6b
+# ╔═╡ 3f1c7964-ca7c-11f1-9537-a100e0ec8579
 "Muestra si la respuesta de un ejercicio es correcta."
 function verificar(f, esperado; rtol = 1e-8, pista = md"")
     caja(tipo, titulo, texto) = Markdown.MD(Markdown.Admonition(tipo, titulo, [texto]))
@@ -1030,91 +590,61 @@ function verificar(f, esperado; rtol = 1e-8, pista = md"")
     end
 end
 
-# ╔═╡ e0d7f182-ca74-11f1-b496-37dd61b3dcd9
+# ╔═╡ 3f1c7914-ca7c-11f1-a9d9-fbc69ed33de5
 verificar(() -> grados([0 1 1 0; 1 0 1 0; 1 1 0 1; 0 0 1 0]), [2, 2, 3, 1];
           pista = md"El grado es la suma de cada fila: `vec(sum(A; dims = 2))`, o bien `A * ones(Int, size(A, 1))`.")
 
-# ╔═╡ e0d7f18a-ca74-11f1-b1d9-9f2bdbbb0d7e
+# ╔═╡ 3f1c7928-ca7c-11f1-9787-3900c2b9da60
 verificar(() -> [agrupamiento([0 1 1 0; 1 0 1 0; 1 1 0 1; 0 0 1 0], i) for i in 1:4],
           [1.0, 1.0, 1 / 3, 0.0];
           pista = md"Con `k = sum(A[i, :])`, el resultado es `(A^3)[i, i] / (k * (k - 1))` si `k ≥ 2`.")
 
 # ╔═╡ Cell order:
-# ╟─e0d7f010-ca74-11f1-85ba-21c553f7f4ca
-# ╟─e0d7f042-ca74-11f1-9e89-f1daead71c66
-# ╟─e0d7f042-ca74-11f1-9b9b-bf61222ef90e
-# ╟─e0d7f04c-ca74-11f1-a061-b1a98b66a858
-# ╟─e0d7f054-ca74-11f1-a7f8-7fc69afd2677
-# ╟─e0d7f060-ca74-11f1-afcf-3f0be9b73f95
-# ╠═e0d7f060-ca74-11f1-a27e-83987e394361
-# ╟─e0d7f06a-ca74-11f1-82dc-0d6b4bea7c1a
-# ╟─e0d7f074-ca74-11f1-8a52-ad95f92bac20
-# ╠═e0d7f074-ca74-11f1-8c9a-1110cd7f4307
-# ╠═e0d7f074-ca74-11f1-b1da-1772f0d64673
-# ╟─e0d7f07e-ca74-11f1-9f60-d143f7948b81
-# ╟─e0d7f07e-ca74-11f1-8b47-1d213bbd6cf6
-# ╠═e0d7f086-ca74-11f1-84fd-7f1498de11af
-# ╟─e0d7f092-ca74-11f1-829b-896ab59aa9d7
-# ╟─e0d7f092-ca74-11f1-a925-65fcb32491bf
-# ╟─e0d7f09c-ca74-11f1-b29a-c519129128eb
-# ╟─e0d7f09c-ca74-11f1-b78e-39caf369d470
-# ╟─e0d7f0a6-ca74-11f1-ad28-215f81fe1756
-# ╟─e0d7f0a6-ca74-11f1-a645-15ea44c6a556
-# ╟─e0d7f0b0-ca74-11f1-96a8-1b361c208b90
-# ╟─e0d7f0ba-ca74-11f1-85f1-1f7b7566fda6
-# ╟─e0d7f0ba-ca74-11f1-aa26-9fd7ac2b4a39
-# ╟─e0d7f0c4-ca74-11f1-b9ca-9761fa94be5d
-# ╠═e0d7f0c4-ca74-11f1-bbdb-b3ccf448dfde
-# ╠═e0d7f0ce-ca74-11f1-824c-875a93ceb7bd
-# ╟─e0d7f0d8-ca74-11f1-a759-cb2780abcf5f
-# ╟─e0d7f0d8-ca74-11f1-ba7d-15b1e3992707
-# ╟─e0d7f0e2-ca74-11f1-aee2-abe41cc8a11b
-# ╠═e0d7f0e2-ca74-11f1-a9a3-f3ada2b8760a
-# ╟─e0d7f0ec-ca74-11f1-a8f5-d9a143cba875
-# ╠═e0d7f0ec-ca74-11f1-a0a3-f3233fb283d3
-# ╟─e0d7f0f8-ca74-11f1-9901-4b55f77e5795
-# ╟─e0d7f0f8-ca74-11f1-8d5d-c9e53198e7fb
-# ╠═e0d7f100-ca74-11f1-8ff7-971ebab08b0b
-# ╟─e0d7f10a-ca74-11f1-9443-edad34e7271c
-# ╟─e0d7f10a-ca74-11f1-8a66-99071333a2ad
-# ╟─e0d7f114-ca74-11f1-a56a-9774d0bbef1d
-# ╟─e0d7f11e-ca74-11f1-b080-05a7a7f7a26c
-# ╠═e0d7f11e-ca74-11f1-91b6-ab68e2e26691
-# ╟─e0d7f12a-ca74-11f1-b254-f944186e4f0e
-# ╟─e0d7f12a-ca74-11f1-8ee3-c92beb47ee9a
-# ╟─e0d7f132-ca74-11f1-9b64-555ca9122714
-# ╟─e0d7f132-ca74-11f1-b28e-03d6f5878f33
-# ╟─e0d7f13c-ca74-11f1-906c-ffab47990745
-# ╠═e0d7f146-ca74-11f1-a7c4-2396f7e8dc36
-# ╟─e0d7f146-ca74-11f1-a3a2-3700e60a40cb
-# ╟─e0d7f150-ca74-11f1-a081-0b4de8b76ae2
-# ╠═e0d7f15c-ca74-11f1-bb62-bd05aa38f413
-# ╟─e0d7f15c-ca74-11f1-810a-9f6ba8acc819
-# ╟─e0d7f164-ca74-11f1-95a1-a589fe28970b
-# ╟─e0d7f164-ca74-11f1-bf05-4bd8e4b2230b
-# ╟─e0d7f16e-ca74-11f1-908b-d58a58becb77
-# ╟─e0d7f16e-ca74-11f1-8ea9-2f1713b828b4
-# ╟─e0d7f178-ca74-11f1-bb3f-815556fb8bbc
-# ╠═e0d7f178-ca74-11f1-b3c0-7594c103d6e9
-# ╟─e0d7f182-ca74-11f1-b496-37dd61b3dcd9
-# ╟─e0d7f182-ca74-11f1-afc7-17a1140e258e
-# ╠═e0d7f18a-ca74-11f1-a4b3-7106b38824f6
-# ╟─e0d7f18a-ca74-11f1-b1d9-9f2bdbbb0d7e
-# ╟─e0d7f196-ca74-11f1-9933-f1be81c6fd18
-# ╟─e0d7f196-ca74-11f1-bc2a-ad4892dd329f
-# ╠═e0d7f1a0-ca74-11f1-8329-cb6e66e5960d
-# ╠═e0d7f1a0-ca74-11f1-8d69-3de6af162fd1
-# ╠═e0d7f1aa-ca74-11f1-b923-774e4347483a
-# ╠═e0d7f1aa-ca74-11f1-8406-bd261d657865
-# ╠═e0d7f1b4-ca74-11f1-9bc3-5b0b1b1e6fca
-# ╠═e0d7f1b4-ca74-11f1-bf50-0361413a394a
-# ╠═e0d7f1bc-ca74-11f1-b6c9-9dbd5873fc5d
-# ╠═e0d7f1bc-ca74-11f1-80cf-6978cccf2a02
-# ╠═e0d7f1bc-ca74-11f1-9881-8de605711fcc
-# ╠═e0d7f1c8-ca74-11f1-953e-4f9a33b48dfa
-# ╠═e0d7f1c8-ca74-11f1-83df-413a0a06496e
-# ╠═e0d7f1d2-ca74-11f1-905e-7db29ba59dae
-# ╠═e0d7f1dc-ca74-11f1-b0ad-3f7dad281bd3
-# ╠═e0d7f1dc-ca74-11f1-ac2a-692208ea9ece
-# ╠═e0d7f1e6-ca74-11f1-bc5d-b1aa0b9e1c75
-# ╠═e0d7f1e6-ca74-11f1-81c4-1300a34d4b6b
+# ╟─3f1c782e-ca7c-11f1-83c4-4b057b6f87b4
+# ╟─3f1c786a-ca7c-11f1-9bc6-911dc6ac43ab
+# ╟─3f1c7874-ca7c-11f1-9e8a-edff5d711a12
+# ╟─3f1c7874-ca7c-11f1-a05b-d7aa35ea1c12
+# ╟─3f1c787e-ca7c-11f1-9604-55c861728af1
+# ╟─3f1c787e-ca7c-11f1-9eae-b9184073ebfa
+# ╠═3f1c7888-ca7c-11f1-a340-7b1e96cc191f
+# ╟─3f1c7888-ca7c-11f1-b92d-ed73bbed2139
+# ╟─3f1c7892-ca7c-11f1-b712-bd8f734a5168
+# ╠═3f1c789c-ca7c-11f1-9d83-2b469ea35840
+# ╠═3f1c789c-ca7c-11f1-9e04-4dbf989a995c
+# ╟─3f1c789c-ca7c-11f1-90cf-cdf6661d485d
+# ╟─3f1c78a8-ca7c-11f1-a863-89a42ec26fec
+# ╠═3f1c78a8-ca7c-11f1-8a14-530b694f00a5
+# ╟─3f1c78b0-ca7c-11f1-82aa-b1d5eb4ebe00
+# ╟─3f1c78b0-ca7c-11f1-9bc8-7144bc9c2836
+# ╟─3f1c78ba-ca7c-11f1-ac59-3344252f4ce5
+# ╟─3f1c78c4-ca7c-11f1-a6ea-9d3e6e333a65
+# ╟─3f1c78c4-ca7c-11f1-9cce-83accb58ba0e
+# ╟─3f1c78ce-ca7c-11f1-8e03-17005ed9a426
+# ╟─3f1c78da-ca7c-11f1-b0c8-a72fa8dcd0ff
+# ╟─3f1c78da-ca7c-11f1-86ef-57becda0850f
+# ╟─3f1c78e2-ca7c-11f1-85cd-e73770578747
+# ╟─3f1c78ec-ca7c-11f1-8a5c-bd33a27031ea
+# ╠═3f1c78ec-ca7c-11f1-9511-97cbb51bb086
+# ╠═3f1c78f6-ca7c-11f1-9b2c-4d12e396b95e
+# ╟─3f1c78f6-ca7c-11f1-a955-9b8575ccde5b
+# ╟─3f1c7900-ca7c-11f1-8846-d94805673f3f
+# ╟─3f1c790c-ca7c-11f1-975f-d1cda142c972
+# ╟─3f1c790c-ca7c-11f1-bd28-3d0588bceb32
+# ╠═3f1c7914-ca7c-11f1-bc4c-13f118b24c40
+# ╟─3f1c7914-ca7c-11f1-a9d9-fbc69ed33de5
+# ╟─3f1c791e-ca7c-11f1-bd8b-9512a0c7e3eb
+# ╠═3f1c791e-ca7c-11f1-b9e8-a59aa6dbf0f5
+# ╟─3f1c7928-ca7c-11f1-9787-3900c2b9da60
+# ╟─3f1c7928-ca7c-11f1-ac93-2755dde07f93
+# ╟─3f1c7932-ca7c-11f1-bd24-cbdbfa5934ad
+# ╠═3f1c7932-ca7c-11f1-87f7-1b451f36d22a
+# ╠═3f1c793a-ca7c-11f1-b44c-2daf4fceb1a6
+# ╠═3f1c793a-ca7c-11f1-853e-079bc1b5d3a5
+# ╠═3f1c7946-ca7c-11f1-a025-ff523b8bb362
+# ╠═3f1c7946-ca7c-11f1-b137-a343ee898337
+# ╠═3f1c7950-ca7c-11f1-b253-85ef6d7832d4
+# ╠═3f1c7950-ca7c-11f1-ad79-67fa3b209fcc
+# ╠═3f1c795a-ca7c-11f1-a261-7573734e3cb5
+# ╠═3f1c795a-ca7c-11f1-b6e3-27e6fcc1c69d
+# ╠═3f1c7964-ca7c-11f1-a779-4d2cd4335275
+# ╠═3f1c7964-ca7c-11f1-9537-a100e0ec8579
