@@ -5,6 +5,19 @@
 > aquí. Lo que no tiene marca es **ruta básica**. Las secciones y
 > demostraciones marcadas **[Avanzado]** son opcionales.
 >
+> Repaso recomendado: [C.B1](repaso/calculo.md#cb1) (logaritmos),
+> [P.B1–B5](repaso/probabilidad.md#pb1) (variables aleatorias, media,
+> varianza, normal), [E.B1](repaso/procesos_estocasticos.md#eb1) (procesos
+> estocásticos), [S.B1–B3](repaso/estadistica.md#sb1) y
+> [S.B5](repaso/estadistica.md#sb5) (estimación, pruebas y permutaciones),
+> [P.I1–I3](repaso/probabilidad.md#pi1) (correlación, esperanza condicional,
+> TLC), [E.I1–I2](repaso/procesos_estocasticos.md#ei1) (autocorrelación y
+> martingalas), [C.I1](repaso/calculo.md#ci1) (Taylor),
+> [S.I4](repaso/estadistica.md#si4) (datos dependientes); para la ruta
+> avanzada, [P.A1](repaso/probabilidad.md#pa1) (cumulantes),
+> [F.A2](repaso/fisica_estadistica.md#fa2) (universalidad) y
+> [S.A4](repaso/estadistica.md#sa4) (memoria larga).
+>
 > Lecturas: Cont (2001), secciones 1–3; Mantegna & Stanley, caps. 1–2, 5 y 7;
 > Slanina 1.1–1.2; Requião da Cunha 2.4.
 
@@ -468,8 +481,8 @@ temporal.
 $\pi$ es una permutación aleatoria uniforme de $\lbrace1, \dots, N\rbrace$. Conserva
 **exactamente** la distribución empírica (mismo histograma, misma
 $\hat\kappa$) y destruye el orden temporal: bajo la permutación,
-$\mathbb{E}[\hat\rho(\tau)] = -1/(N-1) \approx 0$ para toda función de los
-retornos, incluida $|r|$.
+$\mathbb{E}[\hat\rho(\tau)] = -(N-\tau)/\big(N(N-1)\big) \approx -1/N \approx 0$ para toda
+función de los retornos, incluida $|r|$.
 
 | | Colas pesadas | ACF de $r$ ≈ 0 | ACF de $\lvert r\rvert$ > 0 |
 |---|---|---|---|

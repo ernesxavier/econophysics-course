@@ -214,13 +214,13 @@ Dispersión ``\sigma``: $(@bind σ_ln Slider(0.5:0.25:3.0, default = 2.0, show_v
 
 #%% hide
 let
-    x = rand(Xoshiro(semilla_ln), LogNormal(0, σ_ln), 10_000)
+    x = muestra_lognormal
     s, P = ccdf_empirica(x)
     cola = s .>= quantile(x, 0.95)
-    b = pendiente(log.(s[cola]), log.(P[cola]))
+    b = pendiente_lognormal
     a = mean(log.(P[cola])) - b * mean(log.(s[cola]))
     p = scatter(s, P; xscale = :log10, yscale = :log10, ms = 2, msw = 0, color = AZUL,
-                label = "Datos lognormales (σ = $(σ_ln))", legend = :topright,
+                label = "Datos lognormales (σ = $(σ_ln))", legend = :bottomleft,
                 xlabel = "x", ylabel = "P(X ≥ x)", ylims = (5e-5, 1.2), xlims = (1e-4, 1e5),
                 xticks = 10.0 .^ (-4:1:5),
                 title = "Una lognormal puede parecer ley de potencias")
@@ -230,12 +230,24 @@ let
 end
 
 #%% hide
+muestra_lognormal = rand(Xoshiro(semilla_ln), LogNormal(0, σ_ln), 10_000);
+
+#%% hide
+pendiente_lognormal = let
+    s, P = ccdf_empirica(muestra_lognormal)
+    cola = s .>= quantile(muestra_lognormal, 0.95)
+    pendiente(log.(s[cola]), log.(P[cola]))
+end;
+
+#%% hide
 md"""
 Con ``\sigma`` pequeña, toda la caída ocurre en menos de un orden de magnitud:
 nadie la confundiría con una ley de potencias. Con ``\sigma \ge 2``, los datos
-se extienden por varios órdenes de magnitud y la parte alta parece una recta y uno estaría tentado a reportar "una ley de
-potencias con ``\alpha \approx 1``". Por eso, antes de afirmar que algo sigue
-una ley de potencias, hace falta:
+se extienden por varios órdenes de magnitud y la parte alta parece una recta.
+Con ``\sigma = `` $(σ_ln), la recta ajustada al 5% superior da
+``\alpha \approx`` $(round(-pendiente_lognormal, digits = 1)), y alguien podría
+reportar "una ley de potencias" aunque los datos son lognormales. Por eso,
+antes de afirmar que algo sigue una ley de potencias, hace falta:
 
 1. Que la recta abarque **varios órdenes de magnitud** en ``x``.
 2. Estimar ``\alpha`` con un **método correcto** (sección 5), no con una regla.
@@ -768,10 +780,12 @@ function verificar(f, esperado; rtol = 1e-8, pista = md"")
     catch e
         return caja("danger", "Tu código produce un error", md"$(sprint(showerror, e))")
     end
-    if resultado === missing
+    if resultado === missing || (resultado isa AbstractArray && any(ismissing, resultado))
         caja("warning", "Pendiente", md"Reemplaza `missing` por tu código.")
-    elseif resultado isa typeof(esperado) && size(resultado) == size(esperado) &&
+    elseif resultado isa AbstractArray && esperado isa AbstractArray && size(resultado) == size(esperado) &&
            all(isapprox.(resultado, esperado; rtol, atol = 1e-12))
+        caja("correct", "¡Correcto!", md"Bien hecho.")
+    elseif resultado isa typeof(esperado) && all(isapprox.(resultado, esperado; rtol, atol = 1e-12))
         caja("correct", "¡Correcto!", md"Bien hecho.")
     else
         caja("danger", "Todavía no", pista)

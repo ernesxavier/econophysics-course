@@ -198,9 +198,10 @@ de cada activo, incluidas sus colas pesadas, y destruye la alineación de los
 días entre activos. Bajo la hipótesis nula, todas esas permutaciones son
 igual de probables ([S.B5](repaso/estadistica.md#sb5)).
 
-**Resultado.** Con los datos barajados, los eigenvalores quedan entre 0.69 y
-1.35. Con los datos reales, 8 eigenvalores quedan por encima de 1.35 y
-explican juntos el 58% de la varianza.
+**Resultado.** Con los datos barajados, los eigenvalores quedan
+aproximadamente entre 0.7 y 1.35 (los valores exactos cambian un poco con
+cada permutación). Con los datos reales, 8 eigenvalores quedan por encima de
+ese máximo y explican juntos el 58% de la varianza.
 
 Dos observaciones:
 

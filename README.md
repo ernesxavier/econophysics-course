@@ -63,7 +63,7 @@ Matemáticas), con simulaciones en Julia.
 │   └── Manifest.toml
 ├── src/                       → Fuentes de los cuadernos de Pluto (formato #%%)
 │   ├── construir_cuaderno.jl  → Genera y ejecuta un cuaderno a partir de su fuente
-│   └── sNN_tema.jl            → Fuente de Code/sNN_tema.jl (sesiones 2 a 10)
+│   └── sNN_tema.jl            → Fuente de Code/sNN_tema.jl (sesiones 1 a 10)
 └── README.md
 ```
 

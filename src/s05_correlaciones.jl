@@ -313,8 +313,9 @@ Cada eigenvector cuenta una historia económica:
 - ``v_3`` separa a los **bancos** de las empresas de software.
 - ``v_4`` separa a los **semiconductores** (AMAT, LRCX, MU, INTC) del
   software, dentro del mismo sector de tecnología.
-- ``v_5`` reúne a las **farmacéuticas** y ``v_6`` a la **energía** con la
-  industria de **defensa**.
+- ``v_5`` opone las **farmacéuticas** a los servicios públicos y las
+  tabacaleras, y ``v_6`` junta a la **energía** con la industria de
+  **defensa**, frente a comercio y bancos.
 
 Los sectores oficiales no son la última palabra: los datos encuentran grupos
 que cruzan sectores (defensivas) o que los parten (semiconductores contra
@@ -406,8 +407,10 @@ $(round(mean(prueba_sectores.azar), digits = 1)) enlaces unirían acciones del
 mismo sector; el árbol real tiene $(prueba_sectores.observado). Ninguna de
 las 999 permutaciones se acerca.
 
-El árbol es nuestra primera **red**. En la semana 8 lo usaremos para medir
-grados, centralidad y robustez.
+El árbol es nuestra primera **red**. En la semana 8 estudiaremos las redes
+en general: grados, centralidad y robustez. Ahí veremos que, para comparar el
+mercado con modelos de redes, conviene otra red construida con las mismas
+correlaciones, porque un árbol no tiene triángulos.
 """
 
 #%% hide
@@ -551,7 +554,6 @@ md"""
 ## Para la próxima sesión
 
 - Lectura: Mantegna y Stanley (1999), capítulos 12 y 13; Mantegna (1999).
-- **Entrega**: examen para casa del Módulo I.
 - En la semana 6 empieza el Módulo II: la **distribución del dinero** como
   un problema de física estadística (máxima entropía y modelos de
   intercambio).
@@ -749,10 +751,12 @@ function verificar(f, esperado; rtol = 1e-8, pista = md"")
     catch e
         return caja("danger", "Tu código produce un error", md"$(sprint(showerror, e))")
     end
-    if resultado === missing
+    if resultado === missing || (resultado isa AbstractArray && any(ismissing, resultado))
         caja("warning", "Pendiente", md"Reemplaza `missing` por tu código.")
-    elseif resultado isa typeof(esperado) && size(resultado) == size(esperado) &&
+    elseif resultado isa AbstractArray && esperado isa AbstractArray && size(resultado) == size(esperado) &&
            all(isapprox.(resultado, esperado; rtol, atol = 1e-12))
+        caja("correct", "¡Correcto!", md"Bien hecho.")
+    elseif resultado isa typeof(esperado) && all(isapprox.(resultado, esperado; rtol, atol = 1e-12))
         caja("correct", "¡Correcto!", md"Bien hecho.")
     else
         caja("danger", "Todavía no", pista)

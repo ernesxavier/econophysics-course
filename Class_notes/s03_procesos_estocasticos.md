@@ -287,10 +287,10 @@ modelo ajustado, del mismo largo que los datos:
 
 | Activo | $a$ | $b$ | Vida media (días) | ACF de $\lvert r\rvert$, $\tau = 1$: datos / GARCH | ACF de $\lvert r\rvert$, $\tau = 100$: datos / GARCH | $\alpha$ de la cola: datos / GARCH |
 |---|---|---|---|---|---|---|
-| IPC (BMV) | 0.075 | 0.913 | 55 | 0.21 / 0.20 | 0.079 / 0.040 | 2.82 / 4.36 |
-| USD/MXN | 0.120 | 0.858 | 30 | 0.28 / 0.27 | 0.046 / 0.012 | 3.10 / 3.84 |
-| S&P 500 | 0.125 | 0.858 | 39 | 0.29 / 0.31 | 0.084 / 0.027 | 3.12 / 3.29 |
-| Bitcoin | 0.110 | 0.848 | 16 | 0.21 / 0.20 | 0.024 / −0.007 | 4.04 / 4.31 |
+| IPC (BMV) | 0.075 | 0.9125 | 55 | 0.21 / 0.20 | 0.079 / 0.040 | 2.82 / 4.36 |
+| USD/MXN | 0.120 | 0.8575 | 30 | 0.28 / 0.27 | 0.046 / 0.012 | 3.10 / 3.84 |
+| S&P 500 | 0.125 | 0.8575 | 39 | 0.29 / 0.31 | 0.084 / 0.027 | 3.12 / 3.29 |
+| Bitcoin | 0.110 | 0.8475 | 16 | 0.21 / 0.20 | 0.024 / −0.007 | 4.04 / 4.31 |
 
 (El exponente $\alpha$ se estima como en la sesión 2; el de GARCH es la mediana
 de las 20 simulaciones.)

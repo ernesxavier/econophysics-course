@@ -455,6 +455,8 @@ sección 5, con $\alpha \approx 3$, descartan esa hipótesis para los retornos.
   https://doi.org/10.1214/aos/1176343247
 - INEGI (2021). *Censo de Población y Vivienda 2020: Principales resultados
   por localidad (ITER)*. Instituto Nacional de Estadística y Geografía.
+- Mandelbrot, B. (1963). The variation of certain speculative prices. *The
+  Journal of Business*, 36(4), 394–419. https://doi.org/10.1086/294632
 - Mantegna, R. N., & Stanley, H. E. (1999). *An Introduction to Econophysics:
   Correlations and Complexity in Finance*. Cambridge University Press.
   https://doi.org/10.1017/CBO9780511755767
