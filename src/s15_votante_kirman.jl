@@ -1,17 +1,17 @@
 #%% hide
 md"""
-# Sesiones 15 y 16: Opinión, herding y segregación
+# Sesión 15: Votante y Kirman: imitación y herding
 
 **Objetivos de la sesión**
 1. Construir **modelos basados en agentes (ABM)** en los que reglas locales de
-   imitación o mudanza generan patrones macroscópicos sin coordinación central.
-2. Simular el **modelo de votante**, medir su **tiempo de consenso** y comparar
-   el efecto de distintas topologías de red.
-3. Incorporar cambios autónomos de opinión en el **modelo de hormigas de
+   imitación generan patrones macroscópicos sin coordinación central.
+2. Distinguir entre cadenas de Markov con **estados absorbentes** (imitación
+   pura) y con **distribución estacionaria** (imitación más ruido).
+3. Simular el **modelo de votante**, comprobar que la opinión media es una
+   martingala y comparar el **tiempo de consenso** en distintas redes.
+4. Incorporar cambios autónomos de opinión en el **modelo de hormigas de
    Kirman** para explicar el **herding** y la transición hacia una distribución
    **bimodal**.
-4. Simular el **modelo de segregación de Schelling** y comprobar cómo
-   preferencias individuales leves producen segregación residencial fuerte.
 5. **[Avanzado]** Contrastar la simulación con el tiempo exacto de absorción del
    votante y con la solución estacionaria de la ecuación maestra de Kirman.
 
@@ -36,48 +36,53 @@ TableOfContents(title = "Contenido")
 
 #%% hide
 md"""
-## 0. El fenómeno: intenciones individuales y resultados colectivos
+## 0. El fenómeno: dos restaurantes idénticos; uno se llena y el otro no
 
 En el Módulo II estudiamos sistemas en equilibrio estadístico, como el modelo
 de Ising. Hoy abrimos el **Módulo III** con modelos donde los agentes siguen
-reglas directas de comportamiento —copiar a un vecino, seguir a la mayoría o
-mudarse de casa— sin resolver un problema de optimización global.
+reglas directas de comportamiento —copiar a un vecino o seguir a la multitud—
+sin resolver un problema de optimización global.
 
-Dos acertijos clásicos muestran por qué el agregado no es la simple suma de las
-preferencias individuales:
-
-1. **Dos restaurantes idénticos** (Becker, 1991; Kirman, 1993). Dos locales con
-   la misma comida y los mismos precios están uno frente al otro. En vez de
-   repartirse la clientela mitad y mitad, uno se llena y el otro queda vacío;
-   tiempo después, sin que cambie la calidad de ninguno, la multitud se pasa al
-   otro. Los biólogos observaron exactamente lo mismo con hormigas frente a dos
-   fuentes idénticas de alimento.
-2. **Barrios segregados sin intolerancia** (Schelling, 1971). En una ciudad con
-   dos grupos, ningún habitante pide vivir rodeado únicamente de su propio
-   grupo: cada uno se conforma con que al menos **tres de sus ocho vecinos**
-   (37.5%) sean como él. Sin embargo, cuando los insatisfechos se mudan, la
-   ciudad termina partida en barrios casi homogéneos.
+Becker (1991) planteó un acertijo cotidiano: dos restaurantes con la misma
+comida y los mismos precios están uno frente al otro. En vez de repartirse la
+clientela mitad y mitad, uno se llena y el otro queda casi vacío; tiempo
+después, sin que cambie la calidad de ninguno, la multitud se pasa al otro.
+Kirman (1993) observó que los entomólogos habían visto exactamente lo mismo con
+hormigas frente a dos fuentes idénticas de alimento: cuando cada individuo
+recluta a otros con frecuencia y rara vez explora por su cuenta, la mayoría se
+concentra en una sola opción y alterna en olas espontáneas.
 """
 
 #%% hide
 let
-    ini, fin = ejemplo_schelling
-    paleta = cgrad([BLANCO, AZUL, NARANJA])
-    p1 = heatmap(ini.tablero; color = paleta, clims = (0, 2), aspect_ratio = :equal,
-                 colorbar = false, axis = false, ticks = false, grid = false,
-                 title = "Inicio al azar (similitud = $(round(Int, 100ini.similitud))%)")
-    p2 = heatmap(fin.tablero; color = paleta, clims = (0, 2), aspect_ratio = :equal,
-                 colorbar = false, axis = false, ticks = false, grid = false,
-                 title = "Equilibrio con τ = 37.5% (similitud = $(round(Int, 100fin.similitud))%)")
-    plot(p1, p2; layout = (1, 2), size = (820, 390))
+    N = 100
+    c_herd = simular_kirman(N, 0.2; barridos = 800, rng = Xoshiro(11)).k ./ N
+    c_ind  = simular_kirman(N, 4.0; barridos = 800, rng = Xoshiro(11)).k ./ N
+    p1 = plot(1:800, c_herd; color = AZUL, lw = 1.4, ylims = (0, 1),
+              xlabel = "tiempo (barridos)", ylabel = "fracción en el restaurante A",
+              label = "Con herding fuerte (a = 0.2)", legend = :topright,
+              title = "Dos restaurantes idénticos (100 clientes)")
+    plot!(p1, 1:800, c_ind; color = NARANJA, lw = 1.2, alpha = 0.75,
+          label = "Casi independientes (a = 4.0)")
+    hline!(p1, [0.5]; color = GRIS, ls = :dot, label = "")
+
+    ks = 0:N
+    p2 = plot(ks ./ N, kirman_estacionaria(N, 0.2) .* N; color = AZUL, lw = 2.5,
+              xlabel = "fracción en el restaurante A", ylabel = "densidad estacionaria",
+              label = "a = 0.2: uno lleno y el otro vacío", legend = :top,
+              title = "Distribución del reparto de clientes")
+    plot!(p2, ks ./ N, kirman_estacionaria(N, 4.0) .* N; color = NARANJA, lw = 2.5,
+          label = "a = 4.0: mitad y mitad")
+    plot(p1, p2; layout = (1, 2), size = (880, 350), bottom_margin = 4Plots.mm)
 end
 
 #%% hide
 md"""
-Nadie buscaba una ciudad con $(round(Int, 100ejemplo_schelling.fin.similitud))% de vecinos del mismo grupo: bastaba con
-37.5%. El exceso de segregación es una propiedad **emergente**. En esta sesión
-estudiaremos tres mecanismos fundamentales de dinámica social: el **modelo de
-votante**, el **modelo de Kirman** y el **modelo de Schelling**.
+Ninguno de los dos restaurantes es mejor, ni ocurrió ningún choque externo en
+el barrido 300 o en el 600: las olas nacen de la **imitación** combinada con
+unos pocos cambios individuales. En esta sesión empezaremos con la imitación
+pura (**modelo de votante**) y luego añadiremos esos cambios autónomos
+(**modelo de Kirman**).
 """
 
 #%% hide
@@ -87,19 +92,19 @@ md"""
 En una cadena de Markov donde los agentes **únicamente copian** las opiniones
 existentes, si en algún momento todos coinciden (``k = 0`` o ``k = N`` agentes
 con la opinión 1), ya no queda nadie con la opinión contraria a quien copiar.
-Esos dos consensos son **estados absorbentes** (repaso E.A6): una vez que el
-sistema entra en uno, se queda ahí para siempre, y la pregunta relevante es
-**cuánto tarda en absorberse**.
+Esos dos consensos son **estados absorbentes** (repaso E.I3 y E.A6): una vez que
+el sistema entra en uno, se queda ahí para siempre, y la pregunta relevante es
+**quién gana** y **cuánto tarda en absorberse**.
 
 Si además cada agente tiene una pequeña probabilidad de cambiar de opinión por
-cuenta propia (**ruido idiosincrático**, repaso E.I3 y F.B3), los extremos
-dejan de ser absorbentes: siempre puede reaparecer un disidente. El sistema ya
-no se detiene y converge a una **distribución estacionaria** ``P_k``.
+cuenta propia (**ruido idiosincrático**, repaso F.B3), los extremos dejan de
+ser absorbentes: siempre puede reaparecer un disidente. El sistema ya no se
+detiene y converge a una **distribución estacionaria** ``P_k``.
 """
 
 #%%
-# En imitación pura, la probabilidad de cambiar cuando k de N tienen opinión 1
-# es proporcional a k(N - k): se anula en k = 0 y en k = N.
+# En imitación pura, la probabilidad de que un agente en 0 copie a uno en 1
+# cuando k de N tienen opinión 1 es proporcional a k(N - k): se anula en k = 0 y en k = N.
 tasa_imitacion_pura(k, N) = (k / N) * ((N - k) / (N - 1))
 
 #%%
@@ -113,8 +118,8 @@ El **modelo de votante** (Clifford y Sudbury, 1973; Holley y Liggett, 1975) es
 el modelo más simple de formación de opinión por imitación pura.
 
 **Reglas.**
-1. Hay ``N`` agentes en los nodos de una red conexa; cada uno tiene opinión
-   ``s_i \in \{0, 1\}``.
+1. Hay ``N`` agentes en los nodos de una red conexa (repaso L.B4); cada uno
+   tiene opinión ``s_i \in \{0, 1\}``.
 2. En cada paso elemental se elige un agente ``i`` al azar y uno de sus vecinos
    ``j`` al azar; ``i`` copia la opinión de ``j`` (``s_i \leftarrow s_j``).
 3. ``N`` pasos elementales forman un **barrido** (una unidad de tiempo, en la
@@ -136,7 +141,8 @@ ruina del jugador (repaso E.A6). De ahí se siguen dos consecuencias inmediatas:
 - En cualquier red finita conexa, el modelo **siempre llega al consenso**
   (``k = 0`` o ``k = N``).
 - Si empieza con una fracción ``x_0 = k_0 / N`` de agentes en 1, la
-  probabilidad de terminar en el consenso ``k = N`` es exactamente ``x_0``.
+  probabilidad de terminar en el consenso ``k = N`` es exactamente ``x_0``
+  (lo comprobamos promediando sobre muchas corridas; repaso E.B3).
 
 Fracción inicial ``x_0``: $(@bind x0_vot Slider(0.1:0.1:0.9, default = 0.3, show_value = true))
   Número de agentes ``N``: $(@bind N_vot Slider([40, 80, 150], default = 80, show_value = true))
@@ -175,7 +181,7 @@ De 200 simulaciones que empezaron en ``x_0 = $x0_vot``, la opinión 1 ganó en e
 $pemp% de las corridas (teoría: $pteo%), y el consenso tardó en promedio
 $temp barridos (teoría exacta: $tteo barridos).
 
-A diferencia del modelo de Ising a temperatura baja (sesión 13), donde la
+A diferencia del modelo de Ising a temperatura baja (sesión 13, repaso F.I3), donde la
 mayoría inicial casi siempre se impone, en el modelo de votante $frase:
 nadie empuja hacia la mayoría; el consenso llega únicamente porque las
 fluctuaciones aleatorias terminan topando con uno de los dos bordes
@@ -304,7 +310,7 @@ end
 
 #%% hide
 md"""
-Observa las tres fases del modelo al variar ``a``:
+Observa las tres fases del modelo al variar ``a`` (repaso F.B4):
 
 - **``a < 1`` (herding fuerte, p. ej. ``a = 0.2``):** La distribución es
   **bimodal**, con picos en ``x \approx 0`` y ``x \approx 1``. La mayoría se
@@ -317,120 +323,18 @@ Observa las tres fases del modelo al variar ``a``:
   alcanza a arrastrar al grupo y la fracción fluctúa alrededor de ``1/2``
   (**unimodal**).
 
-**Diferencia con el modelo de Ising (sesión 14).** En el Ising, cada agente
-responde de forma no lineal (logística) al promedio; en Kirman, la tasa de
-imitación es **lineal** en ``k/N``. Por eso en Kirman la tendencia promedio
-siempre apunta hacia ``x = 1/2``: la bimodalidad cuando ``a < 1`` proviene de
-que el **ruido de imitación se apaga cerca de los bordes** ``x = 0`` y
-``x = 1`` (donde casi todos opinan igual), atrapando temporalmente al sistema
-en consensos cuasi-absorbentes.
+**Diferencia con el modelo de Ising (sesión 14, repaso F.I4).** En el Ising,
+cada agente responde de forma no lineal (logística, repaso C.B4) al promedio;
+en Kirman, la tasa de imitación es **lineal** en ``k/N``. Por eso en Kirman la
+tendencia promedio siempre apunta hacia ``x = 1/2``: la bimodalidad cuando
+``a < 1`` proviene de que el **ruido de imitación se apaga cerca de los bordes**
+``x = 0`` y ``x = 1`` (donde casi todos opinan igual), atrapando
+temporalmente al sistema en consensos cuasi-absorbentes.
 """
 
 #%% hide
 md"""
-## 4. El modelo de segregación de Schelling
-
-En los modelos de votante y de Kirman los agentes están fijos y cambian de
-estado. En el modelo de **Schelling** (1971) ocurre lo contrario: cada agente
-conserva su identidad (azul o naranja) pero **cambia de lugar** si no le gusta
-su vecindario.
-
-**Reglas.**
-1. En una cuadrícula de ``L \times L`` con fronteras periódicas, una fracción
-   ``\rho_0`` de las celdas está vacía y el resto se reparte en partes iguales
-   entre dos grupos (azul y naranja).
-2. Cada agente mira sus 8 celdas vecinas (vecindad de Moore). Si entre sus
-   vecinos ocupados la fracción de su mismo grupo es al menos el **umbral de
-   tolerancia** ``\tau``, el agente está **satisfecho**; si es menor, está
-   **insatisfecho** (si no tiene vecinos ocupados, está satisfecho).
-3. En cada ronda, los agentes insatisfechos se mudan, en orden aleatorio, a
-   celdas vacías elegidas al azar. El proceso se detiene cuando todos están
-   satisfechos o al llegar al máximo de rondas.
-
-### Laboratorio: de las preferencias individuales a la ciudad segregada
-
-Mueve el umbral ``\tau``: la fracción mínima de vecinos propios que pide cada
-agente para no mudarse.
-
-Umbral requerido ``\tau``: $(@bind τ_sch Slider([0.125, 0.25, 0.375, 0.50, 0.625, 0.75, 0.85], default = 0.375, show_value = true))
-  Fracción de celdas vacías ``\rho_0``: $(@bind vac_sch Slider([0.05, 0.15, 0.30], default = 0.15, show_value = true))
-"""
-
-#%%
-sim_schelling = simular_schelling(40, vac_sch, τ_sch; pasos_max = 120, rng = Xoshiro(21));
-
-#%% hide
-let
-    s = sim_schelling
-    paleta = cgrad([BLANCO, AZUL, NARANJA])
-    p1 = heatmap(s.tablero; color = paleta, clims = (0, 2), aspect_ratio = :equal,
-                 colorbar = false, axis = false, ticks = false, grid = false,
-                 title = "Ciudad final (τ = $(porcentaje(τ_sch))): similitud = $(round(Int, 100s.similitud[end]))%")
-    rondas = 0:length(s.similitud)-1
-    p2 = plot(rondas, 100 .* s.similitud; color = AZUL, lw = 2.2, ylims = (0, 105),
-              xlabel = "ronda", ylabel = "porcentaje (%)", legend = :bottomright,
-              label = "Similitud promedio de los vecindarios",
-              title = "Evolución en $(length(rondas)-1) rondas")
-    plot!(p2, rondas, 100 .* s.felices; color = NARANJA, lw = 2, ls = :dash,
-          label = "Agentes satisfechos")
-    hline!(p2, [100τ_sch]; color = GRIS, ls = :dot, label = "Umbral pedido τ = $(porcentaje(τ_sch))")
-    plot(p1, p2; layout = Plots.grid(1, 2; widths = [0.44, 0.56]), size = (900, 380))
-end
-
-#%% hide
-md"""
-Para ver la transición completa, medimos la **similitud promedio final** y la
-**fracción de agentes satisfechos** al variar el umbral ``\tau`` de 0 a 0.85:
-"""
-
-#%%
-barrido_sch = barrido_schelling(35, 0.15; τs = 0.10:0.05:0.85);
-
-#%% hide
-let
-    b = barrido_sch
-    p = plot(100 .* b.τ, 100 .* b.similitud; color = AZUL, lw = 2.5, marker = :circle, ms = 4, msw = 0,
-             label = "Similitud promedio final", xlabel = "umbral requerido τ (%)",
-             ylabel = "porcentaje (%)", ylims = (0, 105), legend = :bottomleft,
-             title = "Segregación emergente frente al umbral individual")
-    plot!(p, 100 .* b.τ, 100 .* b.felices; color = NARANJA, lw = 2, ls = :dash, marker = :square, ms = 3.5, msw = 0,
-          label = "Agentes satisfechos al final")
-    plot!(p, 100 .* b.τ, 100 .* b.τ; color = GRIS, lw = 1, ls = :dot, label = "Similitud = umbral τ")
-    hline!(p, [50]; color = GRIS_CLARO, lw = 1, label = "Mezcla al azar (50%)")
-end
-
-#%% hide
-md"""
-La curva muestra tres regímenes muy claros:
-
-1. **``\tau \le 25\%`` (mezcla estable):** Casi todos los agentes ya cumplen su
-   umbral en la configuración aleatoria inicial; casi nadie se muda y la
-   similitud queda entre $(rango_sch(0.0, 0.25)), cerca de la mezcla al azar.
-2. **``30\% \le \tau \le 70\%`` (segregación fuerte con preferencias leves):**
-   En cuanto ``\tau`` pasa de 25% a 30%, las mudanzas de los pocos
-   insatisfechos iniciales reducen la fracción de su grupo en el barrio que
-   dejan y la aumentan en el que llegan. Eso vuelve insatisfechos a otros
-   vecinos y desata un efecto dominó que sólo se detiene cuando la similitud
-   llega a valores entre $(rango_sch(0.3, 0.7)), muy por encima de la línea
-   punteada ``\tau`` que cada agente pedía.
-3. **``\tau \ge 75\%`` (frustración / congelamiento):** Los agentes exigen
-   vecindarios tan puros que no hay suficientes lugares satisfactorios; las
-   mudanzas no logran acomodar a todos y la fracción de satisfechos cae.
-
-**Una analogía con el modelo de Ising.** Si asignamos ``s_i = +1`` a un
-grupo, ``s_i = -1`` al otro y ``s_i = 0`` a las celdas vacías, la energía de
-Ising ``H = -J \sum_{\langle i,j\rangle} s_i s_j`` baja cuando hay más pares
-de vecinos del mismo grupo y menos fronteras entre grupos. Las mudanzas de
-Schelling suelen reducir esas fronteras, conservando el número de agentes de
-cada grupo, y la ciudad se separa en dominios parecidos a los del Ising debajo
-de ``T_c`` (sesión 13). Es una **analogía**, no una equivalencia: un agente se
-muda para cumplir su propio umbral, no para bajar ``H``, y una mudanza puede
-aumentar la energía total (Vinković y Kirman, 2006).
-"""
-
-#%% hide
-md"""
-## 5. [Avanzado] Ecuación maestra y límite continuo de Kirman
+## 4. [Avanzado] Ecuación maestra y límite continuo de Kirman
 
 En el modelo de Kirman, la probabilidad estacionaria ``P_k`` de observar ``k``
 agentes en el estado 1 cumple la condición de **balance detallado** (repaso
@@ -452,9 +356,9 @@ P_k = \binom{N}{k}\frac{\mathrm{B}(k + a,\, N - k + a)}{\mathrm{B}(a, a)}.
 Cuando ``N \to \infty`` con ``a`` fijo, y midiendo el tiempo en unidades de
 ``N(N - 1 + 2a)/2 \approx N^2/2`` pasos (unos ``N/2`` barridos), la variable
 continua ``x = k / N \in (0, 1)`` cumple la ecuación de Fokker-Planck de
-``dx = A(x)\,dt + B(x)\,dW`` (repaso E.A4) con deriva ``A(x) = a(1/2 - x)`` e
-intensidad de ruido ``B(x)^2 = x(1-x)``. Su densidad estacionaria es la
-**distribución Beta** simétrica:
+``dx = A(x)\,dt + B(x)\,dW`` (repaso E.A2 y E.A4) con deriva
+``A(x) = a(1/2 - x)`` e intensidad de ruido ``B(x)^2 = x(1-x)``. Su densidad
+estacionaria es la **distribución Beta** simétrica:
 
 ```math
 p(x) = \frac{\Gamma(2a)}{\Gamma(a)^2}\,x^{a-1}(1 - x)^{a-1}.
@@ -491,7 +395,6 @@ md"""
 |---|---|---|
 | **Votante** | Copiar a un vecino al azar (sin ruido) | Consenso absorbente; ``\mathbb{P}(\text{gana } 1) = x_0``; ``\mathbb{E}[\tau] \propto N^2`` en 1D y ``\propto N`` en red completa |
 | **Kirman** | Imitación (herding) + cambio autónomo ``a`` | Sin estados absorbentes; estacionaria ``\mathrm{Beta}(a, a)``: bimodal si ``a < 1``, uniforme si ``a = 1``, unimodal si ``a > 1`` |
-| **Schelling** | Mudarse si la fracción de vecinos similares es ``< \tau`` | Preferencias leves (``\tau \approx 3/8``) desencadenan segregación fuerte (similitud de 75 a 80%, contra 50% al azar) |
 """
 
 #%% hide
@@ -500,7 +403,25 @@ md"""
 
 ### Ruta básica: completa el código
 
-**1.** Escribe `tasa_kirman(k, N, a)`, la probabilidad ``W(k \to k+1)`` de que
+**1.** Escribe `prob_cambio_votante(k, N)`, la probabilidad total
+``\mathbb{P}(k \to k+1) + \mathbb{P}(k \to k-1) = \frac{2 k (N - k)}{N (N - 1)}``
+de que en un paso elemental del modelo de votante en la red completa cambie el
+número de agentes con opinión 1.
+"""
+
+#%%
+function prob_cambio_votante(k, N)
+    missing  # reemplaza esta línea
+end
+
+#%% hide
+verificar(() -> [prob_cambio_votante(0, 50), prob_cambio_votante(25, 50), prob_cambio_votante(50, 50)],
+          [0.0, 2 * 25 * 25 / (50 * 49), 0.0];
+          pista = md"Suma las dos probabilidades de transición: `2 * k * (N - k) / (N * (N - 1))`.")
+
+#%% hide
+md"""
+**2.** Escribe `tasa_kirman(k, N, a)`, la probabilidad ``W(k \to k+1)`` de que
 en un paso del modelo de Kirman el número de agentes con opinión 1 suba de
 `k` a `k + 1`, usando la fórmula de la sección 3.
 """
@@ -517,24 +438,6 @@ verificar(() -> [tasa_kirman(0, 100, 1.0), tasa_kirman(50, 100, 1.0), tasa_kirma
 
 #%% hide
 md"""
-**2.** Escribe `satisfecho(iguales, totales, τ)`, que devuelva `true` si un
-agente de Schelling con `iguales` vecinos de su mismo grupo, de un total de
-`totales` vecinos ocupados, cumple el umbral `τ` (si `totales == 0`, devuelve
-`true`).
-"""
-
-#%%
-function satisfecho(iguales, totales, τ)
-    missing  # reemplaza esta línea
-end
-
-#%% hide
-verificar(() -> [satisfecho(3, 8, 0.375), satisfecho(2, 8, 0.375), satisfecho(0, 0, 0.5)],
-          [true, false, true];
-          pista = md"Si `totales == 0` devuelve `true`; en caso contrario compara `iguales / totales >= τ`.")
-
-#%% hide
-md"""
 ### Ruta básica: interpretación
 
 3. En el modelo de votante con ``N = 100`` agentes en la red completa, si al
@@ -547,39 +450,29 @@ md"""
    un extremo y de pronto cambia al otro. ¿Qué implicación tiene esto para
    alguien que busca una noticia económica detrás de cada cambio brusco del
    mercado?
-6. En el modelo de Schelling con ``\tau = 0.375``, ningún agente rechaza ser
-   minoría en su barrio (acepta hasta 62.5% de vecinos del otro grupo). Explica
-   paso a paso por qué la ciudad no se queda con barrios mezclados al 50%.
-7. ¿Qué pasa en el modelo de Schelling cuando el umbral ``\tau`` sube por
-   encima de 0.75? ¿Por qué baja la fracción de agentes satisfechos?
 
 ### Ruta avanzada
 
-8. Plantea la recurrencia para la probabilidad de victoria ``v_k`` de la
+6. Plantea la recurrencia para la probabilidad de victoria ``v_k`` de la
    opinión 1 desde el estado ``k`` en el modelo de votante en la red completa y
    demuestra que ``v_k = k / N``.
-9. Verifica que la distribución Beta-binomial de la sección 5 cumple la
+7. Verifica que la distribución Beta-binomial de la sección 4 cumple la
    ecuación de balance detallado ``P_k W(k \to k+1) = P_{k+1} W(k+1 \to k)`` y
    comprueba que para ``a = 1`` se reduce a ``P_k = 1 / (N + 1)``.
-10. Usa la fórmula estacionaria de la ecuación de Fokker-Planck (repaso E.A4)
-    con ``A(x) = a(1/2 - x)`` y ``B(x)^2 = x(1-x)`` para obtener la densidad
-    ``p(x) \propto x^{a-1}(1-x)^{a-1}``.
-11. En una red cualquiera donde un nodo se elige al azar y copia a un vecino al
-    azar, demuestra que ``\sum_i k_i s_i`` (la opinión ponderada por el grado
-    ``k_i``) es una martingala. ¿Qué implica eso para la probabilidad de que
-    gane una opinión que empieza en un concentrador (*hub*) de una red de
-    Barabási-Albert?
+8. En una red cualquiera donde un nodo se elige al azar y copia a un vecino al
+   azar, demuestra que ``\sum_i k_i s_i`` (la opinión ponderada por el grado
+   ``k_i``) es una martingala. ¿Qué implica eso para la probabilidad de que
+   gane una opinión que empieza en un concentrador (*hub*) de una red de
+   Barabási-Albert?
 
 ## Para la próxima sesión
 
-- Lectura: Sen y Chakrabarti (2014), capítulos 3 y 4; Kirman (2011), capítulos
-  2, 3 y 6; Requião da Cunha (2021), sección 8.2. Para la ruta avanzada,
-  Slanina (2014), capítulo 3 y sección 8.2; Sen y Chakrabarti (2014),
-  capítulo 6; Castellano, Fortunato y Loreto (2009); Kirman (1993). De
-  consulta: Wilensky y Rand (2015).
-- En las sesiones 17 y 18 los agentes ya no copian a ciegas: eligen estrategias según
-  sus pagos (**juegos evolutivos, dinámica del replicador, ciclo de Goodwin y
-  cooperación en redes**).
+- Lectura: Sen y Chakrabarti (2014), capítulo 3. Complementaria: Kirman (2011),
+  capítulos 2 y 3. Para la ruta avanzada, Slanina (2014), capítulo 3;
+  Castellano, Fortunato y Loreto (2009); Kirman (1993).
+- En la **sesión 16** (`Code/s16_schelling.jl`) estudiaremos qué ocurre cuando
+  los agentes no cambian de estado sino de **lugar**: el modelo de segregación
+  residencial de Schelling.
 """
 
 #%% hide
@@ -614,10 +507,6 @@ begin
     const GRIS_CLARO = "#c9c7c0"   # elementos de fondo
     const BLANCO     = "#ffffff"
 end;
-
-#%%
-"Porcentaje con a lo más un decimal: 0.375 → \"37.5%\", 0.25 → \"25%\"."
-porcentaje(x) = replace(string(round(100x, digits = 1)), r"\.0$" => "") * "%"
 
 #%%
 """
@@ -748,119 +637,6 @@ end
 #%%
 "Distribución estacionaria exacta P_k (k = 0, …, N) del modelo de Kirman: Beta-binomial(N, a, a)."
 kirman_estacionaria(N, a) = pdf.(BetaBinomial(N, a, a), 0:N)
-
-#%%
-"Cuenta vecinos del mismo tipo y vecinos ocupados totales en la vecindad de Moore (8 vecinos, periódica)."
-function vecindad_schelling(tablero, r, c)
-    L = size(tablero, 1)
-    tipo = tablero[r, c]
-    iguales, totales = 0, 0
-    for dr in -1:1, dc in -1:1
-        (dr == 0 && dc == 0) && continue
-        v = tablero[mod1(r + dr, L), mod1(c + dc, L)]
-        if v != 0
-            totales += 1
-            v == tipo && (iguales += 1)
-        end
-    end
-    iguales, totales
-end
-
-#%%
-"Mide la similitud promedio y la fracción de agentes satisfechos en el tablero de Schelling."
-function metricas_schelling(tablero, τ)
-    L = size(tablero, 1)
-    suma_sim, con_vecinos, felices, agentes = 0.0, 0, 0, 0
-    for r in 1:L, c in 1:L
-        tablero[r, c] == 0 && continue
-        agentes += 1
-        ig, tot = vecindad_schelling(tablero, r, c)
-        if tot > 0
-            suma_sim += ig / tot
-            con_vecinos += 1
-            ig / tot >= τ && (felices += 1)
-        else
-            felices += 1
-        end
-    end
-    (similitud = con_vecinos > 0 ? suma_sim / con_vecinos : 1.0,
-     felices = felices / max(agentes, 1))
-end
-
-#%%
-"""
-Simula el modelo de segregación de Schelling en una cuadrícula L × L con
-fracción `p_vacio` de celdas vacías y umbral de tolerancia `τ`.
-"""
-function simular_schelling(L, p_vacio, τ; pasos_max = 120, rng = Xoshiro(21))
-    n_celdas = L * L
-    n_vacios = round(Int, n_celdas * p_vacio)
-    n_agentes = n_celdas - n_vacios
-    n_uno = n_agentes ÷ 2
-    celdas = vcat(zeros(Int, n_vacios), ones(Int, n_uno), fill(2, n_agentes - n_uno))
-    shuffle!(rng, celdas)
-    tablero = reshape(celdas, L, L)
-
-    m0 = metricas_schelling(tablero, τ)
-    sim_hist = [m0.similitud]
-    fel_hist = [m0.felices]
-
-    for _ in 1:pasos_max
-        infelices = Tuple{Int,Int}[]
-        vacias = Tuple{Int,Int}[]
-        for r in 1:L, c in 1:L
-            if tablero[r, c] == 0
-                push!(vacias, (r, c))
-            else
-                ig, tot = vecindad_schelling(tablero, r, c)
-                (tot > 0 && ig / tot < τ) && push!(infelices, (r, c))
-            end
-        end
-        isempty(infelices) && break
-        shuffle!(rng, infelices)
-        shuffle!(rng, vacias)
-        for (r, c) in infelices
-            isempty(vacias) && break
-            vr, vc = popfirst!(vacias)
-            tablero[vr, vc] = tablero[r, c]
-            tablero[r, c] = 0
-            push!(vacias, (r, c))
-        end
-        mt = metricas_schelling(tablero, τ)
-        push!(sim_hist, mt.similitud)
-        push!(fel_hist, mt.felices)
-    end
-    (tablero = tablero, similitud = sim_hist, felices = fel_hist)
-end
-
-#%%
-"Ejemplo fijo de Schelling para la sección 0 (antes y después con τ = 0.375)."
-ejemplo_schelling = let
-    ini = simular_schelling(40, 0.15, 0.375; pasos_max = 0, rng = Xoshiro(21))
-    fin = simular_schelling(40, 0.15, 0.375; pasos_max = 120, rng = Xoshiro(21))
-    (ini = (tablero = ini.tablero, similitud = ini.similitud[1], felices = ini.felices[1]),
-     fin = (tablero = fin.tablero, similitud = fin.similitud[end], felices = fin.felices[end]))
-end;
-
-#%%
-"Rango de la similitud final del barrido de Schelling para τ entre `lo` y `hi`, como texto."
-function rango_sch(lo, hi)
-    k = (barrido_sch.τ .>= lo - 1e-9) .& (barrido_sch.τ .<= hi + 1e-9)
-    a, b = extrema(barrido_sch.similitud[k])
-    "$(round(Int, 100a))% y $(round(Int, 100b))%"
-end
-
-#%%
-"Barrido de la similitud final y fracción de satisfechos en Schelling para varios umbrales τ."
-function barrido_schelling(L, p_vacio; τs = 0.10:0.05:0.85)
-    sim, fel = Float64[], Float64[]
-    for (i, τ) in enumerate(τs)
-        res = simular_schelling(L, p_vacio, τ; pasos_max = 100, rng = Xoshiro(30 + i))
-        push!(sim, res.similitud[end])
-        push!(fel, res.felices[end])
-    end
-    (τ = collect(τs), similitud = sim, felices = fel)
-end
 
 #%%
 "Muestra si la respuesta de un ejercicio es correcta."

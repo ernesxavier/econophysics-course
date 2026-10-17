@@ -16,14 +16,14 @@ macro bind(def, element)
     #! format: on
 end
 
-# ╔═╡ 22d44b1c-ca75-11f1-b126-3f97cbf06a53
+# ╔═╡ d6098612-ca7e-11f1-8eb0-8107b7571c11
 begin
     # Usa el entorno del curso (Code/Project.toml) en lugar del gestor de
     # paquetes propio de Pluto: un solo entorno para todo el repositorio.
     import Pkg
     Pkg.activate(@__DIR__)
     Pkg.instantiate()
-    using PlutoUI, Statistics, Random, Distributions, Graphs, Plots, Markdown
+    using PlutoUI, Statistics, Random, Plots, Markdown
     gr()
     default(size = (720, 320), legend = false, grid = :y, gridalpha = 0.15,
             framestyle = :axes, titlefontsize = 11, guidefontsize = 9,
@@ -31,9 +31,9 @@ begin
             background_color_legend = nothing, margin = 3Plots.mm)
 end
 
-# ╔═╡ 22d449dc-ca75-11f1-b88f-d7d836b2d16f
+# ╔═╡ d6098540-ca7e-11f1-9151-17c3274092ef
 md"""
-# Sesiones 17 y 18: Juegos evolutivos y cooperación
+# Sesión 17: Replicador y ciclo de Goodwin
 
 **Objetivos de la sesión**
 1. Usar una **ecuación diferencial ordinaria (EDO)** como regla de
@@ -42,11 +42,8 @@ md"""
    encontrar el equilibrio mixto del juego **Halcón-Paloma**.
 3. Conectar el sistema depredador-presa de **Lotka-Volterra** con el **ciclo
    distributivo de Goodwin** entre tasa de empleo y participación salarial.
-4. Simular el **dilema del prisionero en redes** y comparar la supervivencia de
-   la cooperación en una **retícula 2D** frente a una red libre de escala de
-   **Barabási-Albert**.
-5. **[Avanzado]** Analizar la estabilidad de puntos fijos con el **jacobiano**
-   y verificar la condición ``b/c > k`` de **reciprocidad de red**.
+4. **[Avanzado]** Analizar la estabilidad de puntos fijos con el **jacobiano**
+   y verificar la **cantidad conservada** de Goodwin.
 
 **Cómo usar este cuaderno.** Pluto es reactivo: al mover un deslizador, todo
 lo que depende de él se recalcula. Las secciones marcadas **[Avanzado]** son
@@ -57,33 +54,30 @@ opcionales.
 `Code/s17_replicador_goodwin.jl`.
 
 **Repaso recomendado** (en `Class_notes/repaso/`): C.B3 (la derivada como tasa
-de cambio), C.B4 (función logística), L.B4 (matriz de adyacencia), C.I1
-(desarrollo de Taylor), C.I3 (funciones de varias variables), C.I4 (EDO en una
-dimensión y retrato de fase), L.I1 (eigenvalores). Ruta avanzada: C.A2
-(sistemas de EDO en dos dimensiones), L.A3 (jacobiano y estabilidad lineal).
+de cambio), C.I1 (desarrollo de Taylor), C.I3 (funciones de varias variables),
+C.I4 (EDO en una dimensión y retrato de fase), L.I1 (eigenvalores). Ruta
+avanzada: C.A2 (sistemas de EDO en dos dimensiones), L.A3 (jacobiano y
+estabilidad lineal).
 """
 
-# ╔═╡ 22d44a22-ca75-11f1-95df-175fc7e518b2
+# ╔═╡ d609857c-ca7e-11f1-82c4-69d50d94bd5d
 TableOfContents(title = "Contenido")
 
-# ╔═╡ 22d44a2c-ca75-11f1-a4fd-bb84142fba9f
+# ╔═╡ d6098586-ca7e-11f1-9f1b-d13a44fda248
 md"""
-## 0. El fenómeno: cooperación sin autoridad y ciclos sin choques
+## 0. El fenómeno: ¿por qué no todos son agresivos? ¿Y por qué la economía oscila sin choques?
 
 En la sesión 15 los agentes copiaban la opinión de un vecino sin preguntar qué
 tan bien le iba. Hoy damos el siguiente paso: cada agente elige una
 **estrategia**, recibe un **pago** según lo que hacen los demás y tiende a
 imitar a quienes obtienen mejores resultados.
 
-Esta idea conecta dos fenómenos clásicos de las ciencias sociales y la biología:
+Esta idea explica dos fenómenos clásicos:
 
-1. **Cooperación entre egoístas** (Axelrod, 1984; Nowak y May, 1992). En el
-   **dilema del prisionero**, traicionar siempre deja un pago individual mayor
-   que cooperar, sin importar qué haga el otro. Si todos interactúan al azar con
-   todos, los traidores explotan a los cooperadores hasta extinguirlos. Pero si
-   los agentes interactúan únicamente con sus vecinos en el espacio o en una
-   red, los cooperadores forman **agrupaciones compactas** (*clústeres*) que se
-   apoyan entre sí y resisten la invasión.
+1. **Coexistencia de agresivos y pacíficos** (Maynard Smith y Price, 1973). Si
+   ser agresivo (*halcón*) permite arrebatar recursos a los pacíficos
+   (*palomas*), ¿por qué no todos se vuelven agresivos? Porque cuando casi todos
+   son halcones, pelean entre sí y el costo del conflicto supera al premio.
 2. **Ciclos económicos sin choques externos** (Goodwin, 1967). Cuando el empleo
    es alto, los salarios suben y comprimen las ganancias; con menos ganancias,
    cae la inversión y sube el desempleo; el desempleo modera los salarios,
@@ -92,15 +86,14 @@ Esta idea conecta dos fenómenos clásicos de las ciencias sociales y la biolog�
    Lotka y Volterra.
 """
 
-# ╔═╡ 22d44a36-ca75-11f1-b3f5-fd3df9476ad4
+# ╔═╡ d6098590-ca7e-11f1-9674-bdf05e7b2f82
 md"""
-Las dos poblaciones empezaron con el mismo 50% de cooperadores (azul) y 50% de
-traidores (naranja), y con la misma tentación a traicionar (``b = 1.35``). Al
-emparejarse al azar, la cooperación desaparece; en la retícula 2D, sobrevive en
-islas compactas de cooperadores.
+En la izquierda, sin importar si la población empieza con 10% o con 92% de
+agresivos, converge al mismo equilibrio mixto. En la derecha, empleo y salarios
+se persiguen en un ciclo perpetuo sin que ocurra ningún choque exógeno.
 """
 
-# ╔═╡ 22d44a4c-ca75-11f1-82c2-737a7706e2c7
+# ╔═╡ d609859a-ca7e-11f1-ab80-e7bc0b9dd447
 md"""
 ## 1. Repaso: una ecuación diferencial como regla de actualización
 
@@ -122,16 +115,16 @@ comportamiento cualitativo (**retrato de fase**):
   **inestable** si cruza subiendo (``f'(x^\ast) > 0``).
 """
 
-# ╔═╡ 22d44a54-ca75-11f1-975c-773be70bdea9
+# ╔═╡ d609859a-ca7e-11f1-8750-1f67c3c055c7
 # Un paso del método de Euler: nuevo valor = valor actual + tasa de cambio × paso de tiempo
 paso_euler(f, x, Δt) = x + f(x) * Δt
 
-# ╔═╡ 22d44a54-ca75-11f1-9a6b-b12133e3989b
+# ╔═╡ d60985a6-ca7e-11f1-bddc-63d975b81747
 # Si f(x) = x(1 - x)(0.6 - x), el punto fijo x* = 0.6 atrae desde ambos lados
 paso_euler(x -> x * (1 - x) * (0.6 - x), 0.2, 0.1),
 paso_euler(x -> x * (1 - x) * (0.6 - x), 0.8, 0.1)
 
-# ╔═╡ 22d44a5e-ca75-11f1-ae6e-f972347f317b
+# ╔═╡ d60985ae-ca7e-11f1-96b8-39e55239dfa1
 md"""
 ## 2. Dinámica del replicador y el juego Halcón-Paloma
 
@@ -197,7 +190,7 @@ Costo del conflicto ``C`` (con ``V = 2``): $(@bind C_hp Slider([2.5, 3.0, 4.0, 5
   Fracción inicial de halcones ``x_0``: $(@bind x0_hp Slider(0.1:0.1:0.9, default = 0.1, show_value = true))
 """
 
-# ╔═╡ 22d44a86-ca75-11f1-8651-cbd48f493f0e
+# ╔═╡ d60985c2-ca7e-11f1-a2cf-c7e6844615e2
 md"""
 Observa dos resultados clave:
 1. **La ecuación diferencial es el promedio del modelo de agentes:** la
@@ -210,7 +203,7 @@ Observa dos resultados clave:
    **proporción** en la población porque los halcones se dañan entre sí.
 """
 
-# ╔═╡ 22d44a86-ca75-11f1-8cac-05759aa62cce
+# ╔═╡ d60985cc-ca7e-11f1-8c05-19ac41debd09
 md"""
 ## 3. Lotka-Volterra y el ciclo distributivo de Goodwin
 
@@ -261,7 +254,7 @@ Empleo inicial ``v_0``: $(@bind v0_gw Slider([0.82, 0.85, 0.88, 0.94, 0.96], def
   Sensibilidad a los salarios ``\beta_G``: $(@bind β_gw Slider([0.35, 0.40, 0.45], default = 0.40, show_value = true))
 """
 
-# ╔═╡ 22d44aa4-ca75-11f1-a599-0341e21132ce
+# ╔═╡ d60985e0-ca7e-11f1-84eb-d71476a373ab
 md"""
 En la gráfica izquierda, el pico de la tasa de empleo ``v(t)`` (azul) ocurre
 siempre **un cuarto de ciclo antes** que el pico de la participación salarial
@@ -273,89 +266,13 @@ más amplia es la órbita. (Muchos textos dibujan ``u`` en el eje horizontal y
 ``v`` en el vertical; con esos ejes el mismo ciclo se ve en sentido horario.)
 """
 
-# ╔═╡ 22d44aa4-ca75-11f1-8046-0736daa0d29e
+# ╔═╡ d60985e0-ca7e-11f1-8d26-3bc153968f4c
 md"""
-## 4. Dilema del prisionero en redes: retícula frente a Barabási-Albert
-
-Volvamos a la paradoja de la sección 0. En el **dilema del prisionero débil**
-de Nowak y May (1992), cada encuentro entre dos agentes da los siguientes
-pagos:
-- Si ambos **cooperan** (``C``), cada uno recibe ``R = 1``.
-- Si un **traidor** (``D``) se enfrenta a un cooperador, el traidor recibe la
-  **tentación** ``T = b > 1`` y el cooperador recibe ``S = 0``.
-- Si ambos **traicionan**, cada uno recibe ``P = 0``.
-
-En una población bien mezclada, un traidor gana ``b x`` y un cooperador gana
-``x``; como ``b > 1``, ``\dot{x} = (1 - b)x^2(1 - x) < 0`` y los cooperadores
-siempre se extinguen.
-
-**¿Qué cambia en una red?** En cada ronda:
-1. Cada nodo ``i`` juega con todos sus vecinos en la red y suma sus pagos
-   ``\Pi_i``.
-2. Cada nodo imita a vecinos con mayor pago. En la retícula usamos la regla
-   de Nowak y May: adoptar la estrategia del mayor pago en el vecindario
-   (incluido el propio). En la red de Barabási-Albert usamos la regla de Santos
-   y Pacheco (2005): elegir un vecino ``j`` al azar y, si ``\Pi_j > \Pi_i``,
-   copiar su estrategia con probabilidad
-   ``(\Pi_j - \Pi_i) / (b \max(k_i, k_j))``.
-
-En ambos casos cada agente juega sólo con sus vecinos, no consigo mismo.
-
-### Laboratorio: clústeres en la retícula 2D y concentradores en Barabási-Albert
-
-Mueve la tentación a traicionar ``b > 1`` y observa primero cómo evoluciona la
-retícula 2D de ``36 \times 36`` agentes:
-
-Tentación de traicionar ``b``: $(@bind b_pd Slider([1.05, 1.15, 1.25, 1.35, 1.55, 1.75, 1.95], default = 1.35, show_value = true))
-"""
-
-# ╔═╡ 22d44ac2-ca75-11f1-b1fb-01d1ccfb4a79
-md"""
-Al inicio, los traidores invaden a los cooperadores aislados y la cooperación
-cae en las primeras generaciones. Pero en la retícula 2D, los cooperadores que
-quedan juntos forman **bloques compactos**: un cooperador en el interior o en la
-frontera plana de un bloque recibe el apoyo de muchos vecinos cooperadores,
-mientras que un traidor en la orilla sólo puede explotar a los pocos
-cooperadores que toca.
-
-¿Cómo depende la cooperación de la estructura de la red en todo el rango de
-``b``? Comparamos tres topologías con ``N = 400`` agentes y el mismo grado
-medio (``\langle k \rangle = 8``). La dinámica en la red de Barabási-Albert es
-lenta, así que la dejamos correr hasta 5 000 generaciones (o hasta que toda la
-red coopere o traicione):
-1. **Mezcla al azar** (en cada ronda se sortean 8 rivales al azar);
-2. **Retícula 2D** (8 vecinos de Moore fijos);
-3. **Red de Barabási-Albert** (libre de escala, ``m = 4 \Rightarrow \langle k \rangle \approx 8``, Santos y Pacheco, 2005).
-"""
-
-# ╔═╡ 22d44ad6-ca75-11f1-bc53-994494913036
-md"""
-La comparación revela dos mecanismos distintos de cooperación en redes:
-- **En la retícula 2D (azul)**, la cooperación sobrevive por **reciprocidad
-  espacial** para ``b`` moderado, cae por escalones y desaparece hacia
-  ``b \approx 1.6``. Los escalones sólo pueden estar en cocientes ``b = m/n`` de
-  enteros entre 1 y 8 (números de vecinos cooperadores), como ``4/3`` o
-  ``3/2``, porque ahí cambia qué comparación de pagos gana. A partir de
-  ``b = 5/3`` un traidor que toca a 3 cooperadores (pago ``3b``) ya gana más que
-  el cooperador del borde plano de un bloque de ``3 \times 3`` (pago 5), y los
-  bloques dejan de crecer por sus caras.
-- **En la red de Barabási-Albert (naranja)**, la cooperación resiste valores de
-  ``b`` mucho mayores (Santos y Pacheco, 2005). La razón está en los
-  **concentradores (*hubs*)**: un *hub* cooperador rodeado de cooperadores suma
-  decenas de pagos ``R = 1`` y se vuelve el nodo más exitoso de la red,
-  convirtiendo a sus vecinos; en cambio, si un *hub* es traidor, sus vecinos
-  copian su traición, dejan de cooperar con él y el pago del *hub* traidor se
-  desploma a cero.
-"""
-
-# ╔═╡ 22d44ad6-ca75-11f1-b11e-a1e21ade4c41
-md"""
-## 5. [Avanzado] Estabilidad con el jacobiano y la regla ``b/c > k``
-
-### 5.1 El jacobiano del ciclo de Goodwin y su cantidad conservada
+## 4. [Avanzado] Estabilidad con el jacobiano y la cantidad conservada de Goodwin
 
 Linealizando el sistema de Goodwin alrededor del punto fijo interior
-``(v^\ast, u^\ast) = (\gamma_G/\delta_G,\, \alpha_G/\beta_G)``, la matriz
+``(v^\ast, u^\ast) = (\gamma_G/\delta_G,\, \alpha_G/\beta_G)`` mediante el
+desarrollo de Taylor en dos variables (repaso C.I1 y C.I3), la matriz
 **jacobiana** (repaso L.A3) es:
 
 ```math
@@ -373,8 +290,8 @@ J(v^\ast, u^\ast) =
 
 Su traza es ``\mathrm{tr}(J) = 0`` y su determinante es
 ``\det(J) = \beta_G \delta_G v^\ast u^\ast = \alpha_G \gamma_G > 0``. Por tanto,
-los eigenvalores son **imaginarios puros** (polinomio característico
-``\lambda^2 + \alpha_G \gamma_G = 0``):
+los eigenvalores (repaso L.I1) son **imaginarios puros** (polinomio
+característico ``\lambda^2 + \alpha_G \gamma_G = 0``):
 
 ```math
 \lambda_{1,2} = \pm i\omega, \qquad \omega = \sqrt{\alpha_G \gamma_G},
@@ -396,39 +313,9 @@ V(v, u) = (\delta_G v - \gamma_G \ln v) + (\beta_G u - \alpha_G \ln u),
 ```
 
 cuyas curvas de nivel cerradas son las órbitas del plano de fase.
-
-### 5.2 La condición ``b/c > k`` de reciprocidad de red
-
-En el **juego de donación**, cooperar cuesta ``c > 0`` por vecino y otorga un
-beneficio ``b > c`` al vecino. Ohtsuki, Hauert, Lieberman y Nowak (2006)
-demostraron que bajo selección débil (aptitud ``f_i = 1 + w\pi_i`` con
-``w \ll 1``) y actualización **muerte-nacimiento** (un nodo al azar es
-reemplazado por uno de sus ``k`` vecinos proporcionalmente a su aptitud), la
-probabilidad ``\rho_C`` de que un solo mutante cooperador tome toda la red
-supera al azar neutro ``1/N`` cuando la razón beneficio-costo supera el grado
-``k`` de la red:
-
-```math
-\frac{b}{c} > k .
-```
-
-La regla vale para redes grandes (``N \gg k``). En una red regular finita el
-umbral exacto es algo mayor (Taylor, Day y Wild, 2007; Chen, 2013):
-
-```math
-\left(\frac{b}{c}\right)^{\ast} = \frac{N - 2}{N/k - 2}
-\;\xrightarrow{\;N \to \infty\;}\; k .
-```
-
-La gráfica muestra ``N \cdot \rho_C`` simulado (30 000 ensayos por punto, con
-``N = 36`` y ``w = 0.03``) en un anillo (``k = 2``, umbral finito
-``34/16 \approx 2.1``) y en una red regular aleatoria de grado ``k = 4``
-(umbral finito ``34/7 \approx 4.9``). Cada curva cruza la deriva neutra
-``N \rho_C = 1`` cerca de su umbral finito, un poco a la derecha de
-``b/c = k``.
 """
 
-# ╔═╡ 22d44aea-ca75-11f1-ad0b-6714c3ab94a1
+# ╔═╡ d60985ea-ca7e-11f1-bc1f-c901504332f0
 md"""
 ## Resumen
 
@@ -436,10 +323,9 @@ md"""
 |---|---|---|
 | **Dinámica del replicador (Halcón-Paloma)** | ``\dot{x} = x(1-x)(\pi_H - \pi_P) = \tfrac{1}{2}x(1-x)(V - Cx)`` | Equilibrio interior estable ``x^\ast = V/C``: coexistencia de agresivos y pacíficos |
 | **Goodwin – Lotka-Volterra** | ``\dot{v} = v(\alpha_G - \beta_G u)``, ``\dot{u} = u(-\gamma_G + \delta_G v)`` | Órbitas cerradas alrededor de ``(\gamma_G/\delta_G,\, \alpha_G/\beta_G)``; el empleo adelanta a los salarios |
-| **Dilema del prisionero en redes** | Cooperar (``R=1, S=0``) vs. traicionar (``T=b>1, P=0``) con vecinos | En mezcla global ``x \to 0``; en retícula 2D sobreviven clústeres; en Barabási-Albert los *hubs* sostienen la cooperación; bajo selección débil emerge si ``b/c > k`` |
 """
 
-# ╔═╡ 22d44af4-ca75-11f1-b5f9-7516b32b1add
+# ╔═╡ d60985f4-ca7e-11f1-a16e-238a90e7c64b
 md"""
 ## Ejercicios
 
@@ -450,12 +336,12 @@ la fracción `x` después de un paso de tiempo `Δt` con el método de Euler
 aplicado a la ecuación del replicador ``\dot{x} = x(1 - x)(\pi_1 - \pi_2)``.
 """
 
-# ╔═╡ 22d44afe-ca75-11f1-9d6d-c11e2ab6d6ac
+# ╔═╡ d60985f4-ca7e-11f1-a89d-d7a32949ce4b
 function paso_replicador(x, π1, π2, Δt)
     missing  # reemplaza esta línea
 end
 
-# ╔═╡ 22d44b08-ca75-11f1-a2f9-55abc7b236fb
+# ╔═╡ d60985fe-ca7e-11f1-a94e-df54157eac9a
 md"""
 **2.** Escribe `equilibrio_goodwin(α, β, γ, δ)`, que devuelva la tupla
 `(v_est, u_est)` con la tasa de empleo ``v^\ast`` y la participación salarial
@@ -463,12 +349,12 @@ md"""
 ``\dot{v} = v(\alpha - \beta u)``, ``\dot{u} = u(-\gamma + \delta v)``.
 """
 
-# ╔═╡ 22d44b08-ca75-11f1-8a19-8396c483033c
+# ╔═╡ d60985fe-ca7e-11f1-a3ce-a1f2d6ae027c
 function equilibrio_goodwin(α, β, γ, δ)
     missing  # reemplaza esta línea
 end
 
-# ╔═╡ 22d44b12-ca75-11f1-8aee-07283e21b609
+# ╔═╡ d609860a-ca7e-11f1-b29b-45854126a07d
 md"""
 ### Ruta básica: interpretación
 
@@ -481,46 +367,29 @@ md"""
 5. En el ciclo de Goodwin, explica con intuición económica por qué el máximo de
    la tasa de empleo ``v(t)`` ocurre **antes** que el máximo de la participación
    salarial ``u(t)``, y no al mismo tiempo.
-6. ¿Por qué un cooperador aislado rodeado de traidores en la retícula 2D
-   desaparece en una sola generación, mientras que un bloque cuadrado de
-   ``3 \times 3`` cooperadores logra sobrevivir cuando ``b = 1.35``?
-7. Explica por qué un concentrador (*hub*) traidor en una red de
-   Barabási-Albert termina perdiendo su alto pago inicial cuando sus vecinos lo
-   imitan, mientras que un *hub* cooperador refuerza su propio pago.
 
 ### Ruta avanzada
 
-8. Verifica que para la matriz jacobiana ``J(v^\ast, u^\ast)`` del modelo de
+6. Verifica que para la matriz jacobiana ``J(v^\ast, u^\ast)`` del modelo de
    Goodwin, ``\mathrm{tr}(J) = 0`` y ``\det(J) = \alpha_G \gamma_G``. Calcula el
    periodo de las oscilaciones pequeñas cuando ``\alpha_G = 0.24`` y
    ``\gamma_G = 0.36``.
-9. Deriva respecto al tiempo la función
+7. Deriva respecto al tiempo la función
    ``V(v, u) = \delta_G v - \gamma_G \ln v + \beta_G u - \alpha_G \ln u`` usando
    la regla de la cadena y demuestra que ``\dot{V} = 0`` a lo largo de cualquier
    trayectoria de Goodwin.
-10. En una cuadrícula con vecindad de Moore (8 vecinos), calcula para qué valor
-    crítico de ``b`` un traidor en la orilla plana de un bloque de ``3 \times 3``
-    cooperadores (que toca a 3 cooperadores) obtiene un pago mayor que un
-    cooperador del borde del bloque (que toca a 5 cooperadores). Compáralo con
-    la caída de la curva azul en la sección 4.
-11. Según la condición ``b/c > k`` de Ohtsuki et al. (2006), ¿en cuál red es más
-    fácil que prospere un mutante cooperador bajo selección débil: en un anillo
-    (``k = 2``), en una cuadrícula (``k = 4``) o en una red aleatoria densa con
-    ``k = 20``? Explica intuitivamente por qué tener demasiados vecinos dificulta
-    la reciprocidad local.
 
 ## Para la próxima sesión
 
-- Lectura: Requião da Cunha (2021), capítulo 7; Slanina (2014), sección 8.1;
-  Nowak y May (1992). Para la ruta avanzada, Goodwin (1967); Ohtsuki et al.
-  (2006); Santos y Pacheco (2005). De consulta: Strogatz (2019) y Schecter y
-  Gintis (2016).
-- En la sesión 19 estudiaremos qué pasa cuando ganar depende de estar en la
-  **minoría**: el problema del bar El Farol y el **juego de la minoría** como
-  modelo de eficiencia y volatilidad en un mercado financiero.
+- Lectura: Requião da Cunha (2021), capítulo 7. Para la ruta avanzada, Goodwin
+  (1967); de consulta, Strogatz (2019).
+- En la **sesión 18** (`Code/s18_cooperacion_redes.jl`) veremos qué pasa cuando
+  traicionar domina estrictamente a cooperar (**dilema del prisionero**), pero
+  los agentes interactúan en una **red**: reciprocidad espacial en retículas y
+  el papel de los concentradores en redes de Barabási-Albert.
 """
 
-# ╔═╡ 22d44b1c-ca75-11f1-b4b6-af5094848a33
+# ╔═╡ d6098612-ca7e-11f1-bdde-a97d8c9b068f
 md"""
 ---
 ## Apéndice: paquetes y funciones auxiliares
@@ -529,16 +398,16 @@ Estas celdas definen herramientas que usa el cuaderno. No es necesario
 leerlas para seguir la sesión.
 """
 
-# ╔═╡ 22d44b26-ca75-11f1-bcbe-25bbb5e680e1
+# ╔═╡ d609861c-ca7e-11f1-9c55-83195afc1dc7
 begin
-    const AZUL       = "#2a78d6"   # serie principal, cooperadores / halcones / empleo
-    const NARANJA    = "#eb6834"   # segunda serie o teoría, traidores / salarios
+    const AZUL       = "#2a78d6"   # serie principal, halcones / empleo
+    const NARANJA    = "#eb6834"   # segunda serie o teoría, salarios
     const GRIS       = "#52514e"   # referencias y texto
     const GRIS_CLARO = "#c9c7c0"   # elementos de fondo
     const BLANCO     = "#ffffff"
 end;
 
-# ╔═╡ 22d44b30-ca75-11f1-9554-899fd316c611
+# ╔═╡ d6098626-ca7e-11f1-a304-bf7f062c07cb
 """
 Simula el juego Halcón-Paloma con recurso `V` y costo `C` desde `x0`:
 1) Integración de Euler de la EDO del replicador;
@@ -586,10 +455,10 @@ function simular_halcon_paloma(V, C, x0; N = 250, T = 18.0, Δt = 0.05, rng = Xo
     (t_edo = t_edo, x_edo = x_edo, x_alt = x_alt, x0_alt = x0_alt, t_abm = t_abm, x_abm = x_abm)
 end
 
-# ╔═╡ 22d44a72-ca75-11f1-ba52-2557cd318769
+# ╔═╡ d60985b8-ca7e-11f1-9af4-1f1fb3b7b55d
 sim_hp = simular_halcon_paloma(2.0, C_hp, x0_hp; N = 250, T = 18.0, rng = Xoshiro(42));
 
-# ╔═╡ 22d44a72-ca75-11f1-8151-8f2181f7d86b
+# ╔═╡ d60985b8-ca7e-11f1-9446-df311c3ecc53
 let
     V = 2.0
     x_est = V / C_hp
@@ -619,7 +488,7 @@ let
     plot(p1, p2; layout = (1, 2), size = (900, 390), bottom_margin = 4Plots.mm)
 end
 
-# ╔═╡ 22d44b3a-ca75-11f1-bb35-fdbc33ecb071
+# ╔═╡ d6098626-ca7e-11f1-9ed0-395070c035ec
 """
 Integra el sistema de Goodwin – Lotka-Volterra con RK4: a diferencia de Euler, la
 cantidad conservada V(v, u) casi no se desvía y las órbitas se ven cerradas.
@@ -643,7 +512,7 @@ function integrar_goodwin(α, β, γ, δ, v0, u0; T = 45.0, Δt = 0.04)
     (t = ts, v = vs, u = us)
 end
 
-# ╔═╡ 22d44b3a-ca75-11f1-ade6-356d0251f85c
+# ╔═╡ d6098630-ca7e-11f1-9ff3-dd2755fbacdb
 "Simula la órbita principal y una órbita de referencia del ciclo de Goodwin."
 function simular_goodwin(α, β, γ, δ; v0 = 0.85, u0 = α / β, T = 45.0)
     orb = integrar_goodwin(α, β, γ, δ, v0, u0; T = T)
@@ -652,10 +521,30 @@ function simular_goodwin(α, β, γ, δ; v0 = 0.85, u0 = α / β, T = 45.0)
      v_est = γ / δ, u_est = α / β)
 end
 
-# ╔═╡ 22d44a90-ca75-11f1-9b3e-25945510f347
+# ╔═╡ d6098590-ca7e-11f1-be87-d5955be78822
+let
+    hp = simular_halcon_paloma(2.0, 4.0, 0.1; N = 250, T = 18.0, rng = Xoshiro(42))
+    p1 = plot(hp.t_edo, 100 .* hp.x_edo; color = AZUL, lw = 2.4,
+              label = "Desde 10% de halcones", xlabel = "tiempo",
+              ylabel = "halcones en la población (%)", ylims = (0, 100), legend = :topright,
+              title = "Halcón-Paloma: coexistencia en V/C = 50%")
+    plot!(p1, hp.t_edo, 100 .* hp.x_alt; color = NARANJA, lw = 2.4, ls = :dash,
+          label = "Desde 92% de halcones")
+    hline!(p1, [50]; color = GRIS, ls = :dot, label = "")
+
+    gw = simular_goodwin(0.24, 0.40, 0.36, 0.40; v0 = 0.84, u0 = 0.60, T = 45.0)
+    p2 = plot(gw.t, 100 .* gw.v; color = AZUL, lw = 2.2, label = "Empleo v(t)",
+              xlabel = "tiempo (años)", ylabel = "porcentaje (%)", ylims = (42, 102),
+              legend = :bottomright, title = "Ciclo de Goodwin: oscilación sin choques")
+    plot!(p2, gw.t, 100 .* gw.u; color = NARANJA, lw = 2.2, ls = :dash,
+          label = "Salarios / PIB u(t)")
+    plot(p1, p2; layout = (1, 2), size = (880, 350), bottom_margin = 4Plots.mm)
+end
+
+# ╔═╡ d60985cc-ca7e-11f1-9991-7131fc208b43
 sim_gw = simular_goodwin(0.24, β_gw, 0.36, 0.40; v0 = v0_gw, u0 = 0.24 / β_gw, T = 45.0);
 
-# ╔═╡ 22d44a9a-ca75-11f1-b24a-05e2da76ca97
+# ╔═╡ d60985d8-ca7e-11f1-bfa7-bdfbf8ffbcd9
 let
     g = sim_gw
     p1 = plot(g.t, 100 .* g.v; color = AZUL, lw = 2.3, label = "Tasa de empleo v(t)",
@@ -683,296 +572,7 @@ let
     plot(p1, p2; layout = (1, 2), size = (900, 400), bottom_margin = 4Plots.mm)
 end
 
-# ╔═╡ 22d44b44-ca75-11f1-961f-294cf4d5606a
-"""
-Simula el dilema del prisionero espacial de Nowak y May en una cuadrícula L × L
-con vecindad de Moore (8 vecinos, frontera periódica) y tentación `b` (R = 1, P = S = 0).
-Compara con la misma población cuando los 8 rivales y el modelo imitado se eligen al azar.
-"""
-function simular_dilema_reticula(L, b; pasos = 50, rng = Xoshiro(12))
-    tablero = Int.(rand(rng, L, L) .< 0.5)
-    pagos = zeros(Float64, L, L)
-    nuevo = similar(tablero)
-    historia = [mean(tablero)]
-
-    for _ in 1:pasos
-        for r in 1:L, c in 1:L
-            coop_vec = 0
-            for dr in -1:1, dc in -1:1
-                (dr == 0 && dc == 0) && continue
-                coop_vec += tablero[mod1(r + dr, L), mod1(c + dc, L)]
-            end
-            pagos[r, c] = (tablero[r, c] == 1 ? 1.0 : b) * coop_vec
-        end
-        for r in 1:L, c in 1:L
-            mejor_pago = pagos[r, c]
-            mejor_est = tablero[r, c]
-            for dr in -1:1, dc in -1:1
-                (dr == 0 && dc == 0) && continue
-                nr, nc = mod1(r + dr, L), mod1(c + dc, L)
-                if pagos[nr, nc] > mejor_pago
-                    mejor_pago = pagos[nr, nc]
-                    mejor_est = tablero[nr, nc]
-                end
-            end
-            nuevo[r, c] = mejor_est
-        end
-        tablero .= nuevo
-        push!(historia, mean(tablero))
-    end
-
-    # Comparación en mezcla al azar con el mismo tamaño N = L^2 y 8 interacciones por ronda
-    N = L * L
-    rng_m = Xoshiro(99)
-    est_m = Int.(rand(rng_m, N) .< 0.5)
-    pagos_m = zeros(Float64, N)
-    historia_m = [mean(est_m)]
-    for _ in 1:pasos
-        for i in 1:N
-            coop_v = 0
-            for _ in 1:8
-                coop_v += est_m[rand(rng_m, 1:N)]
-            end
-            pagos_m[i] = (est_m[i] == 1 ? 1.0 : b) * coop_v
-        end
-        nuevo_m = similar(est_m)
-        for i in 1:N
-            mejor_p = pagos_m[i]
-            mejor_s = est_m[i]
-            for _ in 1:8
-                j = rand(rng_m, 1:N)
-                if pagos_m[j] > mejor_p
-                    mejor_p = pagos_m[j]
-                    mejor_s = est_m[j]
-                end
-            end
-            nuevo_m[i] = mejor_s
-        end
-        est_m .= nuevo_m
-        push!(historia_m, mean(est_m))
-    end
-    (tablero = tablero, historia = historia,
-     tablero_mezcla = reshape(est_m, L, L), historia_mezcla = historia_m)
-end
-
-# ╔═╡ 22d44aac-ca75-11f1-a358-cd3c96f73766
-sim_pd_ret = simular_dilema_reticula(36, b_pd; pasos = 50, rng = Xoshiro(12));
-
-# ╔═╡ 22d44ab8-ca75-11f1-883b-83efe0426b10
-let
-    r = sim_pd_ret
-    paleta = cgrad([NARANJA, AZUL])
-    p1 = heatmap(r.tablero; color = paleta, clims = (0, 1), aspect_ratio = :equal,
-                 colorbar = false, axis = false, ticks = false, grid = false,
-                 title = "Retícula 2D (b = $b_pd): $(round(Int, 100r.historia[end]))% coopera")
-
-    t = 0:length(r.historia)-1
-    p2 = plot(t, 100 .* r.historia; color = AZUL, lw = 2.4,
-              label = "Retícula 2D (clústeres locales)",
-              xlabel = "generación", ylabel = "cooperadores (%)",
-              ylims = (-2, 102), legend = :outerbottom, legend_columns = 2,
-              title = "Evolución temporal de la cooperación (b = $b_pd)")
-    plot!(p2, t, 100 .* r.historia_mezcla; color = NARANJA, lw = 2.0, ls = :dash,
-          label = "Interacción al azar (mezcla global)")
-    plot(p1, p2; layout = Plots.grid(1, 2; widths = [0.44, 0.56]), size = (900, 390), bottom_margin = 4Plots.mm)
-end
-
-# ╔═╡ 22d44b50-ca75-11f1-9426-6956e4dd6300
-"Ejemplo fijo de la sección 0: comparación entre interacción al azar y retícula 2D con b = 1.35."
-ejemplo_dilema_espacial = let
-    s = simular_dilema_reticula(36, 1.35; pasos = 50, rng = Xoshiro(12))
-    (mezcla = (tablero = s.tablero_mezcla, coop = s.historia_mezcla[end]),
-     reticula = (tablero = s.tablero, coop = s.historia[end]))
-end;
-
-# ╔═╡ 22d44a36-ca75-11f1-a02b-2b84f9801266
-let
-    mezcla, reticula = ejemplo_dilema_espacial
-    paleta = cgrad([NARANJA, AZUL])
-    p1 = heatmap(mezcla.tablero; color = paleta, clims = (0, 1), aspect_ratio = :equal,
-                 colorbar = false, axis = false, ticks = false, grid = false,
-                 title = "Interacción al azar: $(round(Int, 100mezcla.coop))% coopera")
-    p2 = heatmap(reticula.tablero; color = paleta, clims = (0, 1), aspect_ratio = :equal,
-                 colorbar = false, axis = false, ticks = false, grid = false,
-                 title = "Retícula 2D (Nowak y May): $(round(Int, 100reticula.coop))% coopera")
-    plot(p1, p2; layout = (1, 2), size = (820, 390))
-end
-
-# ╔═╡ 22d44b50-ca75-11f1-bcc8-7f042053acc3
-"""
-Simula el dilema del prisionero en un grafo arbitrario `g` con tentación `b`
-bajo la regla de imitación proporcional de Santos y Pacheco (2005). Se detiene
-antes de `pasos` generaciones si toda la red coopera o toda traiciona.
-"""
-function dilema_en_grafo(g, b, rng; pasos = 5000)
-    N = nv(g)
-    s = Int.(rand(rng, N) .< 0.5)
-    adj = [neighbors(g, i) for i in 1:N]
-    grados = [length(adj[i]) for i in 1:N]
-    pagos = zeros(Float64, N)
-    nuevo = similar(s)
-    for _ in 1:pasos
-        0 < sum(s) < N || break
-        for i in 1:N
-            c_vec = 0
-            for j in adj[i]
-                c_vec += s[j]
-            end
-            pagos[i] = (s[i] == 1 ? 1.0 : b) * c_vec
-        end
-        for i in 1:N
-            vec = adj[i]
-            if isempty(vec)
-                nuevo[i] = s[i]
-                continue
-            end
-            j = vec[rand(rng, 1:length(vec))]
-            if pagos[j] > pagos[i]
-                prob = (pagos[j] - pagos[i]) / (b * max(grados[i], grados[j]))
-                nuevo[i] = rand(rng) < prob ? s[j] : s[i]
-            else
-                nuevo[i] = s[i]
-            end
-        end
-        s .= nuevo
-    end
-    mean(s)
-end
-
-# ╔═╡ 22d44b58-ca75-11f1-b5ab-9f10a35a919b
-"Compara la fracción final de cooperadores en función de b entre mezcla al azar, retícula 2D y Barabási-Albert."
-function comparar_topologias_pd(N = 400; bs = 1.05:0.10:1.95, M = 14)
-    L = round(Int, sqrt(N))
-    m_ret, se_ret = Float64[], Float64[]
-    m_ba, se_ba = Float64[], Float64[]
-    m_mez = Float64[]
-
-    for (ib, b) in enumerate(bs)
-        vals_ret = [simular_dilema_reticula(L, b; pasos = 45, rng = Xoshiro(200 + 30ib + m)).historia[end] for m in 1:M]
-        push!(m_ret, mean(vals_ret))
-        push!(se_ret, std(vals_ret) / sqrt(M))
-
-        vals_ba = Float64[]
-        for m in 1:M
-            g_ba = barabasi_albert(N, 4; seed = 500 + m)
-            push!(vals_ba, dilema_en_grafo(g_ba, b, Xoshiro(900 + 30ib + m); pasos = 5000))
-        end
-        push!(m_ba, mean(vals_ba))
-        push!(se_ba, std(vals_ba) / sqrt(M))
-
-        push!(m_mez, simular_dilema_reticula(L, b; pasos = 35, rng = Xoshiro(50 + ib)).historia_mezcla[end])
-    end
-    (bs = collect(bs), reticula = m_ret, se_ret = se_ret, ba = m_ba, se_ba = se_ba, mezcla = m_mez)
-end
-
-# ╔═╡ 22d44ac2-ca75-11f1-9336-6d8d2267ede8
-barrido_pd = comparar_topologias_pd(400; bs = 1.05:0.10:1.95, M = 14);
-
-# ╔═╡ 22d44acc-ca75-11f1-b948-3d8bf4e4c18a
-let
-    b = barrido_pd
-    p = plot(b.bs, 100 .* b.reticula; yerror = 100 .* b.se_ret, color = AZUL, lw = 2.4,
-             marker = :circle, ms = 4.5, msc = AZUL, label = "Retícula 2D (clústeres espaciales)",
-             xlabel = "tentación de traicionar b", ylabel = "cooperadores finales (%)",
-             ylims = (-3, 103), legend = :outerbottom, legend_columns = 3, size = (780, 380),
-             title = "Cooperación frente a la tentación b: retícula 2D vs. Barabási-Albert")
-    plot!(p, b.bs, 100 .* b.ba; yerror = 100 .* b.se_ba, color = NARANJA, lw = 2.4,
-          marker = :square, ms = 4.5, msc = NARANJA, label = "Barabási-Albert (concentradores)")
-    plot!(p, b.bs, 100 .* b.mezcla; color = GRIS, lw = 1.8, ls = :dash,
-          marker = :utriangle, ms = 4, msw = 0, label = "Mezcla al azar")
-    p
-end
-
-# ╔═╡ 22d44b62-ca75-11f1-aa8c-f12a7b0388ea
-"""
-Simula el proceso muerte-nacimiento (Death-Birth, Ohtsuki et al., 2006) en un
-grafo regular `g` de grado `k` con razón beneficio/costo `r = b/c` y selección débil `w`,
-partiendo de un único mutante cooperador. Devuelve N · ρ_C.
-"""
-function fijacion_db(g, r, w; ensayos = 4_000, rng = Xoshiro(1))
-    N = nv(g)
-    adj = [neighbors(g, i) for i in 1:N]
-    k = length(adj[1])
-    s = zeros(Int, N)
-    exitos = 0
-    for e in 1:ensayos
-        fill!(s, 0)
-        s[mod1(e, N)] = 1
-        n_coop = 1
-        pasos = 0
-        while 0 < n_coop < N && pasos < 40 * N * N
-            pasos += 1
-            i = rand(rng, 1:N)
-            vec_i = adj[i]
-            c_en_vec = 0
-            for j in vec_i
-                c_en_vec += s[j]
-            end
-            (c_en_vec == 0 && s[i] == 0) && continue
-            (c_en_vec == k && s[i] == 1) && continue
-
-            suma_f = 0.0
-            suma_fc = 0.0
-            for j in vec_i
-                cj = 0
-                for m in adj[j]
-                    cj += s[m]
-                end
-                fj = 1.0 + w * (r * (cj / k) - s[j])
-                suma_f += fj
-                s[j] == 1 && (suma_fc += fj)
-            end
-            nuevo = rand(rng) * suma_f < suma_fc ? 1 : 0
-            if nuevo != s[i]
-                n_coop += nuevo - s[i]
-                s[i] = nuevo
-            end
-        end
-        exitos += (n_coop == N)
-    end
-    N * (exitos / ensayos)
-end
-
-# ╔═╡ 22d44b76-ca75-11f1-9d44-fb3aea84de09
-"N · ρ_C simulado (con su error estándar) bajo actualización muerte-nacimiento en un anillo (k = 2) y una red regular aleatoria (k = 4)."
-curva_reciprocidad_red = let
-    N = 36
-    w = 0.03
-    ensayos = 30_000
-    bc = collect(1.0:0.5:7.0)
-    anillo = watts_strogatz(N, 2, 0.0; seed = 1)
-    reg4 = random_regular_graph(N, 4; seed = 4)
-    sim_k2 = [fijacion_db(anillo, r, w; ensayos, rng = Xoshiro(100 + round(Int, 10r))) for r in bc]
-    sim_k4 = [fijacion_db(reg4, r, w; ensayos, rng = Xoshiro(200 + round(Int, 10r))) for r in bc]
-    # Error estándar de N · ρ̂ con ρ̂ = éxitos / ensayos (binomial)
-    se(x) = N * sqrt((x / N) * (1 - x / N) / ensayos)
-    umbral(k) = (N - 2) / (N / k - 2)
-    (bc = bc, sim_k2 = sim_k2, sim_k4 = sim_k4, se_k2 = se.(sim_k2), se_k4 = se.(sim_k4),
-     umbral_k2 = umbral(2), umbral_k4 = umbral(4))
-end;
-
-# ╔═╡ 22d44ade-ca75-11f1-a6fb-97609c6e54ca
-let
-    d = curva_reciprocidad_red
-    p = plot(d.bc, d.sim_k2; yerror = d.se_k2, color = AZUL, lw = 2.0, msc = AZUL,
-             marker = :circle, ms = 4.5, label = "Anillo (k = 2)",
-             xlabel = "razón beneficio / costo (b / c)",
-             ylabel = "probabilidad relativa de fijación N · ρ_C",
-             legend = :outerbottom, legend_columns = 2, size = (780, 380),
-             title = "Regla b/c > k de Ohtsuki et al.: fijación de un mutante cooperador (N = 36)")
-    plot!(p, d.bc, d.sim_k4; yerror = d.se_k4, color = NARANJA, lw = 2.0, msc = NARANJA,
-          marker = :square, ms = 4.5, label = "Red regular aleatoria (k = 4)")
-    hline!(p, [1.0]; color = GRIS, ls = :dot, lw = 1.5, label = "Deriva neutra (N · ρ_C = 1)")
-    vline!(p, [2.0, 4.0]; color = GRIS, alpha = 0.5, ls = :dash, lw = 1.2,
-           label = "Regla para N grande (b/c = k)")
-    vline!(p, [d.umbral_k2]; color = AZUL, alpha = 0.5, ls = :dot, lw = 1.5,
-           label = "Umbral finito (N − 2)/(N/k − 2), k = 2")
-    vline!(p, [d.umbral_k4]; color = NARANJA, alpha = 0.5, ls = :dot, lw = 1.5,
-           label = "Umbral finito, k = 4")
-    p
-end
-
-# ╔═╡ 22d44b76-ca75-11f1-b9ff-d144b8449fab
+# ╔═╡ d6098630-ca7e-11f1-9d99-e3cf169dab27
 "Muestra si la respuesta de un ejercicio es correcta."
 function verificar(f, esperado; rtol = 1e-8, pista = md"")
     caja(tipo, titulo, texto) = Markdown.MD(Markdown.Admonition(tipo, titulo, [texto]))
@@ -993,60 +593,46 @@ function verificar(f, esperado; rtol = 1e-8, pista = md"")
     end
 end
 
-# ╔═╡ 22d44afe-ca75-11f1-8c29-a55b532d91bc
+# ╔═╡ d60985f4-ca7e-11f1-9210-559d60c0761e
 verificar(() -> [paso_replicador(0.5, 2.0, 1.0, 0.1), paso_replicador(0.2, 1.0, 3.0, 0.05), paso_replicador(1.0, 4.0, 1.0, 0.1)],
           [0.5 + 0.25 * 1.0 * 0.1, 0.2 + 0.16 * (-2.0) * 0.05, 1.0];
           pista = md"Usa `x + x * (1 - x) * (π1 - π2) * Δt`.")
 
-# ╔═╡ 22d44b08-ca75-11f1-aea7-21317e7d9f6b
+# ╔═╡ d609860a-ca7e-11f1-9abe-3dfb2536a760
 verificar(() -> (r = equilibrio_goodwin(0.24, 0.40, 0.36, 0.40); r === missing ? missing : collect(r)),
           [0.9, 0.6];
           pista = md"De ``\alpha - \beta u^\ast = 0`` y ``-\gamma + \delta v^\ast = 0`` se obtiene `(γ / δ, α / β)`.")
 
 # ╔═╡ Cell order:
-# ╟─22d449dc-ca75-11f1-b88f-d7d836b2d16f
-# ╟─22d44a22-ca75-11f1-95df-175fc7e518b2
-# ╟─22d44a2c-ca75-11f1-a4fd-bb84142fba9f
-# ╟─22d44a36-ca75-11f1-a02b-2b84f9801266
-# ╟─22d44a36-ca75-11f1-b3f5-fd3df9476ad4
-# ╟─22d44a4c-ca75-11f1-82c2-737a7706e2c7
-# ╠═22d44a54-ca75-11f1-975c-773be70bdea9
-# ╠═22d44a54-ca75-11f1-9a6b-b12133e3989b
-# ╟─22d44a5e-ca75-11f1-ae6e-f972347f317b
-# ╠═22d44a72-ca75-11f1-ba52-2557cd318769
-# ╟─22d44a72-ca75-11f1-8151-8f2181f7d86b
-# ╟─22d44a86-ca75-11f1-8651-cbd48f493f0e
-# ╟─22d44a86-ca75-11f1-8cac-05759aa62cce
-# ╠═22d44a90-ca75-11f1-9b3e-25945510f347
-# ╟─22d44a9a-ca75-11f1-b24a-05e2da76ca97
-# ╟─22d44aa4-ca75-11f1-a599-0341e21132ce
-# ╟─22d44aa4-ca75-11f1-8046-0736daa0d29e
-# ╠═22d44aac-ca75-11f1-a358-cd3c96f73766
-# ╟─22d44ab8-ca75-11f1-883b-83efe0426b10
-# ╟─22d44ac2-ca75-11f1-b1fb-01d1ccfb4a79
-# ╠═22d44ac2-ca75-11f1-9336-6d8d2267ede8
-# ╟─22d44acc-ca75-11f1-b948-3d8bf4e4c18a
-# ╟─22d44ad6-ca75-11f1-bc53-994494913036
-# ╟─22d44ad6-ca75-11f1-b11e-a1e21ade4c41
-# ╟─22d44ade-ca75-11f1-a6fb-97609c6e54ca
-# ╟─22d44aea-ca75-11f1-ad0b-6714c3ab94a1
-# ╟─22d44af4-ca75-11f1-b5f9-7516b32b1add
-# ╠═22d44afe-ca75-11f1-9d6d-c11e2ab6d6ac
-# ╟─22d44afe-ca75-11f1-8c29-a55b532d91bc
-# ╟─22d44b08-ca75-11f1-a2f9-55abc7b236fb
-# ╠═22d44b08-ca75-11f1-8a19-8396c483033c
-# ╟─22d44b08-ca75-11f1-aea7-21317e7d9f6b
-# ╟─22d44b12-ca75-11f1-8aee-07283e21b609
-# ╟─22d44b1c-ca75-11f1-b4b6-af5094848a33
-# ╠═22d44b1c-ca75-11f1-b126-3f97cbf06a53
-# ╠═22d44b26-ca75-11f1-bcbe-25bbb5e680e1
-# ╠═22d44b30-ca75-11f1-9554-899fd316c611
-# ╠═22d44b3a-ca75-11f1-bb35-fdbc33ecb071
-# ╠═22d44b3a-ca75-11f1-ade6-356d0251f85c
-# ╠═22d44b44-ca75-11f1-961f-294cf4d5606a
-# ╠═22d44b50-ca75-11f1-9426-6956e4dd6300
-# ╠═22d44b50-ca75-11f1-bcc8-7f042053acc3
-# ╠═22d44b58-ca75-11f1-b5ab-9f10a35a919b
-# ╠═22d44b62-ca75-11f1-aa8c-f12a7b0388ea
-# ╠═22d44b76-ca75-11f1-9d44-fb3aea84de09
-# ╠═22d44b76-ca75-11f1-b9ff-d144b8449fab
+# ╟─d6098540-ca7e-11f1-9151-17c3274092ef
+# ╟─d609857c-ca7e-11f1-82c4-69d50d94bd5d
+# ╟─d6098586-ca7e-11f1-9f1b-d13a44fda248
+# ╟─d6098590-ca7e-11f1-be87-d5955be78822
+# ╟─d6098590-ca7e-11f1-9674-bdf05e7b2f82
+# ╟─d609859a-ca7e-11f1-ab80-e7bc0b9dd447
+# ╠═d609859a-ca7e-11f1-8750-1f67c3c055c7
+# ╠═d60985a6-ca7e-11f1-bddc-63d975b81747
+# ╟─d60985ae-ca7e-11f1-96b8-39e55239dfa1
+# ╠═d60985b8-ca7e-11f1-9af4-1f1fb3b7b55d
+# ╟─d60985b8-ca7e-11f1-9446-df311c3ecc53
+# ╟─d60985c2-ca7e-11f1-a2cf-c7e6844615e2
+# ╟─d60985cc-ca7e-11f1-8c05-19ac41debd09
+# ╠═d60985cc-ca7e-11f1-9991-7131fc208b43
+# ╟─d60985d8-ca7e-11f1-bfa7-bdfbf8ffbcd9
+# ╟─d60985e0-ca7e-11f1-84eb-d71476a373ab
+# ╟─d60985e0-ca7e-11f1-8d26-3bc153968f4c
+# ╟─d60985ea-ca7e-11f1-bc1f-c901504332f0
+# ╟─d60985f4-ca7e-11f1-a16e-238a90e7c64b
+# ╠═d60985f4-ca7e-11f1-a89d-d7a32949ce4b
+# ╟─d60985f4-ca7e-11f1-9210-559d60c0761e
+# ╟─d60985fe-ca7e-11f1-a94e-df54157eac9a
+# ╠═d60985fe-ca7e-11f1-a3ce-a1f2d6ae027c
+# ╟─d609860a-ca7e-11f1-9abe-3dfb2536a760
+# ╟─d609860a-ca7e-11f1-b29b-45854126a07d
+# ╟─d6098612-ca7e-11f1-bdde-a97d8c9b068f
+# ╠═d6098612-ca7e-11f1-8eb0-8107b7571c11
+# ╠═d609861c-ca7e-11f1-9c55-83195afc1dc7
+# ╠═d6098626-ca7e-11f1-a304-bf7f062c07cb
+# ╠═d6098626-ca7e-11f1-9ed0-395070c035ec
+# ╠═d6098630-ca7e-11f1-9ff3-dd2755fbacdb
+# ╠═d6098630-ca7e-11f1-9d99-e3cf169dab27

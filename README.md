@@ -24,8 +24,10 @@ Matemáticas), con simulaciones en Julia.
 │   ├── s12_contagio.md            → Notas formales, sesión 12
 │   ├── s13_logit_ising.md         → Notas formales, sesión 13
 │   ├── s14_campo_medio.md         → Notas formales, sesión 14
-│   ├── s15_votante_kirman.md      → Notas formales, sesiones 15 y 16 (se divide en la fase 3)
-│   ├── s17_replicador_goodwin.md  → Notas formales, sesiones 17 y 18 (se divide en la fase 3)
+│   ├── s15_votante_kirman.md      → Notas formales, sesión 15
+│   ├── s16_schelling.md           → Notas formales, sesión 16
+│   ├── s17_replicador_goodwin.md  → Notas formales, sesión 17
+│   ├── s18_cooperacion_redes.md   → Notas formales, sesión 18
 │   ├── s19_juego_minoria.md       → Notas formales, sesión 19
 │   ├── s20_mercados_artificiales.md → Notas formales, sesión 20
 │   └── repaso/                → Repaso de matemáticas por niveles (índice por sesión)
@@ -58,8 +60,10 @@ Matemáticas), con simulaciones en Julia.
 │   ├── s12_contagio.jl            → Cuaderno de Pluto, sesión 12
 │   ├── s13_logit_ising.jl         → Cuaderno de Pluto, sesión 13
 │   ├── s14_campo_medio.jl         → Cuaderno de Pluto, sesión 14
-│   ├── s15_votante_kirman.jl      → Cuaderno de Pluto, sesiones 15 y 16 (se divide en la fase 3)
-│   ├── s17_replicador_goodwin.jl  → Cuaderno de Pluto, sesiones 17 y 18 (se divide en la fase 3)
+│   ├── s15_votante_kirman.jl      → Cuaderno de Pluto, sesión 15
+│   ├── s16_schelling.jl           → Cuaderno de Pluto, sesión 16
+│   ├── s17_replicador_goodwin.jl  → Cuaderno de Pluto, sesión 17
+│   ├── s18_cooperacion_redes.jl   → Cuaderno de Pluto, sesión 18
 │   ├── s19_juego_minoria.jl       → Cuaderno de Pluto, sesión 19
 │   ├── s20_mercados_artificiales.jl → Cuaderno de Pluto, sesión 20
 │   ├── descargar_datos.jl     → Regenera Data/precios.csv desde Yahoo Finance
@@ -82,7 +86,7 @@ Matemáticas), con simulaciones en Julia.
 ├── src/                       → Fuentes de los cuadernos de Pluto (formato #%%)
 │   ├── construir_cuaderno.jl  → Genera y ejecuta un cuaderno a partir de su fuente
 │   ├── revisar_material.jl    → Revisa claves de repaso, enlaces y referencias a sesiones
-│   └── sNN_tema.jl            → Fuente de Code/sNN_tema.jl (18 de 20 fuentes; el resto llega con la fase 3)
+│   └── sNN_tema.jl            → Fuente de Code/sNN_tema.jl (20 fuentes, sesiones 1 a 20)
 └── README.md
 ```
 
@@ -151,7 +155,7 @@ Plan completo en [docs/plan_reestructuracion.md](docs/plan_reestructuracion.md).
 - [x] Cuadernos de Pluto y notas formales de las 14 sesiones originales.
 - [x] Fase 1: programa de 20 sesiones.
 - [x] Fase 2: renumeración de archivos y referencias.
-- [ ] Fase 3: dividir las sesiones 1, 4, 10, 13, 15 y 17 (cada una en dos).
+- [x] Fase 3: dividir las sesiones 1, 4, 10, 13, 15 y 17 (cada una en dos).
 - [ ] Fases 4 a 6: aligerar sesiones, notas en dos capas, conceptos transversales.
 - [ ] Fase 7: talleres para casa de los tres módulos y guía del proyecto final.
 - [ ] Diagnóstico de matemáticas para la sesión 1.

@@ -1,4 +1,4 @@
-# Sesiones 15 y 16: Opinión, herding y segregación. Notas formales
+# Sesión 15: Votante y Kirman: imitación y herding. Notas formales
 
 > **Cómo leer estas notas.** Siguen el orden del programa: primero se observa
 > en el cuaderno (`Code/s15_votante_kirman.jl`), después se formaliza aquí. Lo que no
@@ -6,11 +6,12 @@
 > **[Avanzado]** son opcionales.
 >
 > Repaso recomendado: [E.B2](repaso/procesos_estocasticos.md#eb2) (caminata
-> aleatoria), [E.I2](repaso/procesos_estocasticos.md#ei2) (martingalas),
+> aleatoria), [E.B3](repaso/procesos_estocasticos.md#eb3) (promedios),
 > [L.B4](repaso/algebra_lineal.md#lb4) (matriz de adyacencia y grado),
 > [C.B4](repaso/calculo.md#cb4) (función logística),
 > [F.B3](repaso/fisica_estadistica.md#fb3) (temperatura y ruido),
 > [F.B4](repaso/fisica_estadistica.md#fb4) (transiciones de fase),
+> [E.I2](repaso/procesos_estocasticos.md#ei2) (martingalas),
 > [E.I3](repaso/procesos_estocasticos.md#ei3) (cadenas de Markov y estados
 > absorbentes), [F.I3](repaso/fisica_estadistica.md#fi3) (Ising) y
 > [F.I4](repaso/fisica_estadistica.md#fi4) (campo medio); para la ruta
@@ -20,11 +21,9 @@
 > [E.A6](repaso/procesos_estocasticos.md#ea6) (ruina del jugador y tiempos de
 > salida).
 >
-> Lecturas: Sen & Chakrabarti (2014), caps. 3–4; Kirman (2011), caps. 2–3 y
-> 6; Requião da Cunha (2021), sec. 8.2; Schelling (1971). Ruta avanzada:
-> Slanina (2014), cap. 3 y sec. 8.2; Sen & Chakrabarti (2014), cap. 6;
-> Castellano, Fortunato & Loreto (2009); Kirman (1993); Föllmer (1974); Sood &
-> Redner (2005); Grauwin et al. (2009). De consulta: Wilensky & Rand (2015).
+> Lecturas: Sen & Chakrabarti (2014), cap. 3. Complementaria: Kirman (2011),
+> caps. 2–3. Ruta avanzada: Slanina (2014), cap. 3; Castellano, Fortunato &
+> Loreto (2009); Kirman (1993); Sood & Redner (2005).
 
 ---
 
@@ -220,7 +219,7 @@ Alfarano, Lux y Wagner (2005) estiman una versión asimétrica con datos
 financieros. A
 diferencia del modelo de votante, cada agente tiene una propensión positiva
 $a > 0$ a cambiar de opinión por cuenta propia, evitando que los estados
-$k = 0$ y $k = N$ sean absorbentes.
+$k = 0$ y $k = N$ sean absorbentes ([F.B3](repaso/fisica_estadistica.md#fb3)).
 
 Sea $k \in \lbrace 0, 1, \dots, N\rbrace$ el número de agentes en el estado
 $1$. En cada paso elemental se elige un agente al azar:
@@ -359,7 +358,7 @@ $p(x) \propto x^{a-1}(1-x)^{a-1}$. $\square$
 ### 2.4 Transición entre unimodalidad y bimodalidad: Kirman frente a Ising
 
 La forma de $p_{\text{est}}(x) \propto [x(1-x)]^{a-1}$ cambia cualitativamente
-en $a = 1$:
+en $a = 1$ ([F.B4](repaso/fisica_estadistica.md#fb4)):
 
 - **$a > 1$ (régimen unimodal):** El exponente $a - 1 > 0$ hace que
   $p_{\text{est}}(0) = p_{\text{est}}(1) = 0$ y que la densidad alcance un
@@ -370,11 +369,11 @@ en $a = 1$:
   para todo $a > 0$). El sistema pasa largos periodos cerca de $x \approx 0$ o
   $x \approx 1$ y realiza transiciones abruptas entre ambos consensos.
 
-**Comparación con el modelo de Ising (sesión 14):**
+**Comparación con el modelo de Ising ([sesión 13](s13_logit_ising.md) y [sesión 14](s14_campo_medio.md), [F.I3](repaso/fisica_estadistica.md#fi3)–[F.I4](repaso/fisica_estadistica.md#fi4)):**
 
 | Propiedad | Ising en campo medio (sesión 14) | Modelo de Kirman |
 |---|---|---|
-| Regla individual | No lineal: probabilidad logit $\sigma(2\beta J m)$ | Lineal en la fracción $x = k/N$ |
+| Regla individual | No lineal: probabilidad logit $\sigma(2\beta J m)$ ([C.B4](repaso/calculo.md#cb4)) | Lineal en la fracción $x = k/N$ |
 | Deriva determinista $A(x)$ | Tiene tres ceros cuando $\beta J > 1$ (doble pozo) | Lineal: $A(x) = a(1/2 - x)$, siempre apunta a $x = 1/2$ |
 | Intensidad de ruido $B(x)^2$ | Constante de orden $1/N$ lejos de los bordes | Multiplicativa: $B(x)^2 = x(1-x)$, se anula en $x = 0, 1$ |
 | Origen de la bimodalidad | Bifurcación determinista de la deriva (ruptura de simetría) | **Bimodalidad inducida por el ruido**: el ruido se apaga en los bordes |
@@ -389,105 +388,7 @@ atrapado temporalmente cerca de la frontera.
 
 ---
 
-## 3. El modelo de segregación de Schelling
-
-### 3.1 Reglas, similitud y satisfacción
-
-Schelling (1971) estudió cómo las preferencias individuales moderadas por no
-ser una minoría extrema en el propio vecindario generan una fuerte segregación
-macroscópica.
-
-**Configuración.** En una cuadrícula de $L \times L$ celdas con condiciones de
-frontera periódicas, una fracción $\rho_0 \in (0, 1)$ de las celdas permanece
-vacía ($c_i = 0$) y las celdas restantes están ocupadas en partes iguales por
-agentes de dos grupos, $c_i \in \lbrace 1, 2\rbrace$.
-
-**Vecindad y similitud local.** Cada agente en la celda $i$ observa su vecindad
-de Moore $\mathcal N_i$ (las $8$ celdas adyacentes). Sea $n_i = \sum_{j \in
-\mathcal N_i} \mathbf 1(c_j \ne 0)$ el número de vecinos ocupados y $n_i^{=} =
-\sum_{j \in \mathcal N_i} \mathbf 1(c_j = c_i)$ el número de vecinos del mismo
-grupo. La **similitud local** del agente $i$ es
-
-$$
-s_i = \frac{n_i^{=}}{n_i} \qquad (\text{con } s_i = 1 \text{ si } n_i = 0) .
-$$
-
-**Regla de mudanza.** Todos los agentes comparten un **umbral de tolerancia**
-$\tau \in [0, 1]$:
-
-- El agente $i$ está **satisfecho** si $s_i \ge \tau$.
-- Si $s_i < \tau$, está **insatisfecho** y se muda en la ronda siguiente a una
-  celda vacía elegida al azar.
-
-La **similitud media** $\bar s = \frac{1}{N_{\text{occ}}}\sum_{c_i \ne 0} s_i$
-mide el grado de segregación espacial: en una distribución aleatoria con dos
-grupos iguales, $\mathbb E[\bar s] = 1/2$; cuando se forman dominios puros de
-cada grupo, $\bar s$ se acerca a $1$ (salvo por los agentes en las fronteras
-entre dominios).
-
-### 3.2 Umbral crítico, segregación y frustración
-
-Como una vecindad de Moore tiene a lo sumo $8$ vecinos, el umbral $\tau$
-opera en escalones de octavos ($1/8 = 0.125$, $2/8 = 0.25$, $3/8 = 0.375$,
-etc.). Al variar $\tau$ aparecen tres regímenes bien diferenciados:
-
-1. **Tolerancia alta ($\tau \le 1/4 = 0.25$):** En la configuración aleatoria
-   inicial, la probabilidad binomial de que un agente con $7$ u $8$ vecinos
-   tenga menos de $2$ del mismo grupo es pequeña. Pocos agentes se mudan y la
-   ciudad permanece integrada ($\bar s$ entre 0.52 y 0.60 en el barrido del
-   cuaderno).
-2. **Segregación emergente ($0.3 \le \tau \le 0.7$ en el barrido, en
-   particular $\tau = 3/8 = 0.375$ y $\tau = 1/2$):** Con celdas vacías, un
-   agente puede tener menos de $8$ vecinos ocupados, y fracciones como
-   $2/7 \approx 0.29$ ya no cumplen $\tau = 0.3$. Aunque ningún agente desea una
-   ciudad segregada —cada uno acepta hasta $5/8$ (62.5%) de vecinos del otro
-   grupo cuando $\tau = 3/8$—, cada mudanza disminuye la fracción del propio
-   grupo en el vecindario abandonado y la aumenta en el de llegada. Esta
-   **externalidad de vecindario** desencadena una cascada de reubicaciones que
-   solo se detiene cuando la ciudad se divide en grandes dominios homogéneos
-   con $\bar s$ entre 0.74 y casi 1 (en el barrido del cuaderno) y
-   satisfacción final del 100%.
-3. **Intolerancia extrema y frustración ($\tau \gtrsim 3/4 = 0.75$):** Casi
-   ninguna frontera entre los dos grupos permite que ambos lados tengan
-   simultáneamente $s_i \ge \tau$. El sistema no encuentra una configuración
-   absorbente y queda congelado o ciclando en un estado desordenado con baja
-   satisfacción.
-
-### 3.3 Analogía física: Ising a temperatura cero con magnetización conservada
-
-El modelo de Schelling es el análogo fuera del equilibrio de un **modelo de
-Ising ferromagnético con espín conservado** (Vinković y Kirman, 2006) (dinámica de Kawasaki, donde dos
-celdas intercambian sus estados en lugar de voltear un espín individual, pues el
-número de agentes de cada grupo es fijo):
-
-- **Energía de interfaz.** En un modelo de Ising con estados $\pm 1$ y vacíos
-  $0$, la energía de enlaces entre vecinos distintos es proporcional al
-  perímetro total de las fronteras entre el grupo $1$ y el grupo $2$. Mudarse
-  hacia vecindarios con $s_i \ge \tau$ suele reducir el número de enlaces entre
-  grupos distintos (aunque una mudanza concreta puede aumentarlo), engrosando
-  los dominios (*coarsening*) como un ferromagneto enfriado por debajo de su
-  temperatura crítica ($T \to 0$).
-- **Falta de función potencial exacta y función de Lyapunov acotada.** A
-  diferencia del modelo de Ising estándar, la utilidad individual de Schelling
-  es una función escalón $u_i = \mathbf 1(s_i \ge \tau)$, que depende del
-  cociente $n_i^{=}/n_i$ y cuya ganancia al mudarse no es exactamente simétrica
-  respecto al cambio de la energía total de enlaces. Grauwin et al. (2009)
-  resuelven exactamente una variante de Schelling (la utilidad depende de la
-  composición del bloque donde vive el agente) en la que un parámetro
-  interpola entre dinámica individual y cooperativa. Con una función que liga
-  el nivel individual con el global muestran que la dinámica individual lleva
-  a una fase segregada de baja utilidad, y la cooperativa, a una fase mezclada
-  de alta utilidad.
-- **Óptimo individual frente a óptimo social.** Con $\tau = 3/8$, una
-  configuración integrada en tablero de ajedrez ($s_i = 4/8$ para todos) o en
-  franjas de dos celdas de ancho ($s_i = 5/8$) satisface al 100% de los
-  agentes con $\bar s$ entre 0.5 y 0.625, pero es dinámicamente inestable ante
-  pequeñas fluctuaciones: la dinámica descentralizada converge hacia el estado segregado
-  de baja energía interfacial ($\bar s \approx 0.8$).
-
----
-
-## 4. Resumen formal
+## 3. Resumen formal
 
 | Modelo / Concepto | Resultado clave |
 |---|---|
@@ -497,11 +398,10 @@ número de agentes de cada grupo es fijo):
 | Modelo de Kirman (discreto) | $W(k\to k+1) = \frac{N-k}{N}\frac{a+k}{N-1+2a}$; estacionaria exacta $\mathrm{BetaBinomial}(N, a, a)$ |
 | Modelo de Kirman (continuo) | Fokker-Planck con $A(x) = a(1/2 - x)$ y $B(x)^2 = x(1-x)$; estacionaria $\mathrm{Beta}(a,a) \propto [x(1-x)]^{a-1}$ |
 | Umbral de herding en Kirman | Bimodal si $a < 1$, exactamente uniforme si $a = 1$, unimodal si $a > 1$ |
-| Modelo de Schelling | Satisfecho si $s_i = n_i^{=}/n_i \ge \tau$; para $\tau \approx 3/8$ emerge segregación fuerte ($\bar s \approx 0.8$) |
 
 ---
 
-## 5. Ejercicios formales
+## 4. Ejercicios formales
 
 **Ruta básica**
 
@@ -518,39 +418,27 @@ número de agentes de cada grupo es fijo):
   las probabilidades de transición entre los tres estados $k \in
   \lbrace 0, 1, 2\rbrace$ y verifica que $P_0 = P_1 = P_2 = 1/3$ cuando
   $a = 1$.
-- **F4.** Un agente del modelo de Schelling tiene $6$ vecinos ocupados ($2$ de
-  su grupo y $4$ del otro) y $2$ celdas vecinas vacías. Si $\tau = 3/8 =
-  0.375$, ¿está satisfecho? Si uno de sus vecinos del otro grupo se muda y deja
-  su celda vacía, ¿cambia el estado de satisfacción de nuestro agente sin que
-  él se haya movido?
 
 **Ruta avanzada**
 
-- **F5.** Demuestra que para $N = 3$ agentes en la red completa, resolviendo el
+- **F4.** Demuestra que para $N = 3$ agentes en la red completa, resolviendo el
   sistema lineal exacto $\tau_1 = \frac13 + p_1 \tau_2 + (1 - 2p_1)\tau_1$ (por
   simetría $\tau_1 = \tau_2$, con $\tau_0 = \tau_3 = 0$), el tiempo esperado
   exacto hasta el consenso desde $k_0 = 1$ es $\tau_1 = 1$ barrido ($3$ pasos
   elementales), y compáralo con la aproximación continua
   $-(N-1)[x\ln x + (1-x)\ln(1-x)]$ evaluada en $x = 1/3$.
-- **F6.** Usando que la distribución estacionaria continua del modelo de Kirman
+- **F5.** Usando que la distribución estacionaria continua del modelo de Kirman
   es $\mathrm{Beta}(a, a)$ con densidad $p(x) = \frac{1}{\mathrm{B}(a,a)}
   x^{a-1}(1-x)^{a-1}$, demuestra que $\mathbb E[x] = 1/2$ y que la varianza es
   $\operatorname{Var}(x) = \frac{1}{4(2a + 1)}$. Usa la identidad
   $\mathrm{B}(u+1, v) = \frac{u}{u+v}\mathrm{B}(u, v)$ y verifica los límites
   $a \to 0$, $a = 1$ y $a \to \infty$.
-- **F7.** Aplica la fórmula de Itô ([E.A2](repaso/procesos_estocasticos.md#ea2))
+- **F6.** Aplica la fórmula de Itô ([E.A2](repaso/procesos_estocasticos.md#ea2))
   con el cambio de variable $y = \arcsin(2x - 1) \in [-\pi/2, \pi/2]$ a la EDE
   del modelo de Kirman $dx = a(1/2 - x)\thinspace dt + \sqrt{x(1-x)}\thinspace dW_t$ y encuentra
   la difusión con ruido aditivo constante que satisface $y_t$. ¿Cómo se
   interpreta el signo de la deriva efectiva de $y_t$ cerca de las fronteras
   $y = \pm\pi/2$ según sea $a < 1$ o $a > 1$?
-- **F8.** En el modelo de Schelling sobre un grafo con matriz de adyacencia
-  $A_{ij}$ y sin celdas vacías, donde dos agentes de grupos distintos
-  intercambian lugares si y solo si la suma de vecinos iguales de ambos
-  aumenta estrictamente, demuestra que el número total de aristas entre grupos
-  distintos $E_{\ne} = \sum_{\langle i,j\rangle} \mathbf 1(c_i \ne c_j)$
-  decrece estrictamente en cada intercambio y concluye que el proceso debe
-  detenerse en un número finito de pasos.
 
 ---
 
@@ -570,9 +458,6 @@ número de agentes de cada grupo es fijo):
 - Föllmer, H. (1974). Random economies with many interacting agents. *Journal
   of Mathematical Economics*, 1(1), 51–62.
   https://doi.org/10.1016/0304-4068(74)90035-4
-- Grauwin, S., Bertin, E., Lemoy, R., & Jensen, P. (2009). Competition between
-  collective and individual dynamics. *Proceedings of the National Academy of
-  Sciences*, 106(49), 20622–20626. https://doi.org/10.1073/pnas.0906263106
 - Holley, R. A., & Liggett, T. M. (1975). Ergodic theorems for weakly
   interacting infinite systems and the voter model. *The Annals of
   Probability*, 3(4), 643–663. https://doi.org/10.1214/aop/1176996306
@@ -580,12 +465,6 @@ número de agentes de cada grupo es fijo):
   Economics*, 108(1), 137–156. https://doi.org/10.2307/2118498
 - Kirman, A. (2011). *Complex Economics: Individual and Collective
   Rationality*. Routledge.
-- Requião da Cunha, C. (2021). *Introduction to Econophysics: Contemporary
-  Approaches with Python Simulations*. CRC Press.
-  https://doi.org/10.1201/9781003127956
-- Schelling, T. C. (1971). Dynamic models of segregation. *Journal of
-  Mathematical Sociology*, 1(2), 143–186.
-  https://doi.org/10.1080/0022250X.1971.9989794
 - Sen, P., & Chakrabarti, B. K. (2014). *Sociophysics: An Introduction*.
   Oxford University Press.
 - Slanina, F. (2014). *Essentials of Econophysics Modelling*. Oxford
@@ -597,9 +476,3 @@ número de agentes de cada grupo es fijo):
   in complex networks: Role of dimensionality, disorder, and degree
   distribution. *Physical Review E*, 72(3), 036132.
   https://doi.org/10.1103/PhysRevE.72.036132
-- Vinković, D., & Kirman, A. (2006). A physical analogue of the Schelling
-  model. *Proceedings of the National Academy of Sciences*, 103(51),
-  19261–19265. https://doi.org/10.1073/pnas.0609371103
-- Wilensky, U., & Rand, W. (2015). *An Introduction to Agent-Based Modeling:
-  Modeling Natural, Social, and Engineered Complex Systems with NetLogo*.
-  MIT Press.
