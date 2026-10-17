@@ -139,13 +139,15 @@ para explicar la desigualdad, el contagio y los cambios abruptos colectivos.
 	  Ribeiro (consulta).
 - **Semana 8: Redes: estructura y modelos**
 	- *Repaso*: matriz de adyacencia.
-	- Medidas: grado, centralidades, agrupamiento.
+	- Medidas: grado, centralidades, agrupamiento (los matrimonios de las
+	  familias de Florencia).
 	- Erdős-Rényi, Watts-Strogatz, Barabási-Albert.
 	- Robustez: fallas aleatorias vs. ataques dirigidos (por simulación).
 	- **[Avanzado]** Laplaciano y espectro; asortatividad; modelo de
 	  configuración; umbral de percolación.
-	- *Laboratorio*: comparar modelos con una red real (árbol de la semana 5 o
-	  comercio internacional); ataque dirigido vs. aleatorio.
+	- *Laboratorio*: comparar modelos con una red real (red de correlaciones
+	  del S&P 100, construida con los datos de la semana 5); ataque dirigido
+	  vs. aleatorio.
 	- Lecturas: NW 6–7, 10–11; RC 8.1; SL 6.
 	  **[Avanzado]** NW 12–13, 15; JK 2–5.
 - **Semana 9: Contagio y riesgo sistémico**

@@ -16,7 +16,7 @@ macro bind(def, element)
     #! format: on
 end
 
-# ╔═╡ d97ba1b8-c9de-11f1-af42-8f8171e75b96
+# ╔═╡ b56a3472-c9e5-11f1-b53b-27a915311b1b
 begin
     # Usa el entorno del curso (Code/Project.toml) en lugar del gestor de
     # paquetes propio de Pluto: un solo entorno para todo el repositorio.
@@ -31,7 +31,7 @@ begin
             background_color_legend = nothing, margin = 3Plots.mm)
 end
 
-# ╔═╡ d97ba082-c9de-11f1-b7f6-1d3b4b249a48
+# ╔═╡ b56a334e-c9e5-11f1-903e-155df99fcf47
 md"""
 # Sesión 9: Contagio y riesgo sistémico
 
@@ -61,10 +61,10 @@ adyacencia), C.B5 (serie geométrica), L.I4 (potencias de matrices), C.I5
 F.A5 (percolación).
 """
 
-# ╔═╡ d97ba0b4-c9de-11f1-ba13-dffabef08e49
+# ╔═╡ b56a3380-c9e5-11f1-8dfb-5716f41a4a0a
 TableOfContents(title = "Contenido")
 
-# ╔═╡ d97ba0be-c9de-11f1-b583-b14dc82ee545
+# ╔═╡ b56a3380-c9e5-11f1-8852-6f38a5676b65
 md"""
 ## 0. El fenómeno: de una quiebra a una crisis
 
@@ -82,13 +82,13 @@ uno cae si al menos el 18% de sus vecinos ha caído. Empezamos tumbando **un
 solo** nodo; el color dice en qué ronda cayó cada uno.
 """
 
-# ╔═╡ d97ba0c6-c9de-11f1-9781-bff2597d4c8d
+# ╔═╡ b56a3396-c9e5-11f1-bcbf-bf78a99aaf11
 md"""
 Con otra red, o con otro nodo inicial, la misma regla puede no producir casi
 nada. Hoy queremos saber **cuándo** un choque pequeño se vuelve sistémico.
 """
 
-# ╔═╡ d97ba0d2-c9de-11f1-aac9-af3b52a104a8
+# ╔═╡ b56a3396-c9e5-11f1-b51a-297ba7ecc9dd
 md"""
 ## 1. Repaso: un choque que se repite atenuándose
 
@@ -108,13 +108,13 @@ red, ``\ell`` se vuelve una matriz ``\Lambda`` y la serie es
 sección 4.
 """
 
-# ╔═╡ d97ba0d2-c9de-11f1-9835-dbf8353250a8
+# ╔═╡ b56a33a0-c9e5-11f1-857b-a9c41040568b
 amplificacion(ℓ; rondas = 200) = sum(ℓ^t for t in 0:rondas)
 
-# ╔═╡ d97ba0dc-c9de-11f1-a753-f5f6cbf40ae5
+# ╔═╡ b56a33a0-c9e5-11f1-b9cf-c75a8905dc6e
 amplificacion(0.5), amplificacion(0.9), amplificacion(1.1)
 
-# ╔═╡ d97ba0e6-c9de-11f1-bd7b-eb2b13052525
+# ╔═╡ b56a33aa-c9e5-11f1-b4de-3b9a2733f72c
 md"""
 ## 2. Cascadas de umbral
 
@@ -147,7 +147,7 @@ grado promedio ``z``, cada una a partir de un nodo al azar. Una cascada es
 Umbral ``\varphi``: $(@bind φ_watts Slider([0.12, 0.15, 0.18, 0.22, 0.25], default = 0.18, show_value = true))
 """
 
-# ╔═╡ d97ba104-c9de-11f1-b327-7779b52f22c4
+# ╔═╡ b56a33be-c9e5-11f1-be8c-336ec6908471
 md"""
 Hay una **ventana**: las cascadas globales sólo ocurren para valores
 intermedios de ``z``. Los dos bordes tienen causas distintas.
@@ -170,7 +170,7 @@ bajo la abre hacia ``z`` grandes. La sección 6 explica de
 dónde sale la ventana teórica.
 """
 
-# ╔═╡ d97ba104-c9de-11f1-b52f-adee8580b784
+# ╔═╡ b56a33c8-c9e5-11f1-8808-b7e145263137
 md"""
 ### Laboratorio: Erdős-Rényi contra Barabási-Albert
 
@@ -179,7 +179,7 @@ experimento en redes de Barabási-Albert con el mismo grado promedio, con
 ``\varphi`` fijo en 0.18.
 """
 
-# ╔═╡ d97ba118-c9de-11f1-a03d-25057176f143
+# ╔═╡ b56a33d2-c9e5-11f1-923d-d372eb938db4
 md"""
 Con conectividad baja, en Barabási-Albert las cascadas son **mucho más
 raras**: los concentradores tienen tantos vecinos que no son vulnerables, y
@@ -195,7 +195,7 @@ la mayoría tiene exactamente ese número: con ``z = 8``, muchos nodos de grado
 no sólo su tamaño.
 """
 
-# ╔═╡ d97ba122-c9de-11f1-854d-cf78384dc883
+# ╔═╡ b56a33dc-c9e5-11f1-b752-6d476c8cd43f
 md"""
 ## 3. Laboratorio: contagio en una red interbancaria
 
@@ -226,7 +226,7 @@ Simulamos 200 sistemas de 1,000 bancos; en cada uno quiebra un banco al azar.
 Capital ``K`` (fracción de los activos): $(@bind K_bancos Slider([0.02, 0.03, 0.04, 0.05, 0.06], default = 0.04, show_value = true))
 """
 
-# ╔═╡ d97ba12c-c9de-11f1-8e1b-c99c1e68dd38
+# ╔═╡ b56a33f0-c9e5-11f1-a689-79a4f1cf7051
 md"""
 **Diversificación contra contagio.** Prestar a más bancos tiene dos
 efectos opuestos:
@@ -246,7 +246,7 @@ préstamos interbancarios da ``\varphi = 0.3``, y ningún banco con más de 3
 deudores cae por la quiebra de uno solo.
 """
 
-# ╔═╡ d97ba138-c9de-11f1-9ac2-3dddbcbab4f8
+# ╔═╡ b56a33f0-c9e5-11f1-8c8d-357b4bf8459b
 md"""
 ## 4. DebtRank: pérdidas antes de la quiebra
 
@@ -286,7 +286,7 @@ igual para todos. Cada fila de ``\Lambda`` suma ``\ell``.
 Apalancamiento interbancario ``\ell``: $(@bind ℓ_banco Slider([0.25, 0.5, 0.75, 0.9, 1.0, 1.5, 2.0], default = 0.75, show_value = true))
 """
 
-# ╔═╡ d97ba14a-c9de-11f1-b77d-4b0c3d89dcaa
+# ╔═╡ b56a3404-c9e5-11f1-bf35-bf4d06a7d38c
 md"""
 Damos a todos los bancos un choque pequeño: el 1% de su capital. La
 gráfica de la derecha sigue la pérdida del sistema ronda por ronda. Como cada fila de ``\Lambda`` suma ``\ell``, cada ronda
@@ -313,7 +313,7 @@ sistema que se pierde si ``j`` quiebra (``h_j = 1`` al principio y los demás en
 0). ¿Son los bancos más grandes los más peligrosos?
 """
 
-# ╔═╡ d97ba154-c9de-11f1-9a7f-134ca8b82643
+# ╔═╡ b56a3418-c9e5-11f1-b2b5-dd0ef076b1da
 md"""
 El tamaño importa, pero no lo explica todo. Algunos bancos medianos tienen
 un impacto comparable al de los más grandes: les prestan bancos que a su
@@ -327,7 +327,7 @@ Con ``\ell \ge 1`` todos los bancos tienen DebtRank cercano a 1: cualquier
 quiebra hunde al sistema entero.
 """
 
-# ╔═╡ d97ba15e-c9de-11f1-a17d-07abeeb81625
+# ╔═╡ b56a3418-c9e5-11f1-b0f5-6fc5ba052ba0
 md"""
 ## 5. [Avanzado] Eisenberg-Noe: compensación como punto fijo
 
@@ -359,7 +359,7 @@ y tienen un colchón de 0.08 (activos externos menos deuda externa):
 Un choque reduce los activos externos del banco 1 en ``\varepsilon``.
 """
 
-# ╔═╡ d97ba172-c9de-11f1-af18-690793480b57
+# ╔═╡ b56a342c-c9e5-11f1-92b5-e713fbda78b0
 md"""
 - Con **choques pequeños**, la red completa es la más estable: la pérdida del
   banco 1 se reparte entre 9 acreedores, cada uno pierde poco y nadie más
@@ -375,7 +375,7 @@ demuestran que, para choques grandes, las redes más estables son las
 **débilmente conectadas**: grupos densos unidos por pocos enlaces.
 """
 
-# ╔═╡ d97ba186-c9de-11f1-935a-8978cb9ae1cb
+# ╔═╡ b56a3440-c9e5-11f1-adec-ad7c4fa6db67
 md"""
 ## Resumen
 
@@ -391,7 +391,7 @@ md"""
 | Eisenberg-Noe [Avanzado] | Pagos como punto fijo; transición de fase entre choques pequeños y grandes |
 """
 
-# ╔═╡ d97ba190-c9de-11f1-8b6b-e96b735b8b1c
+# ╔═╡ b56a344a-c9e5-11f1-b44d-2794afe43c64
 md"""
 ## Ejercicios
 
@@ -402,23 +402,23 @@ los cuales `caidos` ya cayeron, cae con umbral ``\varphi``. Un nodo sin
 vecinos no cae.
 """
 
-# ╔═╡ d97ba190-c9de-11f1-8104-ebd60fc58f78
+# ╔═╡ b56a344a-c9e5-11f1-8c1b-77b031c40cf9
 function cae(caidos, k, φ)
     missing  # reemplaza esta línea
 end
 
-# ╔═╡ d97ba19c-c9de-11f1-9277-5fca81b068b7
+# ╔═╡ b56a3456-c9e5-11f1-bf49-c5e2a987be48
 md"""
 **2.** Escribe `matriz_impacto(A, E)`, que devuelva ``\Lambda_{ij} = A_{ij}/E_i``:
 cada fila de ``A`` dividida entre el capital del banco de esa fila.
 """
 
-# ╔═╡ d97ba1a4-c9de-11f1-8ea6-6fe02f7d8daa
+# ╔═╡ b56a345e-c9e5-11f1-b72d-3dde780fa061
 function matriz_impacto(A, E)
     missing  # reemplaza esta línea
 end
 
-# ╔═╡ d97ba1ae-c9de-11f1-92d5-fd7437f8cae2
+# ╔═╡ b56a3468-c9e5-11f1-8c77-3d234fed3294
 md"""
 ### Ruta básica: interpretación
 
@@ -453,11 +453,11 @@ md"""
   Glasserman y Young (2016).
 - En la semana 10 los nodos dejan de ser sólo "caídos" o "en pie": cada
   agente **elige** entre dos opciones influido por sus vecinos. Es el modelo
-  de Ising, y la ventana de cascadas reaparecerá como una transición de
-  fase.
+  de Ising. Las cascadas reaparecerán en la ruta avanzada como
+  **avalanchas**: cambios de opinión que se arrastran unos a otros.
 """
 
-# ╔═╡ d97ba1ae-c9de-11f1-82f6-91e899508c98
+# ╔═╡ b56a3468-c9e5-11f1-b11f-99da53df1fce
 md"""
 ---
 ## Apéndice: paquetes y funciones auxiliares
@@ -466,7 +466,7 @@ Estas celdas definen herramientas que usa el cuaderno. No es necesario
 leerlas para seguir la sesión.
 """
 
-# ╔═╡ d97ba1c2-c9de-11f1-9aa1-6dc7e0a94bf2
+# ╔═╡ b56a3472-c9e5-11f1-bd82-f9f4c730d651
 begin
     const AZUL       = "#2a78d6"   # serie principal
     const NARANJA    = "#eb6834"   # segunda serie o teoría
@@ -475,7 +475,7 @@ begin
     const BLANCO     = "#ffffff"
 end;
 
-# ╔═╡ d97ba1c2-c9de-11f1-88f3-b1a42253ea21
+# ╔═╡ b56a347c-c9e5-11f1-97b7-7d692978a1cf
 """
 Cascada de umbral a partir de `semilla`: un nodo cae cuando la fracción de
 sus vecinos caídos es al menos `φ`. Devuelve la ronda en que cayó cada nodo
@@ -503,7 +503,7 @@ function rondas_cascada(g, φ, semilla)
     ronda
 end
 
-# ╔═╡ d97ba1ca-c9de-11f1-bb29-4799da24b028
+# ╔═╡ b56a347c-c9e5-11f1-926d-d18589c2788f
 "Red y nodo inicial del ejemplo de la sección 0 (una cascada que llega lejos)."
 ejemplo_cascada = let
     g = erdos_renyi(200, 300; seed = 11)
@@ -511,10 +511,10 @@ ejemplo_cascada = let
     g, findfirst(>=(0.5 * maximum(tam)), tam)
 end;
 
-# ╔═╡ d97ba1ca-c9de-11f1-8208-271d4c19f544
+# ╔═╡ b56a347c-c9e5-11f1-95ea-af74dfc3b0b2
 zs_ventana = 0.5:0.5:10.0;
 
-# ╔═╡ d97ba1d6-c9de-11f1-98d7-5965a90a8801
+# ╔═╡ b56a3488-c9e5-11f1-bad5-d5964a564159
 """
 Para cada grado promedio `z`, `corridas` cascadas en redes nuevas de `n`
 nodos, cada una desde un nodo al azar. Devuelve la probabilidad de una
@@ -533,11 +533,11 @@ function barrido_cascadas(φ, zs; generar, n = 5000, corridas = 100)
     (probabilidad = first.(res), tamaño = last.(res))
 end
 
-# ╔═╡ d97ba0fa-c9de-11f1-8040-11139f65e4b4
+# ╔═╡ b56a33b2-c9e5-11f1-b70d-41ed579db31e
 ventana_er = barrido_cascadas(φ_watts, zs_ventana;
                               generar = (n, z, r) -> erdos_renyi(n, round(Int, n * z / 2); seed = r));
 
-# ╔═╡ d97ba10e-c9de-11f1-a043-3356f04fda71
+# ╔═╡ b56a33c8-c9e5-11f1-98c9-15963fdfe7fd
 comparacion_cascadas = let
     zs = 2:2:12
     er = barrido_cascadas(0.18, zs; generar = (n, z, r) -> erdos_renyi(n, round(Int, n * z / 2); seed = r))
@@ -545,7 +545,7 @@ comparacion_cascadas = let
     (z = zs, er = er, ba = ba)
 end;
 
-# ╔═╡ d97ba10e-c9de-11f1-a38b-fddf3c398200
+# ╔═╡ b56a33d2-c9e5-11f1-b8fc-c1c1d58e6088
 let
     d = comparacion_cascadas
     p = plot(; xlabel = "grado promedio z", ylabel = "probabilidad de una cascada global",
@@ -557,7 +557,7 @@ let
           label = "Barabási-Albert")
 end
 
-# ╔═╡ d97ba1d6-c9de-11f1-9422-13f9621d67a6
+# ╔═╡ b56a3490-c9e5-11f1-b38d-838778448cf9
 "Bordes de la ventana de cascadas de Watts para Erdős-Rényi con umbral φ."
 function frontera_watts(φ; zs = 0.01:0.01:20)
     K = floor(Int, 1 / φ)
@@ -567,7 +567,7 @@ function frontera_watts(φ; zs = 0.01:0.01:20)
     [(zs[j] + zs[j+1]) / 2 for j in i]
 end
 
-# ╔═╡ d97ba0fa-c9de-11f1-b79e-41cbc3ce2568
+# ╔═╡ b56a33be-c9e5-11f1-97aa-bdb11d614009
 let
     lim = frontera_watts(φ_watts)
     p = plot(; xlabel = "grado promedio z", ylabel = "fracción", ylims = (0, 1.05),
@@ -581,7 +581,7 @@ let
           label = "Tamaño promedio de las cascadas globales")
 end
 
-# ╔═╡ d97ba17c-c9de-11f1-8cfc-43e60ab4c546
+# ╔═╡ b56a3436-c9e5-11f1-bf94-730af399f20c
 md"""
 ## 6. [Avanzado] De dónde sale la ventana de cascadas
 
@@ -610,7 +610,7 @@ $(join(round.(frontera_watts(0.18), digits = 2), " y ")), que coinciden con la
 simulación.
 """
 
-# ╔═╡ d97ba17c-c9de-11f1-908b-5b23eff13643
+# ╔═╡ b56a3440-c9e5-11f1-aa7b-67a8d20fe209
 let
     φs = 0.08:0.005:0.26
     bordes = [frontera_watts(φ) for φ in φs]
@@ -623,7 +623,7 @@ let
     annotate!(p, 12, 0.22, text("sin cascadas", 9, GRIS))
 end
 
-# ╔═╡ d97ba1e0-c9de-11f1-a71b-5b5939d29051
+# ╔═╡ b56a3490-c9e5-11f1-9434-016442f7d15f
 """
 Modelo de Gai y Kapadia: `n` bancos en una red dirigida al azar, cada uno
 con `z` deudores en promedio. Quiebra un banco al azar; un banco quiebra si
@@ -656,7 +656,7 @@ function cascada_bancos(n, z, K; θ = 0.2, rng = Xoshiro(1))
     mean(quebrado)
 end
 
-# ╔═╡ d97ba1ea-c9de-11f1-946b-41db01e4f9d1
+# ╔═╡ b56a349a-c9e5-11f1-9194-fddfdde65e5d
 "Probabilidad y tamaño del contagio interbancario para cada número promedio de deudores."
 function barrido_bancos(K, zs; n = 1000, corridas = 200)
     res = map(zs) do z
@@ -667,10 +667,10 @@ function barrido_bancos(K, zs; n = 1000, corridas = 200)
     (probabilidad = first.(res), tamaño = last.(res))
 end
 
-# ╔═╡ d97ba122-c9de-11f1-afac-0951056ac6cf
+# ╔═╡ b56a33e6-c9e5-11f1-9189-39527e499c89
 ventana_bancos = barrido_bancos(K_bancos, 1:12);
 
-# ╔═╡ d97ba12c-c9de-11f1-a75e-7f89cd35d935
+# ╔═╡ b56a33e6-c9e5-11f1-bdeb-431a39943895
 let
     d = ventana_bancos
     p = plot(; xlabel = "número promedio de deudores por banco", ylabel = "fracción",
@@ -682,7 +682,7 @@ let
           label = "Fracción de bancos que quiebran, si hay contagio")
 end
 
-# ╔═╡ d97ba1ea-c9de-11f1-a5de-5d643a908bf7
+# ╔═╡ b56a349a-c9e5-11f1-ac0b-a1d18c2671d3
 """
 Sistema bancario sintético: tamaños de Pareto con media 1; cada banco presta
 el 20% de sus activos a `k` bancos elegidos con probabilidad proporcional a
@@ -701,10 +701,10 @@ function sistema_bancario(n; ℓ = 0.75, k = 3, θ = 0.2, α = 1.5, rng = Xoshir
     (activos = a, A = A, E = θ .* a ./ ℓ)
 end
 
-# ╔═╡ d97ba140-c9de-11f1-8929-793d6eead4c5
+# ╔═╡ b56a33fa-c9e5-11f1-b11b-fb46a32bc9ac
 bancos = sistema_bancario(50; ℓ = ℓ_banco);
 
-# ╔═╡ d97ba1ea-c9de-11f1-84e0-d52fb1e732a1
+# ╔═╡ b56a34a4-c9e5-11f1-accd-e74ef69f9f1e
 "DebtRank lineal (Bardoscia et al., 2015) a partir del deterioro inicial `h0`."
 function debtrank(b, h0; rondas = 2000)
     Λ = b.A ./ b.E
@@ -717,11 +717,11 @@ function debtrank(b, h0; rondas = 2000)
     h
 end
 
-# ╔═╡ d97ba1fc-c9de-11f1-9377-df27dac5f5f9
+# ╔═╡ b56a34ae-c9e5-11f1-ba49-7b6e7b298f2f
 "Pérdida de capital del sistema, como fracción del capital total."
 perdida(b, h) = sum(b.E .* h) / sum(b.E)
 
-# ╔═╡ d97ba1f4-c9de-11f1-881c-e920c2430bcd
+# ╔═╡ b56a34ae-c9e5-11f1-ae13-199399228b47
 "Pérdida del sistema (fracción del capital total) en cada ronda de DebtRank."
 function historia_debtrank(b, h0; rondas = 40)
     Λ = b.A ./ b.E
@@ -735,7 +735,7 @@ function historia_debtrank(b, h0; rondas = 40)
     hist
 end
 
-# ╔═╡ d97ba140-c9de-11f1-9d63-f91024de38dd
+# ╔═╡ b56a3404-c9e5-11f1-890a-e5171257bf7f
 let
     ℓs = [0.1, 0.25, 0.4, 0.5, 0.6, 0.7, 0.75, 0.8, 0.85, 0.9, 0.93, 0.96]
     amp = map(ℓs) do ℓ
@@ -762,7 +762,7 @@ let
     plot(p1, p2; layout = (1, 2), size = (920, 360))
 end
 
-# ╔═╡ d97ba1fc-c9de-11f1-b21a-e31eb3201b8a
+# ╔═╡ b56a34ae-c9e5-11f1-8164-6f34321cbdd4
 "DebtRank del banco j: capital perdido por los demás bancos si j quiebra."
 function debtrank_de(b, j)
     h0 = zeros(length(b.E))
@@ -771,10 +771,10 @@ function debtrank_de(b, j)
     (sum(b.E .* h) - b.E[j]) / sum(b.E)
 end
 
-# ╔═╡ d97ba14a-c9de-11f1-b7f7-999116695a63
+# ╔═╡ b56a340e-c9e5-11f1-a89f-b31f11125669
 impacto = [debtrank_de(bancos, j) for j in 1:50];
 
-# ╔═╡ d97ba154-c9de-11f1-8f09-27e87984b93e
+# ╔═╡ b56a340e-c9e5-11f1-a535-bfd9c7e4486e
 let
     b = bancos
     acreedores = vec(count(>(0), b.A; dims = 1))
@@ -790,7 +790,7 @@ let
     p
 end
 
-# ╔═╡ d97ba1fc-c9de-11f1-b4c3-edf412b75635
+# ╔═╡ b56a34b6-c9e5-11f1-8a3c-d327371456e9
 """
 Vector de pagos de Eisenberg-Noe con deuda externa prioritaria `v`. `L[i, j]`
 es lo que `i` le debe a `j` y `e` son los activos externos. Se itera desde el
@@ -810,7 +810,7 @@ function compensacion(L, e, v; tol = 1e-12)
     (pagos = p, quiebra = recursos .< v .+ p̄ .- 1e-9)
 end
 
-# ╔═╡ d97ba16a-c9de-11f1-8504-930af0736695
+# ╔═╡ b56a3424-c9e5-11f1-a020-49e1b7c862a0
 acemoglu = let
     n = 10
     anillo = zeros(n, n)
@@ -824,7 +824,7 @@ acemoglu = let
     (ε = εs, anillo = [quiebras(anillo, ε) for ε in εs], completa = [quiebras(completa, ε) for ε in εs])
 end;
 
-# ╔═╡ d97ba172-c9de-11f1-a4da-9369625c8636
+# ╔═╡ b56a342c-c9e5-11f1-b41e-ab4c9beb6395
 let
     d = acemoglu
     p = plot(d.ε, d.anillo; color = NARANJA, lw = 2, seriestype = :steppost, label = "Anillo",
@@ -835,7 +835,7 @@ let
     vline!(p, [0.8]; color = GRIS, ls = :dash, label = "ε = colchón total del sistema")
 end
 
-# ╔═╡ d97ba208-c9de-11f1-9e68-f57c0de913fd
+# ╔═╡ b56a34b6-c9e5-11f1-a81d-318053788845
 """
 Posiciones 2D para dibujar una red: escalamiento multidimensional clásico de
 las distancias en la red, refinado con mayorización de estrés. Los pares sin
@@ -860,7 +860,7 @@ function disposicion(g; iter = 200)
     X
 end
 
-# ╔═╡ d97ba212-c9de-11f1-872a-892670a72dda
+# ╔═╡ b56a34c2-c9e5-11f1-a5fa-f911f66a252f
 "Dibuja una red con posiciones `X` (n × 2)."
 function dibujar_red(g, X; tam = 4, colores = AZUL, alpha_enlaces = 0.4, kwargs...)
     xs, ys = Float64[], Float64[]
@@ -873,7 +873,7 @@ function dibujar_red(g, X; tam = 4, colores = AZUL, alpha_enlaces = 0.4, kwargs.
     scatter!(p, X[:, 1], X[:, 2]; ms = tam, color = colores, msw = 0.5, msc = BLANCO, label = "")
 end
 
-# ╔═╡ d97ba0c6-c9de-11f1-b11d-d3cf954eac21
+# ╔═╡ b56a338c-c9e5-11f1-b378-7510bf531d8e
 let
     g, semilla = ejemplo_cascada
     ronda = rondas_cascada(g, 0.18, semilla)
@@ -891,7 +891,7 @@ let
     plot!(p; legend = :bottomleft)
 end
 
-# ╔═╡ d97ba212-c9de-11f1-ba65-23e47f2cfa5f
+# ╔═╡ b56a34c2-c9e5-11f1-8be0-1b07702e665b
 "Muestra si la respuesta de un ejercicio es correcta."
 function verificar(f, esperado; rtol = 1e-8, pista = md"")
     caja(tipo, titulo, texto) = Markdown.MD(Markdown.Admonition(tipo, titulo, [texto]))
@@ -912,73 +912,73 @@ function verificar(f, esperado; rtol = 1e-8, pista = md"")
     end
 end
 
-# ╔═╡ d97ba19c-c9de-11f1-8567-d514b20c0a2f
+# ╔═╡ b56a3456-c9e5-11f1-920c-6bc27c90d975
 verificar(() -> [cae(1, 5, 0.18), cae(1, 6, 0.18), cae(2, 6, 0.18), cae(0, 0, 0.18)],
           [true, false, true, false];
           pista = md"Cae si `k > 0` y `caidos / k ≥ φ`, es decir, `k > 0 && caidos ≥ φ * k`.")
 
-# ╔═╡ d97ba1a4-c9de-11f1-a7f1-c92d4f7a001d
+# ╔═╡ b56a345e-c9e5-11f1-9811-b37b7e9ec82e
 verificar(() -> matriz_impacto([0.0 2.0; 1.0 0.0], [4.0, 2.0]), [0.0 0.5; 0.5 0.0];
           pista = md"Con difusión: `A ./ E` divide cada fila ``i`` entre `E[i]` si `E` es un vector columna.")
 
 # ╔═╡ Cell order:
-# ╟─d97ba082-c9de-11f1-b7f6-1d3b4b249a48
-# ╟─d97ba0b4-c9de-11f1-ba13-dffabef08e49
-# ╟─d97ba0be-c9de-11f1-b583-b14dc82ee545
-# ╟─d97ba0c6-c9de-11f1-b11d-d3cf954eac21
-# ╟─d97ba0c6-c9de-11f1-9781-bff2597d4c8d
-# ╟─d97ba0d2-c9de-11f1-aac9-af3b52a104a8
-# ╠═d97ba0d2-c9de-11f1-9835-dbf8353250a8
-# ╠═d97ba0dc-c9de-11f1-a753-f5f6cbf40ae5
-# ╟─d97ba0e6-c9de-11f1-bd7b-eb2b13052525
-# ╠═d97ba0fa-c9de-11f1-8040-11139f65e4b4
-# ╟─d97ba0fa-c9de-11f1-b79e-41cbc3ce2568
-# ╟─d97ba104-c9de-11f1-b327-7779b52f22c4
-# ╟─d97ba104-c9de-11f1-b52f-adee8580b784
-# ╠═d97ba10e-c9de-11f1-a043-3356f04fda71
-# ╟─d97ba10e-c9de-11f1-a38b-fddf3c398200
-# ╟─d97ba118-c9de-11f1-a03d-25057176f143
-# ╟─d97ba122-c9de-11f1-854d-cf78384dc883
-# ╠═d97ba122-c9de-11f1-afac-0951056ac6cf
-# ╟─d97ba12c-c9de-11f1-a75e-7f89cd35d935
-# ╟─d97ba12c-c9de-11f1-8e1b-c99c1e68dd38
-# ╟─d97ba138-c9de-11f1-9ac2-3dddbcbab4f8
-# ╠═d97ba140-c9de-11f1-8929-793d6eead4c5
-# ╟─d97ba140-c9de-11f1-9d63-f91024de38dd
-# ╟─d97ba14a-c9de-11f1-b77d-4b0c3d89dcaa
-# ╠═d97ba14a-c9de-11f1-b7f7-999116695a63
-# ╟─d97ba154-c9de-11f1-8f09-27e87984b93e
-# ╟─d97ba154-c9de-11f1-9a7f-134ca8b82643
-# ╟─d97ba15e-c9de-11f1-a17d-07abeeb81625
-# ╠═d97ba16a-c9de-11f1-8504-930af0736695
-# ╟─d97ba172-c9de-11f1-a4da-9369625c8636
-# ╟─d97ba172-c9de-11f1-af18-690793480b57
-# ╟─d97ba17c-c9de-11f1-8cfc-43e60ab4c546
-# ╟─d97ba17c-c9de-11f1-908b-5b23eff13643
-# ╟─d97ba186-c9de-11f1-935a-8978cb9ae1cb
-# ╟─d97ba190-c9de-11f1-8b6b-e96b735b8b1c
-# ╠═d97ba190-c9de-11f1-8104-ebd60fc58f78
-# ╟─d97ba19c-c9de-11f1-8567-d514b20c0a2f
-# ╟─d97ba19c-c9de-11f1-9277-5fca81b068b7
-# ╠═d97ba1a4-c9de-11f1-8ea6-6fe02f7d8daa
-# ╟─d97ba1a4-c9de-11f1-a7f1-c92d4f7a001d
-# ╟─d97ba1ae-c9de-11f1-92d5-fd7437f8cae2
-# ╟─d97ba1ae-c9de-11f1-82f6-91e899508c98
-# ╠═d97ba1b8-c9de-11f1-af42-8f8171e75b96
-# ╠═d97ba1c2-c9de-11f1-9aa1-6dc7e0a94bf2
-# ╠═d97ba1c2-c9de-11f1-88f3-b1a42253ea21
-# ╠═d97ba1ca-c9de-11f1-bb29-4799da24b028
-# ╠═d97ba1ca-c9de-11f1-8208-271d4c19f544
-# ╠═d97ba1d6-c9de-11f1-98d7-5965a90a8801
-# ╠═d97ba1d6-c9de-11f1-9422-13f9621d67a6
-# ╠═d97ba1e0-c9de-11f1-a71b-5b5939d29051
-# ╠═d97ba1ea-c9de-11f1-946b-41db01e4f9d1
-# ╠═d97ba1ea-c9de-11f1-a5de-5d643a908bf7
-# ╠═d97ba1ea-c9de-11f1-84e0-d52fb1e732a1
-# ╠═d97ba1f4-c9de-11f1-881c-e920c2430bcd
-# ╠═d97ba1fc-c9de-11f1-9377-df27dac5f5f9
-# ╠═d97ba1fc-c9de-11f1-b21a-e31eb3201b8a
-# ╠═d97ba1fc-c9de-11f1-b4c3-edf412b75635
-# ╠═d97ba208-c9de-11f1-9e68-f57c0de913fd
-# ╠═d97ba212-c9de-11f1-872a-892670a72dda
-# ╠═d97ba212-c9de-11f1-ba65-23e47f2cfa5f
+# ╟─b56a334e-c9e5-11f1-903e-155df99fcf47
+# ╟─b56a3380-c9e5-11f1-8dfb-5716f41a4a0a
+# ╟─b56a3380-c9e5-11f1-8852-6f38a5676b65
+# ╟─b56a338c-c9e5-11f1-b378-7510bf531d8e
+# ╟─b56a3396-c9e5-11f1-bcbf-bf78a99aaf11
+# ╟─b56a3396-c9e5-11f1-b51a-297ba7ecc9dd
+# ╠═b56a33a0-c9e5-11f1-857b-a9c41040568b
+# ╠═b56a33a0-c9e5-11f1-b9cf-c75a8905dc6e
+# ╟─b56a33aa-c9e5-11f1-b4de-3b9a2733f72c
+# ╠═b56a33b2-c9e5-11f1-b70d-41ed579db31e
+# ╟─b56a33be-c9e5-11f1-97aa-bdb11d614009
+# ╟─b56a33be-c9e5-11f1-be8c-336ec6908471
+# ╟─b56a33c8-c9e5-11f1-8808-b7e145263137
+# ╠═b56a33c8-c9e5-11f1-98c9-15963fdfe7fd
+# ╟─b56a33d2-c9e5-11f1-b8fc-c1c1d58e6088
+# ╟─b56a33d2-c9e5-11f1-923d-d372eb938db4
+# ╟─b56a33dc-c9e5-11f1-b752-6d476c8cd43f
+# ╠═b56a33e6-c9e5-11f1-9189-39527e499c89
+# ╟─b56a33e6-c9e5-11f1-bdeb-431a39943895
+# ╟─b56a33f0-c9e5-11f1-a689-79a4f1cf7051
+# ╟─b56a33f0-c9e5-11f1-8c8d-357b4bf8459b
+# ╠═b56a33fa-c9e5-11f1-b11b-fb46a32bc9ac
+# ╟─b56a3404-c9e5-11f1-890a-e5171257bf7f
+# ╟─b56a3404-c9e5-11f1-bf35-bf4d06a7d38c
+# ╠═b56a340e-c9e5-11f1-a89f-b31f11125669
+# ╟─b56a340e-c9e5-11f1-a535-bfd9c7e4486e
+# ╟─b56a3418-c9e5-11f1-b2b5-dd0ef076b1da
+# ╟─b56a3418-c9e5-11f1-b0f5-6fc5ba052ba0
+# ╠═b56a3424-c9e5-11f1-a020-49e1b7c862a0
+# ╟─b56a342c-c9e5-11f1-b41e-ab4c9beb6395
+# ╟─b56a342c-c9e5-11f1-92b5-e713fbda78b0
+# ╟─b56a3436-c9e5-11f1-bf94-730af399f20c
+# ╟─b56a3440-c9e5-11f1-aa7b-67a8d20fe209
+# ╟─b56a3440-c9e5-11f1-adec-ad7c4fa6db67
+# ╟─b56a344a-c9e5-11f1-b44d-2794afe43c64
+# ╠═b56a344a-c9e5-11f1-8c1b-77b031c40cf9
+# ╟─b56a3456-c9e5-11f1-920c-6bc27c90d975
+# ╟─b56a3456-c9e5-11f1-bf49-c5e2a987be48
+# ╠═b56a345e-c9e5-11f1-b72d-3dde780fa061
+# ╟─b56a345e-c9e5-11f1-9811-b37b7e9ec82e
+# ╟─b56a3468-c9e5-11f1-8c77-3d234fed3294
+# ╟─b56a3468-c9e5-11f1-b11f-99da53df1fce
+# ╠═b56a3472-c9e5-11f1-b53b-27a915311b1b
+# ╠═b56a3472-c9e5-11f1-bd82-f9f4c730d651
+# ╠═b56a347c-c9e5-11f1-97b7-7d692978a1cf
+# ╠═b56a347c-c9e5-11f1-926d-d18589c2788f
+# ╠═b56a347c-c9e5-11f1-95ea-af74dfc3b0b2
+# ╠═b56a3488-c9e5-11f1-bad5-d5964a564159
+# ╠═b56a3490-c9e5-11f1-b38d-838778448cf9
+# ╠═b56a3490-c9e5-11f1-9434-016442f7d15f
+# ╠═b56a349a-c9e5-11f1-9194-fddfdde65e5d
+# ╠═b56a349a-c9e5-11f1-ac0b-a1d18c2671d3
+# ╠═b56a34a4-c9e5-11f1-accd-e74ef69f9f1e
+# ╠═b56a34ae-c9e5-11f1-ae13-199399228b47
+# ╠═b56a34ae-c9e5-11f1-ba49-7b6e7b298f2f
+# ╠═b56a34ae-c9e5-11f1-8164-6f34321cbdd4
+# ╠═b56a34b6-c9e5-11f1-8a3c-d327371456e9
+# ╠═b56a34b6-c9e5-11f1-a81d-318053788845
+# ╠═b56a34c2-c9e5-11f1-a5fa-f911f66a252f
+# ╠═b56a34c2-c9e5-11f1-8be0-1b07702e665b

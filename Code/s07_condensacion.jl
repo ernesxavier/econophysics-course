@@ -16,7 +16,7 @@ macro bind(def, element)
     #! format: on
 end
 
-# ╔═╡ 374f46c2-c8ff-11f1-9ede-f75f70895dfc
+# ╔═╡ cfda590c-c9e5-11f1-921d-1f5b2548cd14
 begin
     # Usa el entorno del curso (Code/Project.toml) en lugar del gestor de
     # paquetes propio de Pluto: un solo entorno para todo el repositorio.
@@ -31,7 +31,7 @@ begin
             background_color_legend = nothing, margin = 3Plots.mm)
 end
 
-# ╔═╡ 374f4534-c8ff-11f1-a3d3-fb154f15c44d
+# ╔═╡ cfda581e-c9e5-11f1-ab8a-2393f215584d
 md"""
 # Sesión 7: Condensación de riqueza y redistribución
 
@@ -58,10 +58,10 @@ simulaciones), F.B4 (transiciones de fase), E.I6 (Gibrat y Kesten), F.I6
 (modelos de intercambio). Ruta avanzada: E.A4 (Fokker-Planck).
 """
 
-# ╔═╡ 374f458c-c8ff-11f1-b6f2-2b69d5fd81b1
+# ╔═╡ cfda585a-c9e5-11f1-997f-2985a5200ae2
 TableOfContents(title = "Contenido")
 
-# ╔═╡ 374f4598-c8ff-11f1-9dab-b5a87dfa50d3
+# ╔═╡ cfda585a-c9e5-11f1-8d9e-85d2f8fbe235
 md"""
 ## 0. El problema: inversión sin intercambio
 
@@ -79,7 +79,7 @@ sólo hay inversión? Simulemos ``N = 1000`` agentes que empiezan iguales. La
 gráfica muestra la fracción que tiene el agente más rico en cada momento.
 """
 
-# ╔═╡ 374f45aa-c8ff-11f1-bc22-dba833feae9f
+# ╔═╡ cfda586e-c9e5-11f1-bdfb-2567b65cdfcd
 md"""
 Sin intercambio, la riqueza se **concentra** sin límite: en la sesión 4 vimos
 que la varianza de ``\ln W`` crece como ``\sigma^2 t``, así que con el tiempo un
@@ -88,7 +88,7 @@ fracción del más rico se estabiliza. La pregunta de hoy es **cuánto**
 intercambio hace falta.
 """
 
-# ╔═╡ 374f45c6-c8ff-11f1-9ed7-7bbd3d974ea5
+# ╔═╡ cfda586e-c9e5-11f1-af1f-f5f89be1064d
 md"""
 ## 1. El modelo de Bouchaud y Mézard
 
@@ -121,7 +121,7 @@ Más intercambio, cola más delgada.
 Intensidad de intercambio ``J``: $(@bind J_dist Slider([0.1, 0.25, 0.5, 1.0, 2.0], default = 0.5, show_value = true))
 """
 
-# ╔═╡ 374f45f0-c8ff-11f1-8b5c-d5403c6b6a16
+# ╔═╡ cfda588c-c9e5-11f1-8b42-6f0a81524964
 md"""
 ## 2. ¿Qué pasa cuando ``\mu`` se acerca a 1?
 
@@ -151,7 +151,7 @@ supone que cada agente intercambia con **todos** los demás (campo medio). En
 una economía real cada quien comercia con unos pocos.
 """
 
-# ╔═╡ 374f45f8-c8ff-11f1-9a29-5b97a4af3803
+# ╔═╡ cfda5896-c9e5-11f1-bf9c-0d14ad4d8a66
 md"""
 ## 3. Laboratorio: la transición de condensación
 
@@ -172,13 +172,13 @@ Estas simulaciones tardan varios minutos, así que se corrieron una vez con
 `Data/condensacion_bm.csv`.
 """
 
-# ╔═╡ 374f4604-c8ff-11f1-8848-cfd1baef5f0a
+# ╔═╡ cfda5896-c9e5-11f1-bd0f-d1f8caa8e374
 barrido = let
     d = CSV.read(joinpath(@__DIR__, "..", "Data", "condensacion_bm.csv"), DataFrame)
     combine(groupby(d, [:modelo, :J, :N]), :Y2 => median => :Y2)
 end
 
-# ╔═╡ 374f4622-c8ff-11f1-ac49-c146fd41831b
+# ╔═╡ cfda58a0-c9e5-11f1-bbd1-f5cb7e92f1d8
 md"""
 - En **campo medio** (izquierda), ``Y_2`` baja al aumentar ``N`` para todo
   ``J``: no hay condensación, aunque con ``J`` pequeño la bajada es lenta.
@@ -207,7 +207,7 @@ escalones grandes concentran casi todo.
 ``J`` en la red: $(@bind J_esc Slider([0.05, 0.1, 0.2, 0.4, 1.0], default = 0.05, show_value = true))
 """
 
-# ╔═╡ 374f4636-c8ff-11f1-80a4-af0b6d3f610a
+# ╔═╡ cfda58b4-c9e5-11f1-ada2-5f66775ce1df
 md"""
 ## 4. Laboratorio: impuestos y redistribución
 
@@ -230,7 +230,32 @@ Fijemos un intercambio débil, ``J = 0.1``, y variemos el impuesto.
 Tasa del impuesto ``\varphi``: $(@bind φ_imp Slider([0.0, 0.025, 0.05, 0.1, 0.2, 0.4], default = 0.1, show_value = true))
 """
 
-# ╔═╡ 374f465e-c8ff-11f1-83cb-355511fc27df
+# ╔═╡ cfda58c8-c9e5-11f1-951a-c3091ab24686
+barrido_impuesto = let
+    d = CSV.read(joinpath(@__DIR__, "..", "Data", "condensacion_impuesto.csv"), DataFrame)
+    combine(groupby(d, [:φ, :N]), :Y2 => median => :Y2)
+end
+
+# ╔═╡ cfda58d2-c9e5-11f1-8255-ede02bffa840
+md"""
+- **Sin impuesto**, ``Y_2`` no cambia al pasar de 1,000 a 20,000 agentes: la
+  economía está condensada.
+- Con ``\varphi = 0.05``, ``Y_2`` ya es la cuarta parte que sin impuesto con
+  20,000 agentes, aunque baja despacio al crecer ``N``.
+- Con ``\varphi = 0.1`` o más, ``Y_2`` baja claramente al crecer ``N``: la
+  economía sale de la fase condensada.
+
+El impuesto **redistribuye a todos**, no sólo a los socios, y reconecta a la
+economía como si fuera de campo medio. Un impuesto del mismo tamaño que el
+intercambio, ``J = 0.1``, es mucho más eficaz porque llega a todos.
+
+**Pero el diseño importa.** Bouchaud y Mézard muestran que un impuesto a la
+riqueza que **no** se redistribuye, combinado con un impuesto al ingreso,
+puede **aumentar** la desigualdad: lo que reduce la desigualdad no es
+cobrar, sino repartir.
+"""
+
+# ╔═╡ cfda58da-c9e5-11f1-ac3f-b5613981b683
 md"""
 ## 5. [Avanzado] La solución estacionaria de Fokker-Planck
 
@@ -268,7 +293,7 @@ Es el mismo mecanismo que el proceso de Kesten de la sesión 4: un término
 multiplicativo (la inversión) y uno aditivo (lo que se recibe de los demás).
 """
 
-# ╔═╡ 374f4672-c8ff-11f1-996b-3744f8d4f071
+# ╔═╡ cfda58e6-c9e5-11f1-9727-4952e787bbcd
 md"""
 ## Resumen
 
@@ -280,7 +305,7 @@ md"""
 | Con impuesto redistribuido ``\varphi`` | En campo medio, ``\mu = 1 + 2(J + \varphi)/\sigma^2`` | Un impuesto pequeño la elimina |
 """
 
-# ╔═╡ 374f467c-c8ff-11f1-b62d-ad31859b7ca2
+# ╔═╡ cfda58f0-c9e5-11f1-9721-3b68a1032fee
 md"""
 ## Ejercicios
 
@@ -290,24 +315,24 @@ md"""
 inversa ``Y_2`` de un vector de riquezas (no necesariamente normalizado).
 """
 
-# ╔═╡ 374f4686-c8ff-11f1-9895-a3a8d35adcab
+# ╔═╡ cfda58f0-c9e5-11f1-81ac-9d5f2936ef99
 function participacion(w)
     missing  # reemplaza esta línea
 end
 
-# ╔═╡ 374f4690-c8ff-11f1-9735-c1426f136027
+# ╔═╡ cfda58fa-c9e5-11f1-b667-970bf1a81112
 md"""
 **2.** Escribe `exponente_pareto(J, φ, σ)`, que devuelva el exponente ``\mu``
 de la cola en campo medio con intercambio ``J``, impuesto redistribuido
 ``\varphi`` y volatilidad ``\sigma``.
 """
 
-# ╔═╡ 374f469c-c8ff-11f1-b5fe-f7eefadc4c3c
+# ╔═╡ cfda58fa-c9e5-11f1-bab9-d5beb22f616b
 function exponente_pareto(J, φ, σ)
     missing  # reemplaza esta línea
 end
 
-# ╔═╡ 374f46ae-c8ff-11f1-93f1-c753a35ef267
+# ╔═╡ cfda5904-c9e5-11f1-b898-81e385e2bd1c
 md"""
 ### Ruta básica: interpretación
 
@@ -340,11 +365,13 @@ md"""
 - Lectura: Chakrabarti et al. (2013), sección 4.5; para la ruta avanzada,
   Bouchaud y Mézard (2000).
 - En la semana 8 estudiamos las **redes** como objeto en sí mismo: grados,
-  centralidad y modelos de redes aleatorias. La red de comercio de hoy y el
-  árbol de la sesión 5 serán nuestros primeros ejemplos.
+  centralidad y modelos de redes aleatorias. Hoy vimos que la forma de la
+  red cambia el resultado; allá aprenderemos a medirla, con la red de
+  matrimonios de las familias de Florencia y una red construida con las
+  correlaciones de la sesión 5.
 """
 
-# ╔═╡ 374f46b8-c8ff-11f1-a35e-2101f980d8a3
+# ╔═╡ cfda590c-c9e5-11f1-9fe5-37bcc1901e2e
 md"""
 ---
 ## Apéndice: paquetes y funciones auxiliares
@@ -353,7 +380,7 @@ Estas celdas definen herramientas que usa el cuaderno. No es necesario
 leerlas para seguir la sesión.
 """
 
-# ╔═╡ 374f46c2-c8ff-11f1-9017-f53aee066a16
+# ╔═╡ cfda5918-c9e5-11f1-add1-9f49d9d219b1
 begin
     const AZUL    = "#2a78d6"   # serie principal
     const NARANJA = "#eb6834"   # segunda serie o teoría
@@ -361,11 +388,27 @@ begin
     const RAMPA   = ["#86b6ef", "#3987e5", "#1c5cab", "#0d366b"]   # azul secuencial
 end;
 
-# ╔═╡ 374f46ce-c8ff-11f1-b392-d3216a2bd5cb
+# ╔═╡ cfda58d2-c9e5-11f1-a2e5-81543e06951f
+let
+    marcas = [1e-3, 1e-2, 1e-1]
+    p = plot(; xscale = :log10, yscale = :log10, xlabel = "número de agentes N", ylabel = "Y₂ (escala log)",
+             xticks = ([1000, 5000, 20000], ["1,000", "5,000", "20,000"]),
+             yticks = (marcas, string.(marcas)), ylims = (1e-3, 0.2), legend = :outerright,
+             title = "Red con J = 0.1: Y₂ al crecer la población", size = (760, 360))
+    φs = sort(unique(barrido_impuesto.φ))
+    for (k, φ) in enumerate(φs)
+        d = sort(barrido_impuesto[barrido_impuesto.φ .== φ, :], :N)
+        plot!(p, d.N, d.Y2; color = φ == 0 ? NARANJA : RAMPA[min(k - 1, 4)], lw = 2, marker = :circle,
+              ms = 4, msw = 0, label = φ == 0 ? "Sin impuesto" : "φ = $φ")
+    end
+    p
+end
+
+# ╔═╡ cfda5918-c9e5-11f1-b431-fb4ab55c9977
 "Número entero con comas como separador de miles."
 miles(x) = replace(string(round(Int, x)), r"(?<=\d)(?=(\d{3})+$)" => ",")
 
-# ╔═╡ 374f460e-c8ff-11f1-86f1-f919caf20392
+# ╔═╡ cfda58a0-c9e5-11f1-84b5-852a6111fda0
 let
     marcas = [1e-4, 1e-3, 1e-2, 1e-1]
     ejes = (xlabel = "intensidad de intercambio J", yscale = :log10, ylims = (8e-5, 0.4),
@@ -384,14 +427,14 @@ let
     plot(p1, p2; layout = (1, 2), size = (920, 380))
 end
 
-# ╔═╡ 374f46d6-c8ff-11f1-8290-49ffd3c91466
+# ╔═╡ cfda5922-c9e5-11f1-adc8-870f0b7dc12f
 "Datos ordenados de mayor a menor y su CCDF empírica, P(X ≥ x)."
 function ccdf_empirica(x)
     s = sort(x; rev = true)
     s, (1:length(s)) ./ length(s)
 end
 
-# ╔═╡ 374f46e0-c8ff-11f1-b6a0-794724c6dff9
+# ╔═╡ cfda592c-c9e5-11f1-a22b-87c1d9faaed5
 "Índice de Gini de una muestra."
 function gini(x)
     s = sort(x)
@@ -399,7 +442,7 @@ function gini(x)
     sum((2 .* (1:n) .- n .- 1) .* s) / (n * sum(s))
 end
 
-# ╔═╡ 374f46ea-c8ff-11f1-aedf-67900fa3965f
+# ╔═╡ cfda592c-c9e5-11f1-a300-81209aeeaf63
 """
 Gini de la gamma inversa con exponente μ: es igual al de una gamma con forma
 μ - 1 (ver las notas formales de la sesión 7).
@@ -407,7 +450,7 @@ Gini de la gamma inversa con exponente μ: es igual al de una gamma con forma
 gini_bm(μ) = exp(Distributions.SpecialFunctions.loggamma(μ - 0.5) -
                  Distributions.SpecialFunctions.loggamma(μ - 1)) / ((μ - 1) * sqrt(π))
 
-# ╔═╡ 374f46ea-c8ff-11f1-8341-b1229282a8a0
+# ╔═╡ cfda5936-c9e5-11f1-8422-3178be746389
 "Red aleatoria con grado promedio c: se emparejan al azar c 'medias aristas' por agente."
 function red_aleatoria(N, c; rng = Xoshiro(7))
     vecinos = [Int[] for _ in 1:N]
@@ -422,7 +465,7 @@ function red_aleatoria(N, c; rng = Xoshiro(7))
     vecinos
 end
 
-# ╔═╡ 374f46f4-c8ff-11f1-a55c-138bf30eb2ac
+# ╔═╡ cfda5936-c9e5-11f1-839d-45125b09f022
 """
 Modelo de Bouchaud-Mézard con σ = 1 y paso dt. En cada paso: rendimiento
 aleatorio exacto (sin cambiar la media), intercambio con todos (`vecinos =
@@ -461,10 +504,10 @@ function simular_bm(N, J; vecinos = nothing, φ = 0.0, dt = 0.01, T = 200.0,
     Y2 ? (w, suma_Y2 / cuenta) : w
 end
 
-# ╔═╡ 374f45d2-c8ff-11f1-9cee-934d1af538d2
+# ╔═╡ cfda587a-c9e5-11f1-a8f9-f990809d1c5e
 riqueza = simular_bm(10_000, J_dist; T = 150.0);
 
-# ╔═╡ 374f45dc-c8ff-11f1-b1fd-15ae748de1e9
+# ╔═╡ cfda5882-c9e5-11f1-ae5c-db6956025b75
 let
     μ = 1 + 2J_dist
     s, P = ccdf_empirica(riqueza)
@@ -477,7 +520,7 @@ let
           label = "Teoría: gamma inversa, μ = $(round(μ, digits = 2))")
 end
 
-# ╔═╡ 374f45e6-c8ff-11f1-a64f-5bfe1fde7854
+# ╔═╡ cfda5882-c9e5-11f1-b5bb-7dc86dc62015
 md"""
 La teoría coincide con la simulación en todo el rango. El Gini de esta
 distribución es $(round(gini(riqueza), digits = 3)) en la simulación y
@@ -486,7 +529,7 @@ cola tiene ``\mu = 1.2``, muy cerca de 1: la riqueza está tan concentrada que
 el promedio apenas existe.
 """
 
-# ╔═╡ 374f462c-c8ff-11f1-b969-3d3be9d90a08
+# ╔═╡ cfda58a8-c9e5-11f1-ab1f-8d8e773fa3ed
 let
     w = simular_bm(1000, J_esc; vecinos = red_aleatoria(1000, 4), T = 300.0)
     s = cumsum(sort(w ./ sum(w); rev = true))
@@ -496,15 +539,15 @@ let
              label = "Red, J = $J_esc", legend = :bottomright,
              title = "Los 50 agentes más ricos de 1000")
     plot!(p, [0, 50], [0, 0.05]; color = GRIS, ls = :dash, label = "Todos iguales")
-    annotate!(p, 30, 0.15, text("Y₂ = $(round(sum((w ./ sum(w)) .^ 2), digits = 3)); " *
+    annotate!(p, 25, 0.3, text("Y₂ = $(round(sum((w ./ sum(w)) .^ 2), digits = 3)); " *
                                 "el más rico tiene el $(round(Int, 100s[1]))%", 9, GRIS))
 end
 
-# ╔═╡ 374f4640-c8ff-11f1-a402-15b207f2d7c4
+# ╔═╡ cfda58b4-c9e5-11f1-a71b-e163a0ad1aca
 con_impuesto = (campo_medio = simular_bm(5_000, 0.1; φ = φ_imp, T = 200.0),
                 red = simular_bm(5_000, 0.1; φ = φ_imp, vecinos = red_aleatoria(5_000, 4), T = 300.0));
 
-# ╔═╡ 374f464a-c8ff-11f1-97ea-535775bb85e7
+# ╔═╡ cfda58be-c9e5-11f1-81c4-35e61cc9c0dc
 let
     φs = range(0, 0.4, length = 100)
     p1 = plot(φs, gini_bm.(1 .+ 2 .* (0.1 .+ φs)); color = NARANJA, lw = 2, ylims = (0, 1),
@@ -524,28 +567,21 @@ let
     plot(p1, p2; layout = (1, 2), size = (920, 360))
 end
 
-# ╔═╡ 374f4654-c8ff-11f1-b7a4-2fb4f60e9fee
+# ╔═╡ cfda58c8-c9e5-11f1-b6fc-b5fabc2a1318
 md"""
-Con ``\varphi = 0`` la red está en la fase condensada. El impuesto
-**redistribuye a todos**, no sólo a los socios, y reconecta a la economía
-como si fuera de campo medio. Con simulaciones de 1,000 a 20,000 agentes
-(con `Code/simular_condensacion.jl` modificado), un impuesto de
-``\varphi = 0.05`` ya reduce ``Y_2`` a la cuarta parte, y con ``\varphi = 0.1``
-``Y_2`` baja claramente al crecer ``N``: la economía sale de la fase
-condensada. Es un impuesto del mismo tamaño que el intercambio, ``J = 0.1``,
-pero mucho más eficaz, porque llega a todos. Con el impuesto
-$(φ_imp), el Gini en la red es $(round(gini(con_impuesto.red), digits = 2)) y
-los 10 agentes más ricos tienen el
+Con el impuesto $(φ_imp), el Gini en la red es
+$(round(gini(con_impuesto.red), digits = 2)) y los 10 agentes más ricos tienen el
 $(round(Int, 100 * sum(sort(con_impuesto.red ./ sum(con_impuesto.red); rev = true)[1:10])))%
 de la riqueza.
 
-**Pero el diseño importa.** Bouchaud y Mézard muestran que un impuesto a la
-riqueza que **no** se redistribuye, combinado con un impuesto al ingreso,
-puede **aumentar** la desigualdad: lo que reduce la desigualdad no es
-cobrar, sino repartir.
+**¿Saca el impuesto a la economía de la fase condensada?** Como en la
+sección 3, la prueba es el tamaño. Con `Code/simular_condensacion.jl` se
+corrieron simulaciones de la red con ``J = 0.1`` y varios impuestos, de
+1,000 a 20,000 agentes (mediana de 4 simulaciones, en
+`Data/condensacion_impuesto.csv`):
 """
 
-# ╔═╡ 374f4708-c8ff-11f1-bdbb-b156ba4a0efe
+# ╔═╡ cfda5940-c9e5-11f1-b071-35464153a8cc
 "Fracción de la riqueza del agente más rico a lo largo del tiempo (campo medio)."
 function historia_maximo(N, J; T = 100.0, dt = 0.01, rng = Xoshiro(2))
     w = ones(N)
@@ -562,10 +598,10 @@ function historia_maximo(N, J; T = 100.0, dt = 0.01, rng = Xoshiro(2))
     (t = t, maximo = maximo)
 end
 
-# ╔═╡ 374f45a0-c8ff-11f1-b527-31ac90cf3caa
+# ╔═╡ cfda5864-c9e5-11f1-821c-d9d8987f7594
 let
     p = plot(; yscale = :log10, xlabel = "tiempo", ylabel = "fracción de la riqueza total",
-             ylims = (5e-4, 1.5), legend = :right,
+             ylims = (5e-5, 1.5), legend = :bottomright,
              title = "Fracción del agente más rico (N = 1000)")
     for (J, c, nombre) in ((0.0, NARANJA, "Sólo inversión (J = 0)"), (0.5, AZUL, "Inversión e intercambio (J = 0.5)"))
         h = historia_maximo(1000, J; T = 100.0)
@@ -574,7 +610,7 @@ let
     hline!(p, [1 / 1000]; color = GRIS, ls = :dash, lw = 1, label = "Todos iguales: 1/N")
 end
 
-# ╔═╡ 374f4712-c8ff-11f1-b60c-21207b119389
+# ╔═╡ cfda5940-c9e5-11f1-a0be-999fec0049d4
 "Muestra si la respuesta de un ejercicio es correcta."
 function verificar(f, esperado; rtol = 1e-8, pista = md"")
     caja(tipo, titulo, texto) = Markdown.MD(Markdown.Admonition(tipo, titulo, [texto]))
@@ -583,61 +619,66 @@ function verificar(f, esperado; rtol = 1e-8, pista = md"")
     catch e
         return caja("danger", "Tu código produce un error", md"$(sprint(showerror, e))")
     end
-    if resultado === missing
+    if resultado === missing || (resultado isa AbstractArray && any(ismissing, resultado))
         caja("warning", "Pendiente", md"Reemplaza `missing` por tu código.")
-    elseif resultado isa typeof(esperado) && size(resultado) == size(esperado) &&
+    elseif resultado isa AbstractArray && esperado isa AbstractArray && size(resultado) == size(esperado) &&
            all(isapprox.(resultado, esperado; rtol, atol = 1e-12))
+        caja("correct", "¡Correcto!", md"Bien hecho.")
+    elseif resultado isa typeof(esperado) && all(isapprox.(resultado, esperado; rtol, atol = 1e-12))
         caja("correct", "¡Correcto!", md"Bien hecho.")
     else
         caja("danger", "Todavía no", pista)
     end
 end
 
-# ╔═╡ 374f4690-c8ff-11f1-b1d9-ed9a6c0185e8
+# ╔═╡ cfda58f0-c9e5-11f1-b549-21f1abf333d8
 verificar(() -> participacion([1.0, 1.0, 2.0]), 0.375;
           pista = md"Primero divide entre el total: `f = w ./ sum(w)`. Luego suma los cuadrados: `sum(f .^ 2)`.")
 
-# ╔═╡ 374f46a4-c8ff-11f1-bb52-5d2bbbf08f7a
+# ╔═╡ cfda5904-c9e5-11f1-be22-f9d899ed71d6
 verificar(() -> exponente_pareto(0.3, 0.1, 2.0), 1.2;
           pista = md"La fórmula es ``\mu = 1 + 2(J + \varphi)/\sigma^2``.")
 
 # ╔═╡ Cell order:
-# ╟─374f4534-c8ff-11f1-a3d3-fb154f15c44d
-# ╟─374f458c-c8ff-11f1-b6f2-2b69d5fd81b1
-# ╟─374f4598-c8ff-11f1-9dab-b5a87dfa50d3
-# ╟─374f45a0-c8ff-11f1-b527-31ac90cf3caa
-# ╟─374f45aa-c8ff-11f1-bc22-dba833feae9f
-# ╟─374f45c6-c8ff-11f1-9ed7-7bbd3d974ea5
-# ╠═374f45d2-c8ff-11f1-9cee-934d1af538d2
-# ╟─374f45dc-c8ff-11f1-b1fd-15ae748de1e9
-# ╟─374f45e6-c8ff-11f1-a64f-5bfe1fde7854
-# ╟─374f45f0-c8ff-11f1-8b5c-d5403c6b6a16
-# ╟─374f45f8-c8ff-11f1-9a29-5b97a4af3803
-# ╠═374f4604-c8ff-11f1-8848-cfd1baef5f0a
-# ╟─374f460e-c8ff-11f1-86f1-f919caf20392
-# ╟─374f4622-c8ff-11f1-ac49-c146fd41831b
-# ╟─374f462c-c8ff-11f1-b969-3d3be9d90a08
-# ╟─374f4636-c8ff-11f1-80a4-af0b6d3f610a
-# ╠═374f4640-c8ff-11f1-a402-15b207f2d7c4
-# ╟─374f464a-c8ff-11f1-97ea-535775bb85e7
-# ╟─374f4654-c8ff-11f1-b7a4-2fb4f60e9fee
-# ╟─374f465e-c8ff-11f1-83cb-355511fc27df
-# ╟─374f4672-c8ff-11f1-996b-3744f8d4f071
-# ╟─374f467c-c8ff-11f1-b62d-ad31859b7ca2
-# ╠═374f4686-c8ff-11f1-9895-a3a8d35adcab
-# ╟─374f4690-c8ff-11f1-b1d9-ed9a6c0185e8
-# ╟─374f4690-c8ff-11f1-9735-c1426f136027
-# ╠═374f469c-c8ff-11f1-b5fe-f7eefadc4c3c
-# ╟─374f46a4-c8ff-11f1-bb52-5d2bbbf08f7a
-# ╟─374f46ae-c8ff-11f1-93f1-c753a35ef267
-# ╟─374f46b8-c8ff-11f1-a35e-2101f980d8a3
-# ╠═374f46c2-c8ff-11f1-9ede-f75f70895dfc
-# ╠═374f46c2-c8ff-11f1-9017-f53aee066a16
-# ╠═374f46ce-c8ff-11f1-b392-d3216a2bd5cb
-# ╠═374f46d6-c8ff-11f1-8290-49ffd3c91466
-# ╠═374f46e0-c8ff-11f1-b6a0-794724c6dff9
-# ╠═374f46ea-c8ff-11f1-aedf-67900fa3965f
-# ╠═374f46ea-c8ff-11f1-8341-b1229282a8a0
-# ╠═374f46f4-c8ff-11f1-a55c-138bf30eb2ac
-# ╠═374f4708-c8ff-11f1-bdbb-b156ba4a0efe
-# ╠═374f4712-c8ff-11f1-b60c-21207b119389
+# ╟─cfda581e-c9e5-11f1-ab8a-2393f215584d
+# ╟─cfda585a-c9e5-11f1-997f-2985a5200ae2
+# ╟─cfda585a-c9e5-11f1-8d9e-85d2f8fbe235
+# ╟─cfda5864-c9e5-11f1-821c-d9d8987f7594
+# ╟─cfda586e-c9e5-11f1-bdfb-2567b65cdfcd
+# ╟─cfda586e-c9e5-11f1-af1f-f5f89be1064d
+# ╠═cfda587a-c9e5-11f1-a8f9-f990809d1c5e
+# ╟─cfda5882-c9e5-11f1-ae5c-db6956025b75
+# ╟─cfda5882-c9e5-11f1-b5bb-7dc86dc62015
+# ╟─cfda588c-c9e5-11f1-8b42-6f0a81524964
+# ╟─cfda5896-c9e5-11f1-bf9c-0d14ad4d8a66
+# ╠═cfda5896-c9e5-11f1-bd0f-d1f8caa8e374
+# ╟─cfda58a0-c9e5-11f1-84b5-852a6111fda0
+# ╟─cfda58a0-c9e5-11f1-bbd1-f5cb7e92f1d8
+# ╟─cfda58a8-c9e5-11f1-ab1f-8d8e773fa3ed
+# ╟─cfda58b4-c9e5-11f1-ada2-5f66775ce1df
+# ╠═cfda58b4-c9e5-11f1-a71b-e163a0ad1aca
+# ╟─cfda58be-c9e5-11f1-81c4-35e61cc9c0dc
+# ╟─cfda58c8-c9e5-11f1-b6fc-b5fabc2a1318
+# ╠═cfda58c8-c9e5-11f1-951a-c3091ab24686
+# ╟─cfda58d2-c9e5-11f1-a2e5-81543e06951f
+# ╟─cfda58d2-c9e5-11f1-8255-ede02bffa840
+# ╟─cfda58da-c9e5-11f1-ac3f-b5613981b683
+# ╟─cfda58e6-c9e5-11f1-9727-4952e787bbcd
+# ╟─cfda58f0-c9e5-11f1-9721-3b68a1032fee
+# ╠═cfda58f0-c9e5-11f1-81ac-9d5f2936ef99
+# ╟─cfda58f0-c9e5-11f1-b549-21f1abf333d8
+# ╟─cfda58fa-c9e5-11f1-b667-970bf1a81112
+# ╠═cfda58fa-c9e5-11f1-bab9-d5beb22f616b
+# ╟─cfda5904-c9e5-11f1-be22-f9d899ed71d6
+# ╟─cfda5904-c9e5-11f1-b898-81e385e2bd1c
+# ╟─cfda590c-c9e5-11f1-9fe5-37bcc1901e2e
+# ╠═cfda590c-c9e5-11f1-921d-1f5b2548cd14
+# ╠═cfda5918-c9e5-11f1-add1-9f49d9d219b1
+# ╠═cfda5918-c9e5-11f1-b431-fb4ab55c9977
+# ╠═cfda5922-c9e5-11f1-adc8-870f0b7dc12f
+# ╠═cfda592c-c9e5-11f1-a22b-87c1d9faaed5
+# ╠═cfda592c-c9e5-11f1-a300-81209aeeaf63
+# ╠═cfda5936-c9e5-11f1-8422-3178be746389
+# ╠═cfda5936-c9e5-11f1-839d-45125b09f022
+# ╠═cfda5940-c9e5-11f1-b071-35464153a8cc
+# ╠═cfda5940-c9e5-11f1-a0be-999fec0049d4

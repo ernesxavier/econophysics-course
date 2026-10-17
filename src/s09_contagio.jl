@@ -616,8 +616,8 @@ md"""
   Glasserman y Young (2016).
 - En la semana 10 los nodos dejan de ser sólo "caídos" o "en pie": cada
   agente **elige** entre dos opciones influido por sus vecinos. Es el modelo
-  de Ising, y la ventana de cascadas reaparecerá como una transición de
-  fase.
+  de Ising. Las cascadas reaparecerán en la ruta avanzada como
+  **avalanchas**: cambios de opinión que se arrastran unos a otros.
 """
 
 #%% hide

@@ -49,7 +49,7 @@ gráfica muestra la fracción que tiene el agente más rico en cada momento.
 #%% hide
 let
     p = plot(; yscale = :log10, xlabel = "tiempo", ylabel = "fracción de la riqueza total",
-             ylims = (5e-4, 1.5), legend = :right,
+             ylims = (5e-5, 1.5), legend = :bottomright,
              title = "Fracción del agente más rico (N = 1000)")
     for (J, c, nombre) in ((0.0, NARANJA, "Sólo inversión (J = 0)"), (0.5, AZUL, "Inversión e intercambio (J = 0.5)"))
         h = historia_maximo(1000, J; T = 100.0)
@@ -240,7 +240,7 @@ let
              label = "Red, J = $J_esc", legend = :bottomright,
              title = "Los 50 agentes más ricos de 1000")
     plot!(p, [0, 50], [0, 0.05]; color = GRIS, ls = :dash, label = "Todos iguales")
-    annotate!(p, 30, 0.15, text("Y₂ = $(round(sum((w ./ sum(w)) .^ 2), digits = 3)); " *
+    annotate!(p, 25, 0.3, text("Y₂ = $(round(sum((w ./ sum(w)) .^ 2), digits = 3)); " *
                                 "el más rico tiene el $(round(Int, 100s[1]))%", 9, GRIS))
 end
 
@@ -293,18 +293,52 @@ end
 
 #%% hide
 md"""
-Con ``\varphi = 0`` la red está en la fase condensada. El impuesto
-**redistribuye a todos**, no sólo a los socios, y reconecta a la economía
-como si fuera de campo medio. Con simulaciones de 1,000 a 20,000 agentes
-(con `Code/simular_condensacion.jl` modificado), un impuesto de
-``\varphi = 0.05`` ya reduce ``Y_2`` a la cuarta parte, y con ``\varphi = 0.1``
-``Y_2`` baja claramente al crecer ``N``: la economía sale de la fase
-condensada. Es un impuesto del mismo tamaño que el intercambio, ``J = 0.1``,
-pero mucho más eficaz, porque llega a todos. Con el impuesto
-$(φ_imp), el Gini en la red es $(round(gini(con_impuesto.red), digits = 2)) y
-los 10 agentes más ricos tienen el
+Con el impuesto $(φ_imp), el Gini en la red es
+$(round(gini(con_impuesto.red), digits = 2)) y los 10 agentes más ricos tienen el
 $(round(Int, 100 * sum(sort(con_impuesto.red ./ sum(con_impuesto.red); rev = true)[1:10])))%
 de la riqueza.
+
+**¿Saca el impuesto a la economía de la fase condensada?** Como en la
+sección 3, la prueba es el tamaño. Con `Code/simular_condensacion.jl` se
+corrieron simulaciones de la red con ``J = 0.1`` y varios impuestos, de
+1,000 a 20,000 agentes (mediana de 4 simulaciones, en
+`Data/condensacion_impuesto.csv`):
+"""
+
+#%%
+barrido_impuesto = let
+    d = CSV.read(joinpath(@__DIR__, "..", "Data", "condensacion_impuesto.csv"), DataFrame)
+    combine(groupby(d, [:φ, :N]), :Y2 => median => :Y2)
+end
+
+#%% hide
+let
+    marcas = [1e-3, 1e-2, 1e-1]
+    p = plot(; xscale = :log10, yscale = :log10, xlabel = "número de agentes N", ylabel = "Y₂ (escala log)",
+             xticks = ([1000, 5000, 20000], ["1,000", "5,000", "20,000"]),
+             yticks = (marcas, string.(marcas)), ylims = (1e-3, 0.2), legend = :outerright,
+             title = "Red con J = 0.1: Y₂ al crecer la población", size = (760, 360))
+    φs = sort(unique(barrido_impuesto.φ))
+    for (k, φ) in enumerate(φs)
+        d = sort(barrido_impuesto[barrido_impuesto.φ .== φ, :], :N)
+        plot!(p, d.N, d.Y2; color = φ == 0 ? NARANJA : RAMPA[min(k - 1, 4)], lw = 2, marker = :circle,
+              ms = 4, msw = 0, label = φ == 0 ? "Sin impuesto" : "φ = $φ")
+    end
+    p
+end
+
+#%% hide
+md"""
+- **Sin impuesto**, ``Y_2`` no cambia al pasar de 1,000 a 20,000 agentes: la
+  economía está condensada.
+- Con ``\varphi = 0.05``, ``Y_2`` ya es la cuarta parte que sin impuesto con
+  20,000 agentes, aunque baja despacio al crecer ``N``.
+- Con ``\varphi = 0.1`` o más, ``Y_2`` baja claramente al crecer ``N``: la
+  economía sale de la fase condensada.
+
+El impuesto **redistribuye a todos**, no sólo a los socios, y reconecta a la
+economía como si fuera de campo medio. Un impuesto del mismo tamaño que el
+intercambio, ``J = 0.1``, es mucho más eficaz porque llega a todos.
 
 **Pero el diseño importa.** Bouchaud y Mézard muestran que un impuesto a la
 riqueza que **no** se redistribuye, combinado con un impuesto al ingreso,
@@ -430,8 +464,10 @@ md"""
 - Lectura: Chakrabarti et al. (2013), sección 4.5; para la ruta avanzada,
   Bouchaud y Mézard (2000).
 - En la semana 8 estudiamos las **redes** como objeto en sí mismo: grados,
-  centralidad y modelos de redes aleatorias. La red de comercio de hoy y el
-  árbol de la sesión 5 serán nuestros primeros ejemplos.
+  centralidad y modelos de redes aleatorias. Hoy vimos que la forma de la
+  red cambia el resultado; allá aprenderemos a medirla, con la red de
+  matrimonios de las familias de Florencia y una red construida con las
+  correlaciones de la sesión 5.
 """
 
 #%% hide
@@ -573,10 +609,12 @@ function verificar(f, esperado; rtol = 1e-8, pista = md"")
     catch e
         return caja("danger", "Tu código produce un error", md"$(sprint(showerror, e))")
     end
-    if resultado === missing
+    if resultado === missing || (resultado isa AbstractArray && any(ismissing, resultado))
         caja("warning", "Pendiente", md"Reemplaza `missing` por tu código.")
-    elseif resultado isa typeof(esperado) && size(resultado) == size(esperado) &&
+    elseif resultado isa AbstractArray && esperado isa AbstractArray && size(resultado) == size(esperado) &&
            all(isapprox.(resultado, esperado; rtol, atol = 1e-12))
+        caja("correct", "¡Correcto!", md"Bien hecho.")
+    elseif resultado isa typeof(esperado) && all(isapprox.(resultado, esperado; rtol, atol = 1e-12))
         caja("correct", "¡Correcto!", md"Bien hecho.")
     else
         caja("danger", "Todavía no", pista)

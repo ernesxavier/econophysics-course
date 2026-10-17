@@ -261,10 +261,22 @@ intercambio, así que basta sustituir $J$ por $J + \varphi$ en la sección 2.
 $\square$
 
 **En la red** la diferencia es importante: el impuesto llega a **todos**,
-mientras que el intercambio sólo llega a los socios. En las simulaciones
-del curso con $J = 0.1$ (fase condensada), un impuesto $\varphi = 0.05$
-reduce $Y_2$ a la cuarta parte, y con $\varphi = 0.1$, $Y_2$ baja claramente
-al crecer $N$: la economía sale de la fase condensada.
+mientras que el intercambio sólo llega a los socios. Simulaciones de la red
+con $J = 0.1$ (fase condensada), de 1,000 a 20,000 agentes
+(`Code/simular_condensacion.jl`, datos en `Data/condensacion_impuesto.csv`;
+mediana de 4 simulaciones):
+
+| $\varphi$ | $Y_2$, $N = 1{,}000$ | $Y_2$, $N = 5{,}000$ | $Y_2$, $N = 20{,}000$ |
+|---|---|---|---|
+| 0 | 0.104 | 0.105 | 0.098 |
+| 0.025 | 0.064 | 0.039 | 0.039 |
+| 0.05 | 0.047 | 0.025 | 0.022 |
+| 0.1 | 0.029 | 0.013 | 0.0094 |
+| 0.2 | 0.012 | 0.0051 | 0.0026 |
+
+Sin impuesto, $Y_2$ no cambia con $N$. Con $\varphi = 0.05$, $Y_2$ es la
+cuarta parte que sin impuesto con 20,000 agentes, y con $\varphi \ge 0.1$
+baja claramente al crecer $N$: la economía sale de la fase condensada.
 
 ### 4.2 [Avanzado] Cobrar no es lo mismo que redistribuir
 

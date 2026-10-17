@@ -1,10 +1,17 @@
-# Barrido del laboratorio de la sesión 7: razón de participación inversa Y₂
-# del modelo de Bouchaud-Mézard para varias intensidades de intercambio J y
-# tamaños N, en campo medio y en una red aleatoria con 4 socios en promedio.
-# Guarda Data/condensacion_bm.csv (modelo, J, N, replica, Y2).
+# Barridos del laboratorio de la sesión 7: razón de participación inversa Y₂
+# del modelo de Bouchaud-Mézard.
 #
-# Uso (desde la raíz del repositorio; tarda unos minutos):
-#     julia --project=Code -t auto Code/simular_condensacion.jl
+# 1. Intercambio: varias intensidades J y tamaños N, en campo medio y en una
+#    red aleatoria con 4 socios en promedio. Guarda Data/condensacion_bm.csv
+#    (modelo, J, N, replica, Y2).
+# 2. Impuesto: red con J = 0.1 (fase condensada) y un impuesto a la riqueza φ
+#    redistribuido a todos. Guarda Data/condensacion_impuesto.csv
+#    (φ, N, replica, Y2).
+#
+# Uso (desde la raíz del repositorio; cada barrido tarda varios minutos):
+#     julia --project=Code -t auto Code/simular_condensacion.jl            # los dos
+#     julia --project=Code -t auto Code/simular_condensacion.jl intercambio
+#     julia --project=Code -t auto Code/simular_condensacion.jl impuesto
 #
 # Las simulaciones grandes son demasiado lentas para el cuaderno, así que se
 # corren aquí una vez. `red_aleatoria` y `simular_bm` son las mismas funciones
@@ -62,17 +69,41 @@ const NS = [1000, 5000, 20000]
 const REPLICAS = 4
 const T = 400.0
 
-tareas = vec(collect(Iterators.product(("campo medio", "red"), JS, NS, 1:REPLICAS)))
-Y2 = zeros(length(tareas))
-println("Corriendo ", length(tareas), " simulaciones con ", Threads.nthreads(), " hilos...")
-Threads.@threads for k in eachindex(tareas)
-    modelo, J, N, r = tareas[k]
-    vecinos = modelo == "red" ? red_aleatoria(N, 4; rng = Xoshiro(100r + N)) : nothing
-    Y2[k] = simular_bm(N, J; vecinos, T, rng = Xoshiro(r), Y2 = true)[2]
+const J_IMPUESTO = 0.1
+const ΦS = [0.0, 0.025, 0.05, 0.1, 0.2]
+
+barridos = isempty(ARGS) ? ["intercambio", "impuesto"] : ARGS
+
+if "intercambio" in barridos
+    tareas = vec(collect(Iterators.product(("campo medio", "red"), JS, NS, 1:REPLICAS)))
+    Y2 = zeros(length(tareas))
+    println("Intercambio: ", length(tareas), " simulaciones con ", Threads.nthreads(), " hilos...")
+    Threads.@threads for k in eachindex(tareas)
+        modelo, J, N, r = tareas[k]
+        vecinos = modelo == "red" ? red_aleatoria(N, 4; rng = Xoshiro(100r + N)) : nothing
+        Y2[k] = simular_bm(N, J; vecinos, T, rng = Xoshiro(r), Y2 = true)[2]
+    end
+    resultado = DataFrame(modelo = first.(tareas), J = getindex.(tareas, 2),
+                          N = getindex.(tareas, 3), replica = last.(tareas), Y2 = Y2)
+    sort!(resultado, [:modelo, :J, :N, :replica])
+    CSV.write(joinpath(@__DIR__, "..", "Data", "condensacion_bm.csv"), resultado)
+    println(combine(groupby(resultado, [:modelo, :J, :N]), :Y2 => median => :Y2_mediana))
 end
 
-resultado = DataFrame(modelo = first.(tareas), J = getindex.(tareas, 2),
-                      N = getindex.(tareas, 3), replica = last.(tareas), Y2 = Y2)
-sort!(resultado, [:modelo, :J, :N, :replica])
-CSV.write(joinpath(@__DIR__, "..", "Data", "condensacion_bm.csv"), resultado)
-println(combine(groupby(resultado, [:modelo, :J, :N]), :Y2 => median => :Y2_mediana))
+if "impuesto" in barridos
+    # Mismas redes y semillas que el barrido de intercambio: con φ = 0 se
+    # repiten sus resultados para J = 0.1.
+    tareas = vec(collect(Iterators.product(ΦS, NS, 1:REPLICAS)))
+    Y2 = zeros(length(tareas))
+    println("Impuesto: ", length(tareas), " simulaciones con ", Threads.nthreads(), " hilos...")
+    Threads.@threads for k in eachindex(tareas)
+        φ, N, r = tareas[k]
+        vecinos = red_aleatoria(N, 4; rng = Xoshiro(100r + N))
+        Y2[k] = simular_bm(N, J_IMPUESTO; vecinos, φ, T, rng = Xoshiro(r), Y2 = true)[2]
+    end
+    resultado = DataFrame(φ = first.(tareas), N = getindex.(tareas, 2),
+                          replica = last.(tareas), Y2 = Y2)
+    sort!(resultado, [:φ, :N, :replica])
+    CSV.write(joinpath(@__DIR__, "..", "Data", "condensacion_impuesto.csv"), resultado)
+    println(combine(groupby(resultado, [:φ, :N]), :Y2 => median => :Y2_mediana))
+end

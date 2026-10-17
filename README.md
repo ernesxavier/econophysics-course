@@ -31,6 +31,7 @@ Matemáticas), con simulaciones en Julia.
 │   ├── sp100_sectores.csv     → Nombre y sector GICS de esas acciones
 │   ├── enigh2024_hogares.csv  → Ingreso mensual por hogar, ENIGH 2024 (INEGI)
 │   ├── condensacion_bm.csv    → Barrido simulado del modelo de Bouchaud-Mézard (sesión 7)
+│   ├── condensacion_impuesto.csv → Barrido con impuesto redistribuido (sesión 7)
 │   ├── localidades_2020.csv   → Población por localidad, Censo 2020 (INEGI), ≥ 100 hab.
 │   └── municipios_2010_2020.csv → Población por municipio, Censos 2010 y 2020 (INEGI)
 ├── Code/                      → Todo el código Julia, un solo entorno
@@ -47,7 +48,7 @@ Matemáticas), con simulaciones en Julia.
 │   ├── descargar_datos.jl     → Regenera Data/precios.csv desde Yahoo Finance
 │   ├── descargar_sp100.jl     → Regenera los datos del S&P 100 (Yahoo Finance)
 │   ├── descargar_enigh.jl     → Regenera los datos de la ENIGH 2024 (INEGI)
-│   ├── simular_condensacion.jl → Regenera Data/condensacion_bm.csv (tarda minutos)
+│   ├── simular_condensacion.jl → Regenera los datos de condensación de la sesión 7 (tarda minutos)
 │   ├── descargar_inegi.jl     → Regenera los datos de INEGI (localidades y municipios)
 │   ├── figuras_repaso.jl      → Regenera las figuras de Class_notes/repaso/figuras/
 │   │   Notebooks del semestre anterior:
