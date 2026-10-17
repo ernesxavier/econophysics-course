@@ -12,8 +12,8 @@
 > (Fokker-Planck) y [E.A5](repaso/procesos_estocasticos.md#ea5) (exponente de
 > Kesten).
 >
-> Lecturas: Slanina, secs. 7.1 y 7.3; Gabaix (2009), sec. 3. Ruta avanzada:
-> Gabaix (1999); Sornette & Cont (1997).
+> Lecturas: Slanina (2014), sec. 7.1. Complementaria: Slanina (2014), sec. 7.3.
+> Ruta avanzada (de consulta): Gabaix (1999); Sornette & Cont (1997).
 
 ---
 

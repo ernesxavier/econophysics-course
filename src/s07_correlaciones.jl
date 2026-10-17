@@ -553,7 +553,9 @@ md"""
 
 ## Para la próxima sesión
 
-- Lectura: Mantegna y Stanley (1999), capítulos 12 y 13; Mantegna (1999).
+- Lectura: Mantegna y Stanley (1999), capítulos 12 y 13. Complementaria:
+  Slanina (2014), sección 1.4; Mantegna (1999). Para la ruta avanzada,
+  Requião da Cunha (2021), sección 5.2; Laloux et al. (1999).
 - En la sesión 8 empieza el Módulo II: la **distribución del dinero** como
   un problema de física estadística (máxima entropía y modelos de
   intercambio).

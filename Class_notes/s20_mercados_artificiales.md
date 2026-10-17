@@ -18,9 +18,10 @@
 > [S.A3](repaso/estadistica.md#sa3) (calibración por momentos simulados) y
 > [S.A4](repaso/estadistica.md#sa4) (memoria larga).
 >
-> Lecturas: Hommes (2013), cap. 1; LeBaron (2006); Lux & Marchesi (1999). Ruta
-> avanzada: Hommes (2013), caps. 2 y 6; Slanina (2014), sec. 3.2; Giardina &
-> Bouchaud (2003); Brock & Hommes (1998). De consulta: Hommes (2006); Franke & Westerhoff (2012).
+> Lecturas: LeBaron (2006). Complementaria: Hommes (2013), cap. 1; Lux &
+> Marchesi (1999). Ruta avanzada: Hommes (2013), caps. 2 y 6; Slanina (2014),
+> sec. 3.2; Giardina & Bouchaud (2003); Brock & Hommes (1998). De consulta:
+> Hommes (2006); Franke & Westerhoff (2012).
 
 ---
 

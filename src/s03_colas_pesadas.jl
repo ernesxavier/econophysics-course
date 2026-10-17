@@ -615,10 +615,12 @@ md"""
 
 ## Para la próxima sesión
 
-- Lectura: Gabaix (2009), *Power laws in economics and finance*, secciones 1
-  y 2.
-- Ruta avanzada: Clauset, Shalizi y Newman (2009), *Power-law distributions
-  in empirical data*, secciones 1 a 4.
+- Lectura: Requião da Cunha (2021), sección 2.2.7. Complementaria: Gabaix
+  (2009), *Power laws in economics and finance*; Thurner, Klimek y Hanel
+  (2018), capítulo 3.
+- Ruta avanzada: Mantegna y Stanley (1999), capítulos 3 y 4; Requião da Cunha
+  (2021), secciones 2.2.5 y 2.2.6; Clauset, Shalizi y Newman (2009),
+  *Power-law distributions in empirical data*, secciones 1 a 4.
 - En la sesión 4 pasamos de las distribuciones a los **procesos**: qué
   mecanismos aleatorios generan series como las que medimos.
 """

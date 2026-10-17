@@ -15,8 +15,9 @@
 > universalidad) y [F.A4](repaso/fisica_estadistica.md#fa4) (vidrios de espín y
 > frustración).
 >
-> Lecturas: Slanina (2014), secs. 5.1 y 5.3; Requião da Cunha (2021),
-> sec. 7.1.1; Challet & Zhang (1997); Arthur (1994). Ruta avanzada: Slanina
+> Lecturas: Slanina (2014), sec. 5.1. Complementaria: Challet & Zhang (1997);
+> Requião da Cunha (2021), sec. 7.1.1; Slanina (2014), sec. 5.3; Arthur
+> (1994). Ruta avanzada: Slanina
 > (2014), sec. 5.2; Savit, Manuca & Riolo (1999); Challet & Marsili (1999);
 > Challet, Marsili & Zecchina (2000); de consulta: Challet, Marsili & Zhang
 > (2005).
@@ -27,7 +28,7 @@
 
 ### 1.1 El problema del bar El Farol y el razonamiento inductivo
 
-En los juegos de coordinación y en el modelo de Ising (sesiones 13 a 17), a
+En los juegos de coordinación y en el modelo de Ising (sesiones 13, 14 y 17), a
 cada agente le convenía hacer lo mismo que la mayoría. Sin embargo, en muchos
 contextos económicos —congestión vial, aprovechamiento de recursos escasos o
 especulación financiera— **conviene estar en la minoría**: cuando todos quieren

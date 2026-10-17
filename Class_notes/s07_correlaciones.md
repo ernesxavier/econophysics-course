@@ -13,8 +13,9 @@
 > entre activos); para la ruta avanzada,
 > [L.A2](repaso/algebra_lineal.md#la2) (Marchenko-Pastur).
 >
-> Lecturas: Mantegna & Stanley, caps. 12–13; Slanina, sec. 1.4; Mantegna
-> (1999). Ruta avanzada: Requião da Cunha, sec. 5.2; Laloux et al. (1999).
+> Lecturas: Mantegna & Stanley (1999), caps. 12–13. Complementaria: Slanina
+> (2014), sec. 1.4; Mantegna (1999). Ruta avanzada: Requião da Cunha (2021),
+> sec. 5.2; Laloux et al. (1999).
 
 ---
 
@@ -209,7 +210,7 @@ Dos observaciones:
    la correlación no depende del orden de los días. Por eso las
    permutaciones deben ser independientes entre activos.
 2. La prueba destruye también la dependencia temporal de cada serie (la
-   volatilidad agrupada de la sesión 5). Para la correlación contemporánea
+   volatilidad agrupada de la sesión 2). Para la correlación contemporánea
    eso casi no importa, pero es otra diferencia entre datos y nula.
 
 **Muchas pruebas a la vez.** Probar si cada uno de los 4,465 pares tiene

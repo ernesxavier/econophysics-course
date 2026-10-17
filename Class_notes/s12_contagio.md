@@ -13,9 +13,9 @@
 > [L.A5](repaso/algebra_lineal.md#la5) (Perron-Frobenius) y
 > [F.A5](repaso/fisica_estadistica.md#fa5) (percolación).
 >
-> Lecturas: Battiston et al. (2016); Watts (2002). Ruta avanzada: Eisenberg &
-> Noe (2001); Battiston et al. (2012); Acemoglu, Ozdaglar & Tahbaz-Salehi
-> (2015); Glasserman & Young (2016).
+> Lecturas: Battiston et al. (2016). Complementaria: Watts (2002). Ruta
+> avanzada: Eisenberg & Noe (2001); Battiston et al. (2012); de consulta,
+> Acemoglu, Ozdaglar & Tahbaz-Salehi (2015) y Glasserman & Young (2016).
 
 ---
 

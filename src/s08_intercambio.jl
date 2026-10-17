@@ -1,6 +1,6 @@
 #%% hide
 md"""
-# Sesión 8: Máxima entropía y modelos cinéticos de intercambio
+# Sesión 8: Desigualdad y modelos de intercambio
 
 **Objetivos de la sesión**
 1. Medir la desigualdad del ingreso en México con la **curva de Lorenz** y el
@@ -533,7 +533,10 @@ md"""
 
 ## Para la próxima sesión
 
-- Lectura: Yakovenko y Rosser (2009); Slanina (2014), sección 7.2.
+- Lectura: Yakovenko y Rosser (2009). Complementaria: Requião da Cunha
+  (2021), sección 8.3; Slanina (2014), sección 7.2. Para la ruta avanzada,
+  Chakrabarti et al. (2013), capítulos 2 a 5; de consulta, Garibaldi y Scalas
+  (2010).
 - En la sesión 9 agregamos crecimiento multiplicativo al intercambio (modelo
   de Bouchaud-Mézard): veremos que la riqueza puede **condensarse** en unos
   pocos agentes, y probaremos impuestos y redistribución.

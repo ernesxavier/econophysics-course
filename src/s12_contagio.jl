@@ -119,7 +119,7 @@ Con ``\varphi = 0.18``, son vulnerables los nodos con 5 vecinos o menos.
 Para que una cascada llegue lejos tienen que pasar dos cosas:
 
 - La red debe estar **conectada**: si el grado promedio ``z`` es menor que 1,
-  no hay por dónde propagarse (sesión 11).
+  no hay por dónde propagarse (sesión 10).
 - Debe haber suficientes nodos **vulnerables** conectados entre sí: si ``z``
   es grande, casi nadie es vulnerable y la cascada se detiene.
 
@@ -156,7 +156,7 @@ Hay una **ventana**: las cascadas globales sólo ocurren para valores
 intermedios de ``z``. Los dos bordes tienen causas distintas.
 
 - **Borde inferior** (``z \approx 1``): es la transición de percolación de la
-  sesión 11. Con pocos enlaces, la red está partida en islas.
+  sesión 10. Con pocos enlaces, la red está partida en islas.
 - **Borde superior**: con muchos enlaces, cada vecino pesa poco (``1/k``) y
   un solo vecino caído no basta. La red se **estabiliza por diversificación**.
 
@@ -611,9 +611,9 @@ md"""
 
 ## Para la próxima sesión
 
-- Lectura: Battiston et al. (2016) y Watts (2002); para la ruta avanzada,
-  Eisenberg y Noe (2001), Battiston et al. (2012), Acemoglu et al. (2015) y
-  Glasserman y Young (2016).
+- Lectura: Battiston et al. (2016). Complementaria: Watts (2002). Para la ruta
+  avanzada, Eisenberg y Noe (2001) y Battiston et al. (2012); de consulta,
+  Acemoglu et al. (2015) y Glasserman y Young (2016).
 - En la sesión 13 los nodos dejan de ser sólo "caídos" o "en pie": cada
   agente **elige** entre dos opciones influido por sus vecinos. Es el modelo
   de Ising. Las cascadas reaparecerán en la ruta avanzada como

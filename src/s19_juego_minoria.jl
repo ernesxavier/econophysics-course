@@ -467,9 +467,10 @@ md"""
 
 ## Para la próxima sesión
 
-- Lectura: Slanina (2014), secciones 5.1 y 5.3; Requião da Cunha (2021),
-  sección 7.1.1; Challet y Zhang (1997). Para la ruta avanzada, Slanina (2014),
-  sección 5.2; de consulta: Challet, Marsili y Zhang (2005).
+- Lectura: Slanina (2014), sección 5.1. Complementaria: Challet y Zhang
+  (1997); Requião da Cunha (2021), sección 7.1.1; Slanina (2014), sección 5.3.
+  Para la ruta avanzada, Slanina (2014), sección 5.2; de consulta: Challet,
+  Marsili y Zhang (2005).
 - En la **sesión 20** cerramos el curso uniendo todas las piezas: construiremos
   **mercados financieros artificiales con expectativas heterogéneas**
   (**Brock-Hommes** y modelos de **fundamentalistas vs. chartistas**) y les

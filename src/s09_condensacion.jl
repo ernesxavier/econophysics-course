@@ -463,11 +463,11 @@ md"""
 
 - Lectura: Chakrabarti et al. (2013), sección 4.5; para la ruta avanzada,
   Bouchaud y Mézard (2000).
-- En la sesión 10 estudiamos las **redes** como objeto en sí mismo: grados,
-  centralidad y modelos de redes aleatorias. Hoy vimos que la forma de la
-  red cambia el resultado; allá aprenderemos a medirla, con la red de
-  matrimonios de las familias de Florencia y una red construida con las
-  correlaciones de la sesión 7.
+- En las sesiones 10 y 11 estudiamos las **redes** como objeto en sí mismo:
+  grados, centralidad y modelos de redes aleatorias. Hoy vimos que la forma de
+  la red cambia el resultado; allá aprenderemos a medirla, primero con la red
+  de matrimonios de las familias de Florencia (sesión 10) y después con una red
+  construida con las correlaciones de la sesión 7 (sesión 11).
 """
 
 #%% hide

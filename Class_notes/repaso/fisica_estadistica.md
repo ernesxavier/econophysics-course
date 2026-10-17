@@ -473,7 +473,7 @@ Ruido grande: opiniones mezcladas, $m \approx 0$. Ruido casi nulo: consenso
 </details>
 
 <details>
-<summary><b>3 (B).</b> En la sesión 11, ¿cuál es el parámetro de control y cuál el de orden de la transición del componente gigante?</summary>
+<summary><b>3 (B).</b> En la sesión 10, ¿cuál es el parámetro de control y cuál el de orden de la transición del componente gigante?</summary>
 
 Control: el grado promedio $\langle k\rangle$ (o la probabilidad de enlace).
 Orden: la fracción de nodos en el componente más grande.

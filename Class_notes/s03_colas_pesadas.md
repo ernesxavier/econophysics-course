@@ -11,9 +11,10 @@
 > [P.A2](repaso/probabilidad.md#pa2), [P.A3](repaso/probabilidad.md#pa3) y
 > [P.A4](repaso/probabilidad.md#pa4).
 >
-> Lecturas: Gabaix (2009); Mantegna & Stanley, sec. 4.4; Requião da Cunha,
-> sec. 2.2.7; Thurner, Klimek & Hanel, cap. 3. Ruta avanzada: Clauset, Shalizi
-> & Newman (2009); Mantegna & Stanley, caps. 3–4.
+> Lecturas: Requião da Cunha (2021), sec. 2.2.7. Complementaria: Gabaix
+> (2009); Thurner, Klimek & Hanel (2018), cap. 3. Ruta avanzada: Mantegna &
+> Stanley (1999), caps. 3–4; Requião da Cunha (2021), secs. 2.2.5–2.2.6;
+> Clauset, Shalizi & Newman (2009).
 
 ---
 
@@ -463,6 +464,11 @@ sección 5, con $\alpha \approx 3$, descartan esa hipótesis para los retornos.
 - Newman, M. E. J. (2005). Power laws, Pareto distributions and Zipf's law.
   *Contemporary Physics*, 46(5), 323–351.
   https://doi.org/10.1080/00107510500052444
+- Requião da Cunha, C. (2021). *Introduction to Econophysics: Contemporary
+  Approaches with Python Simulations*. CRC Press.
+  https://doi.org/10.1201/9781003127956
+- Thurner, S., Klimek, P., & Hanel, R. (2018). *Introduction to the Theory of
+  Complex Systems*. Oxford University Press.
 - Vuong, Q. H. (1989). Likelihood ratio tests for model selection and
   non-nested hypotheses. *Econometrica*, 57(2), 307–333.
   https://doi.org/10.2307/1912557

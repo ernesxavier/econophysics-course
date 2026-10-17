@@ -424,7 +424,8 @@ md"""
 
 ## Para la próxima sesión
 
-- Lectura: Slanina (2014), secciones 7.1 y 7.3; Gabaix (2009), sección 3.
+- Lectura: Slanina (2014), sección 7.1. Complementaria: Slanina (2014),
+  sección 7.3.
 - En la sesión 7 pasamos de una serie a **muchas**: correlaciones entre
   activos, matrices aleatorias y la estructura de sectores del mercado.
 """

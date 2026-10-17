@@ -1,4 +1,4 @@
-# Sesión 8: Máxima entropía y modelos cinéticos de intercambio. Notas formales
+# Sesión 8: Desigualdad y modelos de intercambio. Notas formales
 
 > **Cómo leer estas notas.** Siguen el orden del programa: primero se observa
 > en el cuaderno (`Code/s08_intercambio.jl`), después se formaliza aquí. Lo
@@ -15,8 +15,9 @@
 > (multiplicadores de Lagrange), [C.A4](repaso/calculo.md#ca4) (función
 > gamma) y [P.A5](repaso/probabilidad.md#pa5) (desigualdades).
 >
-> Lecturas: Yakovenko & Rosser (2009); Requião da Cunha, sec. 8.3; Slanina,
-> sec. 7.2. Ruta avanzada: Chakrabarti et al. (2013), caps. 2–5.
+> Lecturas: Yakovenko & Rosser (2009). Complementaria: Requião da Cunha
+> (2021), sec. 8.3; Slanina (2014), sec. 7.2. Ruta avanzada: Chakrabarti et
+> al. (2013), caps. 2–5; Garibaldi & Scalas (2010, consulta).
 
 ---
 
@@ -413,6 +414,8 @@ modelo. La cola, estimada con el estimador de Hill ponderado sobre el 10%,
 - Dragulescu, A., & Yakovenko, V. M. (2000). Statistical mechanics of money.
   *The European Physical Journal B*, 17(4), 723–729.
   https://doi.org/10.1007/s100510070114
+- Garibaldi, U., & Scalas, E. (2010). *Finitary Probabilistic Methods in
+  Econophysics*. Cambridge University Press.
 - INEGI (2025). *Encuesta Nacional de Ingresos y Gastos de los Hogares
   (ENIGH) 2024, nueva serie: datos abiertos*. Instituto Nacional de
   Estadística y Geografía.
