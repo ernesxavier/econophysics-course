@@ -423,8 +423,8 @@ md"""
 
 ## Para la próxima sesión
 
-- Lectura: Slanina (2014), capítulo 6; para la ruta avanzada, Newman (2018),
-  capítulos 12, 13 y 15.
+- Lectura: Newman (2018), capítulo 7. Complementaria: Newman (2018), capítulos
+  6 y 11; Requião da Cunha (2021), sección 8.1.
 - En la **sesión 11** (`Code/s11_redes_mercado.jl`) pondremos estos tres
   modelos frente a la red de correlaciones del S&P 100 y mediremos qué pasa
   cuando fallan nodos al azar o cuando se ataca a los más conectados.

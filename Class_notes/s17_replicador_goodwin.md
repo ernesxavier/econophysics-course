@@ -429,7 +429,7 @@ acotadas que rodean al equilibrio. $\square$
 - Lotka, A. J. (1925). *Elements of Physical Biology*. Williams & Wilkins.
 - Maynard Smith, J., & Price, G. R. (1973). The logic of animal conflict.
   *Nature*, 246(5427), 15–18. https://doi.org/10.1038/246015a0
-- Requião da Cunha, B. (2021). *Introduction to Econophysics: Contemporary
+- Requião da Cunha, C. (2021). *Introduction to Econophysics: Contemporary
   Approaches with Python Simulations*. CRC Press.
   https://doi.org/10.1201/9781003127956
 - Schecter, S., & Gintis, H. (2016). *Game Theory in Action: An Introduction to

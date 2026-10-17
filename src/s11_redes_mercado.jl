@@ -37,24 +37,28 @@ En la sesión 10 vimos que la conexión preferencial (Barabási-Albert) crea
 red, como los grandes bancos en el mercado interbancario o los aeropuertos
 principales en una red aérea.
 
-Mira esta red de 45 nodos con concentradores. A la izquierda quitamos **4 nodos
-al azar**; a la derecha quitamos los **4 nodos más conectados** (en naranja):
+Mira esta red de 45 nodos con concentradores. A la izquierda quitamos **6 nodos
+al azar**; a la derecha quitamos los **6 nodos más conectados**. En cada panel,
+los nodos en color forman el componente gigante que queda, y los grises son
+fragmentos que se separaron:
 """
 
 #%% hide
 let
     e = ejemplo_ataque_inicial
     p1 = dibujar_red(e.g_azar, e.X_azar; tam = 4.5, colores = e.col_azar, size = (440, 360),
-                     title = "Quitar 4 nodos al azar: gigante = $(e.gig_azar)%")
+                     title = "Quitar 6 nodos al azar: gigante = $(e.gig_azar)%")
     p2 = dibujar_red(e.g_ataque, e.X_ataque; tam = 4.5, colores = e.col_ataque, size = (440, 360),
-                     title = "Quitar los 4 mayores hubs: gigante = $(e.gig_ataque)%")
+                     title = "Quitar los 6 mayores hubs: gigante = $(e.gig_ataque)%")
     plot(p1, p2; layout = (1, 2), size = (880, 360))
 end
 
 #%% hide
 md"""
-Quitar 4 nodos al azar apenas toca la red; quitar los 4 concentradores la
-rompe en pedazos aislados. Hoy mediremos primero la estructura de una red
+Quitar 6 nodos al azar apenas toca la red: el componente gigante conserva el
+$(ejemplo_ataque_inicial.gig_azar)% de los nodos. Quitar los 6 concentradores la
+rompe en $(ejemplo_ataque_inicial.piezas_ataque) pedazos, y el más grande
+conserva sólo el $(ejemplo_ataque_inicial.gig_ataque)%. Hoy mediremos primero la estructura de una red
 financiera real y luego pondremos a prueba la **robustez** de las redes ante
 fallas aleatorias y ataques dirigidos.
 """
@@ -481,7 +485,8 @@ md"""
 
 ## Para la próxima sesión
 
-- Lectura: Battiston et al. (2016) y Watts (2002).
+- Lectura: Slanina (2014), capítulo 6. Para la ruta avanzada, Newman (2018),
+  capítulos 12, 13 y 15; de consulta, Jackson (2008), capítulos 2 a 5.
 - En la **sesión 12** (`Code/s12_contagio.jl`) la red deja de ser el objeto de
   estudio y se vuelve el **medio** por donde se propaga algo: cascadas de
   quiebras y contagio de pérdidas en una red interbancaria.
@@ -592,20 +597,20 @@ function dibujar_red(g, X; tam = 4, colores = AZUL, alpha_enlaces = 0.5, resalta
 end
 
 #%%
-"Ejemplo visual inicial: quitar 4 nodos al azar vs. los 4 mayores hubs en una red Barabási-Albert."
+"Ejemplo visual inicial: quitar 6 nodos al azar vs. los 6 mayores hubs en una red Barabási-Albert."
 ejemplo_ataque_inicial = let
-    g0 = barabasi_albert(45, 2; seed = 7)
+    g0 = barabasi_albert(45, 2; seed = 2)
     X0 = disposicion(g0)
     n0 = nv(g0)
 
-    quitar_azar = randperm(Xoshiro(11), n0)[1:4]
+    quitar_azar = randperm(Xoshiro(11), n0)[1:6]
     keep_azar = setdiff(1:n0, quitar_azar)
     g_azar, _ = induced_subgraph(g0, keep_azar)
     cc_a = connected_components(g_azar)
     gig_a = cc_a[argmax(length.(cc_a))]
     col_azar = [v in gig_a ? AZUL : GRIS_CLARO for v in 1:nv(g_azar)]
 
-    quitar_hubs = sortperm(degree(g0); rev = true)[1:4]
+    quitar_hubs = sortperm(degree(g0); rev = true)[1:6]
     keep_ataque = setdiff(1:n0, quitar_hubs)
     g_ataque, _ = induced_subgraph(g0, keep_ataque)
     cc_t = connected_components(g_ataque)
@@ -615,7 +620,7 @@ ejemplo_ataque_inicial = let
     (g_azar = g_azar, X_azar = X0[keep_azar, :], col_azar = col_azar,
      gig_azar = round(Int, 100 * length(gig_a) / n0),
      g_ataque = g_ataque, X_ataque = X0[keep_ataque, :], col_ataque = col_ataque,
-     gig_ataque = round(Int, 100 * length(gig_t) / n0))
+     gig_ataque = round(Int, 100 * length(gig_t) / n0), piezas_ataque = length(cc_t))
 end;
 
 #%%

@@ -289,8 +289,9 @@ pánicos, cambios de normas, caídas del consumo.
 - Manski, C. F. (1993). Identification of endogenous social effects: The
   reflection problem. *Review of Economic Studies*, 60(3), 531–542.
   https://doi.org/10.2307/2298123
-- Requião da Cunha, B. (2021). *Introduction to Econophysics: Contemporary
+- Requião da Cunha, C. (2021). *Introduction to Econophysics: Contemporary
   Approaches with Python Simulations*. CRC Press.
+  https://doi.org/10.1201/9781003127956
 - Sethna, J. P., Dahmen, K., Kartha, S., Krumhansl, J. A., Roberts, B. W.,
   & Shore, J. D. (1993). Hysteresis and hierarchies: Dynamics of
   disorder-driven first-order phase transformations. *Physical Review

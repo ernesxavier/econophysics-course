@@ -333,7 +333,7 @@ md"""
 7. En la sección 3, modifica la regla de actualización de la retícula para usar
    la regla logística de Fermi ``\sigma(\beta(\Pi_j - \Pi_i))`` con un vecino al
    azar. ¿Cómo cambia la fracción de cooperadores cuando sube el ruido
-   ``T = 1/\beta``?
+   ``1/\beta``?
 
 ## Para la próxima sesión
 

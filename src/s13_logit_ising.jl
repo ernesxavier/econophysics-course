@@ -450,11 +450,10 @@ function verificar(f, esperado; rtol = 1e-8, pista = md"")
         caja("warning", "Pendiente", md"Reemplaza `missing` por tu código.")
     elseif resultado isa AbstractArray && esperado isa AbstractArray && size(resultado) == size(esperado) &&
            all(isapprox.(resultado, esperado; rtol, atol = 1e-12))
-        caja("correct", "Correcto", md"Tu función reproduce los valores esperados.")
-    elseif resultado isa Number && esperado isa Number && isapprox(resultado, esperado; rtol, atol = 1e-12)
-        caja("correct", "Correcto", md"Tu función reproduce el valor esperado.")
+        caja("correct", "¡Correcto!", md"Bien hecho.")
+    elseif resultado isa typeof(esperado) && all(isapprox.(resultado, esperado; rtol, atol = 1e-12))
+        caja("correct", "¡Correcto!", md"Bien hecho.")
     else
-        caja("danger", "No coincide todavía",
-             md"Obtuviste `$(resultado)` y se esperaba `$(esperado)`. $pista")
+        caja("danger", "Todavía no", pista)
     end
 end

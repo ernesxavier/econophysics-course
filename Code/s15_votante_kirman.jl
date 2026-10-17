@@ -16,7 +16,7 @@ macro bind(def, element)
     #! format: on
 end
 
-# ╔═╡ 00851de4-ca7e-11f1-b9cc-3bcb56c5bb4f
+# ╔═╡ bb0ee5d8-ca82-11f1-9318-f9efdd2dc87d
 begin
     # Usa el entorno del curso (Code/Project.toml) en lugar del gestor de
     # paquetes propio de Pluto: un solo entorno para todo el repositorio.
@@ -31,7 +31,7 @@ begin
             background_color_legend = nothing, margin = 3Plots.mm)
 end
 
-# ╔═╡ 00851cf2-ca7e-11f1-8f91-995e8bbdcdba
+# ╔═╡ bb0ee4de-ca82-11f1-a424-3d01b9e52407
 md"""
 # Sesión 15: Votante y Kirman: imitación y herding
 
@@ -64,10 +64,10 @@ E.A3 (ecuación maestra), E.A4 (Fokker-Planck), E.A6 (tiempos de primer paso y
 absorción).
 """
 
-# ╔═╡ 00851d30-ca7e-11f1-9c45-05041e6af87a
+# ╔═╡ bb0ee510-ca82-11f1-92ef-4b2e756298c7
 TableOfContents(title = "Contenido")
 
-# ╔═╡ 00851d3a-ca7e-11f1-9bd2-cd2e104e923e
+# ╔═╡ bb0ee51a-ca82-11f1-b9d9-533a145e5ed0
 md"""
 ## 0. El fenómeno: dos restaurantes idénticos; uno se llena y el otro no
 
@@ -86,16 +86,16 @@ recluta a otros con frecuencia y rara vez explora por su cuenta, la mayoría se
 concentra en una sola opción y alterna en olas espontáneas.
 """
 
-# ╔═╡ 00851d44-ca7e-11f1-8066-79460c132d7e
+# ╔═╡ bb0ee52c-ca82-11f1-b39d-3b66981548d5
 md"""
-Ninguno de los dos restaurantes es mejor, ni ocurrió ningún choque externo en
-el barrido 300 o en el 600: las olas nacen de la **imitación** combinada con
+Ninguno de los dos restaurantes es mejor, ni ocurrió ningún choque externo
+cuando la multitud cambió de restaurante: las olas nacen de la **imitación** combinada con
 unos pocos cambios individuales. En esta sesión empezaremos con la imitación
 pura (**modelo de votante**) y luego añadiremos esos cambios autónomos
 (**modelo de Kirman**).
 """
 
-# ╔═╡ 00851d4e-ca7e-11f1-84b3-63a118926abc
+# ╔═╡ bb0ee538-ca82-11f1-add2-53ecce1fc69a
 md"""
 ## 1. Repaso: estados absorbentes frente a ruido
 
@@ -112,15 +112,15 @@ ser absorbentes: siempre puede reaparecer un disidente. El sistema ya no se
 detiene y converge a una **distribución estacionaria** ``P_k``.
 """
 
-# ╔═╡ 00851d4e-ca7e-11f1-9e1d-3d8da1ba49f6
+# ╔═╡ bb0ee542-ca82-11f1-b215-0d28be388977
 # En imitación pura, la probabilidad de que un agente en 0 copie a uno en 1
 # cuando k de N tienen opinión 1 es proporcional a k(N - k): se anula en k = 0 y en k = N.
 tasa_imitacion_pura(k, N) = (k / N) * ((N - k) / (N - 1))
 
-# ╔═╡ 00851d58-ca7e-11f1-9426-2340f50e05bc
+# ╔═╡ bb0ee542-ca82-11f1-b23a-b9fc74583d0f
 tasa_imitacion_pura(0, 100), tasa_imitacion_pura(50, 100), tasa_imitacion_pura(100, 100)
 
-# ╔═╡ 00851d62-ca7e-11f1-8414-052b7448ce72
+# ╔═╡ bb0ee54c-ca82-11f1-9e7d-6d41cfe2b88a
 md"""
 ## 2. El modelo de votante
 
@@ -158,7 +158,7 @@ Fracción inicial ``x_0``: $(@bind x0_vot Slider(0.1:0.1:0.9, default = 0.3, sho
   Número de agentes ``N``: $(@bind N_vot Slider([40, 80, 150], default = 80, show_value = true))
 """
 
-# ╔═╡ 00851d76-ca7e-11f1-936e-dd1a6f005013
+# ╔═╡ bb0ee55e-ca82-11f1-bf10-47f9266dc605
 md"""
 ### 2.1 Laboratorio: ¿cómo afecta la red al tiempo de consenso?
 
@@ -175,7 +175,7 @@ Comparamos cuatro redes con ``N = 144`` nodos, todas empezando mitad y mitad
 - **Barabási-Albert** (grado promedio ``\approx 4``).
 """
 
-# ╔═╡ 00851d8a-ca7e-11f1-b3a2-8b3e60607f0d
+# ╔═╡ bb0ee574-ca82-11f1-a121-d57692cc6180
 md"""
 La estructura de la red cambia radicalmente la velocidad del consenso:
 
@@ -190,7 +190,7 @@ La estructura de la red cambia radicalmente la velocidad del consenso:
   vecinos a la vez y aceleran todavía más la llegada al consenso.
 """
 
-# ╔═╡ 00851d96-ca7e-11f1-8bbe-8fc8a071b6c4
+# ╔═╡ bb0ee57e-ca82-11f1-ab06-c7b4142c2426
 md"""
 ## 3. El modelo de hormigas de Kirman: herding y bimodalidad
 
@@ -226,7 +226,7 @@ Mueve ``a`` y observa tanto la trayectoria en el tiempo de la fracción
 Cambio autónomo frente a imitación ``a``: $(@bind a_kirman Slider([0.2, 0.5, 1.0, 2.0, 5.0], default = 0.2, show_value = true))
 """
 
-# ╔═╡ 00851da8-ca7e-11f1-b4ec-67a4d39ca60c
+# ╔═╡ bb0ee592-ca82-11f1-a08a-957b2cfb296e
 md"""
 Observa las tres fases del modelo al variar ``a`` (repaso F.B4):
 
@@ -250,7 +250,7 @@ tendencia promedio siempre apunta hacia ``x = 1/2``: la bimodalidad cuando
 temporalmente al sistema en consensos cuasi-absorbentes.
 """
 
-# ╔═╡ 00851da8-ca7e-11f1-a4f3-c5c5cbe39952
+# ╔═╡ bb0ee592-ca82-11f1-8bb2-5dc9fabe564c
 md"""
 ## 4. [Avanzado] Ecuación maestra y límite continuo de Kirman
 
@@ -287,7 +287,7 @@ densidad continua ``\mathrm{Beta}(a, a)`` para los tres regímenes ``a = 0.4``,
 ``a = 1`` y ``a = 3``.
 """
 
-# ╔═╡ 00851db2-ca7e-11f1-a39c-9328b557cfa0
+# ╔═╡ bb0ee5a6-ca82-11f1-a57c-bd49af6b767a
 md"""
 ## Resumen
 
@@ -297,7 +297,7 @@ md"""
 | **Kirman** | Imitación (herding) + cambio autónomo ``a`` | Sin estados absorbentes; estacionaria ``\mathrm{Beta}(a, a)``: bimodal si ``a < 1``, uniforme si ``a = 1``, unimodal si ``a > 1`` |
 """
 
-# ╔═╡ 00851dbc-ca7e-11f1-a888-453f66b753f6
+# ╔═╡ bb0ee5a6-ca82-11f1-936e-43fd7bf138f4
 md"""
 ## Ejercicios
 
@@ -309,24 +309,24 @@ de que en un paso elemental del modelo de votante en la red completa cambie el
 número de agentes con opinión 1.
 """
 
-# ╔═╡ 00851dc8-ca7e-11f1-be5b-2d768457a38f
+# ╔═╡ bb0ee5b0-ca82-11f1-af64-9bfe8adea8c5
 function prob_cambio_votante(k, N)
     missing  # reemplaza esta línea
 end
 
-# ╔═╡ 00851dd0-ca7e-11f1-89d7-63d5221a3ce3
+# ╔═╡ bb0ee5ba-ca82-11f1-a019-474a2127ed3f
 md"""
 **2.** Escribe `tasa_kirman(k, N, a)`, la probabilidad ``W(k \to k+1)`` de que
 en un paso del modelo de Kirman el número de agentes con opinión 1 suba de
 `k` a `k + 1`, usando la fórmula de la sección 3.
 """
 
-# ╔═╡ 00851dd0-ca7e-11f1-aa55-9d9e1522b868
+# ╔═╡ bb0ee5ba-ca82-11f1-bc53-013a4369ea8c
 function tasa_kirman(k, N, a)
     missing  # reemplaza esta línea
 end
 
-# ╔═╡ 00851dda-ca7e-11f1-b933-0d066b846e4e
+# ╔═╡ bb0ee5d0-ca82-11f1-8bbb-c9e4bda37049
 md"""
 ### Ruta básica: interpretación
 
@@ -365,7 +365,7 @@ md"""
   residencial de Schelling.
 """
 
-# ╔═╡ 00851de4-ca7e-11f1-9813-8769afe1a400
+# ╔═╡ bb0ee5d0-ca82-11f1-b721-bf0f18d241b8
 md"""
 ---
 ## Apéndice: paquetes y funciones auxiliares
@@ -374,7 +374,7 @@ Estas celdas definen herramientas que usa el cuaderno. No es necesario
 leerlas para seguir la sesión.
 """
 
-# ╔═╡ 00851dee-ca7e-11f1-b2a5-6bf02d1926b1
+# ╔═╡ bb0ee5d8-ca82-11f1-ba13-c14f618c846d
 begin
     const AZUL       = "#2a78d6"   # serie principal, grupo 1
     const NARANJA    = "#eb6834"   # segunda serie o teoría, grupo 2
@@ -383,7 +383,7 @@ begin
     const BLANCO     = "#ffffff"
 end;
 
-# ╔═╡ 00851dfa-ca7e-11f1-9f66-2d9a0b6340e8
+# ╔═╡ bb0ee5e2-ca82-11f1-a0a9-1b879728c63b
 """
 Tiempo esperado exacto (en barridos) hasta el consenso en la red completa
 desde k₀ agentes en 1. Para N grande se aproxima por
@@ -395,7 +395,7 @@ function tiempo_teorico_votante(N, k0)
                    k0 * sum(1 / j for j in k0:N-1))
 end
 
-# ╔═╡ 00851dfa-ca7e-11f1-b469-95c60a4524a8
+# ╔═╡ bb0ee5e2-ca82-11f1-96a9-df99c91369b7
 """
 Simula M trayectorias del modelo de votante en la red completa con N agentes,
 empezando con una fracción x0 en 1. Guarda las primeras 12 trayectorias (en
@@ -427,10 +427,10 @@ function trayectorias_votante(N, x0; M = 200, rng = Xoshiro(7))
     (curvas = curvas, gana1 = gana1 / M, t_medio = mean(tiempos))
 end
 
-# ╔═╡ 00851d62-ca7e-11f1-a322-3d62ca90377a
+# ╔═╡ bb0ee556-ca82-11f1-904d-7793b7062a02
 sim_votante = trayectorias_votante(N_vot, x0_vot; M = 200);
 
-# ╔═╡ 00851d6c-ca7e-11f1-a637-01b2961176e1
+# ╔═╡ bb0ee556-ca82-11f1-af54-fbf9bdb082be
 let
     d = sim_votante
     p = plot(; xlabel = "tiempo (barridos)", ylabel = "fracción con opinión 1",
@@ -446,7 +446,7 @@ let
     p
 end
 
-# ╔═╡ 00851d6c-ca7e-11f1-9201-4db8a11179f6
+# ╔═╡ bb0ee55e-ca82-11f1-9f04-510e6ac16347
 let
     pemp = round(Int, 100 * sim_votante.gana1)
     pteo = round(Int, 100 * x0_vot)
@@ -468,7 +468,7 @@ absorbentes.
 """)
 end
 
-# ╔═╡ 00851e02-ca7e-11f1-babe-135b52fdcc8d
+# ╔═╡ bb0ee5ec-ca82-11f1-b23e-f31105a50499
 "Simula el modelo de votante en un grafo `g` desde k0 nodos en 1 al azar; devuelve los barridos hasta el consenso."
 function votante_en_red(g, k0, rng; max_barridos = 25_000)
     N = nv(g)
@@ -492,7 +492,7 @@ function votante_en_red(g, k0, rng; max_barridos = 25_000)
     pasos / N
 end
 
-# ╔═╡ 00851e02-ca7e-11f1-955b-678014654690
+# ╔═╡ bb0ee5f6-ca82-11f1-8261-1f85eb1a8d1b
 "Genera una red de Erdős-Rényi conexa con N nodos y grado promedio c."
 function er_conexa(N, c, semilla)
     m = round(Int, N * c / 2)
@@ -503,7 +503,7 @@ function er_conexa(N, c, semilla)
     erdos_renyi(N, m; seed = semilla)
 end
 
-# ╔═╡ 00851e0c-ca7e-11f1-a05c-e901fcabd798
+# ╔═╡ bb0ee5f6-ca82-11f1-b9f8-75e2a1f568ee
 "Compara el tiempo al consenso en función de N (red completa) y entre distintas topologías de red."
 function comparar_redes_votante(N; M = 120)
     rng = Xoshiro(15)
@@ -524,10 +524,10 @@ function comparar_redes_votante(N; M = 120)
     (Ns = Ns, t_completa = t_comp, redes = redes)
 end
 
-# ╔═╡ 00851d80-ca7e-11f1-a90d-8d4fcc67bdb3
+# ╔═╡ bb0ee56a-ca82-11f1-b9a0-2f3971b33c9e
 tiempos_redes = comparar_redes_votante(144; M = 120);
 
-# ╔═╡ 00851d80-ca7e-11f1-8dc4-b5ffb0dda832
+# ╔═╡ bb0ee574-ca82-11f1-af19-63b19407cbe4
 let
     Ns = [20, 40, 80, 120, 160, 200]
     p1 = plot(Ns, tiempo_teorico_votante.(Ns, Ns .÷ 2); color = NARANJA, lw = 2.2,
@@ -550,7 +550,7 @@ let
     plot(p1, p2; layout = (1, 2), size = (900, 360), bottom_margin = 5Plots.mm)
 end
 
-# ╔═╡ 00851e16-ca7e-11f1-87d3-4fecb3793133
+# ╔═╡ bb0ee602-ca82-11f1-a49f-d760d2ac9241
 """
 Simula el modelo de hormigas de Kirman con N agentes y parámetro de cambio
 autónomo `a` durante `barridos` barridos (descarta 200 de calentamiento).
@@ -576,21 +576,21 @@ function simular_kirman(N, a; barridos = 4_000, rng = Xoshiro(11))
     (k = ks,)
 end
 
-# ╔═╡ 00851d96-ca7e-11f1-926b-5f26ca04389f
+# ╔═╡ bb0ee588-ca82-11f1-b03c-4ff1ed1ef276
 sim_kirman = simular_kirman(100, a_kirman; barridos = 4_000, rng = Xoshiro(11));
 
-# ╔═╡ 00851e16-ca7e-11f1-bf3c-0de14f382578
+# ╔═╡ bb0ee60a-ca82-11f1-b320-0b8c8875a8bf
 "Distribución estacionaria exacta P_k (k = 0, …, N) del modelo de Kirman: Beta-binomial(N, a, a)."
 kirman_estacionaria(N, a) = pdf.(BetaBinomial(N, a, a), 0:N)
 
-# ╔═╡ 00851d3a-ca7e-11f1-8448-4b71bd4fe0b9
+# ╔═╡ bb0ee524-ca82-11f1-9a6b-870154f3c26c
 let
     N = 100
     c_herd = simular_kirman(N, 0.2; barridos = 800, rng = Xoshiro(11)).k ./ N
     c_ind  = simular_kirman(N, 4.0; barridos = 800, rng = Xoshiro(11)).k ./ N
     p1 = plot(1:800, c_herd; color = AZUL, lw = 1.4, ylims = (0, 1),
               xlabel = "tiempo (barridos)", ylabel = "fracción en el restaurante A",
-              label = "Con herding fuerte (a = 0.2)", legend = :topright,
+              label = "Con herding fuerte (a = 0.2)", legend = :outerbottom,
               title = "Dos restaurantes idénticos (100 clientes)")
     plot!(p1, 1:800, c_ind; color = NARANJA, lw = 1.2, alpha = 0.75,
           label = "Casi independientes (a = 4.0)")
@@ -606,7 +606,7 @@ let
     plot(p1, p2; layout = (1, 2), size = (880, 350), bottom_margin = 4Plots.mm)
 end
 
-# ╔═╡ 00851d9e-ca7e-11f1-95b7-8b45c10c7634
+# ╔═╡ bb0ee588-ca82-11f1-b624-890eba84b5cc
 let
     N = 100
     x = sim_kirman.k ./ N
@@ -628,7 +628,7 @@ let
     plot(p1, p2; layout = (1, 2), size = (900, 360), bottom_margin = 5Plots.mm)
 end
 
-# ╔═╡ 00851db2-ca7e-11f1-891d-4b37dd17254a
+# ╔═╡ bb0ee59c-ca82-11f1-8c8d-ffc060b5ced7
 let
     N = 80
     ks = 1:N-1
@@ -646,7 +646,7 @@ let
     p
 end
 
-# ╔═╡ 00851e20-ca7e-11f1-b737-e1e52aea4bad
+# ╔═╡ bb0ee60a-ca82-11f1-9e38-4bf099468391
 "Muestra si la respuesta de un ejercicio es correcta."
 function verificar(f, esperado; rtol = 1e-8, pista = md"")
     caja(tipo, titulo, texto) = Markdown.MD(Markdown.Admonition(tipo, titulo, [texto]))
@@ -667,55 +667,55 @@ function verificar(f, esperado; rtol = 1e-8, pista = md"")
     end
 end
 
-# ╔═╡ 00851dc8-ca7e-11f1-a7fc-8d0cdde5b67c
+# ╔═╡ bb0ee5b0-ca82-11f1-ac05-cd3c8075acdc
 verificar(() -> [prob_cambio_votante(0, 50), prob_cambio_votante(25, 50), prob_cambio_votante(50, 50)],
           [0.0, 2 * 25 * 25 / (50 * 49), 0.0];
           pista = md"Suma las dos probabilidades de transición: `2 * k * (N - k) / (N * (N - 1))`.")
 
-# ╔═╡ 00851dda-ca7e-11f1-b098-5fcd6f1b10a8
+# ╔═╡ bb0ee5c4-ca82-11f1-892f-c331ca79055a
 verificar(() -> [tasa_kirman(0, 100, 1.0), tasa_kirman(50, 100, 1.0), tasa_kirman(100, 100, 1.0)],
           [1.0 / 101.0, 0.5 * 51.0 / 101.0, 0.0];
           pista = md"La fórmula es ``\frac{N - k}{N}\,\frac{a + k}{N - 1 + 2a}``.")
 
 # ╔═╡ Cell order:
-# ╟─00851cf2-ca7e-11f1-8f91-995e8bbdcdba
-# ╟─00851d30-ca7e-11f1-9c45-05041e6af87a
-# ╟─00851d3a-ca7e-11f1-9bd2-cd2e104e923e
-# ╟─00851d3a-ca7e-11f1-8448-4b71bd4fe0b9
-# ╟─00851d44-ca7e-11f1-8066-79460c132d7e
-# ╟─00851d4e-ca7e-11f1-84b3-63a118926abc
-# ╠═00851d4e-ca7e-11f1-9e1d-3d8da1ba49f6
-# ╠═00851d58-ca7e-11f1-9426-2340f50e05bc
-# ╟─00851d62-ca7e-11f1-8414-052b7448ce72
-# ╟─00851d62-ca7e-11f1-a322-3d62ca90377a
-# ╟─00851d6c-ca7e-11f1-a637-01b2961176e1
-# ╟─00851d6c-ca7e-11f1-9201-4db8a11179f6
-# ╟─00851d76-ca7e-11f1-936e-dd1a6f005013
-# ╠═00851d80-ca7e-11f1-a90d-8d4fcc67bdb3
-# ╟─00851d80-ca7e-11f1-8dc4-b5ffb0dda832
-# ╟─00851d8a-ca7e-11f1-b3a2-8b3e60607f0d
-# ╟─00851d96-ca7e-11f1-8bbe-8fc8a071b6c4
-# ╠═00851d96-ca7e-11f1-926b-5f26ca04389f
-# ╟─00851d9e-ca7e-11f1-95b7-8b45c10c7634
-# ╟─00851da8-ca7e-11f1-b4ec-67a4d39ca60c
-# ╟─00851da8-ca7e-11f1-a4f3-c5c5cbe39952
-# ╟─00851db2-ca7e-11f1-891d-4b37dd17254a
-# ╟─00851db2-ca7e-11f1-a39c-9328b557cfa0
-# ╟─00851dbc-ca7e-11f1-a888-453f66b753f6
-# ╠═00851dc8-ca7e-11f1-be5b-2d768457a38f
-# ╟─00851dc8-ca7e-11f1-a7fc-8d0cdde5b67c
-# ╟─00851dd0-ca7e-11f1-89d7-63d5221a3ce3
-# ╠═00851dd0-ca7e-11f1-aa55-9d9e1522b868
-# ╟─00851dda-ca7e-11f1-b098-5fcd6f1b10a8
-# ╟─00851dda-ca7e-11f1-b933-0d066b846e4e
-# ╟─00851de4-ca7e-11f1-9813-8769afe1a400
-# ╠═00851de4-ca7e-11f1-b9cc-3bcb56c5bb4f
-# ╠═00851dee-ca7e-11f1-b2a5-6bf02d1926b1
-# ╠═00851dfa-ca7e-11f1-9f66-2d9a0b6340e8
-# ╠═00851dfa-ca7e-11f1-b469-95c60a4524a8
-# ╠═00851e02-ca7e-11f1-babe-135b52fdcc8d
-# ╠═00851e02-ca7e-11f1-955b-678014654690
-# ╠═00851e0c-ca7e-11f1-a05c-e901fcabd798
-# ╠═00851e16-ca7e-11f1-87d3-4fecb3793133
-# ╠═00851e16-ca7e-11f1-bf3c-0de14f382578
-# ╠═00851e20-ca7e-11f1-b737-e1e52aea4bad
+# ╟─bb0ee4de-ca82-11f1-a424-3d01b9e52407
+# ╟─bb0ee510-ca82-11f1-92ef-4b2e756298c7
+# ╟─bb0ee51a-ca82-11f1-b9d9-533a145e5ed0
+# ╟─bb0ee524-ca82-11f1-9a6b-870154f3c26c
+# ╟─bb0ee52c-ca82-11f1-b39d-3b66981548d5
+# ╟─bb0ee538-ca82-11f1-add2-53ecce1fc69a
+# ╠═bb0ee542-ca82-11f1-b215-0d28be388977
+# ╠═bb0ee542-ca82-11f1-b23a-b9fc74583d0f
+# ╟─bb0ee54c-ca82-11f1-9e7d-6d41cfe2b88a
+# ╟─bb0ee556-ca82-11f1-904d-7793b7062a02
+# ╟─bb0ee556-ca82-11f1-af54-fbf9bdb082be
+# ╟─bb0ee55e-ca82-11f1-9f04-510e6ac16347
+# ╟─bb0ee55e-ca82-11f1-bf10-47f9266dc605
+# ╠═bb0ee56a-ca82-11f1-b9a0-2f3971b33c9e
+# ╟─bb0ee574-ca82-11f1-af19-63b19407cbe4
+# ╟─bb0ee574-ca82-11f1-a121-d57692cc6180
+# ╟─bb0ee57e-ca82-11f1-ab06-c7b4142c2426
+# ╠═bb0ee588-ca82-11f1-b03c-4ff1ed1ef276
+# ╟─bb0ee588-ca82-11f1-b624-890eba84b5cc
+# ╟─bb0ee592-ca82-11f1-a08a-957b2cfb296e
+# ╟─bb0ee592-ca82-11f1-8bb2-5dc9fabe564c
+# ╟─bb0ee59c-ca82-11f1-8c8d-ffc060b5ced7
+# ╟─bb0ee5a6-ca82-11f1-a57c-bd49af6b767a
+# ╟─bb0ee5a6-ca82-11f1-936e-43fd7bf138f4
+# ╠═bb0ee5b0-ca82-11f1-af64-9bfe8adea8c5
+# ╟─bb0ee5b0-ca82-11f1-ac05-cd3c8075acdc
+# ╟─bb0ee5ba-ca82-11f1-a019-474a2127ed3f
+# ╠═bb0ee5ba-ca82-11f1-bc53-013a4369ea8c
+# ╟─bb0ee5c4-ca82-11f1-892f-c331ca79055a
+# ╟─bb0ee5d0-ca82-11f1-8bbb-c9e4bda37049
+# ╟─bb0ee5d0-ca82-11f1-b721-bf0f18d241b8
+# ╠═bb0ee5d8-ca82-11f1-9318-f9efdd2dc87d
+# ╠═bb0ee5d8-ca82-11f1-ba13-c14f618c846d
+# ╠═bb0ee5e2-ca82-11f1-a0a9-1b879728c63b
+# ╠═bb0ee5e2-ca82-11f1-96a9-df99c91369b7
+# ╠═bb0ee5ec-ca82-11f1-b23e-f31105a50499
+# ╠═bb0ee5f6-ca82-11f1-8261-1f85eb1a8d1b
+# ╠═bb0ee5f6-ca82-11f1-b9f8-75e2a1f568ee
+# ╠═bb0ee602-ca82-11f1-a49f-d760d2ac9241
+# ╠═bb0ee60a-ca82-11f1-b320-0b8c8875a8bf
+# ╠═bb0ee60a-ca82-11f1-9e38-4bf099468391

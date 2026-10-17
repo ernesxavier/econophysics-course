@@ -16,7 +16,7 @@ macro bind(def, element)
     #! format: on
 end
 
-# ╔═╡ d6098612-ca7e-11f1-8eb0-8107b7571c11
+# ╔═╡ e7003b7e-ca82-11f1-a3c1-d7593c9f1a5d
 begin
     # Usa el entorno del curso (Code/Project.toml) en lugar del gestor de
     # paquetes propio de Pluto: un solo entorno para todo el repositorio.
@@ -31,7 +31,7 @@ begin
             background_color_legend = nothing, margin = 3Plots.mm)
 end
 
-# ╔═╡ d6098540-ca7e-11f1-9151-17c3274092ef
+# ╔═╡ e7003aa0-ca82-11f1-ba96-c9976f84e9e9
 md"""
 # Sesión 17: Replicador y ciclo de Goodwin
 
@@ -60,10 +60,10 @@ avanzada: C.A2 (sistemas de EDO en dos dimensiones), L.A3 (jacobiano y
 estabilidad lineal).
 """
 
-# ╔═╡ d609857c-ca7e-11f1-82c4-69d50d94bd5d
+# ╔═╡ e7003ade-ca82-11f1-9b70-8f5aa5b1ceac
 TableOfContents(title = "Contenido")
 
-# ╔═╡ d6098586-ca7e-11f1-9f1b-d13a44fda248
+# ╔═╡ e7003ade-ca82-11f1-8196-db4e6e67e158
 md"""
 ## 0. El fenómeno: ¿por qué no todos son agresivos? ¿Y por qué la economía oscila sin choques?
 
@@ -86,14 +86,14 @@ Esta idea explica dos fenómenos clásicos:
    Lotka y Volterra.
 """
 
-# ╔═╡ d6098590-ca7e-11f1-9674-bdf05e7b2f82
+# ╔═╡ e7003af2-ca82-11f1-a963-6971b27da171
 md"""
 En la izquierda, sin importar si la población empieza con 10% o con 92% de
 agresivos, converge al mismo equilibrio mixto. En la derecha, empleo y salarios
 se persiguen en un ciclo perpetuo sin que ocurra ningún choque exógeno.
 """
 
-# ╔═╡ d609859a-ca7e-11f1-ab80-e7bc0b9dd447
+# ╔═╡ e7003afc-ca82-11f1-98c2-15f3ad22c07c
 md"""
 ## 1. Repaso: una ecuación diferencial como regla de actualización
 
@@ -115,16 +115,16 @@ comportamiento cualitativo (**retrato de fase**):
   **inestable** si cruza subiendo (``f'(x^\ast) > 0``).
 """
 
-# ╔═╡ d609859a-ca7e-11f1-8750-1f67c3c055c7
+# ╔═╡ e7003b06-ca82-11f1-b6d9-e52b9eebbc2e
 # Un paso del método de Euler: nuevo valor = valor actual + tasa de cambio × paso de tiempo
 paso_euler(f, x, Δt) = x + f(x) * Δt
 
-# ╔═╡ d60985a6-ca7e-11f1-bddc-63d975b81747
+# ╔═╡ e7003b06-ca82-11f1-bd27-65323542ab34
 # Si f(x) = x(1 - x)(0.6 - x), el punto fijo x* = 0.6 atrae desde ambos lados
 paso_euler(x -> x * (1 - x) * (0.6 - x), 0.2, 0.1),
 paso_euler(x -> x * (1 - x) * (0.6 - x), 0.8, 0.1)
 
-# ╔═╡ d60985ae-ca7e-11f1-96b8-39e55239dfa1
+# ╔═╡ e7003b12-ca82-11f1-b048-87203ba54614
 md"""
 ## 2. Dinámica del replicador y el juego Halcón-Paloma
 
@@ -190,7 +190,7 @@ Costo del conflicto ``C`` (con ``V = 2``): $(@bind C_hp Slider([2.5, 3.0, 4.0, 5
   Fracción inicial de halcones ``x_0``: $(@bind x0_hp Slider(0.1:0.1:0.9, default = 0.1, show_value = true))
 """
 
-# ╔═╡ d60985c2-ca7e-11f1-a2cf-c7e6844615e2
+# ╔═╡ e7003b2e-ca82-11f1-9e10-45dd58708f58
 md"""
 Observa dos resultados clave:
 1. **La ecuación diferencial es el promedio del modelo de agentes:** la
@@ -203,7 +203,7 @@ Observa dos resultados clave:
    **proporción** en la población porque los halcones se dañan entre sí.
 """
 
-# ╔═╡ d60985cc-ca7e-11f1-8c05-19ac41debd09
+# ╔═╡ e7003b2e-ca82-11f1-ba65-adb5dcf7268e
 md"""
 ## 3. Lotka-Volterra y el ciclo distributivo de Goodwin
 
@@ -254,7 +254,7 @@ Empleo inicial ``v_0``: $(@bind v0_gw Slider([0.82, 0.85, 0.88, 0.94, 0.96], def
   Sensibilidad a los salarios ``\beta_G``: $(@bind β_gw Slider([0.35, 0.40, 0.45], default = 0.40, show_value = true))
 """
 
-# ╔═╡ d60985e0-ca7e-11f1-84eb-d71476a373ab
+# ╔═╡ e7003b44-ca82-11f1-aec1-3b576d877a6e
 md"""
 En la gráfica izquierda, el pico de la tasa de empleo ``v(t)`` (azul) ocurre
 siempre **un cuarto de ciclo antes** que el pico de la participación salarial
@@ -266,7 +266,7 @@ más amplia es la órbita. (Muchos textos dibujan ``u`` en el eje horizontal y
 ``v`` en el vertical; con esos ejes el mismo ciclo se ve en sentido horario.)
 """
 
-# ╔═╡ d60985e0-ca7e-11f1-8d26-3bc153968f4c
+# ╔═╡ e7003b4c-ca82-11f1-9ae8-23cc81fc0448
 md"""
 ## 4. [Avanzado] Estabilidad con el jacobiano y la cantidad conservada de Goodwin
 
@@ -315,7 +315,7 @@ V(v, u) = (\delta_G v - \gamma_G \ln v) + (\beta_G u - \alpha_G \ln u),
 cuyas curvas de nivel cerradas son las órbitas del plano de fase.
 """
 
-# ╔═╡ d60985ea-ca7e-11f1-bc1f-c901504332f0
+# ╔═╡ e7003b56-ca82-11f1-b80c-ff8bb4cf70d1
 md"""
 ## Resumen
 
@@ -325,7 +325,7 @@ md"""
 | **Goodwin – Lotka-Volterra** | ``\dot{v} = v(\alpha_G - \beta_G u)``, ``\dot{u} = u(-\gamma_G + \delta_G v)`` | Órbitas cerradas alrededor de ``(\gamma_G/\delta_G,\, \alpha_G/\beta_G)``; el empleo adelanta a los salarios |
 """
 
-# ╔═╡ d60985f4-ca7e-11f1-a16e-238a90e7c64b
+# ╔═╡ e7003b56-ca82-11f1-acdd-337a719a9e28
 md"""
 ## Ejercicios
 
@@ -336,12 +336,12 @@ la fracción `x` después de un paso de tiempo `Δt` con el método de Euler
 aplicado a la ecuación del replicador ``\dot{x} = x(1 - x)(\pi_1 - \pi_2)``.
 """
 
-# ╔═╡ d60985f4-ca7e-11f1-a89d-d7a32949ce4b
+# ╔═╡ e7003b60-ca82-11f1-88d4-4152650b749f
 function paso_replicador(x, π1, π2, Δt)
     missing  # reemplaza esta línea
 end
 
-# ╔═╡ d60985fe-ca7e-11f1-a94e-df54157eac9a
+# ╔═╡ e7003b6a-ca82-11f1-8cb8-e72fec63ccc6
 md"""
 **2.** Escribe `equilibrio_goodwin(α, β, γ, δ)`, que devuelva la tupla
 `(v_est, u_est)` con la tasa de empleo ``v^\ast`` y la participación salarial
@@ -349,12 +349,12 @@ md"""
 ``\dot{v} = v(\alpha - \beta u)``, ``\dot{u} = u(-\gamma + \delta v)``.
 """
 
-# ╔═╡ d60985fe-ca7e-11f1-a3ce-a1f2d6ae027c
+# ╔═╡ e7003b6a-ca82-11f1-9a7d-01baf388453b
 function equilibrio_goodwin(α, β, γ, δ)
     missing  # reemplaza esta línea
 end
 
-# ╔═╡ d609860a-ca7e-11f1-b29b-45854126a07d
+# ╔═╡ e7003b76-ca82-11f1-9b7c-2f3d63eac2bf
 md"""
 ### Ruta básica: interpretación
 
@@ -389,7 +389,7 @@ md"""
   el papel de los concentradores en redes de Barabási-Albert.
 """
 
-# ╔═╡ d6098612-ca7e-11f1-bdde-a97d8c9b068f
+# ╔═╡ e7003b7e-ca82-11f1-a0d5-072f695dfba6
 md"""
 ---
 ## Apéndice: paquetes y funciones auxiliares
@@ -398,7 +398,7 @@ Estas celdas definen herramientas que usa el cuaderno. No es necesario
 leerlas para seguir la sesión.
 """
 
-# ╔═╡ d609861c-ca7e-11f1-9c55-83195afc1dc7
+# ╔═╡ e7003b88-ca82-11f1-b938-9bf2b4ffd5db
 begin
     const AZUL       = "#2a78d6"   # serie principal, halcones / empleo
     const NARANJA    = "#eb6834"   # segunda serie o teoría, salarios
@@ -407,7 +407,7 @@ begin
     const BLANCO     = "#ffffff"
 end;
 
-# ╔═╡ d6098626-ca7e-11f1-a304-bf7f062c07cb
+# ╔═╡ e7003b88-ca82-11f1-9334-6bae7c6e8b87
 """
 Simula el juego Halcón-Paloma con recurso `V` y costo `C` desde `x0`:
 1) Integración de Euler de la EDO del replicador;
@@ -455,10 +455,10 @@ function simular_halcon_paloma(V, C, x0; N = 250, T = 18.0, Δt = 0.05, rng = Xo
     (t_edo = t_edo, x_edo = x_edo, x_alt = x_alt, x0_alt = x0_alt, t_abm = t_abm, x_abm = x_abm)
 end
 
-# ╔═╡ d60985b8-ca7e-11f1-9af4-1f1fb3b7b55d
+# ╔═╡ e7003b1a-ca82-11f1-bcf0-0707a4925065
 sim_hp = simular_halcon_paloma(2.0, C_hp, x0_hp; N = 250, T = 18.0, rng = Xoshiro(42));
 
-# ╔═╡ d60985b8-ca7e-11f1-9446-df311c3ecc53
+# ╔═╡ e7003b24-ca82-11f1-9bb0-6522baa33c64
 let
     V = 2.0
     x_est = V / C_hp
@@ -488,7 +488,7 @@ let
     plot(p1, p2; layout = (1, 2), size = (900, 390), bottom_margin = 4Plots.mm)
 end
 
-# ╔═╡ d6098626-ca7e-11f1-9ed0-395070c035ec
+# ╔═╡ e7003b92-ca82-11f1-8188-c17dabce0a2a
 """
 Integra el sistema de Goodwin – Lotka-Volterra con RK4: a diferencia de Euler, la
 cantidad conservada V(v, u) casi no se desvía y las órbitas se ven cerradas.
@@ -512,7 +512,7 @@ function integrar_goodwin(α, β, γ, δ, v0, u0; T = 45.0, Δt = 0.04)
     (t = ts, v = vs, u = us)
 end
 
-# ╔═╡ d6098630-ca7e-11f1-9ff3-dd2755fbacdb
+# ╔═╡ e7003b9c-ca82-11f1-95da-63468033450d
 "Simula la órbita principal y una órbita de referencia del ciclo de Goodwin."
 function simular_goodwin(α, β, γ, δ; v0 = 0.85, u0 = α / β, T = 45.0)
     orb = integrar_goodwin(α, β, γ, δ, v0, u0; T = T)
@@ -521,7 +521,7 @@ function simular_goodwin(α, β, γ, δ; v0 = 0.85, u0 = α / β, T = 45.0)
      v_est = γ / δ, u_est = α / β)
 end
 
-# ╔═╡ d6098590-ca7e-11f1-be87-d5955be78822
+# ╔═╡ e7003ae8-ca82-11f1-8d72-730bab707100
 let
     hp = simular_halcon_paloma(2.0, 4.0, 0.1; N = 250, T = 18.0, rng = Xoshiro(42))
     p1 = plot(hp.t_edo, 100 .* hp.x_edo; color = AZUL, lw = 2.4,
@@ -541,10 +541,10 @@ let
     plot(p1, p2; layout = (1, 2), size = (880, 350), bottom_margin = 4Plots.mm)
 end
 
-# ╔═╡ d60985cc-ca7e-11f1-9991-7131fc208b43
+# ╔═╡ e7003b38-ca82-11f1-a57e-0bdcfbea9125
 sim_gw = simular_goodwin(0.24, β_gw, 0.36, 0.40; v0 = v0_gw, u0 = 0.24 / β_gw, T = 45.0);
 
-# ╔═╡ d60985d8-ca7e-11f1-bfa7-bdfbf8ffbcd9
+# ╔═╡ e7003b44-ca82-11f1-942b-9ba7e9ae1768
 let
     g = sim_gw
     p1 = plot(g.t, 100 .* g.v; color = AZUL, lw = 2.3, label = "Tasa de empleo v(t)",
@@ -572,7 +572,7 @@ let
     plot(p1, p2; layout = (1, 2), size = (900, 400), bottom_margin = 4Plots.mm)
 end
 
-# ╔═╡ d6098630-ca7e-11f1-9d99-e3cf169dab27
+# ╔═╡ e7003b9c-ca82-11f1-be3a-578ec3df2e1c
 "Muestra si la respuesta de un ejercicio es correcta."
 function verificar(f, esperado; rtol = 1e-8, pista = md"")
     caja(tipo, titulo, texto) = Markdown.MD(Markdown.Admonition(tipo, titulo, [texto]))
@@ -593,46 +593,46 @@ function verificar(f, esperado; rtol = 1e-8, pista = md"")
     end
 end
 
-# ╔═╡ d60985f4-ca7e-11f1-9210-559d60c0761e
+# ╔═╡ e7003b60-ca82-11f1-8b75-95c610f351a0
 verificar(() -> [paso_replicador(0.5, 2.0, 1.0, 0.1), paso_replicador(0.2, 1.0, 3.0, 0.05), paso_replicador(1.0, 4.0, 1.0, 0.1)],
           [0.5 + 0.25 * 1.0 * 0.1, 0.2 + 0.16 * (-2.0) * 0.05, 1.0];
           pista = md"Usa `x + x * (1 - x) * (π1 - π2) * Δt`.")
 
-# ╔═╡ d609860a-ca7e-11f1-9abe-3dfb2536a760
+# ╔═╡ e7003b76-ca82-11f1-9e53-5f66cbce7988
 verificar(() -> (r = equilibrio_goodwin(0.24, 0.40, 0.36, 0.40); r === missing ? missing : collect(r)),
           [0.9, 0.6];
           pista = md"De ``\alpha - \beta u^\ast = 0`` y ``-\gamma + \delta v^\ast = 0`` se obtiene `(γ / δ, α / β)`.")
 
 # ╔═╡ Cell order:
-# ╟─d6098540-ca7e-11f1-9151-17c3274092ef
-# ╟─d609857c-ca7e-11f1-82c4-69d50d94bd5d
-# ╟─d6098586-ca7e-11f1-9f1b-d13a44fda248
-# ╟─d6098590-ca7e-11f1-be87-d5955be78822
-# ╟─d6098590-ca7e-11f1-9674-bdf05e7b2f82
-# ╟─d609859a-ca7e-11f1-ab80-e7bc0b9dd447
-# ╠═d609859a-ca7e-11f1-8750-1f67c3c055c7
-# ╠═d60985a6-ca7e-11f1-bddc-63d975b81747
-# ╟─d60985ae-ca7e-11f1-96b8-39e55239dfa1
-# ╠═d60985b8-ca7e-11f1-9af4-1f1fb3b7b55d
-# ╟─d60985b8-ca7e-11f1-9446-df311c3ecc53
-# ╟─d60985c2-ca7e-11f1-a2cf-c7e6844615e2
-# ╟─d60985cc-ca7e-11f1-8c05-19ac41debd09
-# ╠═d60985cc-ca7e-11f1-9991-7131fc208b43
-# ╟─d60985d8-ca7e-11f1-bfa7-bdfbf8ffbcd9
-# ╟─d60985e0-ca7e-11f1-84eb-d71476a373ab
-# ╟─d60985e0-ca7e-11f1-8d26-3bc153968f4c
-# ╟─d60985ea-ca7e-11f1-bc1f-c901504332f0
-# ╟─d60985f4-ca7e-11f1-a16e-238a90e7c64b
-# ╠═d60985f4-ca7e-11f1-a89d-d7a32949ce4b
-# ╟─d60985f4-ca7e-11f1-9210-559d60c0761e
-# ╟─d60985fe-ca7e-11f1-a94e-df54157eac9a
-# ╠═d60985fe-ca7e-11f1-a3ce-a1f2d6ae027c
-# ╟─d609860a-ca7e-11f1-9abe-3dfb2536a760
-# ╟─d609860a-ca7e-11f1-b29b-45854126a07d
-# ╟─d6098612-ca7e-11f1-bdde-a97d8c9b068f
-# ╠═d6098612-ca7e-11f1-8eb0-8107b7571c11
-# ╠═d609861c-ca7e-11f1-9c55-83195afc1dc7
-# ╠═d6098626-ca7e-11f1-a304-bf7f062c07cb
-# ╠═d6098626-ca7e-11f1-9ed0-395070c035ec
-# ╠═d6098630-ca7e-11f1-9ff3-dd2755fbacdb
-# ╠═d6098630-ca7e-11f1-9d99-e3cf169dab27
+# ╟─e7003aa0-ca82-11f1-ba96-c9976f84e9e9
+# ╟─e7003ade-ca82-11f1-9b70-8f5aa5b1ceac
+# ╟─e7003ade-ca82-11f1-8196-db4e6e67e158
+# ╟─e7003ae8-ca82-11f1-8d72-730bab707100
+# ╟─e7003af2-ca82-11f1-a963-6971b27da171
+# ╟─e7003afc-ca82-11f1-98c2-15f3ad22c07c
+# ╠═e7003b06-ca82-11f1-b6d9-e52b9eebbc2e
+# ╠═e7003b06-ca82-11f1-bd27-65323542ab34
+# ╟─e7003b12-ca82-11f1-b048-87203ba54614
+# ╠═e7003b1a-ca82-11f1-bcf0-0707a4925065
+# ╟─e7003b24-ca82-11f1-9bb0-6522baa33c64
+# ╟─e7003b2e-ca82-11f1-9e10-45dd58708f58
+# ╟─e7003b2e-ca82-11f1-ba65-adb5dcf7268e
+# ╠═e7003b38-ca82-11f1-a57e-0bdcfbea9125
+# ╟─e7003b44-ca82-11f1-942b-9ba7e9ae1768
+# ╟─e7003b44-ca82-11f1-aec1-3b576d877a6e
+# ╟─e7003b4c-ca82-11f1-9ae8-23cc81fc0448
+# ╟─e7003b56-ca82-11f1-b80c-ff8bb4cf70d1
+# ╟─e7003b56-ca82-11f1-acdd-337a719a9e28
+# ╠═e7003b60-ca82-11f1-88d4-4152650b749f
+# ╟─e7003b60-ca82-11f1-8b75-95c610f351a0
+# ╟─e7003b6a-ca82-11f1-8cb8-e72fec63ccc6
+# ╠═e7003b6a-ca82-11f1-9a7d-01baf388453b
+# ╟─e7003b76-ca82-11f1-9e53-5f66cbce7988
+# ╟─e7003b76-ca82-11f1-9b7c-2f3d63eac2bf
+# ╟─e7003b7e-ca82-11f1-a0d5-072f695dfba6
+# ╠═e7003b7e-ca82-11f1-a3c1-d7593c9f1a5d
+# ╠═e7003b88-ca82-11f1-b938-9bf2b4ffd5db
+# ╠═e7003b88-ca82-11f1-9334-6bae7c6e8b87
+# ╠═e7003b92-ca82-11f1-8188-c17dabce0a2a
+# ╠═e7003b9c-ca82-11f1-95da-63468033450d
+# ╠═e7003b9c-ca82-11f1-be3a-578ec3df2e1c

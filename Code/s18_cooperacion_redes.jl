@@ -16,7 +16,7 @@ macro bind(def, element)
     #! format: on
 end
 
-# ╔═╡ dcbc834c-ca7e-11f1-8de0-131a67af677b
+# ╔═╡ facbeefa-ca82-11f1-aa54-597b5a58a88a
 begin
     # Usa el entorno del curso (Code/Project.toml) en lugar del gestor de
     # paquetes propio de Pluto: un solo entorno para todo el repositorio.
@@ -31,7 +31,7 @@ begin
             background_color_legend = nothing, margin = 3Plots.mm)
 end
 
-# ╔═╡ dcbc8252-ca7e-11f1-b5e3-3f6355d9213c
+# ╔═╡ facbee08-ca82-11f1-a43d-2323090fb2e4
 md"""
 # Sesión 18: Cooperación en redes
 
@@ -59,10 +59,10 @@ opcionales.
 grado) y C.B4 (función logística).
 """
 
-# ╔═╡ dcbc82b6-ca7e-11f1-9a76-dd876da9a38b
+# ╔═╡ facbee46-ca82-11f1-997f-57d829a5fc1c
 TableOfContents(title = "Contenido")
 
-# ╔═╡ dcbc82b6-ca7e-11f1-8791-9bbd6d2ef91d
+# ╔═╡ facbee46-ca82-11f1-8984-5168158a4c4e
 md"""
 ## 0. El fenómeno: cooperación entre egoístas cuando traicionar paga más
 
@@ -75,7 +75,7 @@ May, 1992), los cooperadores forman **agrupaciones compactas** (*clústeres*)
 que se apoyan entre sí y resisten la invasión.
 """
 
-# ╔═╡ dcbc82ca-ca7e-11f1-8327-1ddaf57efead
+# ╔═╡ facbee5a-ca82-11f1-948d-d7cab7d886b6
 md"""
 Las dos poblaciones empezaron con el mismo 50% de cooperadores (azul) y 50% de
 traidores (naranja), y con la misma tentación a traicionar (``b = 1.35``). Al
@@ -83,7 +83,7 @@ emparejarse al azar, la cooperación desaparece; en la retícula 2D, sobrevive e
 islas compactas de cooperadores.
 """
 
-# ╔═╡ dcbc82d4-ca7e-11f1-aade-af686ad6820d
+# ╔═╡ facbee6c-ca82-11f1-8a27-418a411b669c
 md"""
 ## 1. El dilema del prisionero: mezcla global frente a red local
 
@@ -127,7 +127,7 @@ matriz de adyacencia ``A_{ij}`` (repaso L.B4):
      ``\sigma(\beta(\Pi_j - \Pi_i))``, repaso C.B4).
 """
 
-# ╔═╡ dcbc82de-ca7e-11f1-af4c-4794b9a96e8a
+# ╔═╡ facbee78-ca82-11f1-acec-2bc4d73fcfd5
 md"""
 ## 2. Laboratorio: clústeres de cooperadores en la retícula 2D
 
@@ -138,7 +138,7 @@ población emparejada al azar:
 Tentación de traicionar ``b``: $(@bind b_pd Slider([1.05, 1.15, 1.25, 1.35, 1.55, 1.75, 1.95], default = 1.35, show_value = true))
 """
 
-# ╔═╡ dcbc82f2-ca7e-11f1-96ce-8ba617e259b2
+# ╔═╡ facbee8c-ca82-11f1-ac39-13a114567e26
 md"""
 Al inicio, los traidores invaden a los cooperadores aislados y la cooperación
 cae en las primeras generaciones. Pero en la retícula 2D, los cooperadores que
@@ -148,7 +148,7 @@ mientras que un traidor en la orilla sólo puede explotar a los pocos
 cooperadores que toca.
 """
 
-# ╔═╡ dcbc82fc-ca7e-11f1-837c-f180a15b3d7f
+# ╔═╡ facbee96-ca82-11f1-959d-77563599c71f
 md"""
 ## 3. Laboratorio: retícula 2D frente a concentradores en Barabási-Albert
 
@@ -162,7 +162,7 @@ red coopere o traicione):
 3. **Red de Barabási-Albert** (libre de escala, ``m = 4 \Rightarrow \langle k \rangle \approx 8``, Santos y Pacheco, 2005).
 """
 
-# ╔═╡ dcbc8306-ca7e-11f1-9857-6dc33d0d7bbd
+# ╔═╡ facbeeaa-ca82-11f1-94a6-87e223ae220d
 md"""
 La comparación revela dos mecanismos distintos de cooperación en redes:
 - **En la retícula 2D (azul)**, la cooperación sobrevive por **reciprocidad
@@ -182,7 +182,7 @@ La comparación revela dos mecanismos distintos de cooperación en redes:
   desploma a cero.
 """
 
-# ╔═╡ dcbc8310-ca7e-11f1-a37d-21c0070ff505
+# ╔═╡ facbeeb4-ca82-11f1-9026-3357afbd8846
 md"""
 ## 4. [Avanzado] La condición ``b/c > k`` de reciprocidad de red
 
@@ -215,7 +215,7 @@ La gráfica muestra ``N \cdot \rho_C`` simulado (30,000 ensayos por punto, con
 ``b/c = k``.
 """
 
-# ╔═╡ dcbc831a-ca7e-11f1-9eed-c593dd7daf91
+# ╔═╡ facbeec8-ca82-11f1-a98c-097878bd6cc9
 md"""
 ## Resumen
 
@@ -227,7 +227,7 @@ md"""
 | **Regla ``b/c > k`` [Avanzado]** | Selección débil (muerte-nacimiento) en grafo de grado ``k`` | Un mutante cooperador supera la deriva neutra si ``b/c > k`` (``N \gg k``) |
 """
 
-# ╔═╡ dcbc8324-ca7e-11f1-9e0f-7985bda764fa
+# ╔═╡ facbeed2-ca82-11f1-829b-8f81c2c922ea
 md"""
 ## Ejercicios
 
@@ -239,24 +239,24 @@ tiene `vecinos_coop` vecinos cooperadores en el dilema del prisionero débil con
 tentación `b`.
 """
 
-# ╔═╡ dcbc832e-ca7e-11f1-b6e3-c7b3068e2638
+# ╔═╡ facbeede-ca82-11f1-8d57-8b23cd522769
 function pago_nowak_may(estrategia, vecinos_coop, b)
     missing  # reemplaza esta línea
 end
 
-# ╔═╡ dcbc833a-ca7e-11f1-a128-6fadcb1cb432
+# ╔═╡ facbeede-ca82-11f1-8ed5-49fc0fb5e074
 md"""
 **2.** Escribe `coop_favorecida(b, c, k)`, que devuelva `true` si la razón
 beneficio-costo `b / c` supera el grado `k` de la red (regla ``b/c > k`` de
 Ohtsuki et al. para redes grandes), y `false` en caso contrario.
 """
 
-# ╔═╡ dcbc833a-ca7e-11f1-b8e8-053ce457fa12
+# ╔═╡ facbeee6-ca82-11f1-b59a-dda5c157a170
 function coop_favorecida(b, c, k)
     missing  # reemplaza esta línea
 end
 
-# ╔═╡ dcbc8342-ca7e-11f1-bc64-d1dbd83f71f5
+# ╔═╡ facbeef0-ca82-11f1-a76d-ff1977d0c91c
 md"""
 ### Ruta básica: interpretación
 
@@ -282,7 +282,7 @@ md"""
 7. En la sección 3, modifica la regla de actualización de la retícula para usar
    la regla logística de Fermi ``\sigma(\beta(\Pi_j - \Pi_i))`` con un vecino al
    azar. ¿Cómo cambia la fracción de cooperadores cuando sube el ruido
-   ``T = 1/\beta``?
+   ``1/\beta``?
 
 ## Para la próxima sesión
 
@@ -295,7 +295,7 @@ md"""
   financiero.
 """
 
-# ╔═╡ dcbc834c-ca7e-11f1-9161-1b6e57d8c4b9
+# ╔═╡ facbeefa-ca82-11f1-8dda-33560ec623a2
 md"""
 ---
 ## Apéndice: paquetes y funciones auxiliares
@@ -304,7 +304,7 @@ Estas celdas definen herramientas que usa el cuaderno. No es necesario
 leerlas para seguir la sesión.
 """
 
-# ╔═╡ dcbc8356-ca7e-11f1-b959-45afa541efbc
+# ╔═╡ facbef04-ca82-11f1-bdf6-11325ef7d703
 begin
     const AZUL       = "#2a78d6"   # serie principal, cooperadores
     const NARANJA    = "#eb6834"   # segunda serie o teoría, traidores
@@ -313,7 +313,7 @@ begin
     const BLANCO     = "#ffffff"
 end;
 
-# ╔═╡ dcbc8356-ca7e-11f1-90d9-6549ba4857a2
+# ╔═╡ facbef04-ca82-11f1-afce-b7f17199869f
 """
 Simula el dilema del prisionero espacial de Nowak y May en una cuadrícula L × L
 con vecindad de Moore (8 vecinos, frontera periódica) y tentación `b` (R = 1, P = S = 0).
@@ -385,10 +385,10 @@ function simular_dilema_reticula(L, b; pasos = 50, rng = Xoshiro(12))
      tablero_mezcla = reshape(est_m, L, L), historia_mezcla = historia_m)
 end
 
-# ╔═╡ dcbc82e8-ca7e-11f1-a2cb-3b4b694fd5fc
+# ╔═╡ facbee82-ca82-11f1-a448-23661d443a15
 sim_pd_ret = simular_dilema_reticula(36, b_pd; pasos = 50, rng = Xoshiro(12));
 
-# ╔═╡ dcbc82e8-ca7e-11f1-a26f-7f79b41d1e44
+# ╔═╡ facbee82-ca82-11f1-8488-9fd72d26eeb1
 let
     r = sim_pd_ret
     paleta = cgrad([NARANJA, AZUL])
@@ -407,7 +407,7 @@ let
     plot(p1, p2; layout = Plots.grid(1, 2; widths = [0.44, 0.56]), size = (900, 390), bottom_margin = 4Plots.mm)
 end
 
-# ╔═╡ dcbc8360-ca7e-11f1-9c9b-f1602074c756
+# ╔═╡ facbef10-ca82-11f1-afaf-ff966a14efe5
 "Ejemplo fijo de la sección 0: comparación entre interacción al azar y retícula 2D con b = 1.35."
 ejemplo_dilema_espacial = let
     s = simular_dilema_reticula(36, 1.35; pasos = 50, rng = Xoshiro(12))
@@ -415,7 +415,7 @@ ejemplo_dilema_espacial = let
      reticula = (tablero = s.tablero, coop = s.historia[end]))
 end;
 
-# ╔═╡ dcbc82c0-ca7e-11f1-a4b1-07be0e04cfe4
+# ╔═╡ facbee50-ca82-11f1-86f0-d3273eb21184
 let
     mezcla, reticula = ejemplo_dilema_espacial
     paleta = cgrad([NARANJA, AZUL])
@@ -428,7 +428,7 @@ let
     plot(p1, p2; layout = (1, 2), size = (820, 390))
 end
 
-# ╔═╡ dcbc836c-ca7e-11f1-9245-334a6d7b2c4a
+# ╔═╡ facbef18-ca82-11f1-86e0-8fc6433761b1
 """
 Simula el dilema del prisionero en un grafo arbitrario `g` con tentación `b`
 bajo la regla de imitación proporcional de Santos y Pacheco (2005). Se detiene
@@ -469,7 +469,7 @@ function dilema_en_grafo(g, b, rng; pasos = 5000)
     mean(s)
 end
 
-# ╔═╡ dcbc836c-ca7e-11f1-b6f4-39b822db9fee
+# ╔═╡ facbef22-ca82-11f1-9594-939598319522
 "Compara la fracción final de cooperadores en función de b entre mezcla al azar, retícula 2D y Barabási-Albert."
 function comparar_topologias_pd(N = 400; bs = 1.05:0.10:1.95, M = 14)
     L = round(Int, sqrt(N))
@@ -495,10 +495,10 @@ function comparar_topologias_pd(N = 400; bs = 1.05:0.10:1.95, M = 14)
     (bs = collect(bs), reticula = m_ret, se_ret = se_ret, ba = m_ba, se_ba = se_ba, mezcla = m_mez)
 end
 
-# ╔═╡ dcbc82fc-ca7e-11f1-a858-771cdd88e157
+# ╔═╡ facbee96-ca82-11f1-b6b6-63e22f90e4de
 barrido_pd = comparar_topologias_pd(400; bs = 1.05:0.10:1.95, M = 14);
 
-# ╔═╡ dcbc8306-ca7e-11f1-a6a0-41f86f268f56
+# ╔═╡ facbeea0-ca82-11f1-877c-fb98d7b28db1
 let
     b = barrido_pd
     p = plot(b.bs, 100 .* b.reticula; yerror = 100 .* b.se_ret, color = AZUL, lw = 2.4,
@@ -513,7 +513,7 @@ let
     p
 end
 
-# ╔═╡ dcbc8374-ca7e-11f1-957c-251d9235841b
+# ╔═╡ facbef22-ca82-11f1-ab1e-d1404a8d8b90
 """
 Simula el proceso muerte-nacimiento (Death-Birth, Ohtsuki et al., 2006) en un
 grafo regular `g` de grado `k` con razón beneficio/costo `r = b/c` y selección débil `w`,
@@ -563,7 +563,7 @@ function fijacion_db(g, r, w; ensayos = 4_000, rng = Xoshiro(1))
     N * (exitos / ensayos)
 end
 
-# ╔═╡ dcbc837e-ca7e-11f1-b6d1-f564bbdcd35a
+# ╔═╡ facbef2c-ca82-11f1-bb28-c589f53aafe4
 "N · ρ_C simulado (con su error estándar) bajo actualización muerte-nacimiento en un anillo (k = 2) y una red regular aleatoria (k = 4)."
 curva_reciprocidad_red = let
     N = 36
@@ -581,7 +581,7 @@ curva_reciprocidad_red = let
      umbral_k2 = umbral(2), umbral_k4 = umbral(4))
 end;
 
-# ╔═╡ dcbc831a-ca7e-11f1-8900-713465af8fa1
+# ╔═╡ facbeebe-ca82-11f1-b97c-afcab4257a43
 let
     d = curva_reciprocidad_red
     p = plot(d.bc, d.sim_k2; yerror = d.se_k2, color = AZUL, lw = 2.0, msc = AZUL,
@@ -602,7 +602,7 @@ let
     p
 end
 
-# ╔═╡ dcbc8388-ca7e-11f1-83dc-43881757d79a
+# ╔═╡ facbef36-ca82-11f1-b2ba-c7f7f8575f6a
 "Muestra si la respuesta de un ejercicio es correcta."
 function verificar(f, esperado; rtol = 1e-8, pista = md"")
     caja(tipo, titulo, texto) = Markdown.MD(Markdown.Admonition(tipo, titulo, [texto]))
@@ -623,48 +623,48 @@ function verificar(f, esperado; rtol = 1e-8, pista = md"")
     end
 end
 
-# ╔═╡ dcbc832e-ca7e-11f1-9a28-3ff0a0494e9f
+# ╔═╡ facbeede-ca82-11f1-92ee-a9aecdd83ff6
 verificar(() -> [pago_nowak_may(1, 5, 1.4), pago_nowak_may(0, 3, 1.4), pago_nowak_may(0, 0, 1.8)],
           [5.0, 3 * 1.4, 0.0];
           pista = md"Si `estrategia == 1` recibe `1.0 * vecinos_coop`; si es `0` recibe `b * vecinos_coop`.")
 
-# ╔═╡ dcbc833a-ca7e-11f1-8adf-adebe1f9289a
+# ╔═╡ facbeee6-ca82-11f1-93e4-d1cc2a572779
 verificar(() -> [coop_favorecida(5.0, 1.0, 4), coop_favorecida(3.0, 1.0, 4), coop_favorecida(6.0, 2.0, 2)],
           [true, false, true];
           pista = md"Compara `b / c > k`.")
 
 # ╔═╡ Cell order:
-# ╟─dcbc8252-ca7e-11f1-b5e3-3f6355d9213c
-# ╟─dcbc82b6-ca7e-11f1-9a76-dd876da9a38b
-# ╟─dcbc82b6-ca7e-11f1-8791-9bbd6d2ef91d
-# ╟─dcbc82c0-ca7e-11f1-a4b1-07be0e04cfe4
-# ╟─dcbc82ca-ca7e-11f1-8327-1ddaf57efead
-# ╟─dcbc82d4-ca7e-11f1-aade-af686ad6820d
-# ╟─dcbc82de-ca7e-11f1-af4c-4794b9a96e8a
-# ╠═dcbc82e8-ca7e-11f1-a2cb-3b4b694fd5fc
-# ╟─dcbc82e8-ca7e-11f1-a26f-7f79b41d1e44
-# ╟─dcbc82f2-ca7e-11f1-96ce-8ba617e259b2
-# ╟─dcbc82fc-ca7e-11f1-837c-f180a15b3d7f
-# ╠═dcbc82fc-ca7e-11f1-a858-771cdd88e157
-# ╟─dcbc8306-ca7e-11f1-a6a0-41f86f268f56
-# ╟─dcbc8306-ca7e-11f1-9857-6dc33d0d7bbd
-# ╟─dcbc8310-ca7e-11f1-a37d-21c0070ff505
-# ╟─dcbc831a-ca7e-11f1-8900-713465af8fa1
-# ╟─dcbc831a-ca7e-11f1-9eed-c593dd7daf91
-# ╟─dcbc8324-ca7e-11f1-9e0f-7985bda764fa
-# ╠═dcbc832e-ca7e-11f1-b6e3-c7b3068e2638
-# ╟─dcbc832e-ca7e-11f1-9a28-3ff0a0494e9f
-# ╟─dcbc833a-ca7e-11f1-a128-6fadcb1cb432
-# ╠═dcbc833a-ca7e-11f1-b8e8-053ce457fa12
-# ╟─dcbc833a-ca7e-11f1-8adf-adebe1f9289a
-# ╟─dcbc8342-ca7e-11f1-bc64-d1dbd83f71f5
-# ╟─dcbc834c-ca7e-11f1-9161-1b6e57d8c4b9
-# ╠═dcbc834c-ca7e-11f1-8de0-131a67af677b
-# ╠═dcbc8356-ca7e-11f1-b959-45afa541efbc
-# ╠═dcbc8356-ca7e-11f1-90d9-6549ba4857a2
-# ╠═dcbc8360-ca7e-11f1-9c9b-f1602074c756
-# ╠═dcbc836c-ca7e-11f1-9245-334a6d7b2c4a
-# ╠═dcbc836c-ca7e-11f1-b6f4-39b822db9fee
-# ╠═dcbc8374-ca7e-11f1-957c-251d9235841b
-# ╠═dcbc837e-ca7e-11f1-b6d1-f564bbdcd35a
-# ╠═dcbc8388-ca7e-11f1-83dc-43881757d79a
+# ╟─facbee08-ca82-11f1-a43d-2323090fb2e4
+# ╟─facbee46-ca82-11f1-997f-57d829a5fc1c
+# ╟─facbee46-ca82-11f1-8984-5168158a4c4e
+# ╟─facbee50-ca82-11f1-86f0-d3273eb21184
+# ╟─facbee5a-ca82-11f1-948d-d7cab7d886b6
+# ╟─facbee6c-ca82-11f1-8a27-418a411b669c
+# ╟─facbee78-ca82-11f1-acec-2bc4d73fcfd5
+# ╠═facbee82-ca82-11f1-a448-23661d443a15
+# ╟─facbee82-ca82-11f1-8488-9fd72d26eeb1
+# ╟─facbee8c-ca82-11f1-ac39-13a114567e26
+# ╟─facbee96-ca82-11f1-959d-77563599c71f
+# ╠═facbee96-ca82-11f1-b6b6-63e22f90e4de
+# ╟─facbeea0-ca82-11f1-877c-fb98d7b28db1
+# ╟─facbeeaa-ca82-11f1-94a6-87e223ae220d
+# ╟─facbeeb4-ca82-11f1-9026-3357afbd8846
+# ╟─facbeebe-ca82-11f1-b97c-afcab4257a43
+# ╟─facbeec8-ca82-11f1-a98c-097878bd6cc9
+# ╟─facbeed2-ca82-11f1-829b-8f81c2c922ea
+# ╠═facbeede-ca82-11f1-8d57-8b23cd522769
+# ╟─facbeede-ca82-11f1-92ee-a9aecdd83ff6
+# ╟─facbeede-ca82-11f1-8ed5-49fc0fb5e074
+# ╠═facbeee6-ca82-11f1-b59a-dda5c157a170
+# ╟─facbeee6-ca82-11f1-93e4-d1cc2a572779
+# ╟─facbeef0-ca82-11f1-a76d-ff1977d0c91c
+# ╟─facbeefa-ca82-11f1-8dda-33560ec623a2
+# ╠═facbeefa-ca82-11f1-aa54-597b5a58a88a
+# ╠═facbef04-ca82-11f1-bdf6-11325ef7d703
+# ╠═facbef04-ca82-11f1-afce-b7f17199869f
+# ╠═facbef10-ca82-11f1-afaf-ff966a14efe5
+# ╠═facbef18-ca82-11f1-86e0-8fc6433761b1
+# ╠═facbef22-ca82-11f1-9594-939598319522
+# ╠═facbef22-ca82-11f1-ab1e-d1404a8d8b90
+# ╠═facbef2c-ca82-11f1-bb28-c589f53aafe4
+# ╠═facbef36-ca82-11f1-b2ba-c7f7f8575f6a

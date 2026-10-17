@@ -157,8 +157,8 @@ pues el número de agentes de cada grupo es fijo):
   $E_{\ne} = \sum_{\langle i,j\rangle} \mathbf 1(c_i \ne c_j)$ decrece
   estrictamente en cada intercambio y concluye que el proceso debe detenerse en
   un número finito de pasos.
-- **F5.** En el problema anterior, muestra con un ejemplo concreto de una
-  vecindad con celdas vacías que cuando un agente insatisfecho se muda a una
+- **F5.** A diferencia del problema anterior, ahora hay celdas vacías. Muestra
+  con un ejemplo concreto de una vecindad que cuando un agente insatisfecho se muda a una
   celda vacía donde sí cumple su umbral $\tau = 1/2$, el número total de
   aristas entre grupos distintos $E_{\ne}$ puede *aumentar*.
 
@@ -171,7 +171,7 @@ pues el número de agentes de cada grupo es fijo):
   Sciences*, 106(49), 20622–20626. https://doi.org/10.1073/pnas.0906263106
 - Kirman, A. (2011). *Complex Economics: Individual and Collective
   Rationality*. Routledge.
-- Requião da Cunha, B. (2021). *Introduction to Econophysics: Contemporary
+- Requião da Cunha, C. (2021). *Introduction to Econophysics: Contemporary
   Approaches with Python Simulations*. CRC Press.
   https://doi.org/10.1201/9781003127956
 - Schelling, T. C. (1971). Dynamic models of segregation. *Journal of

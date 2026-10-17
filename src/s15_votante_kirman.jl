@@ -60,7 +60,7 @@ let
     c_ind  = simular_kirman(N, 4.0; barridos = 800, rng = Xoshiro(11)).k ./ N
     p1 = plot(1:800, c_herd; color = AZUL, lw = 1.4, ylims = (0, 1),
               xlabel = "tiempo (barridos)", ylabel = "fracción en el restaurante A",
-              label = "Con herding fuerte (a = 0.2)", legend = :topright,
+              label = "Con herding fuerte (a = 0.2)", legend = :outerbottom,
               title = "Dos restaurantes idénticos (100 clientes)")
     plot!(p1, 1:800, c_ind; color = NARANJA, lw = 1.2, alpha = 0.75,
           label = "Casi independientes (a = 4.0)")
@@ -78,8 +78,8 @@ end
 
 #%% hide
 md"""
-Ninguno de los dos restaurantes es mejor, ni ocurrió ningún choque externo en
-el barrido 300 o en el 600: las olas nacen de la **imitación** combinada con
+Ninguno de los dos restaurantes es mejor, ni ocurrió ningún choque externo
+cuando la multitud cambió de restaurante: las olas nacen de la **imitación** combinada con
 unos pocos cambios individuales. En esta sesión empezaremos con la imitación
 pura (**modelo de votante**) y luego añadiremos esos cambios autónomos
 (**modelo de Kirman**).

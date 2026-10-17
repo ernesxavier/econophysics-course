@@ -16,7 +16,7 @@ macro bind(def, element)
     #! format: on
 end
 
-# ╔═╡ 3f1c7932-ca7c-11f1-87f7-1b451f36d22a
+# ╔═╡ 3f168f76-ca82-11f1-b535-53b8acc1e32f
 begin
     import Pkg
     Pkg.activate(@__DIR__)
@@ -29,7 +29,7 @@ begin
             background_color_legend = nothing, margin = 3Plots.mm)
 end
 
-# ╔═╡ 3f1c782e-ca7c-11f1-83c4-4b057b6f87b4
+# ╔═╡ 3f168e60-ca82-11f1-b2a1-275515b25d6d
 md"""
 # Sesión 10: Redes: medidas y modelos
 
@@ -57,10 +57,10 @@ de matrices y centralidad), S.I3 (comparar datos con una distribución). Ruta
 avanzada: L.A5 (Perron-Frobenius), F.A5 (percolación).
 """
 
-# ╔═╡ 3f1c786a-ca7c-11f1-9bc6-911dc6ac43ab
+# ╔═╡ 3f168e9a-ca82-11f1-a205-d5479b2f705b
 TableOfContents(title = "Contenido")
 
-# ╔═╡ 3f1c7874-ca7c-11f1-9e8a-edff5d711a12
+# ╔═╡ 3f168ea4-ca82-11f1-b1a6-4fcaa351fdc5
 md"""
 ## 0. El fenómeno: ¿por qué ganaron los Médici?
 
@@ -74,7 +74,7 @@ Abajo está la red de matrimonios entre 15 familias de la élite florentina.
 Cada línea es al menos un matrimonio entre las dos familias.
 """
 
-# ╔═╡ 3f1c787e-ca7c-11f1-9604-55c861728af1
+# ╔═╡ 3f168eae-ca82-11f1-b67c-010594f09892
 md"""
 Los Médici están en el centro: **conectan** a familias que no tienen otra
 manera de comunicarse entre sí. Los Strozzi tienen casi tantos enlaces, pero
@@ -83,7 +83,7 @@ números, y después a preguntarnos qué **mecanismos** generan las redes que
 vemos en la economía.
 """
 
-# ╔═╡ 3f1c787e-ca7c-11f1-9eae-b9184073ebfa
+# ╔═╡ 3f168eb8-ca82-11f1-9a27-5177aab28cf3
 md"""
 ## 1. Repaso: la matriz de adyacencia
 
@@ -95,7 +95,7 @@ La gráfica muestra la matriz de las familias florentinas: cada cuadro
 oscuro es un 1.
 """
 
-# ╔═╡ 3f1c7892-ca7c-11f1-b712-bd8f734a5168
+# ╔═╡ 3f168ecc-ca82-11f1-ad98-053ded8a0aae
 md"""
 Casi todo lo que vamos a medir sale de operaciones con ``A``:
 
@@ -109,7 +109,7 @@ Casi todo lo que vamos a medir sale de operaciones con ``A``:
   por 2 sentidos), así que hay ``\mathrm{tr}(A^3)/6`` triángulos (repaso L.I4).
 """
 
-# ╔═╡ 3f1c78a8-ca7c-11f1-a863-89a42ec26fec
+# ╔═╡ 3f168ee0-ca82-11f1-a269-0dcfb46d62d5
 md"""
 ## 2. Medidas: centralidad y agrupamiento
 
@@ -140,7 +140,7 @@ está. En redes sociales suele ser alto: los amigos de mis amigos tienden a
 ser mis amigos.
 """
 
-# ╔═╡ 3f1c78ba-ca7c-11f1-ac59-3344252f4ce5
+# ╔═╡ 3f168ef2-ca82-11f1-9898-45cd56b102d3
 md"""
 Las cuatro medidas ponen a los Médici en primer lugar, pero la
 **intermediación** es la que los separa del resto: es el doble que la de los
@@ -154,7 +154,7 @@ conectados entre sí. Ser el centro de una estrella, y no parte de un grupo
 cerrado, es precisamente lo que les daba poder.
 """
 
-# ╔═╡ 3f1c78c4-ca7c-11f1-a6ea-9d3e6e333a65
+# ╔═╡ 3f168efe-ca82-11f1-8262-03f3ae9376ce
 md"""
 ## 3. Tres modelos de redes aleatorias
 
@@ -180,7 +180,7 @@ grupo conectado más grande.
 Grado promedio ``c``: $(@bind c_er Slider([0.5, 0.8, 1.0, 1.2, 1.5, 2.0, 3.0], default = 1.2, show_value = true))
 """
 
-# ╔═╡ 3f1c78ce-ca7c-11f1-8e03-17005ed9a426
+# ╔═╡ 3f168f12-ca82-11f1-815e-c9d1b9e36d39
 md"""
 Con ``c < 1`` la red está hecha de islas pequeñas. En ``c = 1``, en promedio
 **un vecino por nodo**, aparece de golpe un componente gigante que contiene
@@ -194,7 +194,7 @@ cualquier par: el agrupamiento es ``C = p = c/(N-1)``, casi cero. Las redes
 sociales y económicas tienen agrupamiento alto.
 """
 
-# ╔═╡ 3f1c78da-ca7c-11f1-b0c8-a72fa8dcd0ff
+# ╔═╡ 3f168f12-ca82-11f1-b278-97a8f3ea4964
 md"""
 ### 3.2 Watts-Strogatz: mundo pequeño
 
@@ -206,7 +206,7 @@ probabilidad ``p``: uno de sus extremos se mueve a un nodo al azar.
 Probabilidad de recableado ``p``: $(@bind p_ws Slider([0.0, 0.02, 0.05, 0.1, 0.3, 1.0], default = 0.05, show_value = true))
 """
 
-# ╔═╡ 3f1c78e2-ca7c-11f1-85cd-e73770578747
+# ╔═╡ 3f168f1c-ca82-11f1-8e1b-c54925c08ef1
 md"""
 Los enlaces recableados (en naranja) son **atajos**. Basta con que el 1% de
 los enlaces sea un atajo para que la distancia promedio caiga a una fracción
@@ -220,7 +220,7 @@ de separación" de Milgram.
 ``K``. No hay nodos con cientos de enlaces.
 """
 
-# ╔═╡ 3f1c78ec-ca7c-11f1-8a5c-bd33a27031ea
+# ╔═╡ 3f168f24-ca82-11f1-a35e-1d3548b26407
 md"""
 ### 3.3 Barabási-Albert: conexión preferencial
 
@@ -245,13 +245,13 @@ Comparemos 10,000 nodos de Barabási-Albert con una red de Erdős-Rényi con el
 mismo grado promedio, ``\langle k\rangle = 4``.
 """
 
-# ╔═╡ 3f1c78ec-ca7c-11f1-9511-97cbb51bb086
+# ╔═╡ 3f168f30-ca82-11f1-9dbd-f380f9381143
 ba = barabasi_albert(10_000, 2; seed = 1);
 
-# ╔═╡ 3f1c78f6-ca7c-11f1-9b2c-4d12e396b95e
+# ╔═╡ 3f168f30-ca82-11f1-b6f5-a5ce329e4e0e
 er = erdos_renyi(10_000, ne(ba); seed = 1);
 
-# ╔═╡ 3f1c7900-ca7c-11f1-8846-d94805673f3f
+# ╔═╡ 3f168f3a-ca82-11f1-a0c1-8bcc646864e4
 md"""
 En Erdős-Rényi nadie tiene más de $(maximum(degree(er))) enlaces: la cola de la
 Poisson cae más rápido que cualquier potencia. En Barabási-Albert hay
@@ -270,7 +270,7 @@ en esta red. Ningún modelo simple tiene todo; cada uno aísla un mecanismo.
 | Barabási-Albert | Crecimiento + conexión preferencial | Pareto, ``P(K \ge k) \sim k^{-2}`` | Casi 0 | Muy corta |
 """
 
-# ╔═╡ 3f1c790c-ca7c-11f1-975f-d1cda142c972
+# ╔═╡ 3f168f44-ca82-11f1-a20c-452131c965df
 md"""
 ## Resumen
 
@@ -284,7 +284,7 @@ md"""
 | Barabási-Albert | Conexión preferencial → ``P(K \ge k) \sim k^{-2}``, concentradores |
 """
 
-# ╔═╡ 3f1c790c-ca7c-11f1-bd28-3d0588bceb32
+# ╔═╡ 3f168f4e-ca82-11f1-b6de-058fd9cd343b
 md"""
 ## Ejercicios
 
@@ -294,24 +294,24 @@ md"""
 partir de su matriz de adyacencia.
 """
 
-# ╔═╡ 3f1c7914-ca7c-11f1-bc4c-13f118b24c40
+# ╔═╡ 3f168f4e-ca82-11f1-a9dd-7f9fb19c2dd3
 function grados(A)
     missing  # reemplaza esta línea
 end
 
-# ╔═╡ 3f1c791e-ca7c-11f1-bd8b-9512a0c7e3eb
+# ╔═╡ 3f168f58-ca82-11f1-91b0-71335c5a5e6a
 md"""
 **2.** Escribe `agrupamiento(A, i)`, el coeficiente de agrupamiento del nodo
 ``i``. Pista: ``(A^3)_{ii}`` es el doble del número de enlaces entre los
 vecinos de ``i``. Si el grado es menor que 2, devuelve `0.0`.
 """
 
-# ╔═╡ 3f1c791e-ca7c-11f1-b9e8-a59aa6dbf0f5
+# ╔═╡ 3f168f58-ca82-11f1-b994-17d25bbb50e5
 function agrupamiento(A, i)
     missing  # reemplaza esta línea
 end
 
-# ╔═╡ 3f1c7928-ca7c-11f1-ac93-2755dde07f93
+# ╔═╡ 3f168f62-ca82-11f1-beb1-3b9d1c028062
 md"""
 ### Ruta básica: interpretación
 
@@ -330,14 +330,14 @@ md"""
 
 ## Para la próxima sesión
 
-- Lectura: Slanina (2014), capítulo 6; para la ruta avanzada, Newman (2018),
-  capítulos 12, 13 y 15.
+- Lectura: Newman (2018), capítulo 7. Complementaria: Newman (2018), capítulos
+  6 y 11; Requião da Cunha (2021), sección 8.1.
 - En la **sesión 11** (`Code/s11_redes_mercado.jl`) pondremos estos tres
   modelos frente a la red de correlaciones del S&P 100 y mediremos qué pasa
   cuando fallan nodos al azar o cuando se ataca a los más conectados.
 """
 
-# ╔═╡ 3f1c7932-ca7c-11f1-bd24-cbdbfa5934ad
+# ╔═╡ 3f168f6c-ca82-11f1-9762-b1a2e851437f
 md"""
 ---
 ## Apéndice: paquetes y funciones auxiliares
@@ -346,7 +346,7 @@ Estas celdas definen herramientas que usa el cuaderno. No es necesario
 leerlas para seguir la sesión.
 """
 
-# ╔═╡ 3f1c793a-ca7c-11f1-b44c-2daf4fceb1a6
+# ╔═╡ 3f168f80-ca82-11f1-a8e6-4d3e9d87ea31
 begin
     const AZUL       = "#2a78d6"   # serie principal
     const NARANJA    = "#eb6834"   # segunda serie o teoría
@@ -357,7 +357,7 @@ begin
     const RAMPA      = ["#86b6ef", "#3987e5", "#1c5cab", "#0d366b"]   # azul secuencial
 end;
 
-# ╔═╡ 3f1c793a-ca7c-11f1-853e-079bc1b5d3a5
+# ╔═╡ 3f168f80-ca82-11f1-8b53-a531693860ee
 familias, red_medici = let
     nombres = ["Acciaiuoli", "Albizzi", "Barbadori", "Bischeri", "Castellani", "Ginori",
                "Guadagni", "Lamberteschi", "Médici", "Pazzi", "Peruzzi", "Ridolfi",
@@ -376,21 +376,21 @@ familias, red_medici = let
     nombres, g
 end;
 
-# ╔═╡ 3f1c7888-ca7c-11f1-a340-7b1e96cc191f
+# ╔═╡ 3f168ec0-ca82-11f1-9d29-514c13e72aaa
 A = Matrix(adjacency_matrix(red_medici));
 
-# ╔═╡ 3f1c789c-ca7c-11f1-9d83-2b469ea35840
+# ╔═╡ 3f168ed6-ca82-11f1-8772-afa2996b5d2d
 k = A * ones(Int, size(A, 1))   # grados
 
-# ╔═╡ 3f1c789c-ca7c-11f1-9e04-4dbf989a995c
+# ╔═╡ 3f168ed6-ca82-11f1-9174-81bfed4dad63
 sum(k) ÷ 2, tr(A^3) ÷ 6        # enlaces y triángulos
 
-# ╔═╡ 3f1c7888-ca7c-11f1-b92d-ed73bbed2139
+# ╔═╡ 3f168ec0-ca82-11f1-a0b9-832aef4cba76
 heatmap(familias, familias, A; color = cgrad([BLANCO, AZUL]), yflip = true,
         aspect_ratio = :equal, colorbar = false, xrotation = 60, size = (560, 520),
         title = "Matriz de adyacencia (oscuro = 1)", tickfontsize = 7)
 
-# ╔═╡ 3f1c789c-ca7c-11f1-90cf-cdf6661d485d
+# ╔═╡ 3f168ed6-ca82-11f1-84ea-cd66d600ce9c
 md"""
 Hay $(sum(k) ÷ 2) enlaces y sólo $(tr(A^3) ÷ 6) triángulos. Los Médici tienen
 grado $(k[findfirst(==("Médici"), familias)]), el mayor de la red, pero los
@@ -398,7 +398,7 @@ Strozzi y los Guadagni tienen 4: el grado por sí solo no explica la
 diferencia.
 """
 
-# ╔═╡ 3f1c78a8-ca7c-11f1-8a14-530b694f00a5
+# ╔═╡ 3f168eea-ca82-11f1-87e5-2b82644e6a30
 medidas = DataFrame(familia = familias,
                     grado = degree(red_medici),
                     cercania = closeness_centrality(red_medici),
@@ -406,7 +406,7 @@ medidas = DataFrame(familia = familias,
                     eigenvector = eigenvector_centrality(red_medici),
                     agrupamiento = local_clustering_coefficient(red_medici));
 
-# ╔═╡ 3f1c78b0-ca7c-11f1-82aa-b1d5eb4ebe00
+# ╔═╡ 3f168eea-ca82-11f1-a8d4-69eea812bf8d
 let
     d = sort(medidas, :intermediacion; rev = true)
     redondear(x) = x isa AbstractFloat ? round(x, digits = 2) : x
@@ -414,7 +414,7 @@ let
     rename!(d, ["Familia", "Grado", "Cercanía", "Intermediación", "Eigenvector", "Agrupamiento"])
 end
 
-# ╔═╡ 3f1c78b0-ca7c-11f1-9bc8-7144bc9c2836
+# ╔═╡ 3f168ef2-ca82-11f1-b468-9be276aff310
 let
     d = sort(medidas, :intermediacion; rev = true)
     f(c) = d[!, c] ./ maximum(d[!, c])
@@ -430,14 +430,14 @@ let
     p
 end
 
-# ╔═╡ 3f1c7946-ca7c-11f1-a025-ff523b8bb362
+# ╔═╡ 3f168f8a-ca82-11f1-a8b3-11f2c246c5d6
 "Grados distintos (mayores que cero) y la fracción de nodos con grado mayor o igual, P(K ≥ k)."
 function ccdf_grados(k)
     s = sort(unique(filter(>(0), k)))
     s, [mean(k .>= x) for x in s]
 end
 
-# ╔═╡ 3f1c78f6-ca7c-11f1-a955-9b8575ccde5b
+# ╔═╡ 3f168f3a-ca82-11f1-9133-99ce75287e12
 let
     p = plot(; xscale = :log10, yscale = :log10, xlabel = "grado k", ylabel = "P(K ≥ k)",
              legend = :topright, ylims = (5e-5, 1.5), title = "Distribución de grados, ⟨k⟩ = 4")
@@ -450,11 +450,11 @@ let
           label = "m(m+1)/(k(k+1)), pendiente -2")
 end
 
-# ╔═╡ 3f1c7946-ca7c-11f1-b137-a343ee898337
+# ╔═╡ 3f168f8a-ca82-11f1-9d23-5b5ee5adf503
 "Fracción de los nodos que está en el componente conexo más grande."
 componente_gigante(g) = maximum(length.(connected_components(g))) / nv(g)
 
-# ╔═╡ 3f1c7950-ca7c-11f1-b253-85ef6d7832d4
+# ╔═╡ 3f168f96-ca82-11f1-b6d4-971e318ded6d
 "Solución de S = 1 - exp(-cS), la fracción en el componente gigante de Erdős-Rényi."
 function S_teoria(c)
     S = 1.0
@@ -464,10 +464,10 @@ function S_teoria(c)
     S < 1e-6 ? 0.0 : S
 end
 
-# ╔═╡ 3f1c7950-ca7c-11f1-ad79-67fa3b209fcc
+# ╔═╡ 3f168f96-ca82-11f1-8133-837202ef05d7
 grid_c = 0.2:0.2:4.0;
 
-# ╔═╡ 3f1c795a-ca7c-11f1-a261-7573734e3cb5
+# ╔═╡ 3f168f9e-ca82-11f1-bd7e-e30aa4886e4b
 "Agrupamiento y distancia promedio de Watts-Strogatz (N = 1000, K = 10) en función de p."
 barrido_ws = let
     ps = [0.0; exp10.(range(-4, 0, length = 13))]
@@ -479,7 +479,7 @@ barrido_ws = let
     (p = [1e-5; ps[2:end]], C = first.(res), L = last.(res))
 end;
 
-# ╔═╡ 3f1c795a-ca7c-11f1-b6e3-27e6fcc1c69d
+# ╔═╡ 3f168f9e-ca82-11f1-a823-911cbe0acd7a
 """
 Posiciones 2D para dibujar una red: escalamiento multidimensional clásico de
 las distancias en la red, refinado con mayorización de estrés.
@@ -503,7 +503,7 @@ function disposicion(g; iter = 200)
     X
 end
 
-# ╔═╡ 3f1c7964-ca7c-11f1-a779-4d2cd4335275
+# ╔═╡ 3f168fa8-ca82-11f1-b24c-d13687954c93
 "Dibuja una red con posiciones `X` (n × 2). Los enlaces en `resaltar` van en naranja."
 function dibujar_red(g, X; tam = 4, colores = AZUL, alpha_enlaces = 0.5, resaltar = Tuple{Int,Int}[],
                      kwargs...)
@@ -521,7 +521,7 @@ function dibujar_red(g, X; tam = 4, colores = AZUL, alpha_enlaces = 0.5, resalta
     scatter!(p, X[:, 1], X[:, 2]; ms = tam, color = colores, msw = 0.5, msc = BLANCO, label = "")
 end
 
-# ╔═╡ 3f1c7874-ca7c-11f1-a05b-d7aa35ea1c12
+# ╔═╡ 3f168ea4-ca82-11f1-a480-3bbb84dbb72e
 let
     X = disposicion(red_medici)
     tam = 4 .+ 3 .* degree(red_medici)
@@ -532,7 +532,7 @@ let
     p
 end
 
-# ╔═╡ 3f1c78c4-ca7c-11f1-9cce-83accb58ba0e
+# ╔═╡ 3f168f08-ca82-11f1-85d0-dbecb1eb997e
 let
     g = erdos_renyi(300, c_er / 299; seed = 4)
     X = disposicion(g)
@@ -550,7 +550,7 @@ let
     plot(p1, p2; layout = (1, 2), size = (920, 400))
 end
 
-# ╔═╡ 3f1c78da-ca7c-11f1-86ef-57becda0850f
+# ╔═╡ 3f168f1c-ca82-11f1-a055-31dd3e3cc6a3
 let
     n = 40
     g = watts_strogatz(n, 4, p_ws; seed = 2)
@@ -569,7 +569,7 @@ let
     plot(p1, p2; layout = (1, 2), size = (920, 400))
 end
 
-# ╔═╡ 3f1c7964-ca7c-11f1-9537-a100e0ec8579
+# ╔═╡ 3f168fb2-ca82-11f1-a577-55735d69e8dc
 "Muestra si la respuesta de un ejercicio es correcta."
 function verificar(f, esperado; rtol = 1e-8, pista = md"")
     caja(tipo, titulo, texto) = Markdown.MD(Markdown.Admonition(tipo, titulo, [texto]))
@@ -590,61 +590,61 @@ function verificar(f, esperado; rtol = 1e-8, pista = md"")
     end
 end
 
-# ╔═╡ 3f1c7914-ca7c-11f1-a9d9-fbc69ed33de5
+# ╔═╡ 3f168f58-ca82-11f1-82a1-3fe7ec7a7ca7
 verificar(() -> grados([0 1 1 0; 1 0 1 0; 1 1 0 1; 0 0 1 0]), [2, 2, 3, 1];
           pista = md"El grado es la suma de cada fila: `vec(sum(A; dims = 2))`, o bien `A * ones(Int, size(A, 1))`.")
 
-# ╔═╡ 3f1c7928-ca7c-11f1-9787-3900c2b9da60
+# ╔═╡ 3f168f62-ca82-11f1-9ce0-c7aaef4381d7
 verificar(() -> [agrupamiento([0 1 1 0; 1 0 1 0; 1 1 0 1; 0 0 1 0], i) for i in 1:4],
           [1.0, 1.0, 1 / 3, 0.0];
           pista = md"Con `k = sum(A[i, :])`, el resultado es `(A^3)[i, i] / (k * (k - 1))` si `k ≥ 2`.")
 
 # ╔═╡ Cell order:
-# ╟─3f1c782e-ca7c-11f1-83c4-4b057b6f87b4
-# ╟─3f1c786a-ca7c-11f1-9bc6-911dc6ac43ab
-# ╟─3f1c7874-ca7c-11f1-9e8a-edff5d711a12
-# ╟─3f1c7874-ca7c-11f1-a05b-d7aa35ea1c12
-# ╟─3f1c787e-ca7c-11f1-9604-55c861728af1
-# ╟─3f1c787e-ca7c-11f1-9eae-b9184073ebfa
-# ╠═3f1c7888-ca7c-11f1-a340-7b1e96cc191f
-# ╟─3f1c7888-ca7c-11f1-b92d-ed73bbed2139
-# ╟─3f1c7892-ca7c-11f1-b712-bd8f734a5168
-# ╠═3f1c789c-ca7c-11f1-9d83-2b469ea35840
-# ╠═3f1c789c-ca7c-11f1-9e04-4dbf989a995c
-# ╟─3f1c789c-ca7c-11f1-90cf-cdf6661d485d
-# ╟─3f1c78a8-ca7c-11f1-a863-89a42ec26fec
-# ╠═3f1c78a8-ca7c-11f1-8a14-530b694f00a5
-# ╟─3f1c78b0-ca7c-11f1-82aa-b1d5eb4ebe00
-# ╟─3f1c78b0-ca7c-11f1-9bc8-7144bc9c2836
-# ╟─3f1c78ba-ca7c-11f1-ac59-3344252f4ce5
-# ╟─3f1c78c4-ca7c-11f1-a6ea-9d3e6e333a65
-# ╟─3f1c78c4-ca7c-11f1-9cce-83accb58ba0e
-# ╟─3f1c78ce-ca7c-11f1-8e03-17005ed9a426
-# ╟─3f1c78da-ca7c-11f1-b0c8-a72fa8dcd0ff
-# ╟─3f1c78da-ca7c-11f1-86ef-57becda0850f
-# ╟─3f1c78e2-ca7c-11f1-85cd-e73770578747
-# ╟─3f1c78ec-ca7c-11f1-8a5c-bd33a27031ea
-# ╠═3f1c78ec-ca7c-11f1-9511-97cbb51bb086
-# ╠═3f1c78f6-ca7c-11f1-9b2c-4d12e396b95e
-# ╟─3f1c78f6-ca7c-11f1-a955-9b8575ccde5b
-# ╟─3f1c7900-ca7c-11f1-8846-d94805673f3f
-# ╟─3f1c790c-ca7c-11f1-975f-d1cda142c972
-# ╟─3f1c790c-ca7c-11f1-bd28-3d0588bceb32
-# ╠═3f1c7914-ca7c-11f1-bc4c-13f118b24c40
-# ╟─3f1c7914-ca7c-11f1-a9d9-fbc69ed33de5
-# ╟─3f1c791e-ca7c-11f1-bd8b-9512a0c7e3eb
-# ╠═3f1c791e-ca7c-11f1-b9e8-a59aa6dbf0f5
-# ╟─3f1c7928-ca7c-11f1-9787-3900c2b9da60
-# ╟─3f1c7928-ca7c-11f1-ac93-2755dde07f93
-# ╟─3f1c7932-ca7c-11f1-bd24-cbdbfa5934ad
-# ╠═3f1c7932-ca7c-11f1-87f7-1b451f36d22a
-# ╠═3f1c793a-ca7c-11f1-b44c-2daf4fceb1a6
-# ╠═3f1c793a-ca7c-11f1-853e-079bc1b5d3a5
-# ╠═3f1c7946-ca7c-11f1-a025-ff523b8bb362
-# ╠═3f1c7946-ca7c-11f1-b137-a343ee898337
-# ╠═3f1c7950-ca7c-11f1-b253-85ef6d7832d4
-# ╠═3f1c7950-ca7c-11f1-ad79-67fa3b209fcc
-# ╠═3f1c795a-ca7c-11f1-a261-7573734e3cb5
-# ╠═3f1c795a-ca7c-11f1-b6e3-27e6fcc1c69d
-# ╠═3f1c7964-ca7c-11f1-a779-4d2cd4335275
-# ╠═3f1c7964-ca7c-11f1-9537-a100e0ec8579
+# ╟─3f168e60-ca82-11f1-b2a1-275515b25d6d
+# ╟─3f168e9a-ca82-11f1-a205-d5479b2f705b
+# ╟─3f168ea4-ca82-11f1-b1a6-4fcaa351fdc5
+# ╟─3f168ea4-ca82-11f1-a480-3bbb84dbb72e
+# ╟─3f168eae-ca82-11f1-b67c-010594f09892
+# ╟─3f168eb8-ca82-11f1-9a27-5177aab28cf3
+# ╠═3f168ec0-ca82-11f1-9d29-514c13e72aaa
+# ╟─3f168ec0-ca82-11f1-a0b9-832aef4cba76
+# ╟─3f168ecc-ca82-11f1-ad98-053ded8a0aae
+# ╠═3f168ed6-ca82-11f1-8772-afa2996b5d2d
+# ╠═3f168ed6-ca82-11f1-9174-81bfed4dad63
+# ╟─3f168ed6-ca82-11f1-84ea-cd66d600ce9c
+# ╟─3f168ee0-ca82-11f1-a269-0dcfb46d62d5
+# ╠═3f168eea-ca82-11f1-87e5-2b82644e6a30
+# ╟─3f168eea-ca82-11f1-a8d4-69eea812bf8d
+# ╟─3f168ef2-ca82-11f1-b468-9be276aff310
+# ╟─3f168ef2-ca82-11f1-9898-45cd56b102d3
+# ╟─3f168efe-ca82-11f1-8262-03f3ae9376ce
+# ╟─3f168f08-ca82-11f1-85d0-dbecb1eb997e
+# ╟─3f168f12-ca82-11f1-815e-c9d1b9e36d39
+# ╟─3f168f12-ca82-11f1-b278-97a8f3ea4964
+# ╟─3f168f1c-ca82-11f1-a055-31dd3e3cc6a3
+# ╟─3f168f1c-ca82-11f1-8e1b-c54925c08ef1
+# ╟─3f168f24-ca82-11f1-a35e-1d3548b26407
+# ╠═3f168f30-ca82-11f1-9dbd-f380f9381143
+# ╠═3f168f30-ca82-11f1-b6f5-a5ce329e4e0e
+# ╟─3f168f3a-ca82-11f1-9133-99ce75287e12
+# ╟─3f168f3a-ca82-11f1-a0c1-8bcc646864e4
+# ╟─3f168f44-ca82-11f1-a20c-452131c965df
+# ╟─3f168f4e-ca82-11f1-b6de-058fd9cd343b
+# ╠═3f168f4e-ca82-11f1-a9dd-7f9fb19c2dd3
+# ╟─3f168f58-ca82-11f1-82a1-3fe7ec7a7ca7
+# ╟─3f168f58-ca82-11f1-91b0-71335c5a5e6a
+# ╠═3f168f58-ca82-11f1-b994-17d25bbb50e5
+# ╟─3f168f62-ca82-11f1-9ce0-c7aaef4381d7
+# ╟─3f168f62-ca82-11f1-beb1-3b9d1c028062
+# ╟─3f168f6c-ca82-11f1-9762-b1a2e851437f
+# ╠═3f168f76-ca82-11f1-b535-53b8acc1e32f
+# ╠═3f168f80-ca82-11f1-a8e6-4d3e9d87ea31
+# ╠═3f168f80-ca82-11f1-8b53-a531693860ee
+# ╠═3f168f8a-ca82-11f1-a8b3-11f2c246c5d6
+# ╠═3f168f8a-ca82-11f1-9d23-5b5ee5adf503
+# ╠═3f168f96-ca82-11f1-b6d4-971e318ded6d
+# ╠═3f168f96-ca82-11f1-8133-837202ef05d7
+# ╠═3f168f9e-ca82-11f1-bd7e-e30aa4886e4b
+# ╠═3f168f9e-ca82-11f1-a823-911cbe0acd7a
+# ╠═3f168fa8-ca82-11f1-b24c-d13687954c93
+# ╠═3f168fb2-ca82-11f1-a577-55735d69e8dc

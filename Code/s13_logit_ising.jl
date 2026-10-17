@@ -16,7 +16,7 @@ macro bind(def, element)
     #! format: on
 end
 
-# ╔═╡ 092331da-ca7d-11f1-b038-9790893f6570
+# ╔═╡ 8bc764f8-ca82-11f1-b48c-d1fac4639544
 begin
     # Usa el entorno del curso (Code/Project.toml) en lugar del gestor de
     # paquetes propio de Pluto: un solo entorno para todo el repositorio.
@@ -31,7 +31,7 @@ begin
             background_color_legend = nothing, margin = 3Plots.mm)
 end
 
-# ╔═╡ 09233108-ca7d-11f1-9f13-0d83b410ef75
+# ╔═╡ 8bc76412-ca82-11f1-bd86-95fcd9064a5e
 md"""
 # Sesión 13: Logit, Boltzmann e Ising
 
@@ -59,10 +59,10 @@ F.B3 (temperatura), F.B4 (transiciones de fase), F.I1 (Boltzmann), F.I2
 (ecuación maestra).
 """
 
-# ╔═╡ 0923313a-ca7d-11f1-894e-d1f1f98a91fc
+# ╔═╡ 8bc7644e-ca82-11f1-b7fb-4d6754ba2a46
 TableOfContents(title = "Contenido")
 
-# ╔═╡ 09233144-ca7d-11f1-8d97-2dd0cf0540c3
+# ╔═╡ 8bc7644e-ca82-11f1-b560-81661b82a26d
 md"""
 ## 0. El fenómeno: mismos incentivos, resultados distintos
 
@@ -81,7 +81,7 @@ coincidir con sus cuatro vecinos y tiene algo de ruido en sus decisiones.
 Ninguna opción es mejor que la otra. Sólo cambia el azar.
 """
 
-# ╔═╡ 0923314e-ca7d-11f1-bad4-d79944aa46a1
+# ╔═╡ 8bc76462-ca82-11f1-adbc-6b25970ae0e7
 md"""
 Las dos ciudades empezaron con elecciones al azar, mitad y mitad. Al final,
 en cada una domina una opción distinta, y el **consenso** no lo impuso nadie:
@@ -89,7 +89,7 @@ emergió de la imitación local. Hoy vamos a construir este modelo desde la
 teoría de la elección que usan los economistas.
 """
 
-# ╔═╡ 0923314e-ca7d-11f1-8391-c116f9393d4f
+# ╔═╡ 8bc7646c-ca82-11f1-bec8-d7ebd834aea4
 md"""
 ## 1. Repaso: la función logística y el modelo logit
 
@@ -113,7 +113,7 @@ el agente casi siempre elige la mejor opción; con ``\beta = 0``, elige al azar.
 Intensidad de elección ``\beta``: $(@bind β_logit Slider([0.25, 0.5, 1.0, 2.0, 5.0, 20.0], default = 1.0, show_value = true))
 """
 
-# ╔═╡ 09233162-ca7d-11f1-b201-eb253bd44b15
+# ╔═╡ 8bc76476-ca82-11f1-b805-73abcb89a177
 md"""
 ## 2. Logit = Boltzmann
 
@@ -144,23 +144,23 @@ Comprobémoslo simulando: tres opciones con utilidades 1, 0.5 y 0, y 100,000
 agentes con choques de Gumbel.
 """
 
-# ╔═╡ 0923316c-ca7d-11f1-9365-11dd844da338
+# ╔═╡ 8bc76480-ca82-11f1-9f24-051825b1bac0
 utilidades = [1.0, 0.5, 0.0];
 
-# ╔═╡ 0923316c-ca7d-11f1-96f7-93e7f857a3ea
+# ╔═╡ 8bc7648a-ca82-11f1-9c78-51696d03abc8
 elecciones = let
     rng = Xoshiro(1)
     β = 2.0
     [argmax(utilidades .+ rand(rng, Gumbel(0, 1 / β), 3)) for _ in 1:100_000]
 end;
 
-# ╔═╡ 09233176-ca7d-11f1-aa7e-ff5eb3771f98
+# ╔═╡ 8bc7648a-ca82-11f1-8f10-3bb13b231a92
 md"""
 Las barras coinciden. Lo que en física se llama **agitación térmica**, en
 economía se llama **heterogeneidad no observada**.
 """
 
-# ╔═╡ 09233180-ca7d-11f1-820a-a7c3224fd61b
+# ╔═╡ 8bc76494-ca82-11f1-ac8e-115ee83ad93f
 md"""
 ## 3. Elección con interacciones sociales: el modelo de Ising
 
@@ -197,7 +197,7 @@ Con ``m = 0`` la población está dividida a la mitad; con ``m = 1`` todos
 adoptan.
 """
 
-# ╔═╡ 09233180-ca7d-11f1-87e3-6f41b09473e5
+# ╔═╡ 8bc7649e-ca82-11f1-a1fc-156ca27ffdac
 md"""
 ## 4. Laboratorio: el algoritmo de Metropolis
 
@@ -223,7 +223,7 @@ el ruido.
 Temperatura ``T``: $(@bind T_red Slider([1.0, 1.5, 2.0, 2.2, 2.3, 2.5, 3.0, 4.0], default = 2.0, show_value = true))
 """
 
-# ╔═╡ 09233194-ca7d-11f1-a5ce-a99eb1377046
+# ╔═╡ 8bc764a8-ca82-11f1-bf3e-d5707c1b667e
 md"""
 - Con ``T`` **baja** (poco ruido), la población llega a un consenso: casi todos
   eligen lo mismo. Cuál de las dos opciones gana lo decide el azar.
@@ -238,7 +238,7 @@ comparamos con la solución exacta para una red infinita (Onsager, 1944;
 Yang, 1952).
 """
 
-# ╔═╡ 092331a8-ca7d-11f1-a9c0-0f088740de99
+# ╔═╡ 8bc764bc-ca82-11f1-915d-b3a39f983380
 md"""
 Debajo de ``T_c`` la simulación sigue a la curva exacta. Por encima, la red
 finita conserva una magnetización residual que se reduce al crecer la red:
@@ -246,7 +246,7 @@ con 48 × 48 está más cerca de cero que con 16 × 16. Como en la sesión 9, la
 transición sólo es abrupta en el límite de muchos agentes (repaso F.B4).
 """
 
-# ╔═╡ 092331b2-ca7d-11f1-90ae-fdb433e78ed4
+# ╔═╡ 8bc764bc-ca82-11f1-9a0d-67b1c3fc5743
 md"""
 ## Resumen
 
@@ -259,7 +259,7 @@ md"""
 | Transición de fase | Red cuadrada: consenso espontáneo debajo de ``T_c \approx 2.269\,J`` |
 """
 
-# ╔═╡ 092331b2-ca7d-11f1-ba26-1fbffa2686e7
+# ╔═╡ 8bc764c6-ca82-11f1-bb07-81215699405a
 md"""
 ## Ejercicios
 
@@ -269,24 +269,24 @@ md"""
 ventaja en utilidad es `Δu`.
 """
 
-# ╔═╡ 092331bc-ca7d-11f1-a4b2-8109d036ea05
+# ╔═╡ 8bc764d0-ca82-11f1-8c38-c15321083f90
 function prob_logit(Δu, β)
     missing  # reemplaza esta línea
 end
 
-# ╔═╡ 092331c6-ca7d-11f1-956d-97528d433456
+# ╔═╡ 8bc764dc-ca82-11f1-ac77-07dd60b45ee8
 md"""
 **2.** Escribe `cambio_energia(s, suma_vecinos, J, h)`, el cambio de energía
 ``\Delta E`` si el agente con elección `s` cambia de opción, cuando la suma de
 las elecciones de sus vecinos es `suma_vecinos`.
 """
 
-# ╔═╡ 092331c6-ca7d-11f1-be75-8f031994acc8
+# ╔═╡ 8bc764dc-ca82-11f1-9c63-0b1c3088a1b3
 function cambio_energia(s, suma_vecinos, J, h)
     missing  # reemplaza esta línea
 end
 
-# ╔═╡ 092331d2-ca7d-11f1-9dcc-052fbfd8c995
+# ╔═╡ 8bc764e4-ca82-11f1-93f9-0d827c5ed0f7
 md"""
 ### Ruta básica: interpretación
 
@@ -317,7 +317,7 @@ md"""
   los incentivos producen saltos irreversibles (**histéresis**) y avalanchas.
 """
 
-# ╔═╡ 092331da-ca7d-11f1-9fde-b9a21f240e93
+# ╔═╡ 8bc764ee-ca82-11f1-8324-7f59b36397ad
 md"""
 ---
 ## Apéndice: paquetes y funciones auxiliares
@@ -326,7 +326,7 @@ Estas celdas definen herramientas que usa el cuaderno. No es necesario
 leerlas para seguir la sesión.
 """
 
-# ╔═╡ 092331e4-ca7d-11f1-a7f7-83c5939a56ea
+# ╔═╡ 8bc764f8-ca82-11f1-b557-6923b433821d
 begin
     const AZUL       = "#2a78d6"   # serie principal, opción +1
     const NARANJA    = "#eb6834"   # segunda serie o teoría, opción -1
@@ -336,7 +336,7 @@ begin
     const RAMPA      = ["#86b6ef", "#3987e5", "#1c5cab", "#0d366b"]   # azul secuencial
 end;
 
-# ╔═╡ 0923316c-ca7d-11f1-b935-6dcd3e761cef
+# ╔═╡ 8bc7648a-ca82-11f1-8495-cd69d98c55f4
 let
     β = 2.0
     teoria = exp.(β .* utilidades) ./ sum(exp.(β .* utilidades))
@@ -349,11 +349,11 @@ let
     bar!(p, x .+ 0.18, teoria; bar_width = 0.34, color = NARANJA, lw = 0, label = "Boltzmann: exp(βu) / Z")
 end
 
-# ╔═╡ 092331ee-ca7d-11f1-a751-c5cd69d4c878
+# ╔═╡ 8bc76502-ca82-11f1-b829-0b606b9d44b6
 "Función logística."
 σ(x) = 1 / (1 + exp(-x))
 
-# ╔═╡ 09233158-ca7d-11f1-b880-d38c5f625fa7
+# ╔═╡ 8bc76476-ca82-11f1-84ca-5125f23115c9
 let
     x = range(-5, 5, length = 300)
     p = plot(x, σ.(β_logit .* x); color = AZUL, lw = 2.5, ylims = (0, 1),
@@ -366,7 +366,7 @@ let
     hline!(p, [0.5]; color = GRIS, ls = :dot, label = "")
 end
 
-# ╔═╡ 092331ee-ca7d-11f1-95ca-89b663f28c4a
+# ╔═╡ 8bc76502-ca82-11f1-8187-8f2e6ca90a49
 """
 Modelo de Ising en una cuadrícula L × L con fronteras periódicas, J = 1 y
 h = 0, simulado con Metropolis. `inicio` puede ser `:azar` u `:ordenado`
@@ -392,7 +392,7 @@ function ising_red(L, T; barridos = 1_000, rng = Xoshiro(1), inicio = :azar)
     (s = s, m = m)
 end
 
-# ╔═╡ 09233144-ca7d-11f1-871e-0b5cced0ae09
+# ╔═╡ 8bc76458-ca82-11f1-99d4-db296032e8eb
 let
     ps = map((3, 8)) do semilla
         s = ising_red(60, 2.0; barridos = 400, rng = Xoshiro(semilla), inicio = :azar).s
@@ -403,10 +403,10 @@ let
     plot(ps...; layout = (1, 2), size = (760, 400))
 end
 
-# ╔═╡ 0923318a-ca7d-11f1-895c-3ba5f084dd7b
+# ╔═╡ 8bc7649e-ca82-11f1-9e8e-03dc487f945c
 simulacion = ising_red(60, T_red; barridos = 1_000, rng = Xoshiro(2));
 
-# ╔═╡ 09233194-ca7d-11f1-a1ba-1bec25e39183
+# ╔═╡ 8bc764a8-ca82-11f1-95f0-e7ee76cbd481
 let
     s = simulacion.s
     p1 = heatmap(s; color = cgrad([NARANJA, AZUL]), clims = (-1, 1), aspect_ratio = :equal,
@@ -420,7 +420,7 @@ let
     plot(p1, p2; layout = grid(1, 2; widths = [0.42, 0.58]), size = (900, 380))
 end
 
-# ╔═╡ 092331a0-ca7d-11f1-b4be-c7b3a2655194
+# ╔═╡ 8bc764b2-ca82-11f1-991b-5776a30a442a
 barrido_T = let
     Ts = 1.0:0.1:4.0
     [(L = L, T = Ts, m = [mean(abs.(ising_red(L, T; barridos = 3_000, rng = Xoshiro(round(Int, 100T)),
@@ -428,11 +428,11 @@ barrido_T = let
      for L in (16, 48)]
 end;
 
-# ╔═╡ 092331f8-ca7d-11f1-b106-77b7a86465bd
+# ╔═╡ 8bc7650e-ca82-11f1-a822-0b0d8b043c30
 "Magnetización espontánea exacta de la red cuadrada (Onsager y Yang), con J = 1."
 onsager(T) = T < 2 / log(1 + sqrt(2)) ? (1 - sinh(2 / T)^(-4))^(1 / 8) : 0.0
 
-# ╔═╡ 092331a8-ca7d-11f1-b42a-879bd973fc01
+# ╔═╡ 8bc764b2-ca82-11f1-818f-d39b10eaa846
 let
     Tc = 2 / log(1 + sqrt(2))
     x = range(1.0, 4.0, length = 400)
@@ -445,7 +445,7 @@ let
     vline!(p, [Tc]; color = GRIS, ls = :dash, label = "T_c ≈ 2.269")
 end
 
-# ╔═╡ 092331f8-ca7d-11f1-be6e-9daa2ab5c852
+# ╔═╡ 8bc7650e-ca82-11f1-ba04-572fa70013c9
 "Muestra si la respuesta de un ejercicio es correcta."
 function verificar(f, esperado; rtol = 1e-8, pista = md"")
     caja(tipo, titulo, texto) = Markdown.MD(Markdown.Admonition(tipo, titulo, [texto]))
@@ -458,58 +458,57 @@ function verificar(f, esperado; rtol = 1e-8, pista = md"")
         caja("warning", "Pendiente", md"Reemplaza `missing` por tu código.")
     elseif resultado isa AbstractArray && esperado isa AbstractArray && size(resultado) == size(esperado) &&
            all(isapprox.(resultado, esperado; rtol, atol = 1e-12))
-        caja("correct", "Correcto", md"Tu función reproduce los valores esperados.")
-    elseif resultado isa Number && esperado isa Number && isapprox(resultado, esperado; rtol, atol = 1e-12)
-        caja("correct", "Correcto", md"Tu función reproduce el valor esperado.")
+        caja("correct", "¡Correcto!", md"Bien hecho.")
+    elseif resultado isa typeof(esperado) && all(isapprox.(resultado, esperado; rtol, atol = 1e-12))
+        caja("correct", "¡Correcto!", md"Bien hecho.")
     else
-        caja("danger", "No coincide todavía",
-             md"Obtuviste `$(resultado)` y se esperaba `$(esperado)`. $pista")
+        caja("danger", "Todavía no", pista)
     end
 end
 
-# ╔═╡ 092331bc-ca7d-11f1-8dfb-0b9cddd1a1c7
+# ╔═╡ 8bc764d0-ca82-11f1-9c39-0f9536856af7
 verificar(() -> [prob_logit(0.0, 3.0), prob_logit(1.0, 2.0), prob_logit(-1.0, 0.5)],
           [0.5, 1 / (1 + exp(-2.0)), 1 / (1 + exp(0.5))];
           pista = md"Es la logística evaluada en ``\beta\,\Delta u``: `1 / (1 + exp(-β * Δu))`.")
 
-# ╔═╡ 092331d2-ca7d-11f1-bfa1-c1b84ca2ff7e
+# ╔═╡ 8bc764e4-ca82-11f1-8821-316af33bf012
 verificar(() -> [cambio_energia(1, 4, 1.0, 0.0), cambio_energia(-1, 2, 1.0, 0.5), cambio_energia(1, -2, 0.5, 0.0)],
           [8.0, -5.0, -2.0];
           pista = md"La fórmula es ``\Delta E = 2 s_i (J \sum_j s_j + h)``.")
 
 # ╔═╡ Cell order:
-# ╟─09233108-ca7d-11f1-9f13-0d83b410ef75
-# ╟─0923313a-ca7d-11f1-894e-d1f1f98a91fc
-# ╟─09233144-ca7d-11f1-8d97-2dd0cf0540c3
-# ╟─09233144-ca7d-11f1-871e-0b5cced0ae09
-# ╟─0923314e-ca7d-11f1-bad4-d79944aa46a1
-# ╟─0923314e-ca7d-11f1-8391-c116f9393d4f
-# ╟─09233158-ca7d-11f1-b880-d38c5f625fa7
-# ╟─09233162-ca7d-11f1-b201-eb253bd44b15
-# ╠═0923316c-ca7d-11f1-9365-11dd844da338
-# ╠═0923316c-ca7d-11f1-96f7-93e7f857a3ea
-# ╟─0923316c-ca7d-11f1-b935-6dcd3e761cef
-# ╟─09233176-ca7d-11f1-aa7e-ff5eb3771f98
-# ╟─09233180-ca7d-11f1-820a-a7c3224fd61b
-# ╟─09233180-ca7d-11f1-87e3-6f41b09473e5
-# ╠═0923318a-ca7d-11f1-895c-3ba5f084dd7b
-# ╟─09233194-ca7d-11f1-a1ba-1bec25e39183
-# ╟─09233194-ca7d-11f1-a5ce-a99eb1377046
-# ╠═092331a0-ca7d-11f1-b4be-c7b3a2655194
-# ╟─092331a8-ca7d-11f1-b42a-879bd973fc01
-# ╟─092331a8-ca7d-11f1-a9c0-0f088740de99
-# ╟─092331b2-ca7d-11f1-90ae-fdb433e78ed4
-# ╟─092331b2-ca7d-11f1-ba26-1fbffa2686e7
-# ╠═092331bc-ca7d-11f1-a4b2-8109d036ea05
-# ╟─092331bc-ca7d-11f1-8dfb-0b9cddd1a1c7
-# ╟─092331c6-ca7d-11f1-956d-97528d433456
-# ╠═092331c6-ca7d-11f1-be75-8f031994acc8
-# ╟─092331d2-ca7d-11f1-bfa1-c1b84ca2ff7e
-# ╟─092331d2-ca7d-11f1-9dcc-052fbfd8c995
-# ╟─092331da-ca7d-11f1-9fde-b9a21f240e93
-# ╠═092331da-ca7d-11f1-b038-9790893f6570
-# ╠═092331e4-ca7d-11f1-a7f7-83c5939a56ea
-# ╠═092331ee-ca7d-11f1-a751-c5cd69d4c878
-# ╠═092331ee-ca7d-11f1-95ca-89b663f28c4a
-# ╠═092331f8-ca7d-11f1-b106-77b7a86465bd
-# ╠═092331f8-ca7d-11f1-be6e-9daa2ab5c852
+# ╟─8bc76412-ca82-11f1-bd86-95fcd9064a5e
+# ╟─8bc7644e-ca82-11f1-b7fb-4d6754ba2a46
+# ╟─8bc7644e-ca82-11f1-b560-81661b82a26d
+# ╟─8bc76458-ca82-11f1-99d4-db296032e8eb
+# ╟─8bc76462-ca82-11f1-adbc-6b25970ae0e7
+# ╟─8bc7646c-ca82-11f1-bec8-d7ebd834aea4
+# ╟─8bc76476-ca82-11f1-84ca-5125f23115c9
+# ╟─8bc76476-ca82-11f1-b805-73abcb89a177
+# ╠═8bc76480-ca82-11f1-9f24-051825b1bac0
+# ╠═8bc7648a-ca82-11f1-9c78-51696d03abc8
+# ╟─8bc7648a-ca82-11f1-8495-cd69d98c55f4
+# ╟─8bc7648a-ca82-11f1-8f10-3bb13b231a92
+# ╟─8bc76494-ca82-11f1-ac8e-115ee83ad93f
+# ╟─8bc7649e-ca82-11f1-a1fc-156ca27ffdac
+# ╠═8bc7649e-ca82-11f1-9e8e-03dc487f945c
+# ╟─8bc764a8-ca82-11f1-95f0-e7ee76cbd481
+# ╟─8bc764a8-ca82-11f1-bf3e-d5707c1b667e
+# ╠═8bc764b2-ca82-11f1-991b-5776a30a442a
+# ╟─8bc764b2-ca82-11f1-818f-d39b10eaa846
+# ╟─8bc764bc-ca82-11f1-915d-b3a39f983380
+# ╟─8bc764bc-ca82-11f1-9a0d-67b1c3fc5743
+# ╟─8bc764c6-ca82-11f1-bb07-81215699405a
+# ╠═8bc764d0-ca82-11f1-8c38-c15321083f90
+# ╟─8bc764d0-ca82-11f1-9c39-0f9536856af7
+# ╟─8bc764dc-ca82-11f1-ac77-07dd60b45ee8
+# ╠═8bc764dc-ca82-11f1-9c63-0b1c3088a1b3
+# ╟─8bc764e4-ca82-11f1-8821-316af33bf012
+# ╟─8bc764e4-ca82-11f1-93f9-0d827c5ed0f7
+# ╟─8bc764ee-ca82-11f1-8324-7f59b36397ad
+# ╠═8bc764f8-ca82-11f1-b48c-d1fac4639544
+# ╠═8bc764f8-ca82-11f1-b557-6923b433821d
+# ╠═8bc76502-ca82-11f1-b829-0b606b9d44b6
+# ╠═8bc76502-ca82-11f1-8187-8f2e6ca90a49
+# ╠═8bc7650e-ca82-11f1-a822-0b0d8b043c30
+# ╠═8bc7650e-ca82-11f1-ba04-572fa70013c9
