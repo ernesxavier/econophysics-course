@@ -3,7 +3,8 @@
 **Nivel**: Licenciatura de Economía, Física o Matemáticas.
 **Requisitos**: Probabilidad básica y cálculo diferencial. Lo demás se repasa
 en clase cuando se necesita.
-**Duración**: 1 semestre de 15 semanas.
+**Duración**: 20 sesiones de 2 horas (dos por semana). El mismo núcleo sirve
+para un semestre de 15 semanas o un trimestre de 11 (ver Calendarios).
 **Lenguaje**: Julia.
 
 **Objetivo**: Que las y los estudiantes comprendan cómo la interacción entre
@@ -15,8 +16,8 @@ finalizar, serán capaces de contrastar un modelo con datos reales y de
 construir, simular y analizar modelos de agentes en Julia.
 
 **Hilo conductor**: el curso abre midiendo los hechos estilizados en datos
-reales (semana 1) y cierra construyendo modelos de agentes que los reproducen
-de forma endógena (semana 14).
+reales (sesiones 1 y 2) y cierra construyendo modelos de agentes que los
+reproducen de forma endógena (sesión 20 y taller del Módulo III).
 
 ## Metodología
 
@@ -24,19 +25,49 @@ Cada sesión sigue el orden **fenómeno → reglas del modelo en palabras →
 simular y medir → formalizar**. La matemática llega como explicación de algo
 que ya se observó numéricamente, no como requisito para empezar.
 
-**Dos rutas.** Todo el contenido sin marca es la **ruta básica**: obligatoria,
-basada en simulación, medición e interpretación económica. Los puntos marcados
-**[Avanzado]** forman la **ruta avanzada**: derivaciones analíticas y su
-comparación con la simulación. Es opcional y da puntos extra (ver Evaluación).
+**Estructura de cada sesión (2 horas)**:
 
-- **Repaso**: al inicio de la sesión que lo requiere, 15 minutos de la
-  herramienta matemática necesaria.
+| Momento | Tiempo | Qué ocurre |
+|---|---|---|
+| Fenómeno | 15 min | Un dato real o una paradoja que motiva la pregunta de la sesión |
+| Modelo | 35 min | Reglas en palabras, la ecuación central y a lo más una derivación corta |
+| Laboratorio | 50 min | En parejas, con el cuaderno de Pluto: completar código, simular, medir |
+| Cierre | 20 min | Pregunta de medición o interpretación; es lo que se evalúa |
+
+**Dos rutas.** Todo el contenido sin marca es la **ruta básica**: obligatoria,
+basada en simulación, medición e interpretación económica, y es lo único que se
+ve en clase. Los puntos marcados **[Avanzado]** forman la **ruta avanzada**:
+derivaciones analíticas y su comparación con la simulación. Se estudia fuera
+de clase en la sección "Para profundizar" de las notas, es opcional y da
+puntos extra (ver Evaluación).
+
+- **Repaso**: al inicio de la sesión que lo requiere, unos minutos de la
+  herramienta matemática necesaria, con su clave del repaso por niveles
+  (`Class_notes/repaso/`).
 - **Notebooks con huecos**: al principio se completan 2 o 3 líneas clave; los
-  huecos crecen conforme avanza el semestre.
+  huecos crecen conforme avanza el curso.
 - **Simulaciones interactivas** (Pluto.jl): deslizadores para explorar
   transiciones de fase.
 - **Equipos mixtos**: estudiantes de Economía junto con estudiantes de Física
   o Matemáticas.
+- **Lecturas**: una lectura base por sesión, corta y en inglés; las
+  complementarias son opcionales.
+
+### Conceptos transversales
+
+Estas ideas sostienen todo el curso. Cada una se presenta con calma una vez y
+se retoma después con preguntas en los laboratorios.
+
+| Concepto | Se presenta | Se retoma |
+|---|---|---|
+| Retornos logarítmicos | Sesión 1 | 2, 5, 20 |
+| Distribuciones, CCDF y escalas logarítmicas | Sesiones 1 y 3 | 6, 8, 9, 10 |
+| Media, varianza y correlación | Sesiones 1 y 2 | 7, 19 |
+| Caminata aleatoria | Sesión 4 | 5, 15 |
+| Cadenas de Markov | Sesión 4 | 13, 15 |
+| Promediar simulaciones sobre varias corridas | Sesión 4 | 9, 15, 19 |
+| Logit (elección discreta) | Sesión 13 | 18, 20 |
+| Puntos fijos y su estabilidad | Sesiones 12 y 14 | 17, 20 |
 
 > **Abreviaturas de lecturas.** MS: Mantegna & Stanley · SL: Slanina ·
 > RC: Requião da Cunha · SC: Sen & Chakrabarti · NW: Newman · JK: Jackson ·
@@ -52,176 +83,265 @@ comparación con la simulación. Es opcional y da puntos extra (ver Evaluación)
 **Objetivo específico**: Caracterizar estadísticamente las fluctuaciones
 económicas y financieras, y entender qué procesos estocásticos las generan.
 
-- **Semana 1: Econofísica y hechos estilizados**
+- **Sesión 1: Retornos y colas pesadas**
+	- *Fenómeno*: ¿el mercado es un volado? Días de caída que "no deberían"
+	  ocurrir.
 	- *Diagnóstico* de matemáticas (10 preguntas, no cuenta para la calificación).
 	- *Repaso*: logaritmos, media, varianza, histogramas.
 	- Qué es la econofísica: de la interacción local a los patrones globales.
 	- Hipótesis de mercado eficiente. Retornos logarítmicos y escalas de tiempo.
-	- Hechos estilizados: colas pesadas, ausencia de autocorrelación lineal,
-	  agrupamiento de volatilidad, normalidad agregacional.
-	- *Laboratorio*: IPC (BMV), USD/MXN, S&P 500 y BTC; ACF de r y |r|; cómo
-	  cambia la distribución al agregar en el tiempo.
-	- Lecturas: MS 1–2, 5, 7; SL 1 (1.1–1.2); RC 2.4; Cont (2001).
-- **Semana 2: Colas pesadas y leyes de potencias**
+	- Hechos estilizados 1 y 2: colas pesadas y ausencia de autocorrelación
+	  lineal.
+	- *Laboratorio*: IPC (BMV), USD/MXN, S&P 500 y BTC; histograma de r frente
+	  a la normal; ACF de r.
+	- Lectura: MS 1–2. Complementaria: SL 1 (1.1–1.2).
+- **Sesión 2: Volatilidad y modelos nulos**
+	- *Fenómeno*: calma y tormenta; los días malos llegan juntos.
+	- Hechos estilizados 3 y 4: agrupamiento de volatilidad y normalidad
+	  agregacional.
+	- Modelos nulos: ¿qué tan especial es lo que medimos? Barajar los datos.
+	- Universalidad de los hechos estilizados.
+	- *Laboratorio*: ACF de |r|; cómo cambia la distribución al agregar en el
+	  tiempo; serie original frente a serie barajada.
+	- Lectura: Cont (2001). Complementaria: MS 5, 7; RC 2.4.
+- **Sesión 3: Colas pesadas y leyes de potencias**
+	- *Fenómeno*: un mundo sin tamaño típico; las localidades de México.
 	- *Repaso*: por qué una ley de potencias es una recta en escala log-log.
 	- Pareto, lognormal, ley cúbica inversa de los retornos, ley de Zipf.
 	- Estimación: CCDF log-log y estimador de Hill (como receta).
 	- **[Avanzado]** Distribuciones estables y teorema del límite central
-	  generalizado. Máxima verosimilitud y prueba de Kolmogorov-Smirnov.
-	- *Laboratorio*: exponente de cola de los retornos; Zipf de ciudades
+	  generalizado. Máxima verosimilitud y método de Clauset et al.
+	- *Laboratorio*: exponente de cola de los retornos; Zipf de localidades
 	  mexicanas (INEGI).
-	- **[Avanzado]** *Laboratorio*: método completo de Clauset et al. con
-	  selección de x_min.
-	- Lecturas: MS 4.4; RC 2.2.7; TKH 3; Gabaix (2009).
-	  **[Avanzado]** MS 3–4, 8–9; RC 2.2.5–2.2.6; Clauset, Shalizi & Newman (2009).
-- **Semana 3: Procesos estocásticos**
-	- *Repaso*: la derivada como tasa de cambio; esperanza y varianza de una suma.
-	- Caminata aleatoria y cadenas de Markov (matriz de transición).
+	- Lectura: RC 2.2.7. Complementaria: Gabaix (2009); TKH 3.
+	  **[Avanzado]** MS 3–4; RC 2.2.5–2.2.6; Clauset, Shalizi & Newman (2009).
+- **Sesión 4: Caminata aleatoria y cadenas de Markov**
+	- *Fenómeno*: un mercado que alterna entre calma y crisis.
+	- *Repaso*: esperanza y varianza de una suma.
+	- Caminata aleatoria: por qué la dispersión crece como √t.
+	- Cadenas de Markov: matriz de transición y distribución estacionaria.
+	- Promediar simulaciones: una corrida no basta.
+	- *Laboratorio*: caminatas simuladas frente a √t; un mercado con dos
+	  estados y la duración de sus crisis.
+	- Lectura: SL 2.1. Complementaria: RC 3.1.
+- **Sesión 5: Langevin, GBM y GARCH**
+	- *Fenómeno*: ¿qué proceso genera estas series? Precio que no puede ser
+	  negativo y volatilidad con memoria.
+	- *Repaso*: la derivada como tasa de cambio.
 	- Ecuación de Langevin como "tendencia + ruido"; movimiento browniano
 	  geométrico; simulación con Euler-Maruyama.
 	- GARCH: volatilidad con memoria.
 	- **[Avanzado]** Ecuación maestra y Fokker-Planck. Black-Scholes como
 	  ecuación de difusión.
-	- *Laboratorio*: simular movimiento browniano geométrico y GARCH(1,1);
-	  ¿reproduce GARCH el agrupamiento de volatilidad de la semana 1?
-	- **[Avanzado]** *Laboratorio*: histograma simulado vs. solución de
-	  Fokker-Planck.
-	- Lecturas: SL 2 (2.1–2.2); RC 2.3.5, 3.1.
-	  **[Avanzado]** RC 3.3, 4.3; MS 10, 14; Gardiner (consulta).
-- **Semana 4: Crecimiento multiplicativo**
+	- *Laboratorio*: simular GBM y GARCH(1,1); ¿reproduce GARCH el
+	  agrupamiento de volatilidad de la sesión 2?
+	- Lectura: RC 2.3.5. Complementaria: SL 2.2.
+	  **[Avanzado]** MS 10; RC 3.3, 4.3; Gardiner (consulta).
+- **Sesión 6: Crecimiento multiplicativo**
+	- *Fenómeno*: ¿crecen igual las empresas grandes y las pequeñas?
 	- *Repaso*: el logaritmo de un producto es una suma de logaritmos
 	  (de ahí la lognormal).
 	- Ley de Gibrat y lognormal.
 	- Proceso de Kesten: un mecanismo genérico para leyes de potencias.
 	- Distribución de tamaños de empresas y ciudades.
 	- **[Avanzado]** Derivación del exponente de Kesten.
-	- *Laboratorio*: Gibrat puro vs. Gibrat con barrera inferior; cómo cambia
-	  el exponente con los parámetros.
-	- Lecturas: SL 7 (7.1, 7.3); Gabaix (2009).
-- **Semana 5: Correlaciones y matrices aleatorias**
+	- *Laboratorio*: Gibrat puro frente a Gibrat con barrera inferior; cómo
+	  cambia el exponente con los parámetros.
+	- Lectura: SL 7.1. Complementaria: SL 7.3.
+- **Sesión 7: Correlaciones y matrices aleatorias**
+	- *Fenómeno*: las acciones se mueven juntas.
 	- *Repaso*: matrices; eigenvalores como "direcciones principales".
 	- Matriz de correlación de N activos. Barajar los datos destruye las
 	  correlaciones: lo que sobresale del espectro barajado es señal.
 	- Modo de mercado y sectores.
 	- Distancia entre activos y árbol de expansión mínima: puente hacia redes.
 	- **[Avanzado]** Ley de Marchenko-Pastur.
-	- *Laboratorio*: ~100 acciones; espectro real vs. barajado; árbol coloreado
-	  por sector.
-	- **[Avanzado]** *Laboratorio*: comparar con la curva analítica de
-	  Marchenko-Pastur.
-	- Lecturas: MS 12–13; SL 1.4; Mantegna (1999).
+	- *Laboratorio*: ~100 acciones; espectro real frente a barajado; árbol
+	  coloreado por sector.
+	- Lectura: MS 12–13. Complementaria: SL 1.4; Mantegna (1999).
 	  **[Avanzado]** RC 5.2; Laloux et al. (1999).
-	- **Entrega**: examen para casa del Módulo I.
+	- **Entrega**: taller para casa del Módulo I.
 
 ## Módulo II: Distribución, redes y transiciones de fase
 
 **Objetivo específico**: Usar máxima entropía, campo medio y teoría de redes
 para explicar la desigualdad, el contagio y los cambios abruptos colectivos.
 
-- **Semana 6: Máxima entropía y modelos cinéticos de intercambio**
+- **Sesión 8: Desigualdad y modelos de intercambio**
+	- *Fenómeno*: ¿cómo se reparte el ingreso en México?
+	- Curva de Lorenz e índice de Gini.
 	- Dinero conservado → distribución exponencial (argumento verbal y numérico).
 	- Modelo de Dragulescu-Yakovenko; ahorro uniforme (Chakraborti-Chakrabarti);
 	  ahorro heterogéneo (cola de Pareto).
-	- Curva de Lorenz e índice de Gini.
 	- **[Avanzado]** Máxima entropía con multiplicadores de Lagrange →
 	  Boltzmann-Gibbs; aproximación gamma del modelo con ahorro.
 	- *Laboratorio*: simular los tres modelos y compararlos con la ENIGH.
-	- Lecturas: Yakovenko & Rosser (2009); RC 8.3; SL 7.2.
+	- Lectura: Yakovenko & Rosser (2009). Complementaria: RC 8.3; SL 7.2.
 	  **[Avanzado]** CC 2–5; Garibaldi & Scalas (consulta).
-- **Semana 7: Condensación de riqueza y redistribución**
+- **Sesión 9: Condensación de riqueza y redistribución**
+	- *Fenómeno*: inversión sin intercambio; por qué unos pocos acumulan casi
+	  todo.
 	- Modelo de Bouchaud-Mézard: intercambio + crecimiento multiplicativo.
 	- Transición de condensación explorada con un deslizador.
 	- Impuestos y redistribución como experimento numérico.
 	- **[Avanzado]** Solución estacionaria de Fokker-Planck → exponente de Pareto.
-	- *Laboratorio*: transición de condensación vs. intensidad de intercambio;
-	  efecto de un impuesto sobre el Gini.
-	- Lecturas: CC 4.5. **[Avanzado]** Bouchaud & Mézard (2000);
+	- *Laboratorio*: transición de condensación frente a la intensidad de
+	  intercambio; efecto de un impuesto sobre el Gini.
+	- Lectura: CC 4.5. **[Avanzado]** Bouchaud & Mézard (2000);
 	  Ribeiro (consulta).
-- **Semana 8: Redes: estructura y modelos**
+- **Sesión 10: Redes: medidas y modelos**
+	- *Fenómeno*: ¿por qué ganaron los Médici? Los matrimonios de las familias
+	  de Florencia.
 	- *Repaso*: matriz de adyacencia.
-	- Medidas: grado, centralidades, agrupamiento (los matrimonios de las
-	  familias de Florencia).
+	- Medidas: grado, centralidades, agrupamiento.
 	- Erdős-Rényi, Watts-Strogatz, Barabási-Albert.
-	- Robustez: fallas aleatorias vs. ataques dirigidos (por simulación).
+	- *Laboratorio*: medir la red de Florencia; comparar los tres modelos.
+	- Lectura: NW 7. Complementaria: NW 6, 11; RC 8.1.
+- **Sesión 11: Redes: el mercado y la robustez**
+	- *Fenómeno*: ¿qué pasa si cae el nodo más conectado?
+	- La red de correlaciones del S&P 100 (datos de la sesión 7) frente a los
+	  modelos.
+	- Robustez: fallas aleatorias frente a ataques dirigidos (por simulación).
 	- **[Avanzado]** Laplaciano y espectro; asortatividad; modelo de
 	  configuración; umbral de percolación.
-	- *Laboratorio*: comparar modelos con una red real (red de correlaciones
-	  del S&P 100, construida con los datos de la semana 5); ataque dirigido
-	  vs. aleatorio.
-	- Lecturas: NW 6–7, 10–11; RC 8.1; SL 6.
-	  **[Avanzado]** NW 12–13, 15; JK 2–5.
-- **Semana 9: Contagio y riesgo sistémico**
+	- *Laboratorio*: la red del mercado; ataque dirigido frente a fallas
+	  aleatorias.
+	- Lectura: SL 6. **[Avanzado]** NW 12–13, 15; JK 2–5 (consulta).
+- **Sesión 12: Contagio y riesgo sistémico**
+	- *Fenómeno*: de una quiebra a una crisis.
+	- *Repaso*: un choque que se repite atenuándose.
 	- Cascadas de umbral (Watts).
 	- Redes interbancarias: contagio de pérdidas (DebtRank simplificado).
-	- "Robusto pero frágil": diversificación vs. contagio.
+	- "Robusto pero frágil": diversificación frente a contagio.
 	- **[Avanzado]** Compensación de Eisenberg-Noe como problema de punto fijo.
-	- *Laboratorio*: cascadas en ER vs. BA; red interbancaria sintética.
-	- Lecturas: Battiston et al. (2016); Watts (2002).
+	- *Laboratorio*: cascadas en ER frente a BA; red interbancaria sintética.
+	- Lectura: Battiston et al. (2016). Complementaria: Watts (2002).
 	  **[Avanzado]** Eisenberg & Noe (2001); Battiston et al. (2012);
-	  Acemoglu, Ozdaglar & Tahbaz-Salehi (2015); Glasserman & Young (2016).
-- **Semana 10: Ising y elección discreta**
+	  Acemoglu, Ozdaglar & Tahbaz-Salehi (2015) y Glasserman & Young (2016)
+	  (consulta).
+- **Sesión 13: Logit, Boltzmann e Ising**
+	- *Fenómeno*: mismos incentivos, resultados distintos.
 	- *Repaso*: función logística.
-	- Modelo de Ising: transición de fase e histéresis (simulación con deslizador).
 	- Logit ↔ distribución de Boltzmann: el modelo de elección discreta que
 	  usan los economistas es física estadística.
+	- Elección con interacciones sociales: el modelo de Ising.
+	- *Laboratorio*: el algoritmo de Metropolis; transición de fase con un
+	  deslizador.
+	- Lectura: SC 2. **[Avanzado]** Brock & Durlauf (2001).
+- **Sesión 14: Campo medio, histéresis y crisis**
+	- *Fenómeno*: cambios abruptos que no se revierten al deshacer la causa.
 	- Campo medio resuelto gráficamente: intersección de m y tanh(βJm).
+	- Histéresis: el estado depende de la historia.
 	- **[Avanzado]** Derivación del campo medio; Brock-Durlauf formal; campo
 	  aleatorio, avalanchas y crisis.
-	- *Laboratorio*: Metropolis; simulación vs. solución gráfica; ciclo de
-	  histéresis.
-	- Lecturas: SC 2–3; RC 6.
-	  **[Avanzado]** Brock & Durlauf (2001); Bouchaud, Marsili & Nadal (2023).
+	- *Laboratorio*: simulación frente a solución gráfica; ciclo de histéresis.
+	- Lectura: RC 6. **[Avanzado]** Bouchaud, Marsili & Nadal (2023).
+	- **Entrega**: taller para casa del Módulo II.
 
 ## Módulo III: Agentes, estrategias y mercados artificiales
 
 **Objetivo específico**: Construir modelos de agentes con racionalidad acotada
 y aprendizaje, y usarlos para reproducir patrones empíricos.
 
-- **Semana 11: Opinión, herding y segregación**
-	- Modelo de votante: tiempo de consenso, efecto de la red.
+- **Sesión 15: Votante y Kirman: imitación y herding**
+	- *Fenómeno*: dos restaurantes idénticos; uno se llena y el otro no.
+	- *Repaso*: estados absorbentes frente a ruido.
+	- Modelo de votante: consenso, probabilidad de victoria, efecto de la red.
 	- Modelo de hormigas de Kirman: herding y bimodalidad.
-	- Schelling: preferencias leves → segregación fuerte.
 	- **[Avanzado]** Tiempo de consenso del votante; ecuación maestra del
 	  modelo de Kirman.
-	- *Laboratorio*: votante en redes; Kirman; Schelling completo
-	  (implementación propia en Julia, sin paquetes de agentes).
-	- Lecturas: SC 3–4; KI 2–3, 6; RC 8.2; WR (consulta).
-	  **[Avanzado]** SL 3, 8.2; SC 6; Castellano, Fortunato & Loreto (2009);
-	  Kirman (1993).
-- **Semana 12: Juegos evolutivos y cooperación**
+	- *Laboratorio*: votante en la red completa y en redes; Kirman con un
+	  deslizador.
+	- Lectura: SC 3. Complementaria: KI 2–3.
+	  **[Avanzado]** SL 3; Castellano, Fortunato & Loreto (2009); Kirman (1993).
+- **Sesión 16: Schelling: segregación**
+	- *Fenómeno*: barrios segregados sin intolerancia.
+	- Schelling: preferencias leves → segregación fuerte.
+	- Analogía con el modelo de Ising y sus límites.
+	- *Laboratorio*: Schelling completo (implementación propia en Julia, sin
+	  paquetes de agentes); barrido del umbral de tolerancia.
+	- Lectura: KI 6. Complementaria: SC 4; WR (consulta).
+	  **[Avanzado]** SL 8.2; SC 6.
+- **Sesión 17: Replicador y ciclo de Goodwin**
+	- *Fenómeno*: ¿por qué no todos son agresivos? ¿Y por qué la economía
+	  oscila sin choques?
 	- *Repaso*: una ecuación diferencial como regla de actualización.
-	- Dinámica del replicador por simulación.
+	- Dinámica del replicador; el juego Halcón-Paloma.
 	- Lotka-Volterra ↔ ciclo de Goodwin.
-	- Dilema del prisionero en redes.
-	- **[Avanzado]** Estabilidad de puntos fijos (jacobiano); condición
-	  b/c > k de reciprocidad de red.
-	- *Laboratorio*: Halcón-Paloma; Goodwin; cooperación en retícula vs. red BA.
-	- Lecturas: RC 7; SL 8.1; Nowak & May (1992).
-	  **[Avanzado]** Goodwin (1967); Ohtsuki et al. (2006); Santos & Pacheco
-	  (2005); Strogatz (consulta); Schecter & Gintis (consulta).
-- **Semana 13: Juego de la minoría**
-	- El Farol. Reglas del juego de la minoría.
-	- Volatilidad σ²/N vs. α = 2^M/N: fases eficiente e ineficiente.
+	- **[Avanzado]** Estabilidad de puntos fijos con el jacobiano; cantidad
+	  conservada de Goodwin.
+	- *Laboratorio*: Halcón-Paloma por EDO y por agentes; el ciclo de Goodwin.
+	- Lectura: RC 7. **[Avanzado]** Goodwin (1967); Strogatz (consulta).
+- **Sesión 18: Cooperación en redes**
+	- *Fenómeno*: cooperación entre egoístas cuando traicionar paga más.
+	- Dilema del prisionero; por qué la cooperación desaparece en una población
+	  bien mezclada.
+	- Reciprocidad espacial en la retícula y papel de los concentradores en
+	  redes de Barabási-Albert.
+	- **[Avanzado]** Regla b/c > k de reciprocidad de red (enunciado y
+	  simulación; la demostración, como lectura).
+	- *Laboratorio*: cooperación en retícula frente a red BA.
+	- Lectura: Nowak & May (1992). Complementaria: SL 8.1.
+	  **[Avanzado]** Santos & Pacheco (2005); Ohtsuki et al. (2006);
+	  Schecter & Gintis (consulta).
+- **Sesión 19: Juego de la minoría**
+	- *Fenómeno*: el bar El Farol; la trampa de pensar igual.
+	- Reglas del juego de la minoría.
+	- Volatilidad σ²/N frente a α = 2^M/N: fases hacinada y diluida.
 	- El juego de la minoría como modelo de mercado.
-	- **[Avanzado]** Teoría del punto crítico α_c.
-	- *Laboratorio*: curva σ²/N vs. α para varios N.
-	- Lecturas: SL 5 (5.1, 5.3); RC 7.1.1; Challet & Zhang (1997).
-	  **[Avanzado]** SL 5.2; Challet, Marsili & Zhang (2005, consulta).
-- **Semana 14: Mercados artificiales y expectativas heterogéneas**
+	- **[Avanzado]** Predictibilidad y agentes congelados en α_c (intuición; la
+	  teoría completa, como lectura).
+	- *Laboratorio*: curva σ²/N frente a α para varios N.
+	- Lectura: SL 5.1. Complementaria: Challet & Zhang (1997); RC 7.1.1;
+	  SL 5.3. **[Avanzado]** SL 5.2; Challet, Marsili & Zhang (2005, consulta).
+- **Sesión 20: Mercados artificiales y expectativas heterogéneas**
+	- *Fenómeno*: calma y tormenta generadas desde dentro del mercado.
 	- Brock-Hommes: selección evolutiva de reglas de predicción.
-	- Fundamentalistas vs. chartistas (Lux-Marchesi, Giardina-Bouchaud); en
-	  el laboratorio, la versión estimada de Franke & Westerhoff (2012).
-	- **Cierre del ciclo**: aplicar el análisis de la semana 1 a series
-	  simuladas. ¿Qué hechos estilizados reproduce cada modelo?
-	- **[Avanzado]** Bifurcaciones y caos: análisis de estabilidad de
-	  Brock-Hommes.
-	- *Laboratorio*: diagrama de bifurcación por simulación; hechos estilizados
-	  en series simuladas.
-	- Lecturas: HM 1; LeBaron (2006); Lux & Marchesi (1999).
+	- Fundamentalistas frente a chartistas (Lux-Marchesi, Giardina-Bouchaud);
+	  en el laboratorio, la versión estimada de Franke & Westerhoff (2012).
+	- **[Avanzado]** Estabilidad del equilibrio fundamental y diagrama de
+	  bifurcación de Brock-Hommes.
+	- *Laboratorio*: burbujas en Brock-Hommes; volatilidad en
+	  Franke-Westerhoff.
+	- Lectura: LeBaron (2006). Complementaria: HM 1; Lux & Marchesi (1999).
 	  **[Avanzado]** HM 2, 6; SL 3.2; Giardina & Bouchaud (2003); Brock &
 	  Hommes (1998).
-- **Semana 15: Proyecto final**
-	- Presentaciones.
+	- **Entrega**: taller para casa del Módulo III. **Cierre del ciclo**:
+	  aplicar el análisis de las sesiones 1 y 2 a series simuladas. ¿Qué
+	  hechos estilizados reproduce cada modelo?
+
+---
+
+## Calendarios
+
+El contenido es el mismo; cambia el tiempo para practicar.
+
+**Semestre (15 semanas, 30 sesiones).** Las 10 sesiones adicionales no
+agregan temas: son talleres de repaso, asesorías del proyecto y
+presentaciones.
+
+| Semana | Sesión A | Sesión B |
+|---|---|---|
+| 1 | 1 | 2 |
+| 2 | 3 | 4 |
+| 3 | 5 | 6 |
+| 4 | 7 | Taller del Módulo I en clase |
+| 5 | 8 | 9 |
+| 6 | 10 | 11 |
+| 7 | 12 | 13 |
+| 8 | 14 | Taller del Módulo II en clase |
+| 9 | 15 | 16 |
+| 10 | 17 | 18 |
+| 11 | 19 | 20 |
+| 12 | Taller del Módulo III en clase | Asesoría del proyecto final |
+| 13 | Presentaciones de artículos | Asesoría del proyecto final |
+| 14 | Presentaciones finales | Presentaciones finales |
+| 15 | Presentaciones finales | Margen para imprevistos |
+
+**Trimestre (11 semanas, 22 sesiones).** Las 20 sesiones de contenido van
+seguidas, dos por semana, y la semana 11 queda para las presentaciones
+finales. Los talleres se resuelven en casa. Si se pierde una sesión, se
+compactan la 10 con la 11 o la 15 con la 16.
 
 ---
 
@@ -229,20 +349,28 @@ y aprendizaje, y usarlos para reproducir patrones empíricos.
 
 | Componente | Peso |
 |---|---|
-| Laboratorios, ruta básica. Cada uno cierra con una pregunta de medición o interpretación | 30% |
-| Presentación de un artículo de investigación (15 min, desde la semana 3) | 15% |
-| Examen para casa del Módulo I | 15% |
-| Proyecto final: réplica y extensión de un artículo (escrito + presentación) | 40% |
+| Laboratorios, ruta básica. Cada uno cierra con una pregunta de medición o interpretación | 25% |
+| Talleres para casa, uno por módulo (10% cada uno) | 30% |
+| Presentación de un artículo de investigación (en el trimestre, reseña escrita de dos páginas) | 10% |
+| Proyecto final: réplica y extensión de un artículo (escrito + presentación) | 35% |
 | **Extra**: ejercicios de la ruta avanzada | hasta +10% |
 
-**El examen y los laboratorios evalúan interpretación, no derivaciones.**
+**Los talleres y los laboratorios evalúan interpretación, no derivaciones.**
 Ejemplos de preguntas:
 - "Este histograma, ¿es exponencial o ley de potencias? ¿Cómo lo sabes?"
 - "Si aumenta el ahorro de los agentes, ¿qué le pasa al Gini? Justifica con tu
   simulación."
 - "¿Qué hecho estilizado reproduce este modelo y cuál no?"
 
-El examen incluye una sección opcional de ruta avanzada que cuenta como extra.
+**Talleres para casa**:
+- **Módulo I** (después de la sesión 7): hechos estilizados y colas de un
+  activo que no se vio en clase.
+- **Módulo II** (después de la sesión 14): por definir.
+- **Módulo III** (después de la sesión 20): cierre del ciclo, con los modelos
+  de agentes frente a los datos.
+
+Cada taller incluye una sección opcional de ruta avanzada que cuenta como
+extra.
 
 **Ideas para proyecto final**: modelo de Axelrod; problema del restaurante de
 Kolkata; modelos de libro de órdenes (Maslov); procesos de Hawkes; DebtRank con
@@ -298,6 +426,8 @@ tecnológica.
 - Acemoglu, D., Ozdaglar, A., & Tahbaz-Salehi, A. (2015). Systemic risk and
   stability in financial networks. *American Economic Review*, 105(2), 564–608.
   https://doi.org/10.1257/aer.20130456
+- Arthur, W. B. (1994). Inductive reasoning and bounded rationality.
+  *American Economic Review*, 84(2), 406–411. https://www.jstor.org/stable/2117868
 - Battiston, S., Puliga, M., Kaushik, R., Tasca, P., & Caldarelli, G. (2012).
   DebtRank: Too central to fail? Financial networks, the FED and systemic risk.
   *Scientific Reports*, 2, 541. https://doi.org/10.1038/srep00541
@@ -305,8 +435,6 @@ tecnológica.
   Heesterbeek, H., Hommes, C., Jaeger, C., May, R., & Scheffer, M. (2016).
   Complexity theory and financial regulation. *Science*, 351(6275), 818–819.
   https://doi.org/10.1126/science.aad0299
-- Arthur, W. B. (1994). Inductive reasoning and bounded rationality.
-  *American Economic Review*, 84(2), 406–411. https://www.jstor.org/stable/2117868
 - Bouchaud, J.-P., & Mézard, M. (2000). Wealth condensation in a simple model
   of economy. *Physica A*, 282(3–4), 536–545.
   https://doi.org/10.1016/S0378-4371(00)00205-3

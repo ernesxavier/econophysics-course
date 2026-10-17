@@ -1,7 +1,7 @@
 # Convierte un archivo fuente con marcadores `#%%` (código visible) y
 # `#%% hide` (código oculto) en un cuaderno de Pluto, lo ejecuta sin interfaz y
 # guarda las salidas (imágenes y HTML) para revisarlas. Uso, desde la raíz:
-#   julia --project=Code src/construir_cuaderno.jl src/s02_colas_pesadas.jl Code/s02_colas_pesadas.jl /tmp/salidas_s02
+#   julia --project=Code src/construir_cuaderno.jl src/s03_colas_pesadas.jl Code/s03_colas_pesadas.jl /tmp/salidas_s03
 # El destino debe quedar en Code/ para que Pkg.activate(@__DIR__) encuentre el entorno.
 using Pluto
 

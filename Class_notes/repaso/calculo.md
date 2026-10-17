@@ -1,6 +1,6 @@
 # Repaso: cálculo y ecuaciones diferenciales
 
-> Cada concepto tiene una clave (por ejemplo **[C.I4](#ci4)**) y dice en qué semanas
+> Cada concepto tiene una clave (por ejemplo **[C.I4](#ci4)**) y dice en qué sesiones
 > se usa. El índice [README.md](README.md) indica qué repasar antes de cada
 > sesión. Los fragmentos de Julia corren en el entorno del curso
 > (`julia --project=Code`).
@@ -16,7 +16,7 @@
 <a id="cb1"></a>
 
 ### C.B1 Exponenciales y logaritmos
-*Semanas 1, 2, 4, 6.*
+*Sesiones 1, 3, 6, 8.*
 
 El **logaritmo natural** $\ln x$ (en Julia, `log(x)`) es la inversa de
 $e^x$: $\ln e^x = x$ y $e^{\ln x} = x$ para $x > 0$.
@@ -38,7 +38,7 @@ $e^x$: $\ln e^x = x$ y $e^{\ln x} = x$ para $x > 0$.
 <a id="cb2"></a>
 
 ### C.B2 Gráficas en escala logarítmica
-*Semanas 1, 2, 4, 6, 8.*
+*Sesiones 1, 3, 6, 8, 10.*
 
 Elegir bien la escala permite **reconocer la forma** de una relación:
 
@@ -58,12 +58,12 @@ dos órdenes de magnitud en $y$ mientras $x$ sube uno, $\alpha = 2$.
 
 **Cuidado:** casi cualquier curva parece recta en un rango corto de una
 gráfica log-log. Hace falta al menos uno o dos órdenes de magnitud en $x$,
-y en la semana 2 veremos métodos más confiables que ajustar una recta.
+y en la sesión 3 veremos métodos más confiables que ajustar una recta.
 
 <a id="cb3"></a>
 
 ### C.B3 La derivada como tasa de cambio
-*Semanas 3, 6, 10, 12.*
+*Sesiones 5, 8, 13, 17.*
 
 $$
 f'(x) = \frac{df}{dx} = \lim_{h \to 0}\frac{f(x+h) - f(x)}{h}.
@@ -91,7 +91,7 @@ $\big(f(g(x))\big)' = f'(g(x))\thinspace g'(x)$.
 <a id="cb4"></a>
 
 ### C.B4 Funciones que reaparecen en el curso
-*Semanas 6, 10, 11, 12.*
+*Sesiones 8, 13, 15, 18.*
 
 **Función logística.**
 
@@ -106,7 +106,7 @@ $$
 Convierte cualquier número en una probabilidad. En el **modelo logit** de
 elección discreta, la probabilidad de elegir A sobre B es
 $\sigma\big(\beta(u_A - u_B)\big)$: con $\beta$ grande la elección es casi
-determinista; con $\beta = 0$, al azar (semana 10).
+determinista; con $\beta = 0$, al azar (sesión 13).
 
 **Tangente hiperbólica.**
 
@@ -124,7 +124,7 @@ característica $x_0$ (autocorrelaciones, distribución de Boltzmann).
 <a id="cb5"></a>
 
 ### C.B5 Sumatorias y la serie geométrica
-*Semanas 3, 8, 9.*
+*Sesiones 4, 10, 12.*
 
 $\sum_{i=1}^n a_i = a_1 + \cdots + a_n$. Propiedades:
 $\sum (a_i + b_i) = \sum a_i + \sum b_i$ y $\sum c\thinspace a_i = c\sum a_i$.
@@ -144,7 +144,7 @@ un choque en una red ([L.A4](algebra_lineal.md#la4)), el valor presente de un fl
 <a id="cb6"></a>
 
 ### C.B6 La integral como área
-*Semanas 1, 2, 6.*
+*Sesiones 1, 3, 8.*
 
 En el nivel básico basta con una idea: $\int_a^b f(x)\thinspace dx$ es el
 **área bajo la curva** $f$ entre $a$ y $b$. Se aproxima partiendo
@@ -182,7 +182,7 @@ sum(f.(xs[1:end-1])) * Δx                # ≈ 0.683: P(-1 < Z < 1)
 <a id="ci1"></a>
 
 ### C.I1 Desarrollo de Taylor
-*Semanas 1, 3, 10, 12.*
+*Sesiones 1, 5, 14, 17.*
 
 Cerca de un punto $a$, una función suave se aproxima por un polinomio:
 
@@ -205,11 +205,11 @@ $$
 Usos en el curso:
 
 - **Primer orden (linealización)**: $r_t = \ln(1+R_t) \approx R_t$
-  ([sesión 1](../s01_hechos_estilizados.md)); estabilidad de puntos fijos ([C.I4](#ci4), [L.A3](algebra_lineal.md#la3)).
+  ([sesión 1](../s01_retornos.md)); estabilidad de puntos fijos ([C.I4](#ci4), [L.A3](algebra_lineal.md#la3)).
 - **Segundo orden**: el término $-\sigma^2/2$ del lema de Itô ([E.A2](procesos_estocasticos.md#ea2)); la
   diferencia entre retorno simple y logarítmico.
 - **Tercer orden**: $\tanh(\beta J m) \approx \beta J m - (\beta J m)^3/3$
-  explica la forma de la transición de fase de campo medio (semana 10).
+  explica la forma de la transición de fase de campo medio (sesión 14).
 
 El error de cortar en el orden $n$ es del orden de $(x-a)^{n+1}$: si
 $x - a$ es pequeño, el siguiente término es mucho más pequeño.
@@ -217,7 +217,7 @@ $x - a$ es pequeño, el siguiente término es mucho más pequeño.
 <a id="ci2"></a>
 
 ### C.I2 Integrales
-*Semanas 1, 2, 3, 6.*
+*Sesiones 1, 3, 5, 8.*
 
 $\int_a^b f(x)\thinspace dx$ es el área bajo $f$ entre $a$ y $b$, o la **acumulación**
 de una tasa: si $f$ es una velocidad, la integral es la distancia recorrida.
@@ -238,12 +238,12 @@ Integrales que aparecen:
   es finito sólo si $n < \alpha$ ([P.I5](probabilidad.md#pi5)).
 
 **Integración por partes**: $\int u\thinspace dv = uv - \int v\thinspace du$. Se usa para
-calcular momentos de la normal ([notas de la sesión 1](../s01_hechos_estilizados.md)).
+calcular momentos de la normal ([notas de la sesión 1](../s01_retornos.md)).
 
 <a id="ci3"></a>
 
 ### C.I3 Funciones de varias variables
-*Semanas 5, 6, 12.*
+*Sesiones 7, 8, 17.*
 
 Si $f(x_1, \dots, x_n)$, la **derivada parcial** $\partial f/\partial x_i$
 se calcula derivando respecto a $x_i$ con las demás variables fijas.
@@ -260,7 +260,7 @@ $\partial_y f = x^2 + e^y$.
 <a id="ci4"></a>
 
 ### C.I4 Ecuaciones diferenciales en una dimensión
-*Semanas 3, 7, 12.*
+*Sesiones 5, 9, 17.*
 
 Una **ecuación diferencial ordinaria** (EDO) $\dot x = dx/dt = f(x)$ dice
 cómo cambia $x$ dependiendo de su valor actual.
@@ -309,7 +309,7 @@ x[end], exacta(40.0)                              # ≈ 100 y 100
 <a id="ci5"></a>
 
 ### C.I5 Ecuaciones de punto fijo y solución gráfica
-*Semanas 9, 10, 14.*
+*Sesiones 12, 14, 20.*
 
 Muchos modelos de campo medio terminan en una ecuación $x = g(x)$. Ejemplo
 central: la magnetización (u opinión promedio) del modelo de Ising en campo
@@ -348,7 +348,7 @@ end
 <a id="ci6"></a>
 
 ### C.I6 Notación asintótica
-*Todas las semanas.*
+*Todas las sesiones.*
 
 - $f(x) \sim g(x)$: $f/g \to 1$ en el límite indicado. Por ejemplo,
   $\bar F(x) \sim Cx^{-\alpha}$ cuando $x \to \infty$ dice cómo se comporta
@@ -365,7 +365,7 @@ end
 <a id="ca1"></a>
 
 ### C.A1 Optimización con restricciones: multiplicadores de Lagrange
-*Semana 6.*
+*Sesión 8.*
 
 Para maximizar $f(x)$ sujeto a $g_j(x) = c_j$, se construye el
 **lagrangiano**
@@ -391,12 +391,12 @@ $$
 Es la **distribución de Boltzmann-Gibbs**. Con dinero $m \ge 0$ en lugar de
 energía, la versión continua da la exponencial $p(m) = e^{-m/T}/T$, con
 "temperatura" $T = \langle m \rangle$: el dinero promedio por agente
-(Dragulescu-Yakovenko, semana 6).
+(Dragulescu-Yakovenko, sesión 8).
 
 <a id="ca2"></a>
 
 ### C.A2 Sistemas de EDO en dos dimensiones
-*Semana 12.*
+*Sesión 17.*
 
 $$
 \dot x = f(x, y), \qquad \dot y = g(x, y).
@@ -431,7 +431,7 @@ un punto fijo interior estable: la mezcla de equilibrio.
 <a id="ca3"></a>
 
 ### C.A3 Ecuaciones en derivadas parciales: difusión
-*Semanas 3, 7.*
+*Sesiones 5, 9.*
 
 Cuando la incógnita depende de dos variables, como una densidad $p(x, t)$,
 la ecuación involucra derivadas parciales.
@@ -461,7 +461,7 @@ la ecuación de Fokker-Planck ([E.A4](procesos_estocasticos.md#ea4)).
 <a id="ca4"></a>
 
 ### C.A4 Función gamma y fórmula de Stirling
-*Semanas 6, 10.*
+*Sesiones 8, 9, 14.*
 
 **Función gamma**: $\Gamma(z) = \int_0^\infty t^{z-1}e^{-t}\thinspace dt$. Cumple
 $\Gamma(z+1) = z\thinspace\Gamma(z)$, de modo que $\Gamma(n) = (n-1)!$ para enteros;
@@ -488,7 +488,7 @@ justificación combinatoria de [C.A1](#ca1).
 <a id="ca5"></a>
 
 ### C.A5 Mapas discretos, bifurcaciones y caos
-*Semana 14.*
+*Sesión 20.*
 
 Un **mapa** $x_{t+1} = F(x_t)$ es la versión en tiempo discreto de una EDO.
 Los modelos de expectativas (Brock-Hommes) son de este tipo: el precio de
@@ -601,7 +601,7 @@ $= (dx - c)(a - by) + (by - a)(dx - c) = 0$.
 ## Para profundizar
 
 - Strogatz (2019), caps. 1–6 y 10: EDO, retratos de fase, estabilidad y
-  mapas discretos. Muy recomendable para la semana 12 y 14.
+  mapas discretos. Muy recomendable para las sesiones 17 y 20.
 - Chakrabarti et al. (2013), cap. 2: máxima entropía en distribuciones de
   ingreso.
 - Cualquier texto de cálculo (por ejemplo, Stewart, *Cálculo*) para el

@@ -1,6 +1,6 @@
 # Repaso: probabilidad
 
-> Cada concepto tiene una clave (por ejemplo **[P.B3](#pb3)**) y dice en qué semanas
+> Cada concepto tiene una clave (por ejemplo **[P.B3](#pb3)**) y dice en qué sesiones
 > se usa. El índice [README.md](README.md) indica qué repasar antes de cada
 > sesión. Los fragmentos de Julia corren en el entorno del curso
 > (`julia --project=Code`).
@@ -16,7 +16,7 @@
 <a id="pb1"></a>
 
 ### P.B1 Variable aleatoria y su distribución
-*Semanas 1, 2, 6, 8.*
+*Sesiones 1, 3, 8, 10.*
 
 Una **variable aleatoria** $X$ asigna un número a cada resultado de un
 experimento: el retorno de mañana, la riqueza de un agente, el grado de un
@@ -36,14 +36,14 @@ Dos funciones que valen para ambos casos:
   a 1.
 - **Distribución acumulada complementaria (CCDF)**:
   $\bar F(x) = \mathbb{P}(X > x) = 1 - F(x)$. Es la herramienta principal
-  para estudiar colas (semana 2).
+  para estudiar colas (sesión 3).
 
 Para una variable continua, $f(x) = F'(x)$.
 
 <a id="pb2"></a>
 
 ### P.B2 Media, varianza y desviación estándar
-*Semanas 1 en adelante.*
+*Sesiones 1 en adelante.*
 
 $$
 \mu = \mathbb{E}[X] = \sum_k k\thinspace p(k) \ \ \text{o}\ \  \int x f(x)\thinspace dx,
@@ -79,7 +79,7 @@ con variables correlacionadas está en [P.I1](#pi1).
 <a id="pb3"></a>
 
 ### P.B3 Histogramas y densidad empírica
-*Semanas 1, 2, 6.*
+*Sesiones 1, 3, 8.*
 
 Un **histograma** divide el eje en intervalos (*bins*) y cuenta cuántos
 datos caen en cada uno. Para compararlo con una densidad teórica hay que
@@ -90,7 +90,7 @@ Cuidados:
 
 - El número de bins cambia el aspecto. Con pocos datos, pocos bins.
 - Las colas casi no tienen datos y en escala lineal **se ven vacías**. En
-  escala logarítmica del eje vertical aparecen ([sesión 1](../s01_hechos_estilizados.md), hecho 1).
+  escala logarítmica del eje vertical aparecen ([sesión 1](../s01_retornos.md), hecho 1).
 - Para leyes de potencias no conviene el histograma con bins iguales: mejor
   la CCDF empírica ([P.I5](#pi5)).
 
@@ -104,7 +104,7 @@ plot!(-4:0.01:4, z -> pdf(Normal(0, 1), z); lw = 2)
 <a id="pb4"></a>
 
 ### P.B4 Distribución normal y estandarización
-*Semanas 1, 2, 3, 10.*
+*Sesiones 1, 3, 5, 14.*
 
 $$
 f(x) = \frac{1}{\sigma\sqrt{2\pi}}\exp\negthinspace\left(-\frac{(x-\mu)^2}{2\sigma^2}\right),
@@ -124,7 +124,7 @@ $$
 <a id="pb5"></a>
 
 ### P.B5 Muestras, estimadores y ley de los grandes números
-*Semanas 1 en adelante.*
+*Sesiones 1 en adelante.*
 
 Los datos $x_1, \dots, x_N$ son una **muestra**; $\mu$ y $\sigma$ son
 propiedades de la distribución que no conocemos. Las estimamos con
@@ -153,7 +153,7 @@ la media muestral converge muy lentamente o no converge.
 <a id="pi1"></a>
 
 ### P.I1 Independencia, covarianza y correlación
-*Semanas 1, 3, 5, 6.*
+*Sesiones 1, 5, 7, 8.*
 
 $X$ e $Y$ son **independientes** si
 $\mathbb{P}(X \in A, Y \in B) = \mathbb{P}(X \in A)\thinspace\mathbb{P}(Y \in B)$
@@ -173,14 +173,14 @@ $$
 - **Varianza de una suma**:
   $\mathrm{Var}\big[\sum_i X_i\big] = \sum_i \mathrm{Var}[X_i] + 2\sum_{i<j}\mathrm{Cov}(X_i, X_j)$.
   Si son incorreladas, las varianzas se suman. De aquí sale la regla
-  $\sigma\sqrt{\Delta t}$ ([sesión 1](../s01_hechos_estilizados.md)) y la idea de diversificación.
+  $\sigma\sqrt{\Delta t}$ ([sesión 1](../s01_retornos.md)) y la idea de diversificación.
 - **Matriz de correlación** de $N$ variables: $C_{ij} = \rho_{X_i X_j}$. Es
-  simétrica, con unos en la diagonal (semana 5).
+  simétrica, con unos en la diagonal (sesión 7).
 
 <a id="pi2"></a>
 
 ### P.I2 Esperanza condicional
-*Semanas 1, 3, 14.*
+*Sesiones 1, 5, 20.*
 
 $\mathbb{E}[X \mid Y]$ es la **mejor predicción** de $X$ cuando se conoce
 $Y$ (la que minimiza el error cuadrático medio). Es una variable aleatoria:
@@ -201,7 +201,7 @@ mañana dado lo que sabemos hoy; los modelos GARCH la modelan ([E.I4](procesos_e
 <a id="pi3"></a>
 
 ### P.I3 Teorema del límite central
-*Semanas 1, 2, 4.*
+*Sesiones 2, 3, 6.*
 
 **Enunciado.** Si $X_1, \dots, X_n$ son i.i.d. con media $\mu$ y varianza
 $\sigma^2 < \infty$, y $S_n = X_1 + \cdots + X_n$, entonces
@@ -218,9 +218,9 @@ fallan:
 
 | Hipótesis | Si falla… | Dónde lo vemos |
 |---|---|---|
-| Independencia | Convergencia más lenta o a otra cosa | Sesión 1, normalidad agregacional |
-| Varianza finita | El límite es una distribución estable, no normal | Semana 2 ([P.A2](#pa2)) |
-| Suma (no producto) | Un producto de factores tiende a la **lognormal** | Semana 4 ([P.I6](#pi6)) |
+| Independencia | Convergencia más lenta o a otra cosa | Sesión 2, normalidad agregacional |
+| Varianza finita | El límite es una distribución estable, no normal | Sesión 3 ([P.A2](#pa2)) |
+| Suma (no producto) | Un producto de factores tiende a la **lognormal** | Sesión 6 ([P.I6](#pi6)) |
 
 ![Densidad de la suma estandarizada de 1, 2, 5 y 30 exponenciales comparada con la normal](figuras/tlc.png)
 
@@ -237,7 +237,7 @@ mean(z), std(z), kurtosis(z)   # ≈ 0, 1 y algo cercano a 6/50 = 0.12 (la curto
 <a id="pi4"></a>
 
 ### P.I4 Catálogo de distribuciones del curso
-*Semanas 1–7.*
+*Sesiones 1–9.*
 
 | Distribución | Densidad o masa | Media | Varianza | Julia | Dónde |
 |---|---|---|---|---|---|
@@ -265,7 +265,7 @@ Notas:
 <a id="pi5"></a>
 
 ### P.I5 Leyes de potencias y colas pesadas
-*Semanas 2, 4, 6, 7, 8.*
+*Sesiones 3, 6, 8, 9, 10.*
 
 Una variable tiene **cola de ley de potencias** con exponente $\alpha$ si
 
@@ -303,7 +303,7 @@ plot(x, ccdf_emp; xscale = :log10, yscale = :log10, seriestype = :scatter, ms = 
 <a id="pi6"></a>
 
 ### P.I6 Transformación de variables
-*Semanas 4, 6.*
+*Sesiones 3, 6, 8.*
 
 Si $Y = g(X)$ con $g$ creciente y derivable, la densidad de $Y$ es
 
@@ -316,7 +316,7 @@ entonces $X = e^{\ln X}$ tiene densidad
 $f_X(x) = \frac{1}{x}\thinspace\varphi\big(\frac{\ln x - \mu}{\sigma}\big)/\sigma$.
 Como $\ln(a_1 a_2 \cdots a_n) = \sum \ln a_i$, el TLC aplicado a los
 logaritmos dice que **un producto de muchos factores aleatorios es
-aproximadamente lognormal**. Esa es la ley de Gibrat (semana 4).
+aproximadamente lognormal**. Esa es la ley de Gibrat (sesión 6).
 
 **Ejemplo: de Pareto a exponencial.** Si $X \sim \text{Pareto}(\alpha, x_m)$,
 entonces $\ln(X/x_m) \sim \text{Exponencial}(\alpha)$. Esta transformación
@@ -329,7 +329,7 @@ está detrás del estimador de Hill ([P.A3](#pa3)).
 <a id="pa1"></a>
 
 ### P.A1 Funciones generadoras y cumulantes
-*Semanas 1, 2.*
+*Sesiones 2, 3.*
 
 - **Función generadora de momentos**: $M(s) = \mathbb{E}[e^{sX}]$. Sus
   derivadas en 0 dan los momentos: $M^{(n)}(0) = \mathbb{E}[X^n]$. No existe
@@ -342,12 +342,12 @@ está detrás del estimador de Hill ([P.A3](#pa3)).
   tiene $c_n = 0$ para $n \ge 3$.
 - **Aditividad**: si $X$ e $Y$ son independientes,
   $M_{X+Y} = M_X M_Y$, así que $c_n(X+Y) = c_n(X) + c_n(Y)$. Consecuencia:
-  la curtosis de una suma de $n$ i.i.d. es $\kappa/n$ ([sesión 1](../s01_hechos_estilizados.md)).
+  la curtosis de una suma de $n$ i.i.d. es $\kappa/n$ ([sesión 2](../s01_retornos.md)).
 
 <a id="pa2"></a>
 
 ### P.A2 Distribuciones estables y TLC generalizado
-*Semana 2.*
+*Sesión 3.*
 
 $X$ es **estable** si la suma de dos copias independientes tiene la misma
 distribución que $X$, salvo escala y traslación. La normal es estable; la
@@ -369,7 +369,7 @@ normal (lentamente).
 <a id="pa3"></a>
 
 ### P.A3 Máxima verosimilitud
-*Semana 2.*
+*Sesión 3.*
 
 Dada una muestra i.i.d. y un modelo con densidad $f(x; \theta)$, el
 **estimador de máxima verosimilitud** maximiza
@@ -398,7 +398,7 @@ minimizando la distancia de Kolmogorov-Smirnov ([P.A4](#pa4)).
 <a id="pa4"></a>
 
 ### P.A4 Prueba de Kolmogorov-Smirnov
-*Semana 2.*
+*Sesión 3.*
 
 Compara la CDF empírica $F_N(x) = \frac{1}{N}\sum_{i=1}^N \mathbf{1}(x_i \le x)$ (la fracción de datos menores o iguales a $x$) con una CDF
 teórica $F$ mediante
@@ -415,7 +415,7 @@ $p$-valor se obtiene por simulación (*bootstrap*), como en Clauset et al.
 <a id="pa5"></a>
 
 ### P.A5 Dos desigualdades útiles
-*Semanas 1, 4, 6.*
+*Sesiones 1, 6, 8.*
 
 - **Jensen.** Si $g$ es convexa, $g(\mathbb{E}[X]) \le \mathbb{E}[g(X)]$.
   Con $g(x) = x^2$ da $\mathrm{Var}[X] \ge 0$; con $g = -\ln$, que también es

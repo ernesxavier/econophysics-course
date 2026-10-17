@@ -1,6 +1,6 @@
 # Repaso: estadística e inferencia
 
-> Cada concepto tiene una clave (por ejemplo [S.I2](#si2)) y dice en qué semanas
+> Cada concepto tiene una clave (por ejemplo [S.I2](#si2)) y dice en qué sesiones
 > se usa. El índice [README.md](README.md) indica qué repasar antes de cada
 > sesión. Supone el repaso de [probabilidad](probabilidad.md) hasta el nivel
 > correspondiente. Los fragmentos de Julia corren en el entorno del curso
@@ -20,7 +20,7 @@
 <a id="sb1"></a>
 
 ### S.B1 Estimadores y su variabilidad
-*Semanas 1 en adelante.*
+*Sesiones 1 en adelante.*
 
 Un **estimador** es una receta que convierte datos en un número:
 $\hat\mu$ (media muestral), $\hat\sigma$, $\hat\kappa$, $\hat\rho(1)$,
@@ -50,7 +50,7 @@ std(medias), sqrt(var(TDist(4)) / 250)                       # SE simulado ≈ �
 <a id="sb2"></a>
 
 ### S.B2 Intervalos de confianza
-*Semanas 1, 2, 6.*
+*Sesiones 1, 3, 8.*
 
 Si la distribución muestral es aproximadamente normal (lo usual cuando $N$
 es grande, por el TLC), un **intervalo de confianza del 95%** es
@@ -76,7 +76,7 @@ después de 24 años de datos. En cambio, $\hat\sigma$ se conoce con un error
 relativo de pocos por ciento. Por eso la econofísica se concentra en
 volatilidades, colas y correlaciones, y no en predecir retornos medios.
 
-La banda $\pm 1.96/\sqrt{N}$ de la autocorrelación ([sesión 1](../s01_hechos_estilizados.md)) es un
+La banda $\pm 1.96/\sqrt{N}$ de la autocorrelación ([sesión 1](../s01_retornos.md)) es un
 intervalo de este tipo, construido bajo la hipótesis de independencia.
 
 ```julia
@@ -89,7 +89,7 @@ mean(r) - 1.96se, mean(r) + 1.96se                 # intervalo de 95% para la me
 <a id="sb3"></a>
 
 ### S.B3 Pruebas de hipótesis y p-valores
-*Semanas 1, 2, 5.*
+*Sesiones 1, 3, 7.*
 
 Una **prueba de hipótesis** pregunta si los datos son compatibles con una
 afirmación concreta, la **hipótesis nula** $H_0$. Por ejemplo, que
@@ -139,7 +139,7 @@ z = sqrt(N) * autocor(r, [1])[1]
 <a id="sb4"></a>
 
 ### S.B4 Mínimos cuadrados
-*Semanas 2, 4, 8, 15.*
+*Sesiones 3, 6, 10, proyecto final.*
 
 Para ajustar una recta $y_i = a + b\thinspace x_i + e_i$ a datos
 $(x_i, y_i)$, **mínimos cuadrados ordinarios** (MCO) elige $a$ y $b$ que
@@ -171,7 +171,7 @@ R² = cor(x, y)^2
 <a id="sb5"></a>
 
 ### S.B5 Pruebas por simulación: permutaciones
-*Semanas 1, 5, 14.*
+*Sesiones 2, 7, 20.*
 
 Cuando no conocemos la distribución de un estadístico bajo $H_0$, podemos
 **simularla**. Si $H_0$ dice que el orden temporal no importa, barajar los
@@ -182,8 +182,8 @@ datos genera muestras compatibles con $H_0$:
 3. El p-valor es la fracción de versiones barajadas con $T \ge T_{\text{obs}}$:
    $p = (1 + \text{número de } T \ge T_{\text{obs}})/(1 + M)$.
 
-Es la versión formal de los modelos nulos de la [sesión 1](../s01_hechos_estilizados.md). La misma idea
-aparece en la semana 5, donde el espectro de la matriz de correlación
+Es la versión formal de los modelos nulos de la [sesión 2](../s01_retornos.md). La misma idea
+aparece en la sesión 7, donde el espectro de la matriz de correlación
 barajada indica qué es ruido.
 
 ```julia
@@ -204,7 +204,7 @@ perm = [autocor(abs.(shuffle(rng, r)), [1])[1] for _ in 1:999]
 <a id="si1"></a>
 
 ### S.I1 Bootstrap
-*Semanas 2, 6, 15.*
+*Sesiones 3, 8, proyecto final.*
 
 ¿Cuál es el error estándar de la curtosis, del índice de Gini o del
 exponente de Hill? Muchas veces no hay fórmula. El **bootstrap** (Efron,
@@ -238,7 +238,7 @@ kurtosis(x), std(boot), quantile(boot, [0.025, 0.975])
 <a id="si2"></a>
 
 ### S.I2 Muchas pruebas a la vez
-*Semanas 1, 5, 14.*
+*Sesiones 1, 7, 20.*
 
 Si hacemos $m$ pruebas independientes al 5% y todas las $H_0$ son ciertas,
 la probabilidad de al menos un falso positivo es $1 - 0.95^m$: 64% con
@@ -271,7 +271,7 @@ ljung_box(r, 20), ljung_box(abs.(r), 20)             # con la serie r de S.B5
 <a id="si3"></a>
 
 ### S.I3 Comparar datos con una distribución
-*Semanas 2, 6, 8.*
+*Sesiones 3, 8, 10.*
 
 **Gráfica Q-Q.** Grafica los cuantiles de los datos contra los de una
 distribución teórica. Si el modelo es correcto, los puntos caen sobre una
@@ -303,7 +303,7 @@ qqplot(Normal(mean(x), std(x)), x)       # forma de S: colas más pesadas que la
 <a id="si4"></a>
 
 ### S.I4 Datos dependientes y tamaño efectivo de muestra
-*Semanas 1, 3, 13, 14.*
+*Sesiones 1, 5, 19, 20.*
 
 La fórmula $\mathrm{SE} = \sigma/\sqrt{N}$ supone datos independientes. Con
 datos autocorrelacionados, cada observación nueva aporta menos información.
@@ -333,7 +333,7 @@ Dónde aparece en el curso:
 <a id="si5"></a>
 
 ### S.I5 Supuestos de la regresión
-*Semanas 4, 15.*
+*Sesiones 3, 6, proyecto final.*
 
 Los errores estándar e intervalos de MCO suponen que:
 
@@ -355,7 +355,7 @@ Los errores estándar e intervalos de MCO suponen que:
 <a id="sa1"></a>
 
 ### S.A1 Máxima verosimilitud: propiedades
-*Semanas 2, 3, 6, 10.*
+*Sesiones 3, 5, 8, 14.*
 
 El estimador de máxima verosimilitud $\hat\theta$ maximiza
 $\ell(\theta) = \sum_i \ln f(x_i; \theta)$ ([P.A3](probabilidad.md#pa3)). Bajo condiciones de
@@ -371,19 +371,19 @@ regularidad, para $N$ grande:
 $\mathrm{SE}(\hat\alpha) = \hat\alpha/\sqrt{N}$, el resultado citado en [P.A3](probabilidad.md#pa3).
 
 Una curvatura grande significa un máximo agudo: los datos determinan bien
-el parámetro. Así se estiman también GARCH (semana 3) y Brock-Durlauf
-(semana 10), con optimización numérica.
+el parámetro. Así se estiman también GARCH (sesión 5) y Brock-Durlauf
+(sesión 14), con optimización numérica.
 
 <a id="sa2"></a>
 
 ### S.A2 Comparación de modelos
-*Semanas 2, 6.*
+*Sesiones 3, 8.*
 
 - **Razón de verosimilitudes (modelos anidados).** Si el modelo 0 es un
   caso particular del modelo 1 con $k$ parámetros menos,
   $LR = 2(\ell_1 - \ell_0)$ sigue una $\chi^2$ con $k$ grados de libertad
   bajo $H_0$. Ejemplo: la exponencial es una gamma con forma 1, así que
-  "¿el ingreso es exponencial o gamma?" (semana 6) se responde con esta
+  "¿el ingreso es exponencial o gamma?" (sesión 8) se responde con esta
   prueba.
 - **Criterio de Akaike**: $AIC = 2k - 2\ell$, con $k$ el número de
   parámetros. Gana el menor. Penaliza la complejidad y sirve también para
@@ -406,14 +406,14 @@ LR = 2(ℓ1 - ℓ0); ccdf(Chisq(1), LR)                # p-valor ≈ 0: se recha
 <a id="sa3"></a>
 
 ### S.A3 Calibración de modelos de agentes
-*Semanas 14, 15.*
+*Sesiones 20, proyecto final.*
 
 En un modelo de agentes casi nunca se puede escribir la verosimilitud. La
 alternativa estándar es el **método de momentos simulados**:
 
 1. Elegir **momentos** que resuman los datos: varianza, curtosis,
    autocorrelación de $r$ y de $\lvert r\rvert$ en varios rezagos, exponente
-   de Hill. Es decir, los hechos estilizados de la [sesión 1](../s01_hechos_estilizados.md).
+   de Hill. Es decir, los hechos estilizados de las [sesiones 1 y 2](../s01_retornos.md).
 2. Para cada valor de los parámetros $\theta$, simular el modelo y calcular
    los mismos momentos.
 3. Elegir $\theta$ minimizando la distancia ponderada entre momentos
@@ -424,12 +424,12 @@ aleatorios comunes), para que la función objetivo no sea ruidosa; verificar
 que los momentos **identifican** los parámetros (que valores distintos de
 $\theta$ den momentos distintos); y validar con momentos **no usados** en la
 calibración. Franke & Westerhoff (2012) aplican este método a modelos de
-fundamentalistas y chartistas como los de la semana 14.
+fundamentalistas y chartistas como los de la sesión 20.
 
 <a id="sa4"></a>
 
 ### S.A4 Pruebas para la volatilidad y la memoria larga
-*Semanas 1, 3, 14.*
+*Sesiones 2, 5, 20.*
 
 - **Prueba ARCH-LM** (Engle, 1982). Regresar $r_t^2$ contra
   $r_{t-1}^2, \dots, r_{t-q}^2$; bajo la hipótesis de que no hay

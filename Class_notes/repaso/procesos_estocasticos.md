@@ -1,6 +1,6 @@
 # Repaso: procesos estocásticos
 
-> Cada concepto tiene una clave (por ejemplo **[E.I3](#ei3)**) y dice en qué semanas
+> Cada concepto tiene una clave (por ejemplo **[E.I3](#ei3)**) y dice en qué sesiones
 > se usa. El índice [README.md](README.md) indica qué repasar antes de cada
 > sesión. Supone el repaso de [probabilidad](probabilidad.md) hasta el nivel
 > correspondiente. Los fragmentos de Julia corren en el entorno del curso
@@ -17,7 +17,7 @@
 <a id="eb1"></a>
 
 ### E.B1 Qué es un proceso estocástico
-*Semanas 1, 3.*
+*Sesiones 1, 4.*
 
 Un **proceso estocástico** $\lbrace X_t\rbrace$ es una colección de variables aleatorias
 indexadas por el tiempo: el precio de cada día, la riqueza de un agente en
@@ -43,7 +43,7 @@ rng = Xoshiro(42)          # misma semilla → mismos números
 <a id="eb2"></a>
 
 ### E.B2 Caminata aleatoria
-*Semanas 1, 3, 11.*
+*Sesiones 1, 4, 15.*
 
 $$
 S_n = S_0 + \sum_{i=1}^n \xi_i,
@@ -78,7 +78,7 @@ var([c[end] for c in caminatas])   # ≈ 1000
 <a id="eb3"></a>
 
 ### E.B3 Promediar simulaciones
-*Semanas 3 en adelante.*
+*Sesiones 4 en adelante.*
 
 Una sola simulación de un modelo de agentes es una trayectoria; para medir
 algo hay que **promediar**. Hay dos formas:
@@ -100,7 +100,7 @@ ensamble y la trayectoria típica se comportan muy distinto.
 <a id="ei1"></a>
 
 ### E.I1 Estacionariedad y autocorrelación
-*Semanas 1, 3, 14.*
+*Sesiones 1, 5, 20.*
 
 Un proceso es **débilmente estacionario** si su media y su varianza no
 dependen de $t$ y la covarianza entre $X_t$ y $X_{t+\tau}$ depende sólo de
@@ -131,7 +131,7 @@ autocor(x, 1:5)            # ≈ 0.8, 0.64, 0.51, ...
 <a id="ei2"></a>
 
 ### E.I2 Martingalas
-*Semanas 1, 3, 11.*
+*Sesiones 1, 4, 15.*
 
 $\lbrace X_t\rbrace$ es una **martingala** respecto a la información $\mathcal F_t$ si
 
@@ -144,13 +144,13 @@ formalización de un **juego justo** y de la hipótesis de mercado eficiente.
 
 - La caminata aleatoria con $\mathbb{E}[\xi] = 0$ es una martingala.
 - Los incrementos $X_{t+1} - X_t$ de una martingala son **incorrelados**
-  entre sí (demostración en las [notas de la sesión 1](../s01_hechos_estilizados.md)), pero no
+  entre sí (demostración en las [notas de la sesión 1](../s01_retornos.md)), pero no
   necesariamente independientes: su varianza puede depender del pasado.
 
 <a id="ei3"></a>
 
 ### E.I3 Cadenas de Markov
-*Semanas 3, 11.*
+*Sesiones 4, 15.*
 
 Un proceso con estados discretos es una **cadena de Markov** si el futuro
 depende del pasado sólo a través del presente:
@@ -177,7 +177,7 @@ $$
 
 El tiempo medio que se permanece en calma es $1/p$ días.
 
-El modelo de hormigas de Kirman (semana 11) es una cadena de Markov sobre el
+El modelo de hormigas de Kirman (sesión 15) es una cadena de Markov sobre el
 número de agentes con cada opinión.
 
 ```julia
@@ -192,7 +192,7 @@ vals, vecs = eigen(P')                  # eigenvectores izquierdos de P
 <a id="ei4"></a>
 
 ### E.I4 Modelos de volatilidad: ARCH y GARCH
-*Semanas 3, 14.*
+*Sesiones 5, 20.*
 
 Idea: el retorno es ruido con una volatilidad que **cambia en el tiempo y
 depende del pasado**,
@@ -226,7 +226,7 @@ cambiamos de letra para no confundirlos con los exponentes de cola.)
 <a id="ei5"></a>
 
 ### E.I5 Ecuación de Langevin y Euler-Maruyama
-*Semanas 3, 7.*
+*Sesiones 5, 9.*
 
 Una **ecuación diferencial estocástica** escribe el cambio de $X$ como
 "tendencia + ruido":
@@ -270,7 +270,7 @@ gbm(100.0, 0.05, 0.2, 1.0, 1/252)   # un año de precios diarios
 <a id="ei6"></a>
 
 ### E.I6 Crecimiento multiplicativo: Gibrat y Kesten
-*Semanas 4, 6, 7.*
+*Sesiones 5, 6, 8, 9.*
 
 **Gibrat.** El tamaño de una empresa crece por un factor aleatorio:
 $x_{t+1} = a_t\thinspace x_t$ con $a_t > 0$ i.i.d. Entonces
@@ -302,7 +302,7 @@ $$
 La parte multiplicativa contrae en promedio y $b_t$ impide llegar a cero. El
 resultado es una distribución **estacionaria con cola de ley de potencias**,
 $\bar F(x) \sim x^{-\alpha}$. Es un mecanismo genérico para leyes de
-potencias en tamaños de empresas, ciudades y riqueza (semanas 4 y 7).
+potencias en tamaños de empresas, ciudades y riqueza (sesiones 6 y 9).
 
 ---
 
@@ -311,7 +311,7 @@ potencias en tamaños de empresas, ciudades y riqueza (semanas 4 y 7).
 <a id="ea1"></a>
 
 ### E.A1 Movimiento browniano
-*Semana 3.*
+*Sesión 5.*
 
 El **movimiento browniano** (proceso de Wiener) $W_t$ es el límite continuo
 de la caminata aleatoria. Se caracteriza por:
@@ -329,7 +329,7 @@ estocástico es $(dW_t)^2 = dt$.
 <a id="ea2"></a>
 
 ### E.A2 Lema de Itô
-*Semanas 3, 11.*
+*Sesiones 5, 15.*
 
 Si $dX = A\thinspace dt + B\thinspace dW$ y $f(x)$ es dos veces derivable, entonces
 
@@ -354,7 +354,7 @@ $\mu - \sigma^2/2$: la versión continua del ejemplo de Gibrat ([E.I6](#ei6)).
 <a id="ea3"></a>
 
 ### E.A3 Ecuación maestra
-*Semanas 3, 11.*
+*Sesiones 5, 13, 15.*
 
 Para un proceso de Markov en tiempo continuo con estados discretos $n$ y
 tasas de transición $W(m \to n)$, la probabilidad $P_n(t)$ evoluciona según
@@ -366,12 +366,12 @@ $$
 "Lo que entra menos lo que sale." En el estado estacionario, el lado
 izquierdo es 0. Si además cada par de estados se equilibra por separado,
 $W(m \to n)\thinspace P_m = W(n \to m)\thinspace P_n$, se dice que hay **balance detallado**;
-es la condición que usa el algoritmo de Metropolis (semana 10).
+es la condición que usa el algoritmo de Metropolis (sesión 13).
 
 <a id="ea4"></a>
 
 ### E.A4 Ecuación de Fokker-Planck
-*Semanas 3, 7, 11.*
+*Sesiones 5, 6, 9, 15.*
 
 Si $X_t$ sigue $dX = A(X)\thinspace dt + B(X)\thinspace dW$, su densidad $p(x, t)$ satisface
 
@@ -391,13 +391,13 @@ $$
 
 Ejemplo: en Ornstein-Uhlenbeck, $2A/B^2 = -2\theta x/\sigma^2$, así que
 $p_s$ es normal con varianza $\sigma^2/2\theta$. En el modelo de
-Bouchaud-Mézard (semana 7), $B \propto x$ y la misma fórmula da una cola de
+Bouchaud-Mézard (sesión 9), $B \propto x$ y la misma fórmula da una cola de
 Pareto.
 
 <a id="ea5"></a>
 
 ### E.A5 Exponente de Kesten
-*Semana 4.*
+*Sesión 6.*
 
 Para $x_{t+1} = a_t x_t + b_t$ con $\mathbb{E}[\ln a] < 0$ y
 $\mathbb{P}(a > 1) > 0$, el exponente de la cola estacionaria es la
@@ -417,7 +417,7 @@ $\alpha = -2m/s^2$.
 <a id="ea6"></a>
 
 ### E.A6 Tiempos de primer paso y absorción
-*Semanas 3, 11.*
+*Sesiones 4, 15.*
 
 El **tiempo de primer paso** $T$ es el primer momento en que el proceso
 alcanza un nivel o estado. Si ese estado es **absorbente** (no se sale de
@@ -433,7 +433,7 @@ $$
 $$
 
 Se obtienen planteando una ecuación de recurrencia para cada estado inicial
-(condicionando en el primer paso). El modelo de votante (semana 11) es de
+(condicionando en el primer paso). El modelo de votante (sesión 15) es de
 este tipo: el consenso es un estado absorbente y el tiempo de consenso crece
 con el número de agentes.
 

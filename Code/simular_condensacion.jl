@@ -1,4 +1,4 @@
-# Barridos del laboratorio de la sesión 7: razón de participación inversa Y₂
+# Barridos del laboratorio de la sesión 9: razón de participación inversa Y₂
 # del modelo de Bouchaud-Mézard.
 #
 # 1. Intercambio: varias intensidades J y tamaños N, en campo medio y en una
@@ -15,7 +15,7 @@
 #
 # Las simulaciones grandes son demasiado lentas para el cuaderno, así que se
 # corren aquí una vez. `red_aleatoria` y `simular_bm` son las mismas funciones
-# del apéndice de Code/s07_condensacion.jl.
+# del apéndice de Code/s09_condensacion.jl.
 
 using CSV, DataFrames, Random, Statistics
 
@@ -33,7 +33,7 @@ function red_aleatoria(N, c; rng = Xoshiro(7))
     vecinos
 end
 
-"Modelo de Bouchaud-Mézard con σ = 1; ver el apéndice del cuaderno de la sesión 7."
+"Modelo de Bouchaud-Mézard con σ = 1; ver el apéndice del cuaderno de la sesión 9."
 function simular_bm(N, J; vecinos = nothing, φ = 0.0, dt = 0.01, T = 200.0,
                     rng = Xoshiro(1), Y2 = false)
     w = ones(N)

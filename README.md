@@ -7,56 +7,57 @@ Matemáticas), con simulaciones en Julia.
 
 ```
 ├── programa/
-│   ├── programa.md            → Programa rediseñado (15 semanas)
+│   ├── programa.md            → Programa rediseñado (20 sesiones; semestre o trimestre)
 │   └── programa-anterior.md   → Programa del semestre anterior
 ├── Class_notes/
-│   ├── s01_hechos_estilizados.md → Notas formales, sesión 1
-│   ├── s02_colas_pesadas.md   → Notas formales, sesión 2
-│   ├── s03_procesos_estocasticos.md → Notas formales, sesión 3
-│   ├── s04_crecimiento_multiplicativo.md → Notas formales, sesión 4
-│   ├── s05_correlaciones.md   → Notas formales, sesión 5
-│   ├── s06_intercambio.md     → Notas formales, sesión 6
-│   ├── s07_condensacion.md    → Notas formales, sesión 7
-│   ├── s08_redes.md           → Notas formales, sesión 8
-│   ├── s09_contagio.md        → Notas formales, sesión 9
-│   ├── s10_ising.md           → Notas formales, sesión 10
-│   ├── s11_opinion.md         → Notas formales, sesión 11
-│   ├── s12_juegos_evolutivos.md → Notas formales, sesión 12
-│   ├── s13_juego_minoria.md   → Notas formales, sesión 13
-│   ├── s14_mercados_artificiales.md → Notas formales, sesión 14
-│   └── repaso/                → Repaso de matemáticas por niveles (índice por semana)
+│   ├── s01_retornos.md            → Notas formales, sesiones 1 y 2 (se divide en la fase 3)
+│   ├── s03_colas_pesadas.md       → Notas formales, sesión 3
+│   ├── s04_caminata_markov.md     → Notas formales, sesiones 4 y 5 (se divide en la fase 3)
+│   ├── s06_crecimiento_multiplicativo.md → Notas formales, sesión 6
+│   ├── s07_correlaciones.md       → Notas formales, sesión 7
+│   ├── s08_intercambio.md         → Notas formales, sesión 8
+│   ├── s09_condensacion.md        → Notas formales, sesión 9
+│   ├── s10_redes_modelos.md       → Notas formales, sesiones 10 y 11 (se divide en la fase 3)
+│   ├── s12_contagio.md            → Notas formales, sesión 12
+│   ├── s13_logit_ising.md         → Notas formales, sesiones 13 y 14 (se divide en la fase 3)
+│   ├── s15_votante_kirman.md      → Notas formales, sesiones 15 y 16 (se divide en la fase 3)
+│   ├── s17_replicador_goodwin.md  → Notas formales, sesiones 17 y 18 (se divide en la fase 3)
+│   ├── s19_juego_minoria.md       → Notas formales, sesión 19
+│   ├── s20_mercados_artificiales.md → Notas formales, sesión 20
+│   └── repaso/                → Repaso de matemáticas por niveles (índice por sesión)
 │       └── figuras/           → Figuras de las notas (generadas con Code/figuras_repaso.jl)
 ├── docs/
 │   ├── diagnostico.md         → Revisión del curso anterior
-│   └── benchmark.md           → Econofísica en otras universidades
+│   ├── benchmark.md           → Econofísica en otras universidades
+│   └── plan_reestructuracion.md → Plan para pasar de 14 a 20 sesiones
 ├── Data/
 │   ├── precios.csv            → IPC, USD/MXN, S&P 500 y Bitcoin (2000–sep 2026)
 │   ├── sp100_precios.csv      → 95 acciones del S&P 100 (2015–sep 2026)
 │   ├── sp100_sectores.csv     → Nombre y sector GICS de esas acciones
 │   ├── enigh2024_hogares.csv  → Ingreso mensual por hogar, ENIGH 2024 (INEGI)
-│   ├── condensacion_bm.csv    → Barrido simulado del modelo de Bouchaud-Mézard (sesión 7)
-│   ├── condensacion_impuesto.csv → Barrido con impuesto redistribuido (sesión 7)
+│   ├── condensacion_bm.csv    → Barrido simulado del modelo de Bouchaud-Mézard (sesión 9)
+│   ├── condensacion_impuesto.csv → Barrido con impuesto redistribuido (sesión 9)
 │   ├── localidades_2020.csv   → Población por localidad, Censo 2020 (INEGI), ≥ 100 hab.
 │   └── municipios_2010_2020.csv → Población por municipio, Censos 2010 y 2020 (INEGI)
 ├── Code/                      → Todo el código Julia, un solo entorno
-│   ├── s01_hechos_estilizados.jl → Cuaderno de Pluto, sesión 1 (programa nuevo)
-│   ├── s02_colas_pesadas.jl   → Cuaderno de Pluto, sesión 2
-│   ├── s03_procesos_estocasticos.jl → Cuaderno de Pluto, sesión 3
-│   ├── s04_crecimiento_multiplicativo.jl → Cuaderno de Pluto, sesión 4
-│   ├── s05_correlaciones.jl   → Cuaderno de Pluto, sesión 5
-│   ├── s06_intercambio.jl     → Cuaderno de Pluto, sesión 6
-│   ├── s07_condensacion.jl    → Cuaderno de Pluto, sesión 7
-│   ├── s08_redes.jl           → Cuaderno de Pluto, sesión 8
-│   ├── s09_contagio.jl        → Cuaderno de Pluto, sesión 9
-│   ├── s10_ising.jl           → Cuaderno de Pluto, sesión 10
-│   ├── s11_opinion.jl         → Cuaderno de Pluto, sesión 11
-│   ├── s12_juegos_evolutivos.jl → Cuaderno de Pluto, sesión 12
-│   ├── s13_juego_minoria.jl   → Cuaderno de Pluto, sesión 13
-│   ├── s14_mercados_artificiales.jl → Cuaderno de Pluto, sesión 14
+│   ├── s01_retornos.jl            → Cuaderno de Pluto, sesiones 1 y 2 (se divide en la fase 3)
+│   ├── s03_colas_pesadas.jl       → Cuaderno de Pluto, sesión 3
+│   ├── s04_caminata_markov.jl     → Cuaderno de Pluto, sesiones 4 y 5 (se divide en la fase 3)
+│   ├── s06_crecimiento_multiplicativo.jl → Cuaderno de Pluto, sesión 6
+│   ├── s07_correlaciones.jl       → Cuaderno de Pluto, sesión 7
+│   ├── s08_intercambio.jl         → Cuaderno de Pluto, sesión 8
+│   ├── s09_condensacion.jl        → Cuaderno de Pluto, sesión 9
+│   ├── s10_redes_modelos.jl       → Cuaderno de Pluto, sesiones 10 y 11 (se divide en la fase 3)
+│   ├── s12_contagio.jl            → Cuaderno de Pluto, sesión 12
+│   ├── s13_logit_ising.jl         → Cuaderno de Pluto, sesiones 13 y 14 (se divide en la fase 3)
+│   ├── s15_votante_kirman.jl      → Cuaderno de Pluto, sesiones 15 y 16 (se divide en la fase 3)
+│   ├── s17_replicador_goodwin.jl  → Cuaderno de Pluto, sesiones 17 y 18 (se divide en la fase 3)
+│   ├── s19_juego_minoria.jl       → Cuaderno de Pluto, sesión 19
+│   ├── s20_mercados_artificiales.jl → Cuaderno de Pluto, sesión 20
 │   ├── descargar_datos.jl     → Regenera Data/precios.csv desde Yahoo Finance
 │   ├── descargar_sp100.jl     → Regenera los datos del S&P 100 (Yahoo Finance)
 │   ├── descargar_enigh.jl     → Regenera los datos de la ENIGH 2024 (INEGI)
-│   ├── simular_condensacion.jl → Regenera los datos de condensación de la sesión 7 (tarda minutos)
+│   ├── simular_condensacion.jl → Regenera los datos de condensación de la sesión 9 (tarda minutos)
 │   ├── descargar_inegi.jl     → Regenera los datos de INEGI (localidades y municipios)
 │   ├── figuras_repaso.jl      → Regenera las figuras de Class_notes/repaso/figuras/
 │   │   Notebooks del semestre anterior:
@@ -72,7 +73,8 @@ Matemáticas), con simulaciones en Julia.
 │   └── Manifest.toml
 ├── src/                       → Fuentes de los cuadernos de Pluto (formato #%%)
 │   ├── construir_cuaderno.jl  → Genera y ejecuta un cuaderno a partir de su fuente
-│   └── sNN_tema.jl            → Fuente de Code/sNN_tema.jl (sesiones 1 a 14)
+│   ├── revisar_material.jl    → Revisa claves de repaso, enlaces y referencias a sesiones
+│   └── sNN_tema.jl            → Fuente de Code/sNN_tema.jl (14 fuentes; 20 sesiones al terminar la fase 3)
 └── README.md
 ```
 
@@ -101,7 +103,7 @@ julia --project=Code -e 'using Pkg; Pkg.instantiate()'
 julia --project=Code -e 'using Pluto; Pluto.run()'
 ```
 
-y en el navegador abrir `Code/s01_hechos_estilizados.jl`.
+y en el navegador abrir `Code/s01_retornos.jl`.
 
 **Notebooks de Jupyter del semestre anterior:** abrir `Code/sesion_*.ipynb` en
 VS Code o Jupyter con el entorno `Code`.
@@ -113,7 +115,7 @@ ejecuta sin interfaz, reporta las celdas con error y guarda las gráficas en
 la carpeta de salidas para revisarlas:
 
 ```
-julia --project=Code src/construir_cuaderno.jl src/s02_colas_pesadas.jl Code/s02_colas_pesadas.jl /tmp/salidas
+julia --project=Code src/construir_cuaderno.jl src/s03_colas_pesadas.jl Code/s03_colas_pesadas.jl /tmp/salidas
 ```
 
 La fuente y el cuaderno deben coincidir. Los cambios grandes se hacen en la
@@ -136,17 +138,17 @@ julia -e 'using Pkg; Pkg.activate("Code"); Pkg.update()'
 
 ## Pendientes
 
-- [x] Sesión 1: hechos estilizados (Pluto).
-- [ ] Notebooks nuevos: estimación de colas, procesos
-      estocásticos, crecimiento multiplicativo, matrices aleatorias, modelos
-      cinéticos, Bouchaud-Mézard, contagio, Ising, votante y Kirman, minoría,
-      Brock-Hommes.
-- [ ] Módulo compartido con funciones comunes (`gini`, `ccdf`, `hill`, ...). Ya no puede ir en `src/`, que ahora guarda las fuentes de los cuadernos; por ejemplo, `Code/comun.jl`.
-- [x] Datos en CSV para no depender de la API de Yahoo.
-- [ ] Migrar el resto de las sesiones a Pluto.jl.
+Plan completo en [docs/plan_reestructuracion.md](docs/plan_reestructuracion.md).
+
+- [x] Cuadernos de Pluto y notas formales de las 14 sesiones originales.
+- [x] Fase 1: programa de 20 sesiones.
+- [x] Fase 2: renumeración de archivos y referencias.
+- [ ] Fase 3: dividir las sesiones 1, 4, 10, 13, 15 y 17 (cada una en dos).
+- [ ] Fases 4 a 6: aligerar sesiones, notas en dos capas, conceptos transversales.
+- [ ] Fase 7: talleres para casa de los tres módulos y guía del proyecto final.
+- [ ] Diagnóstico de matemáticas para la sesión 1.
+- [ ] Lista de artículos para presentaciones.
+- [ ] Módulo compartido con funciones comunes (`gini`, `ccdf`, `hill`, ...), por ejemplo `Code/comun.jl`.
 - [ ] Notebooks anteriores: en `sesion_1` la celda 31 grafica `Normal(...)`
       antes de cargar `StatsPlots`; en `sesion_8` la celda 16 da error
       (`agentes.feliz`), igual que en el original.
-- [ ] Notebooks con huecos y ejercicios separados en ruta básica y avanzada.
-- [ ] Examen diagnóstico de matemáticas (semana 1).
-- [ ] Lista de artículos para presentaciones.

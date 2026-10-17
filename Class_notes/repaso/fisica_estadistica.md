@@ -1,6 +1,6 @@
 # Repaso: física estadística
 
-> Cada concepto tiene una clave (por ejemplo **[F.I3](#fi3)**) y dice en qué semanas
+> Cada concepto tiene una clave (por ejemplo **[F.I3](#fi3)**) y dice en qué sesiones
 > se usa. El índice [README.md](README.md) indica qué repasar antes de cada
 > sesión. Supone [probabilidad](probabilidad.md) y [cálculo](calculo.md)
 > hasta el nivel correspondiente. Los fragmentos de Julia corren en el
@@ -19,7 +19,7 @@
 <a id="fb1"></a>
 
 ### F.B1 De lo micro a lo macro
-*Semanas 1, 6, 10.*
+*Sesiones 1, 8, 13.*
 
 La física estadística explica propiedades **macroscópicas** (presión,
 temperatura, magnetización) a partir de reglas **microscópicas** para
@@ -55,7 +55,7 @@ aplican.
 <a id="fb2"></a>
 
 ### F.B2 Entropía como conteo
-*Semanas 6, 7.*
+*Sesiones 8, 9.*
 
 Para un macroestado, sea $W$ el número de microestados compatibles con él.
 La **entropía** (en unidades donde la constante de Boltzmann vale 1) es
@@ -69,14 +69,14 @@ $W = \binom{100}{50} \approx 10^{29}$ microestados; "100 águilas", sólo uno.
 Si todos los microestados son igualmente probables, casi siempre veremos
 cerca de 50: **el macroestado más probable es el de mayor entropía**.
 
-Ésta es la idea detrás de la semana 6: si el dinero total se conserva y los
+Ésta es la idea detrás de la sesión 8: si el dinero total se conserva y los
 intercambios lo reparten al azar, la distribución que se observa es la que
 tiene más formas de realizarse, y resulta ser la **exponencial** ([C.A1](calculo.md#ca1)).
 
 <a id="fb3"></a>
 
 ### F.B3 Temperatura: ruido contra orden
-*Semanas 6, 10, 11.*
+*Sesiones 8, 13, 15.*
 
 En el curso, la temperatura $T$ (o su inverso $\beta = 1/T$) mide cuánto
 **ruido** hay en las decisiones frente a la tendencia a minimizar energía
@@ -89,14 +89,14 @@ En el curso, la temperatura $T$ (o su inverso $\beta = 1/T$) mide cuánto
 - En medio, compiten el orden (energía) y el desorden (entropía). De esa
   competencia salen las transiciones de fase.
 
-En el intercambio de dinero (semana 6), la "temperatura" es otra cosa:
+En el intercambio de dinero (sesión 8), la "temperatura" es otra cosa:
 $T = \langle m\rangle$, el dinero promedio por agente. Ambas comparten el
 papel matemático de escala en $e^{-E/T}$.
 
 <a id="fb4"></a>
 
 ### F.B4 Transiciones de fase
-*Semanas 7, 8, 10, 11, 13.*
+*Sesiones 9, 11, 13, 15, 16, 19.*
 
 Una **transición de fase** es un cambio **cualitativo y abrupto** en el
 comportamiento colectivo cuando un parámetro cruza un valor crítico.
@@ -107,13 +107,13 @@ comportamiento colectivo cuando un parámetro cruza un valor crítico.
   de 0 en la otra (magnetización, tamaño del componente gigante, fracción de
   riqueza del más rico).
 
-| Semana | Sistema | Control | Orden |
+| Sesión | Sistema | Control | Orden |
 |---|---|---|---|
-| 7 | Bouchaud-Mézard | Intensidad de intercambio | Fracción de la riqueza en pocos agentes (condensación) |
-| 8 | Redes aleatorias | Grado promedio $\langle k\rangle$ | Tamaño del componente gigante |
-| 10 | Ising, Brock-Durlauf | $\beta J$ | Magnetización, adopción neta |
-| 11 | Votante, Kirman | Ruido, red | Consenso o bimodalidad |
-| 13 | Juego de la minoría | $\alpha = 2^M/N$ | Volatilidad $\sigma^2/N$, predictibilidad |
+| 9 | Bouchaud-Mézard | Intensidad de intercambio | Fracción de la riqueza en pocos agentes (condensación) |
+| 11 | Redes aleatorias | Grado promedio $\langle k\rangle$ | Tamaño del componente gigante |
+| 13 | Ising, Brock-Durlauf | $\beta J$ | Magnetización, adopción neta |
+| 15 | Votante, Kirman | Ruido, red | Consenso o bimodalidad |
+| 19 | Juego de la minoría | $\alpha = 2^M/N$ | Volatilidad $\sigma^2/N$, predictibilidad |
 
 En una simulación finita la transición se ve **suavizada**: el cambio
 abrupto aparece sólo cuando el número de agentes crece.
@@ -125,7 +125,7 @@ abrupto aparece sólo cuando el número de agentes crece.
 <a id="fi1"></a>
 
 ### F.I1 Distribución de Boltzmann y función de partición
-*Semanas 6, 10.*
+*Sesiones 8, 13.*
 
 Un sistema en equilibrio a temperatura $T = 1/\beta$ ocupa el estado $i$,
 con energía $E_i$, con probabilidad
@@ -161,7 +161,7 @@ de dos estados.
 <a id="fi2"></a>
 
 ### F.I2 Logit = Boltzmann
-*Semana 10.*
+*Sesión 13.*
 
 **Modelo de elección discreta** (McFadden). Un agente elige la opción $i$
 entre varias con utilidad
@@ -188,7 +188,7 @@ es un modelo de Ising.
 <a id="fi3"></a>
 
 ### F.I3 Modelo de Ising
-*Semanas 10, 11.*
+*Sesiones 13, 15, 16.*
 
 $N$ espines $s_i \in \lbrace-1, +1\rbrace$ en los nodos de una red, con energía
 
@@ -217,7 +217,7 @@ En una dimensión no hay transición a $T > 0$.
 <a id="fi4"></a>
 
 ### F.I4 Aproximación de campo medio
-*Semanas 10, 11.*
+*Sesiones 14, 15.*
 
 Cada espín siente el **campo local** $h_i = J\sum_{j \in \text{vecinos}} s_j + h$.
 La aproximación de campo medio reemplaza a los vecinos por su promedio:
@@ -256,7 +256,7 @@ basta para revertirlo.
 <a id="fi5"></a>
 
 ### F.I5 Simulación de Monte Carlo: algoritmo de Metropolis
-*Semana 10.*
+*Sesión 13.*
 
 Para muestrear configuraciones con probabilidad $\propto e^{-\beta H}$ sin
 calcular $Z$ (que tiene $2^N$ términos):
@@ -302,7 +302,7 @@ end
 <a id="fi6"></a>
 
 ### F.I6 Modelos cinéticos de intercambio
-*Semanas 6, 7.*
+*Sesiones 8, 9.*
 
 Analogía con un gas: los agentes son moléculas y cada transacción es un
 choque que redistribuye dinero entre dos de ellos, **conservando** el total
@@ -330,7 +330,7 @@ choque que redistribuye dinero entre dos de ellos, **conservando** el total
 <a id="fa1"></a>
 
 ### F.A1 Energía libre y teoría de Landau
-*Semana 10.*
+*Sesión 14.*
 
 La **energía libre** es
 
@@ -359,7 +359,7 @@ de Taylor de $\tanh$ en el campo medio ([C.I1](calculo.md#ci1)).
 <a id="fa2"></a>
 
 ### F.A2 Exponentes críticos y universalidad
-*Semanas 1, 10, 13.*
+*Sesiones 2, 14, 19.*
 
 Cerca del punto crítico, las cantidades se comportan como **leyes de
 potencias** en $|T - T_c|$:
@@ -387,7 +387,7 @@ Los detalles microscópicos no importan cerca del punto crítico, porque las
 correlaciones se extienden a todas las escalas (la longitud de correlación
 diverge).
 
-Por eso la universalidad de los hechos estilizados ([sesión 1](../s01_hechos_estilizados.md)) sugiere a los
+Por eso la universalidad de los hechos estilizados ([sesión 2](../s01_retornos.md)) sugiere a los
 físicos que los mercados podrían estar cerca de un punto crítico. Es una
 hipótesis atractiva, pero no demostrada: hay otros mecanismos que generan
 leyes de potencias (Kesten, [E.I6](procesos_estocasticos.md#ei6)).
@@ -395,7 +395,7 @@ leyes de potencias (Kesten, [E.I6](procesos_estocasticos.md#ei6)).
 <a id="fa3"></a>
 
 ### F.A3 Campo aleatorio, avalanchas y crisis
-*Semana 10.*
+*Sesión 14.*
 
 **Modelo de Ising con campo aleatorio.** Cada agente tiene su propio
 incentivo privado $h_i$, tomado de una distribución con dispersión $R$, más
@@ -420,7 +420,7 @@ pánicos bancarios y caídas del consumo.
 <a id="fa4"></a>
 
 ### F.A4 Vidrios de espín
-*Semanas 10, 13.*
+*Sesiones 14, 19.*
 
 Si los acoplamientos $J_{ij}$ son aleatorios y de **ambos signos** (unos
 agentes quieren coincidir y otros diferir), no es posible satisfacer todas
@@ -436,7 +436,7 @@ coordinación con muchos equilibrios (Bouchaud, Marsili & Nadal, 2023).
 <a id="fa5"></a>
 
 ### F.A5 Percolación
-*Semanas 8, 9.*
+*Sesiones 11, 12.*
 
 En una red, cada enlace (o nodo) está presente con probabilidad $p$. La
 pregunta: ¿existe un **componente gigante** que contenga una fracción
@@ -451,7 +451,7 @@ finita de todos los nodos?
   sobrevive. Las redes libres de escala (Barabási-Albert) casi no tienen
   umbral ante fallas aleatorias, pero se fragmentan rápido si se atacan sus
   nodos de mayor grado.
-- Las cascadas de Watts (semana 9) son una percolación sobre los nodos
+- Las cascadas de Watts (sesión 12) son una percolación sobre los nodos
   "vulnerables".
 
 ---
@@ -473,7 +473,7 @@ Ruido grande: opiniones mezcladas, $m \approx 0$. Ruido casi nulo: consenso
 </details>
 
 <details>
-<summary><b>3 (B).</b> En la semana 8, ¿cuál es el parámetro de control y cuál el de orden de la transición del componente gigante?</summary>
+<summary><b>3 (B).</b> En la sesión 11, ¿cuál es el parámetro de control y cuál el de orden de la transición del componente gigante?</summary>
 
 Control: el grado promedio $\langle k\rangle$ (o la probabilidad de enlace).
 Orden: la fracción de nodos en el componente más grande.

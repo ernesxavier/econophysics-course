@@ -1,6 +1,6 @@
 # Repaso: álgebra lineal
 
-> Cada concepto tiene una clave (por ejemplo **[L.I2](#li2)**) y dice en qué semanas
+> Cada concepto tiene una clave (por ejemplo **[L.I2](#li2)**) y dice en qué sesiones
 > se usa. El índice [README.md](README.md) indica qué repasar antes de cada
 > sesión. Los fragmentos de Julia corren en el entorno del curso
 > (`julia --project=Code`).
@@ -16,7 +16,7 @@
 <a id="lb1"></a>
 
 ### L.B1 Vectores, producto punto y norma
-*Semanas 5, 8.*
+*Sesiones 7, 10.*
 
 Un **vector** $x \in \mathbb{R}^n$ es una lista de $n$ números. En el curso,
 un vector puede ser la serie de retornos de un activo ($n$ = días), la
@@ -45,7 +45,7 @@ Correlación 1: apuntan en la misma dirección; 0: ortogonales; −1: opuestos.
 <a id="lb2"></a>
 
 ### L.B2 Matrices y sus operaciones
-*Semanas 3, 5, 8, 9.*
+*Sesiones 4, 7, 10, 12.*
 
 Una **matriz** $A \in \mathbb{R}^{m \times n}$ tiene $m$ filas y $n$
 columnas; $A_{ij}$ es el elemento de la fila $i$, columna $j$.
@@ -69,7 +69,7 @@ calcular la inversa).
 <a id="lb3"></a>
 
 ### L.B3 Matrices como datos
-*Semanas 1, 5.*
+*Sesiones 1, 7.*
 
 Una tabla de retornos de $N$ activos durante $T$ días es una matriz
 $R \in \mathbb{R}^{T \times N}$: cada **columna** es un activo, cada
@@ -92,7 +92,7 @@ C ≈ Z' * Z / (size(R, 1) - 1)         # true
 <a id="lb4"></a>
 
 ### L.B4 Matriz de adyacencia
-*Semanas 8, 9, 11, 12.*
+*Sesiones 10, 12, 15, 18.*
 
 Una red con $n$ nodos se representa con la **matriz de adyacencia**
 $A \in \lbrace0,1\rbrace^{n \times n}$: $A_{ij} = 1$ si hay un enlace de $i$ a $j$.
@@ -120,7 +120,7 @@ k = A * ones(Int, 4)        # grados: [2, 2, 3, 1]
 <a id="li1"></a>
 
 ### L.I1 Eigenvalores y eigenvectores
-*Semanas 3, 5, 8, 12.*
+*Sesiones 4, 7, 11, 17.*
 
 Un vector $v \ne 0$ es un **eigenvector** (vector propio) de la matriz
 cuadrada $A$, con **eigenvalor** $\lambda$, si
@@ -152,7 +152,7 @@ centralidad ([L.I4](#li4)) y en la estabilidad ([L.A3](#la3)).
 <a id="li2"></a>
 
 ### L.I2 Matrices simétricas y teorema espectral
-*Semanas 5, 8.*
+*Sesiones 7, 11.*
 
 **Teorema espectral.** Si $A$ es real y simétrica, entonces
 
@@ -176,7 +176,7 @@ varianza total** en la dirección $v_i$.
 <a id="li3"></a>
 
 ### L.I3 Componentes principales y modo de mercado
-*Semana 5.*
+*Sesión 7.*
 
 El eigenvector $v_1$ con el mayor eigenvalor de $C$ es la combinación de
 activos con **mayor varianza**: la "dirección principal" de los datos.
@@ -207,7 +207,7 @@ C = (1 - ρ) * I(N) + ρ * ones(N, N)
 <a id="li4"></a>
 
 ### L.I4 Potencias de matrices: caminos y centralidad
-*Semanas 3, 8, 9.*
+*Sesiones 4, 10, 12.*
 
 **Caminos.** $(A^k)_{ij}$ es el número de caminos de longitud $k$ del nodo
 $i$ al $j$. Consecuencias:
@@ -238,7 +238,7 @@ abs.(v) ./ sum(abs.(v))                       # centralidad: el nodo 3 es el má
 <a id="li5"></a>
 
 ### L.I5 Distancia entre activos
-*Semanas 5, 8.*
+*Sesiones 7, 11.*
 
 Para construir una red a partir de correlaciones hace falta una
 **distancia**. Si $\hat z_i$ es la serie estandarizada del activo $i$
@@ -263,7 +263,7 @@ con $N-1$ enlaces de distancia total mínima.
 <a id="la1"></a>
 
 ### L.A1 El Laplaciano de una red
-*Semana 8.*
+*Sesión 11.*
 
 $$
 L = D - A,
@@ -280,12 +280,12 @@ $$
   eigenvector (vector de Fiedler) sugiere la partición.
 - **Difusión en la red**: $\dot x = -Lx$ hace que cada nodo se acerque al
   promedio de sus vecinos. La velocidad de convergencia al consenso la fija
-  $\lambda_2$ (relacionado con el modelo de votante, semana 11).
+  $\lambda_2$ (relacionado con el modelo de votante, sesión 15).
 
 <a id="la2"></a>
 
 ### L.A2 Matrices aleatorias y Marchenko-Pastur
-*Semana 5.*
+*Sesión 7.*
 
 Si los $N$ activos fueran **independientes** y tuviéramos $T$ días, la
 matriz de correlación muestral no sería la identidad: el ruido de
@@ -322,7 +322,7 @@ extrema(λ), ((1 - 1/sqrt(Q))^2, (1 + 1/sqrt(Q))^2)   # ≈ (0.25, 2.25)
 <a id="la3"></a>
 
 ### L.A3 Jacobiano y estabilidad lineal
-*Semanas 12, 14.*
+*Sesiones 17, 20.*
 
 **Tiempo continuo.** Para $\dot x = f(x)$ con $x \in \mathbb{R}^n$, un
 **punto fijo** $x^\ast$ cumple $f(x^\ast) = 0$. Cerca de él,
@@ -347,12 +347,12 @@ variar un parámetro, el punto fijo pierde estabilidad cuando un eigenvalor
 sale del círculo unitario: por $+1$ (bifurcación de horquilla), por $-1$
 (duplicación de periodo: aparece un ciclo de periodo 2) o un par complejo
 (bifurcación de Hopf: aparecen oscilaciones). El modelo de Brock-Hommes
-(semana 14) pasa por varias de ellas al aumentar la intensidad de elección.
+(sesión 20) pasa por varias de ellas al aumentar la intensidad de elección.
 
 <a id="la4"></a>
 
 ### L.A4 Series de matrices y puntos fijos
-*Semanas 8, 9.*
+*Sesiones 10, 12.*
 
 **Radio espectral**: $r(A) = \max_i |\lambda_i|$. Si $r(A) < 1$,
 
@@ -376,7 +376,7 @@ el efecto total es $(I - A)^{-1}s$. Esta estructura aparece en:
 <a id="la5"></a>
 
 ### L.A5 Teorema de Perron-Frobenius
-*Semanas 3, 8, 9.*
+*Sesiones 4, 10, 12.*
 
 Si $A$ tiene entradas no negativas y es **irreducible** (en la red asociada
 se puede llegar de cualquier nodo a cualquier otro), entonces:
