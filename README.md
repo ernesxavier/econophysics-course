@@ -17,6 +17,7 @@ Matemáticas), con simulaciones en Julia.
 │   ├── s05_correlaciones.md   → Notas formales, sesión 5
 │   ├── s06_intercambio.md     → Notas formales, sesión 6
 │   ├── s07_condensacion.md    → Notas formales, sesión 7
+│   ├── s08_redes.md           → Notas formales, sesión 8
 │   └── repaso/                → Repaso de matemáticas por niveles (índice por semana)
 │       └── figuras/           → Figuras de las notas (generadas con Code/figuras_repaso.jl)
 ├── docs/
@@ -38,6 +39,7 @@ Matemáticas), con simulaciones en Julia.
 │   ├── s05_correlaciones.jl   → Cuaderno de Pluto, sesión 5
 │   ├── s06_intercambio.jl     → Cuaderno de Pluto, sesión 6
 │   ├── s07_condensacion.jl    → Cuaderno de Pluto, sesión 7
+│   ├── s08_redes.jl           → Cuaderno de Pluto, sesión 8
 │   ├── descargar_datos.jl     → Regenera Data/precios.csv desde Yahoo Finance
 │   ├── descargar_sp100.jl     → Regenera los datos del S&P 100 (Yahoo Finance)
 │   ├── descargar_enigh.jl     → Regenera los datos de la ENIGH 2024 (INEGI)
@@ -57,7 +59,7 @@ Matemáticas), con simulaciones en Julia.
 │   └── Manifest.toml
 ├── src/                       → Fuentes de los cuadernos de Pluto (formato #%%)
 │   ├── construir_cuaderno.jl  → Genera y ejecuta un cuaderno a partir de su fuente
-│   └── sNN_tema.jl            → Fuente de Code/sNN_tema.jl (sesiones 2 a 7)
+│   └── sNN_tema.jl            → Fuente de Code/sNN_tema.jl (sesiones 2 a 8)
 └── README.md
 ```
 
