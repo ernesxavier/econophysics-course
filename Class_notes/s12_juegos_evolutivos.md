@@ -34,13 +34,13 @@ resumen en la matriz de pagos del jugador fila frente al jugador columna:
 
 $$
 \begin{array}{c|cc}
- & E_1 & E_2 \\
+ & E_1 & E_2 \cr
 \hline
-E_1 & a & b \\
+E_1 & a & b \cr
 E_2 & c & d
 \end{array}
 \qquad\Longleftrightarrow\qquad
-A = \begin{pmatrix} a & b \\ c & d \end{pmatrix} .
+A = \begin{pmatrix} a & b \cr c & d \end{pmatrix} .
 $$
 
 Si la población está **bien mezclada** (cada agente se empareja al azar con
@@ -86,7 +86,7 @@ $$
 Reescalando el tiempo ($\kappa = 1$) y observando que $\pi_1 - \bar\pi =
 \pi_1 - [x\pi_1 + (1-x)\pi_2] = (1 - x)(\pi_1 - \pi_2)$, obtenemos las dos
 formas equivalentes de la **ecuación del replicador**
-([C.A2](repaso/calculo.md#ca2)):
+([C.I4](repaso/calculo.md#ci4)):
 
 $$
 \dot x = x\bigl[\pi_1(x) - \bar\pi(x)\bigr]
@@ -130,7 +130,7 @@ clásicas de interacción estratégica:
 |---|---|---|---|---|
 | **Dilema del prisionero** ($E_1 = C$, $E_2 = D$) | $c > a$ y $d > b$ ($T > R > P > S$) | $\Delta\pi(x) < 0$ para todo $x$ | $x^\ast = 0$ (todos traicionan) | Traicionar domina estrictamente; la cooperación se extingue |
 | **Coordinación** ($E_1 = A$, $E_2 = B$) | $a > c$ y $d > b$ | Negativo si $x < x^\ast$, positivo si $x > x^\ast$ | $x^\ast = 0$ y $x^\ast = 1$ (biestabilidad) | Convenciones o estándares tecnológicos; $x^\ast$ interior es un umbral (separatriz) |
-| **Halcón-Paloma** ($E_1 = H$, $E_2 = P$) | $c < a$ y $b > d$ | Positivo si $x < x^\ast$, negativo si $x > x^\ast$ | $x^\ast \in (0, 1)$ único estable | Coexistencia polimórfica; cada estrategia invade cuando es rara |
+| **Halcón-Paloma** ($E_1 = H$, $E_2 = P$) | $a < c$ y $b > d$ | Positivo si $x < x^\ast$, negativo si $x > x^\ast$ | $x^\ast \in (0, 1)$ único estable | Coexistencia polimórfica; cada estrategia invade cuando es rara |
 
 **El juego Halcón-Paloma** (Maynard Smith & Price, 1973). Dos agentes compiten
 por un recurso de valor $V > 0$. Un **Halcón** ($H$) siempre pelea; una
@@ -141,7 +141,7 @@ recurso sin pelear ($V/2$ cada una); si un halcón encuentra a una paloma, el
 halcón se lleva $V$ y la paloma $0$:
 
 $$
-A_{\text{HP}} = \begin{pmatrix} (V - C)/2 & V \\ 0 & V/2 \end{pmatrix} .
+A_{\text{HP}} = \begin{pmatrix} (V - C)/2 & V \cr 0 & V/2 \end{pmatrix} .
 $$
 
 Con una fracción $x$ de halcones, los pagos esperados son $\pi_H(x) =
@@ -225,7 +225,7 @@ Reuniendo ambas ecuaciones (con parámetros positivos $\alpha_G, \beta_G,
 
 $$
 \begin{aligned}
-\dot v &= v\left(\alpha_G - \beta_G u\right), \\
+\dot v &= v\left(\alpha_G - \beta_G u\right), \cr
 \dot u &= u\left(-\gamma_G + \delta_G v\right) .
 \end{aligned}
 $$
@@ -255,7 +255,7 @@ La matriz jacobiana ([C.I3](repaso/calculo.md#ci3),
 
 $$
 J(v, u) = \begin{pmatrix}
-\alpha_G - \beta_G u & -\beta_G v \\
+\alpha_G - \beta_G u & -\beta_G v \cr
 \delta_G u & -\gamma_G + \delta_G v
 \end{pmatrix} .
 $$
@@ -268,11 +268,11 @@ $$
   0$, de modo que
   $$
   J(v^\ast, u^\ast) = \begin{pmatrix}
-  0 & -\beta_G v^\ast \\
+  0 & -\beta_G v^\ast \cr
   \delta_G u^\ast & 0
   \end{pmatrix}
   = \begin{pmatrix}
-  0 & -\frac{\beta_G \gamma_G}{\delta_G} \\
+  0 & -\frac{\beta_G \gamma_G}{\delta_G} \cr
   \frac{\alpha_G \delta_G}{\beta_G} & 0
   \end{pmatrix} .
   $$
@@ -293,8 +293,10 @@ $$
 
 Por tanto, para oscilaciones pequeñas alrededor de $(v^\ast, u^\ast)$, las
 desviaciones $(\delta v, \delta u) = (v - v^\ast, u - u^\ast)$ describen elipses
-recorridas en **sentido horario** (cuando $v > v^\ast$, $\dot u > 0$; cuando
-$u > u^\ast$, $\dot v < 0$) con periodo
+recorridas en **sentido antihorario** en el plano con $v$ en el eje horizontal
+y $u$ en el vertical (cuando $v > v^\ast$, $\dot u > 0$; cuando $u > u^\ast$,
+$\dot v < 0$). Si se dibuja $u$ en el eje horizontal, como en muchos textos
+sobre Goodwin, el mismo ciclo se ve en sentido horario. El periodo es
 
 $$
 T_{\text{ciclo}} = \frac{2\pi}{\omega} = \frac{2\pi}{\sqrt{\alpha_G \gamma_G}} .
@@ -349,13 +351,17 @@ curvas de nivel $V(v, u) = C > V(v^\ast, u^\ast)$ son curvas cerradas y
 acotadas que rodean al equilibrio. $\square$
 
 > **Nota numérica.** Si se integra el sistema de Goodwin con el método de Euler
-> explícito ([C.I4](repaso/calculo.md#ci4)), el desarrollo de Taylor de segundo
-> orden muestra que $V(v_{n+1}, u_{n+1}) > V(v_n, u_n) + \mathcal O(\Delta t^2)$:
-> el error de truncamiento inyecta "energía" en cada paso y la trayectoria se
-> abre en una espiral artificial. En cambio, el **método de Euler simpléctico**
-> (actualizar primero $v_{n+1}$ y usar ese nuevo valor para actualizar
-> $u_{n+1}$) o el método de Runge-Kutta de cuarto orden preservan las órbitas
-> cerradas durante cientos de ciclos.
+> explícito ([C.I4](repaso/calculo.md#ci4)), $z_{n+1} = z_n + \Delta t F(z_n)$
+> con $z = (v, u)$, el desarrollo de Taylor de segundo orden
+> ([C.I1](repaso/calculo.md#ci1)) da
+> $V(z_{n+1}) = V(z_n) + \Delta t\thinspace \nabla V \cdot F + \tfrac12 \Delta t^2 F^\top H F + \mathcal O(\Delta t^3)$,
+> donde $\nabla V \cdot F = \dot V = 0$ y la hessiana
+> $H = \operatorname{diag}(\gamma_G / v^2, \alpha_G / u^2)$ es definida positiva.
+> Por tanto $V$ crece en cada paso: el error de truncamiento inyecta "energía"
+> y la trayectoria se abre en una espiral artificial. En cambio, el **método de
+> Euler simpléctico** (actualizar primero $v_{n+1}$ y usar ese nuevo valor para
+> actualizar $u_{n+1}$) o el método de Runge-Kutta de cuarto orden mantienen
+> $V$ prácticamente constante y las órbitas cerradas durante cientos de ciclos.
 
 ---
 
@@ -373,16 +379,16 @@ Nowak & May (1992) estudiaron la versión débil de un solo parámetro ($R = 1$,
 $T = b > 1$, $P = S = 0$):
 
 $$
-A_{\text{NM}} = \begin{pmatrix} 1 & 0 \\ b & 0 \end{pmatrix}, \qquad b > 1 .
+A_{\text{NM}} = \begin{pmatrix} 1 & 0 \cr b & 0 \end{pmatrix}, \qquad b > 1 .
 $$
 
 En una red $G = (V, E)$ con matriz de adyacencia $A_{ij}$
 ([L.B4](repaso/algebra_lineal.md#lb4)), en cada ronda:
 
-1. Cada nodo $i$ juega con todos sus vecinos $j \in \mathcal N_i$ (y, en la
-   convención original de Nowak y May, consigo mismo, o bien sólo con sus
-   vecinos; cualitativamente ambas producen formación de clústeres) y acumula el
-   pago total
+1. Cada nodo $i$ juega con todos sus vecinos $j \in \mathcal N_i$ y acumula
+   el pago total (en la convención original de Nowak y May también juega
+   consigo mismo, lo que desplaza los umbrales de $b$ pero no cambia la
+   formación de clústeres; el cuaderno usa sólo a los vecinos)
    $$
    \Pi_i = \sum_{j \in \mathcal N_i} \bigl[s_i s_j + b(1 - s_i)s_j\bigr]
    = \bigl[s_i + b(1 - s_i)\bigr] k_i^C ,
@@ -391,8 +397,12 @@ En una red $G = (V, E)$ con matriz de adyacencia $A_{ij}$
    cooperadores de $i$.
 2. **Actualización por imitación:** Cada nodo compara su pago con el de sus
    vecinos:
-   - *Imitación determinista del mejor:* $i$ adopta la estrategia del nodo con
-     mayor pago en $\lbrace i\rbrace \cup \mathcal N_i$.
+   - *Imitación determinista del mejor* (Nowak & May, 1992; la retícula del
+     cuaderno): $i$ adopta la estrategia del nodo con mayor pago en
+     $\lbrace i\rbrace \cup \mathcal N_i$.
+   - *Imitación proporcional* (Santos & Pacheco, 2005; la red BA del
+     cuaderno): $i$ elige un vecino $j$ al azar y, si $\Pi_j > \Pi_i$, copia su
+     estrategia con probabilidad $(\Pi_j - \Pi_i)/(b \max(k_i, k_j))$.
    - *Imitación de Fermi (logit por pares, Szabó & Tőke, 1998):* $i$ elige un
      vecino $j$ al azar y copia su estrategia con probabilidad logística
      ([C.B4](repaso/calculo.md#cb4)):
@@ -406,21 +416,26 @@ extinguen los cooperadores en la retícula cuando $b > 1$? En una población bie
 mezclada, un cooperador y un traidor enfrentan la misma fracción $x$ de
 cooperadores, por lo que $\Pi_D = b x > x = \Pi_C$. En cambio, en una retícula
 2D (por ejemplo, con $k = 4$ vecinos en cruz), consideremos un bloque compacto
-de cooperadores rodeado de traidores:
+y grande de cooperadores rodeado de traidores:
 
 - Un cooperador en la frontera plana del bloque tiene $3$ vecinos cooperadores y
-  $1$ vecino traidor, obteniendo un pago $\Pi_C = 3$.
+  $1$ vecino traidor, obteniendo un pago $\Pi_C = 3$; un cooperador del
+  interior obtiene $4$.
 - Un traidor adyacente a esa frontera plana sólo toca a $1$ cooperador (y a $3$
   traidores), por lo que su pago es $\Pi_D = b$.
 
-Bajo imitación del mejor vecino, el bloque de cooperadores resiste la invasión
-(e incluso se expande en sus caras planas) siempre que $\Pi_C > \Pi_D$, es decir,
-cuando $b < 3/1$ (o en vecindad de Moore de $8$ vecinos, un bloque cuadrado de
-$3 \times 3$ resiste a un traidor que toca a $3$ cooperadores frente a un
-cooperador con $5$ vecinos cooperadores cuando $5 > 3b$, es decir, $b < 5/3$).
-Al variar $b$, la fracción estacionaria de cooperadores cambia por escalones
-discretos en los umbrales racionales donde distintas geometrías de clústeres
-ganan o pierden estabilidad (**reciprocidad espacial**).
+Bajo imitación del mejor vecino, el traidor de la frontera se convierte en
+cooperador cuando $3 > b$, así que el bloque **se expande** por sus caras planas
+si $b < 3$; el cooperador de la frontera ve a un vecino interior con pago $4$,
+así que el bloque **resiste** mientras $b < 4$. En vecindad de Moore ($8$
+vecinos) y un bloque de $3 \times 3$, el cooperador del centro obtiene $8$, el
+del borde plano $5$, y el traidor pegado a ese borde toca a $3$ cooperadores
+($3b$): el bloque crece por sus caras si $5 > 3b$, es decir, $b < 5/3$, y
+resiste mientras $3b < 8$. Como los pagos de los cooperadores son enteros y los
+de los traidores son $b$ por un entero, la fracción estacionaria de
+cooperadores sólo puede cambiar por escalones en cocientes $b = m/n$ de números
+de vecinos, donde distintas geometrías de clústeres ganan o pierden
+estabilidad (**reciprocidad espacial**).
 
 ### 3.2 Cooperación en redes libres de escala
 
@@ -453,9 +468,9 @@ La matriz de pagos por interacción es
 
 $$
 \begin{array}{c|cc}
- & C & D \\
+ & C & D \cr
 \hline
-C & b - c & -c \\
+C & b - c & -c \cr
 D & b & 0
 \end{array}
 $$
@@ -469,16 +484,30 @@ Con la regla de actualización **muerte-nacimiento** (*Death-Birth*): en cada
 paso muere un individuo $i$ al azar y sus $k$ vecinos compiten por ocupar la
 vacante con probabilidad proporcional a su aptitud $f_j$.
 
-**Teorema** (Ohtsuki, Hauert, Lieberman & Nowak, 2006). En una red grande de
-grado medio $k$ bajo actualización muerte-nacimiento y selección débil
-($w \to 0, N \gg k$), la probabilidad de fijación $\rho_C$ de un único mutante
-cooperador supera a la de una mutación neutra ($\rho_C > 1/N$) si y sólo si
+**Resultado** (Ohtsuki, Hauert, Lieberman & Nowak, 2006). En una red grande
+de grado $k$ bajo actualización muerte-nacimiento y selección débil
+($w \to 0$, $N \gg k$), la probabilidad de fijación $\rho_C$ de un único
+mutante cooperador supera a la de una mutación neutra ($\rho_C > 1/N$) si y
+sólo si
 
 $$
 \frac{b}{c} > k .
 $$
 
-*Argumento por aproximación de pares (correlaciones locales).* Para que un
+Ohtsuki et al. lo obtuvieron con la aproximación de pares y lo confirmaron por
+simulación. Para grafos regulares finitos el umbral exacto bajo selección
+débil es
+
+$$
+\left(\frac{b}{c}\right)^{\ast} = \frac{N - 2}{N/k - 2} ,
+$$
+
+que tiende a $k$ cuando $N \to \infty$ (Taylor, Day & Wild, 2007, para grafos
+homogéneos; Chen, 2013, con una demostración rigurosa para grafos regulares).
+Con $N = 36$, como en el cuaderno, el umbral es $34/16 \approx 2.1$ en el anillo
+($k = 2$) y $34/7 \approx 4.9$ con $k = 4$.
+
+*Esbozo con la aproximación de pares (correlaciones locales).* Para que un
 cooperador tenga mayor aptitud esperada que un traidor se requiere que los
 cooperadores tengan, en promedio sobre la red, más vecinos cooperadores que los
 traidores:
@@ -492,23 +521,23 @@ donde $q_{C\mid C}$ es la probabilidad condicional de que un vecino de un
 cooperador sea cooperador, y $q_{C\mid D}$ la de que un vecino de un traidor sea
 cooperador. En el límite de selección débil ($w \to 0$), las correlaciones
 espaciales están determinadas por el proceso neutro de coalescencia (modelo de
-votante de la sesión 11). Cuando un nodo $i$ se actualiza copiando a uno de sus
-$k$ vecinos $j$, con probabilidad $1/k$ la correlación entre $i$ y ese vecino
-específico $j$ se vuelve $1$, mientras que con los otros $k - 1$ vecinos hereda
-la correlación de $j$. El equilibrio de correlaciones entre pares para cualquier
-frecuencia global $x$ satisface la identidad exacta de aproximación de pares:
+votante de la sesión 11). Cuando un nodo $i$ copia la estrategia de un vecino
+$j$, queda igual a $j$ por construcción, y con sus otros $k - 1$ vecinos hereda
+las correlaciones de $j$. En la aproximación de pares, el equilibrio de estas
+correlaciones da, para cualquier frecuencia global $x$,
 
 $$
-q_{C\mid C} - q_{C\mid D} = \frac{1}{k} .
+q_{C\mid C} - q_{C\mid D} = \frac{1}{k - 1} .
 $$
 
-Es decir, un cooperador tiene en promedio un vecino cooperador adicional ($k
-q_{C\mid C} - k q_{C\mid D} = 1$) respecto a un traidor. Además, en la regla
-muerte-nacimiento un agente compite contra sus vecinos de segundo orden, pero
-el balance completo de selección a orden $w$ conserva el umbral exacto: el
-beneficio extra $b \cdot (1/k)$ que recibe un cooperador por estar rodeado de
-parientes estratégicos supera al costo individual $c$ si y sólo si $b/k > c$,
-es decir, $b/c > k$. $\square$
+Así, de sus $k$ vecinos, un cooperador tiene en promedio $k/(k - 1)$ vecinos
+cooperadores más que un traidor. Comparar sólo los pagos de los candidatos no
+basta: en la regla muerte-nacimiento los candidatos a ocupar la vacante
+compiten entre sí, y sus vecinos (segundos vecinos de la vacante) también
+reciben los beneficios de los cooperadores. Al sumar a orden $w$ todos estos
+términos, el beneficio que los cooperadores se dan entre sí supera a su costo
+si y sólo si $b/c > k$ (los detalles están en la información suplementaria de
+Ohtsuki et al., 2006). $\square$
 
 Cuanto más escasas son las conexiones locales ($k$ pequeño), más fuertes son los
 lazos de agrupamiento local y más fácil resulta que emerja la cooperación.
@@ -527,7 +556,7 @@ inalcanzable y la cooperación desaparece.
 | Estabilidad y periodo de Goodwin | $\operatorname{tr} J(v^\ast, u^\ast) = 0$, $\det J = \alpha_G\gamma_G > 0$; eigenvalores $\pm i\sqrt{\alpha_G\gamma_G}$, periodo $T = 2\pi/\sqrt{\alpha_G\gamma_G}$ |
 | Integral primera de Goodwin | $V(v, u) = (\delta_G v - \gamma_G \ln v) + (\beta_G u - \alpha_G \ln u)$ cumple $\dot V = 0$ (órbitas cerradas) |
 | Dilema del prisionero espacial | En retícula 2D sobreviven clústeres de cooperadores; en redes Barabási-Albert los *hubs* cooperadores sostienen alta cooperación |
-| Regla de reciprocidad de red | Bajo selección débil (muerte-nacimiento), la cooperación es favorecida si y sólo si $b/c > k$ |
+| Regla de reciprocidad de red | Bajo selección débil (muerte-nacimiento), la cooperación es favorecida si $b/c > k$ ($N$ grande); en un grafo regular finito, si $b/c > (N - 2)/(N/k - 2)$ |
 
 ---
 
@@ -592,6 +621,9 @@ inalcanzable y la cooperación desaparece.
 ## Referencias
 
 - Axelrod, R. (1984). *The Evolution of Cooperation*. Basic Books.
+- Chen, Y.-T. (2013). Sharp benefit-to-cost rules for the evolution of
+  cooperation on regular graphs. *The Annals of Applied Probability*, 23(2),
+  637–664. https://doi.org/10.1214/12-AAP849
 - Goodwin, R. M. (1967). A growth cycle. En C. H. Feinstein (Ed.), *Socialism,
   Capitalism and Economic Growth: Essays Presented to Maurice Dobb* (pp. 54–58).
   Cambridge University Press.
@@ -623,6 +655,9 @@ inalcanzable y la cooperación desaparece.
 - Szabó, G., & Tőke, C. (1998). Evolutionary prisoner's dilemma game on a
   square lattice. *Physical Review E*, 58(1), 69–73.
   https://doi.org/10.1103/PhysRevE.58.69
+- Taylor, P. D., Day, T., & Wild, G. (2007). Evolution of cooperation in a
+  finite homogeneous graph. *Nature*, 447(7143), 469–472.
+  https://doi.org/10.1038/nature05784
 - Taylor, P. D., & Jonker, L. B. (1978). Evolutionary stable strategies and
   game dynamics. *Mathematical Biosciences*, 40(1–2), 145–156.
   https://doi.org/10.1016/0025-5564(78)90077-9

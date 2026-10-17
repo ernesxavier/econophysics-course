@@ -123,7 +123,7 @@ es ``\bar{\pi}(x) = x\pi_1(x) + (1-x)\pi_2(x)``.
 **De la imitación a la EDO.** Si cada agente se compara al azar con otro y,
 cuando el otro gana más, lo imita con probabilidad proporcional a la diferencia
 de pagos, la fracción ``x`` obedece la **ecuación del replicador** (Taylor y
-Jonker, 1978; repaso C.A2):
+Jonker, 1978; repaso C.I4):
 
 ```math
 \dot{x} = x\bigl[\pi_1(x) - \bar{\pi}(x)\bigr] = x(1 - x)\bigl[\pi_1(x) - \pi_2(x)\bigr] .
@@ -309,9 +309,12 @@ end
 md"""
 En la gráfica izquierda, el pico de la tasa de empleo ``v(t)`` (azul) ocurre
 siempre **un cuarto de ciclo antes** que el pico de la participación salarial
-``u(t)`` (naranja). En la gráfica derecha, la economía gira en sentido horario
-alrededor del punto fijo ``(v^\ast, u^\ast)`` sin caer en él ni alejarse:
-cuanto más lejos del equilibrio empieza ``v_0``, más amplia es la órbita.
+``u(t)`` (naranja). En la gráfica derecha, la economía gira en sentido
+**antihorario** alrededor del punto fijo ``(v^\ast, u^\ast)`` sin caer en él
+ni alejarse: con ``v > v^\ast`` la participación salarial sube, y con
+``u > u^\ast`` el empleo baja. Cuanto más lejos del equilibrio empieza ``v_0``,
+más amplia es la órbita. (Muchos textos dibujan ``u`` en el eje horizontal y
+``v`` en el vertical; con esos ejes el mismo ciclo se ve en sentido horario.)
 """
 
 #%% hide
@@ -333,9 +336,14 @@ siempre se extinguen.
 **¿Qué cambia en una red?** En cada ronda:
 1. Cada nodo ``i`` juega con todos sus vecinos en la red y suma sus pagos
    ``\Pi_i``.
-2. Cada nodo observa a sus vecinos y adopta la estrategia de quien obtuvo el
-   mayor pago en su vecindario (o la copia con probabilidad creciente en la
-   diferencia de pagos).
+2. Cada nodo imita a vecinos con mayor pago. En la retícula usamos la regla
+   de Nowak y May: adoptar la estrategia del mayor pago en el vecindario
+   (incluido el propio). En la red de Barabási-Albert usamos la regla de Santos
+   y Pacheco (2005): elegir un vecino ``j`` al azar y, si ``\Pi_j > \Pi_i``,
+   copiar su estrategia con probabilidad
+   ``(\Pi_j - \Pi_i) / (b \max(k_i, k_j))``.
+
+En ambos casos cada agente juega sólo con sus vecinos, no consigo mismo.
 
 ### Laboratorio: clústeres en la retícula 2D y concentradores en Barabási-Albert
 
@@ -378,7 +386,9 @@ cooperadores que toca.
 
 ¿Cómo depende la cooperación de la estructura de la red en todo el rango de
 ``b``? Comparamos tres topologías con ``N = 400`` agentes y el mismo grado
-medio (``\langle k \rangle = 8``):
+medio (``\langle k \rangle = 8``). La dinámica en la red de Barabási-Albert es
+lenta, así que la dejamos correr hasta 5 000 generaciones (o hasta que toda la
+red coopere o traicione):
 1. **Mezcla al azar** (en cada ronda se sortean 8 rivales al azar);
 2. **Retícula 2D** (8 vecinos de Moore fijos);
 3. **Red de Barabási-Albert** (libre de escala, ``m = 4 \Rightarrow \langle k \rangle \approx 8``, Santos y Pacheco, 2005).
@@ -391,12 +401,12 @@ barrido_pd = comparar_topologias_pd(400; bs = 1.05:0.10:1.95, M = 14);
 let
     b = barrido_pd
     p = plot(b.bs, 100 .* b.reticula; yerror = 100 .* b.se_ret, color = AZUL, lw = 2.4,
-             marker = :circle, ms = 4.5, msw = 0, label = "Retícula 2D (clústeres espaciales)",
+             marker = :circle, ms = 4.5, msc = AZUL, label = "Retícula 2D (clústeres espaciales)",
              xlabel = "tentación de traicionar b", ylabel = "cooperadores finales (%)",
              ylims = (-3, 103), legend = :outerbottom, legend_columns = 3, size = (780, 380),
              title = "Cooperación frente a la tentación b: retícula 2D vs. Barabási-Albert")
     plot!(p, b.bs, 100 .* b.ba; yerror = 100 .* b.se_ba, color = NARANJA, lw = 2.4,
-          marker = :square, ms = 4.5, msw = 0, label = "Barabási-Albert (concentradores)")
+          marker = :square, ms = 4.5, msc = NARANJA, label = "Barabási-Albert (concentradores)")
     plot!(p, b.bs, 100 .* b.mezcla; color = GRIS, lw = 1.8, ls = :dash,
           marker = :utriangle, ms = 4, msw = 0, label = "Mezcla al azar")
     p
@@ -406,9 +416,13 @@ end
 md"""
 La comparación revela dos mecanismos distintos de cooperación en redes:
 - **En la retícula 2D (azul)**, la cooperación sobrevive por **reciprocidad
-  espacial** hasta ``b \approx 1.65`` (con un escalón en ``b = 5/3 \approx 1.67``,
-  donde un traidor que toca a 3 cooperadores supera el pago 5 de un cooperador
-  en el borde de un bloque de ``3 \times 3``).
+  espacial** para ``b`` moderado, cae por escalones y desaparece hacia
+  ``b \approx 1.6``. Los escalones sólo pueden estar en cocientes ``b = m/n`` de
+  enteros entre 1 y 8 (números de vecinos cooperadores), como ``4/3`` o
+  ``3/2``, porque ahí cambia qué comparación de pagos gana. A partir de
+  ``b = 5/3`` un traidor que toca a 3 cooperadores (pago ``3b``) ya gana más que
+  el cooperador del borde plano de un bloque de ``3 \times 3`` (pago 5), y los
+  bloques dejan de crecer por sus caras.
 - **En la red de Barabási-Albert (naranja)**, la cooperación resiste valores de
   ``b`` mucho mayores (Santos y Pacheco, 2005). La razón está en los
   **concentradores (*hubs*)**: un *hub* cooperador rodeado de cooperadores suma
@@ -443,7 +457,8 @@ J(v^\ast, u^\ast) =
 
 Su traza es ``\mathrm{tr}(J) = 0`` y su determinante es
 ``\det(J) = \beta_G \delta_G v^\ast u^\ast = \alpha_G \gamma_G > 0``. Por tanto,
-los eigenvalores son **imaginarios puros**:
+los eigenvalores son **imaginarios puros** (polinomio característico
+``\lambda^2 + \alpha_G \gamma_G = 0``):
 
 ```math
 \lambda_{1,2} = \pm i\omega, \qquad \omega = \sqrt{\alpha_G \gamma_G},
@@ -452,8 +467,12 @@ los eigenvalores son **imaginarios puros**:
 
 Con los parámetros de la sección 3 (``\alpha_G = 0.24``, ``\gamma_G = 0.36``),
 el periodo teórico para oscilaciones pequeñas es
-``T_{\text{ciclo}} = 2\pi / \sqrt{0.0864} \approx 21.4`` años. Además, el
-sistema conserva exactamente la función tipo energía (repaso C.A2):
+``T_{\text{ciclo}} = 2\pi / \sqrt{0.0864} \approx 21.4`` años.
+
+Con parte real nula, la linealización **no basta** para decidir la
+estabilidad: los términos no lineales podrían convertir el centro lineal en una
+espiral lenta. Lo que garantiza las órbitas cerradas es que el sistema conserva
+exactamente la función tipo energía (repaso C.A2):
 
 ```math
 V(v, u) = (\delta_G v - \gamma_G \ln v) + (\beta_G u - \alpha_G \ln u),
@@ -470,36 +489,47 @@ demostraron que bajo selección débil (aptitud ``f_i = 1 + w\pi_i`` con
 ``w \ll 1``) y actualización **muerte-nacimiento** (un nodo al azar es
 reemplazado por uno de sus ``k`` vecinos proporcionalmente a su aptitud), la
 probabilidad ``\rho_C`` de que un solo mutante cooperador tome toda la red
-supera al azar neutro ``1/N`` si y sólo si la razón beneficio-costo supera el
-grado ``k`` de la red:
+supera al azar neutro ``1/N`` cuando la razón beneficio-costo supera el grado
+``k`` de la red:
 
 ```math
 \frac{b}{c} > k .
 ```
 
-La gráfica muestra ``N \cdot \rho_C`` en función de ``b/c`` para un anillo
-(``k = 2``) y una red regular de grado ``k = 4``: cada curva cruza el umbral
-neutro ``N \rho_C = 1`` en ``b/c = k``.
+La regla vale para redes grandes (``N \gg k``). En una red regular finita el
+umbral exacto es algo mayor (Taylor, Day y Wild, 2007; Chen, 2013):
+
+```math
+\left(\frac{b}{c}\right)^{\ast} = \frac{N - 2}{N/k - 2}
+\;\xrightarrow{\;N \to \infty\;}\; k .
+```
+
+La gráfica muestra ``N \cdot \rho_C`` simulado (30 000 ensayos por punto, con
+``N = 36`` y ``w = 0.03``) en un anillo (``k = 2``, umbral finito
+``34/16 \approx 2.1``) y en una red regular aleatoria de grado ``k = 4``
+(umbral finito ``34/7 \approx 4.9``). Cada curva cruza la deriva neutra
+``N \rho_C = 1`` cerca de su umbral finito, un poco a la derecha de
+``b/c = k``.
 """
 
 #%% hide
 let
     d = curva_reciprocidad_red
-    p = plot(d.bc, d.teo_k2; color = AZUL, lw = 2.3,
-             label = "Teoría selección débil (k = 2, umbral b/c = 2)",
+    p = plot(d.bc, d.sim_k2; yerror = d.se_k2, color = AZUL, lw = 2.0, msc = AZUL,
+             marker = :circle, ms = 4.5, label = "Anillo (k = 2)",
              xlabel = "razón beneficio / costo (b / c)",
              ylabel = "probabilidad relativa de fijación N · ρ_C",
              legend = :outerbottom, legend_columns = 2, size = (780, 380),
-             title = "Regla b/c > k de Ohtsuki et al.: fijación de un mutante cooperador")
-    scatter!(p, d.bc_pts, d.sim_k2; color = AZUL, ms = 5, msw = 0,
-             label = "Simulación muerte-nacimiento (k = 2)")
-    plot!(p, d.bc, d.teo_k4; color = NARANJA, lw = 2.3,
-          label = "Teoría selección débil (k = 4, umbral b/c = 4)")
-    scatter!(p, d.bc_pts, d.sim_k4; color = NARANJA, marker = :square, ms = 5, msw = 0,
-             label = "Simulación muerte-nacimiento (k = 4)")
+             title = "Regla b/c > k de Ohtsuki et al.: fijación de un mutante cooperador (N = 36)")
+    plot!(p, d.bc, d.sim_k4; yerror = d.se_k4, color = NARANJA, lw = 2.0, msc = NARANJA,
+          marker = :square, ms = 4.5, label = "Red regular aleatoria (k = 4)")
     hline!(p, [1.0]; color = GRIS, ls = :dot, lw = 1.5, label = "Deriva neutra (N · ρ_C = 1)")
-    vline!(p, [2.0]; color = AZUL, alpha = 0.35, ls = :dash, label = "")
-    vline!(p, [4.0]; color = NARANJA, alpha = 0.35, ls = :dash, label = "")
+    vline!(p, [2.0, 4.0]; color = GRIS, alpha = 0.5, ls = :dash, lw = 1.2,
+           label = "Regla para N grande (b/c = k)")
+    vline!(p, [d.umbral_k2]; color = AZUL, alpha = 0.5, ls = :dot, lw = 1.5,
+           label = "Umbral finito (N − 2)/(N/k − 2), k = 2")
+    vline!(p, [d.umbral_k4]; color = NARANJA, alpha = 0.5, ls = :dot, lw = 1.5,
+           label = "Umbral finito, k = 4")
     p
 end
 
@@ -549,7 +579,7 @@ function equilibrio_goodwin(α, β, γ, δ)
 end
 
 #%% hide
-verificar(() -> collect(equilibrio_goodwin(0.24, 0.40, 0.36, 0.40)),
+verificar(() -> (r = equilibrio_goodwin(0.24, 0.40, 0.36, 0.40); r === missing ? missing : collect(r)),
           [0.9, 0.6];
           pista = md"De ``\alpha - \beta u^\ast = 0`` y ``-\gamma + \delta v^\ast = 0`` se obtiene `(γ / δ, α / β)`.")
 
@@ -688,8 +718,8 @@ end
 
 #%%
 """
-Integra el sistema de Goodwin – Lotka-Volterra con RK4 para preservar exactamente
-las órbitas cerradas de la cantidad conservada V(v, u).
+Integra el sistema de Goodwin – Lotka-Volterra con RK4: a diferencia de Euler, la
+cantidad conservada V(v, u) casi no se desvía y las órbitas se ven cerradas.
 """
 function integrar_goodwin(α, β, γ, δ, v0, u0; T = 45.0, Δt = 0.04)
     pasos = round(Int, T / Δt)
@@ -802,9 +832,10 @@ end;
 #%%
 """
 Simula el dilema del prisionero en un grafo arbitrario `g` con tentación `b`
-bajo la regla de imitación proporcional de Santos y Pacheco (2005).
+bajo la regla de imitación proporcional de Santos y Pacheco (2005). Se detiene
+antes de `pasos` generaciones si toda la red coopera o toda traiciona.
 """
-function dilema_en_grafo(g, b, rng; pasos = 180)
+function dilema_en_grafo(g, b, rng; pasos = 5000)
     N = nv(g)
     s = Int.(rand(rng, N) .< 0.5)
     adj = [neighbors(g, i) for i in 1:N]
@@ -812,8 +843,9 @@ function dilema_en_grafo(g, b, rng; pasos = 180)
     pagos = zeros(Float64, N)
     nuevo = similar(s)
     for _ in 1:pasos
+        0 < sum(s) < N || break
         for i in 1:N
-            c_vec = s[i]
+            c_vec = 0
             for j in adj[i]
                 c_vec += s[j]
             end
@@ -827,8 +859,7 @@ function dilema_en_grafo(g, b, rng; pasos = 180)
             end
             j = vec[rand(rng, 1:length(vec))]
             if pagos[j] > pagos[i]
-                kmax = max(grados[i], grados[j]) + 1
-                prob = (pagos[j] - pagos[i]) / (b * kmax)
+                prob = (pagos[j] - pagos[i]) / (b * max(grados[i], grados[j]))
                 nuevo[i] = rand(rng) < prob ? s[j] : s[i]
             else
                 nuevo[i] = s[i]
@@ -855,7 +886,7 @@ function comparar_topologias_pd(N = 400; bs = 1.05:0.10:1.95, M = 14)
         vals_ba = Float64[]
         for m in 1:M
             g_ba = barabasi_albert(N, 4; seed = 500 + m)
-            push!(vals_ba, dilema_en_grafo(g_ba, b, Xoshiro(900 + 30ib + m); pasos = 180))
+            push!(vals_ba, dilema_en_grafo(g_ba, b, Xoshiro(900 + 30ib + m); pasos = 5000))
         end
         push!(m_ba, mean(vals_ba))
         push!(se_ba, std(vals_ba) / sqrt(M))
@@ -916,20 +947,21 @@ function fijacion_db(g, r, w; ensayos = 4_000, rng = Xoshiro(1))
 end
 
 #%%
-"Curva teórica de primer orden y puntos simulados de N · ρ_C bajo actualización muerte-nacimiento (k = 2 y k = 4)."
+"N · ρ_C simulado (con su error estándar) bajo actualización muerte-nacimiento en un anillo (k = 2) y una red regular aleatoria (k = 4)."
 curva_reciprocidad_red = let
     N = 36
     w = 0.03
-    bc = range(0.5, 6.0, length = 100)
-    # Pendiente de primer orden en selección débil en un grafo regular de grado k: cruza 1 en r = k
-    f_teo(r, k) = 1.0 + w * (N - 2) / (k^2 * (k - 1)) * (r - k)
-    bc_pts = [1.0, 2.0, 3.0, 4.0, 5.0, 6.0]
+    ensayos = 30_000
+    bc = collect(1.0:0.5:7.0)
     anillo = watts_strogatz(N, 2, 0.0; seed = 1)
     reg4 = random_regular_graph(N, 4; seed = 4)
-    sim_k2 = [fijacion_db(anillo, r, w; ensayos = 4_500, rng = Xoshiro(100 + round(Int, 10r))) for r in bc_pts]
-    sim_k4 = [fijacion_db(reg4, r, w; ensayos = 4_500, rng = Xoshiro(200 + round(Int, 10r))) for r in bc_pts]
-    (bc = bc, teo_k2 = f_teo.(bc, 2), teo_k4 = f_teo.(bc, 4),
-     bc_pts = bc_pts, sim_k2 = sim_k2, sim_k4 = sim_k4)
+    sim_k2 = [fijacion_db(anillo, r, w; ensayos, rng = Xoshiro(100 + round(Int, 10r))) for r in bc]
+    sim_k4 = [fijacion_db(reg4, r, w; ensayos, rng = Xoshiro(200 + round(Int, 10r))) for r in bc]
+    # Error estándar de N · ρ̂ con ρ̂ = éxitos / ensayos (binomial)
+    se(x) = N * sqrt((x / N) * (1 - x / N) / ensayos)
+    umbral(k) = (N - 2) / (N / k - 2)
+    (bc = bc, sim_k2 = sim_k2, sim_k4 = sim_k4, se_k2 = se.(sim_k2), se_k4 = se.(sim_k4),
+     umbral_k2 = umbral(2), umbral_k4 = umbral(4))
 end;
 
 #%%
