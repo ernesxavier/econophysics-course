@@ -183,7 +183,8 @@ y aprendizaje, y usarlos para reproducir patrones empíricos.
 	- Schelling: preferencias leves → segregación fuerte.
 	- **[Avanzado]** Tiempo de consenso del votante; ecuación maestra del
 	  modelo de Kirman.
-	- *Laboratorio*: votante en redes; Kirman; Schelling completo con Agents.jl.
+	- *Laboratorio*: votante en redes; Kirman; Schelling completo
+	  (implementación propia en Julia, sin paquetes de agentes).
 	- Lecturas: SC 3–4; KI 2–3, 6; RC 8.2; WR (consulta).
 	  **[Avanzado]** SL 3, 8.2; SC 6; Castellano, Fortunato & Loreto (2009);
 	  Kirman (1993).
