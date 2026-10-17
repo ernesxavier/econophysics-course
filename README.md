@@ -21,6 +21,7 @@ Matemáticas), con simulaciones en Julia.
 │   ├── s09_contagio.md        → Notas formales, sesión 9
 │   ├── s10_ising.md           → Notas formales, sesión 10
 │   ├── s11_opinion.md         → Notas formales, sesión 11
+│   ├── s12_juegos_evolutivos.md → Notas formales, sesión 12
 │   └── repaso/                → Repaso de matemáticas por niveles (índice por semana)
 │       └── figuras/           → Figuras de las notas (generadas con Code/figuras_repaso.jl)
 ├── docs/
@@ -47,6 +48,7 @@ Matemáticas), con simulaciones en Julia.
 │   ├── s09_contagio.jl        → Cuaderno de Pluto, sesión 9
 │   ├── s10_ising.jl           → Cuaderno de Pluto, sesión 10
 │   ├── s11_opinion.jl         → Cuaderno de Pluto, sesión 11
+│   ├── s12_juegos_evolutivos.jl → Cuaderno de Pluto, sesión 12
 │   ├── descargar_datos.jl     → Regenera Data/precios.csv desde Yahoo Finance
 │   ├── descargar_sp100.jl     → Regenera los datos del S&P 100 (Yahoo Finance)
 │   ├── descargar_enigh.jl     → Regenera los datos de la ENIGH 2024 (INEGI)
@@ -66,7 +68,7 @@ Matemáticas), con simulaciones en Julia.
 │   └── Manifest.toml
 ├── src/                       → Fuentes de los cuadernos de Pluto (formato #%%)
 │   ├── construir_cuaderno.jl  → Genera y ejecuta un cuaderno a partir de su fuente
-│   └── sNN_tema.jl            → Fuente de Code/sNN_tema.jl (sesiones 1 a 11)
+│   └── sNN_tema.jl            → Fuente de Code/sNN_tema.jl (sesiones 1 a 12)
 └── README.md
 ```
 
