@@ -25,9 +25,10 @@ opcionales.
 
 **Repaso recomendado** (en `Class_notes/repaso/`): E.B2–B3 (caminata aleatoria
 y promedios), L.B4 (matriz de adyacencia), C.B4 (función logística), F.B3–B4
-(temperatura y transiciones de fase), E.I3 (cadenas de Markov), F.I3–I4
-(Ising y campo medio). Ruta avanzada: E.A3 (ecuación maestra), E.A6 (tiempos
-de primer paso y absorción), L.A1 (Laplaciano).
+(temperatura y transiciones de fase), E.I2 (martingalas), E.I3 (cadenas de
+Markov), F.I3–I4 (Ising y campo medio). Ruta avanzada: E.A2 (lema de Itô),
+E.A3 (ecuación maestra), E.A4 (Fokker-Planck), E.A6 (tiempos de primer paso y
+absorción).
 """
 
 #%% hide
@@ -215,10 +216,13 @@ let
     nombres = [r.nombre for r in tiempos_redes.redes]
     medias = [r.media for r in tiempos_redes.redes]
     errores = [1.96 * r.se for r in tiempos_redes.redes]
-    p2 = bar(1:length(nombres), medias; yerror = errores, color = AZUL, lw = 0,
+    p2 = bar(1:length(nombres), medias; color = AZUL, lw = 0,
              bar_width = 0.55, xticks = (1:length(nombres), nombres),
              ylabel = "barridos hasta el consenso", legend = false,
-             title = "Efecto de la topología (N = 144, x₀ = 0.5)")
+             ylims = (0, 1.08 * maximum(medias .+ errores)),
+             title = "Efecto de la topología (N = 144, IC 95%)")
+    scatter!(p2, 1:length(nombres), medias; yerror = errores, ms = 0, msc = GRIS,
+             msw = 1.5, color = GRIS, label = "")
     plot(p1, p2; layout = (1, 2), size = (900, 360), bottom_margin = 5Plots.mm)
 end
 
@@ -402,12 +406,12 @@ La curva muestra tres regímenes muy claros:
 1. **``\tau \le 25\%`` (mezcla estable):** Casi todos los agentes ya cumplen su
    umbral en la configuración aleatoria inicial; casi nadie se muda y la
    similitud queda entre $(rango_sch(0.0, 0.25)), cerca de la mezcla al azar.
-2. **``30\% \le \tau \le 65\%`` (segregación fuerte con preferencias leves):**
-   En cuanto ``\tau`` cruza ``\approx 1/3``, las mudanzas de los pocos
+2. **``30\% \le \tau \le 70\%`` (segregación fuerte con preferencias leves):**
+   En cuanto ``\tau`` pasa de 25% a 30%, las mudanzas de los pocos
    insatisfechos iniciales reducen la fracción de su grupo en el barrio que
    dejan y la aumentan en el que llegan. Eso vuelve insatisfechos a otros
    vecinos y desata un efecto dominó que sólo se detiene cuando la similitud
-   llega a valores entre $(rango_sch(0.3, 0.65)), muy por encima de la línea
+   llega a valores entre $(rango_sch(0.3, 0.7)), muy por encima de la línea
    punteada ``\tau`` que cada agente pedía.
 3. **``\tau \ge 75\%`` (frustración / congelamiento):** Los agentes exigen
    vecindarios tan puros que no hay suficientes lugares satisfactorios; las
@@ -447,10 +451,10 @@ P_k = \binom{N}{k}\frac{\mathrm{B}(k + a,\, N - k + a)}{\mathrm{B}(a, a)}.
 
 Cuando ``N \to \infty`` con ``a`` fijo, y midiendo el tiempo en unidades de
 ``N(N - 1 + 2a)/2 \approx N^2/2`` pasos (unos ``N/2`` barridos), la variable
-continua ``x = k / N \in (0, 1)`` cumple la ecuación de Fokker-Planck (repaso
-E.A4) con deriva ``A(x) = a(1/2 - x)`` y coeficiente de difusión
-``B(x) = x(1-x)``. Su densidad estacionaria es la **distribución Beta**
-simétrica:
+continua ``x = k / N \in (0, 1)`` cumple la ecuación de Fokker-Planck de
+``dx = A(x)\,dt + B(x)\,dW`` (repaso E.A4) con deriva ``A(x) = a(1/2 - x)`` e
+intensidad de ruido ``B(x)^2 = x(1-x)``. Su densidad estacionaria es la
+**distribución Beta** simétrica:
 
 ```math
 p(x) = \frac{\Gamma(2a)}{\Gamma(a)^2}\,x^{a-1}(1 - x)^{a-1}.
@@ -558,7 +562,7 @@ md"""
    ecuación de balance detallado ``P_k W(k \to k+1) = P_{k+1} W(k+1 \to k)`` y
    comprueba que para ``a = 1`` se reduce a ``P_k = 1 / (N + 1)``.
 10. Usa la fórmula estacionaria de la ecuación de Fokker-Planck (repaso E.A4)
-    con ``A(x) = a(1/2 - x)`` y ``B(x) = x(1-x)`` para obtener la densidad
+    con ``A(x) = a(1/2 - x)`` y ``B(x)^2 = x(1-x)`` para obtener la densidad
     ``p(x) \propto x^{a-1}(1-x)^{a-1}``.
 11. En una red cualquiera donde un nodo se elige al azar y copia a un vecino al
     azar, demuestra que ``\sum_i k_i s_i`` (la opinión ponderada por el grado

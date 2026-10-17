@@ -131,7 +131,7 @@ autocor(x, 1:5)            # ≈ 0.8, 0.64, 0.51, ...
 <a id="ei2"></a>
 
 ### E.I2 Martingalas
-*Semanas 1, 3.*
+*Semanas 1, 3, 11.*
 
 $\lbrace X_t\rbrace$ es una **martingala** respecto a la información $\mathcal F_t$ si
 
@@ -329,7 +329,7 @@ estocástico es $(dW_t)^2 = dt$.
 <a id="ea2"></a>
 
 ### E.A2 Lema de Itô
-*Semana 3.*
+*Semanas 3, 11.*
 
 Si $dX = A\thinspace dt + B\thinspace dW$ y $f(x)$ es dos veces derivable, entonces
 
@@ -371,7 +371,7 @@ es la condición que usa el algoritmo de Metropolis (semana 10).
 <a id="ea4"></a>
 
 ### E.A4 Ecuación de Fokker-Planck
-*Semanas 3, 7.*
+*Semanas 3, 7, 11.*
 
 Si $X_t$ sigue $dX = A(X)\thinspace dt + B(X)\thinspace dW$, su densidad $p(x, t)$ satisface
 

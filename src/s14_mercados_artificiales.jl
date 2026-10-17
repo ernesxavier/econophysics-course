@@ -518,7 +518,7 @@ md"""
 
 - Lectura: Hommes (2013), capítulo 1; LeBaron (2006); Lux y Marchesi (1999).
   Para la ruta avanzada, Hommes (2013), capítulos 2 y 6; Slanina (2014),
-  sección 3.2; Giardina y Bouchaud (2003).
+  sección 3.2; Giardina y Bouchaud (2003); Brock y Hommes (1998).
 - Presentación de los proyectos finales: réplica y extensión de un artículo de
   econofísica usando las herramientas de simulación y diagnóstico estadístico
   del curso.

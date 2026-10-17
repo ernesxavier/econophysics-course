@@ -16,7 +16,7 @@ macro bind(def, element)
     #! format: on
 end
 
-# ╔═╡ ba30de1a-c9eb-11f1-b180-47208819aec9
+# ╔═╡ 8eb989aa-ca6b-11f1-8745-5fd4d183a8fc
 begin
     # Usa el entorno del curso (Code/Project.toml) en lugar del gestor de
     # paquetes propio de Pluto: un solo entorno para todo el repositorio.
@@ -31,7 +31,7 @@ begin
             background_color_legend = nothing, margin = 3Plots.mm)
 end
 
-# ╔═╡ ba30dcf8-c9eb-11f1-9110-e936cab76302
+# ╔═╡ 8eb988b0-ca6b-11f1-9f97-bf5c4033cedc
 md"""
 # Sesión 11: Opinión, herding y segregación
 
@@ -58,15 +58,16 @@ opcionales.
 
 **Repaso recomendado** (en `Class_notes/repaso/`): E.B2–B3 (caminata aleatoria
 y promedios), L.B4 (matriz de adyacencia), C.B4 (función logística), F.B3–B4
-(temperatura y transiciones de fase), E.I3 (cadenas de Markov), F.I3–I4
-(Ising y campo medio). Ruta avanzada: E.A3 (ecuación maestra), E.A6 (tiempos
-de primer paso y absorción), L.A1 (Laplaciano).
+(temperatura y transiciones de fase), E.I2 (martingalas), E.I3 (cadenas de
+Markov), F.I3–I4 (Ising y campo medio). Ruta avanzada: E.A2 (lema de Itô),
+E.A3 (ecuación maestra), E.A4 (Fokker-Planck), E.A6 (tiempos de primer paso y
+absorción).
 """
 
-# ╔═╡ ba30dd2a-c9eb-11f1-a955-f795c27e6017
+# ╔═╡ 8eb988e2-ca6b-11f1-b1d3-31d7256b5fc7
 TableOfContents(title = "Contenido")
 
-# ╔═╡ ba30dd34-c9eb-11f1-9106-7533c1d56ae3
+# ╔═╡ 8eb988ec-ca6b-11f1-93a2-27b4bbdb42f1
 md"""
 ## 0. El fenómeno: intenciones individuales y resultados colectivos
 
@@ -91,7 +92,7 @@ preferencias individuales:
    ciudad termina partida en barrios casi homogéneos.
 """
 
-# ╔═╡ ba30dd52-c9eb-11f1-b7ce-61b65d44eeaf
+# ╔═╡ 8eb98900-ca6b-11f1-b592-0d28c61c7dbb
 md"""
 ## 1. Repaso: estados absorbentes frente a ruido
 
@@ -108,15 +109,15 @@ dejan de ser absorbentes: siempre puede reaparecer un disidente. El sistema ya
 no se detiene y converge a una **distribución estacionaria** ``P_k``.
 """
 
-# ╔═╡ ba30dd52-c9eb-11f1-bc01-db539696fd6d
+# ╔═╡ 8eb9890c-ca6b-11f1-8bea-b1cc151d5074
 # En imitación pura, la probabilidad de cambiar cuando k de N tienen opinión 1
 # es proporcional a k(N - k): se anula en k = 0 y en k = N.
 tasa_imitacion_pura(k, N) = (k / N) * ((N - k) / (N - 1))
 
-# ╔═╡ ba30dd5c-c9eb-11f1-9249-51a366d88393
+# ╔═╡ 8eb9890c-ca6b-11f1-bd03-afcdd7a6642f
 tasa_imitacion_pura(0, 100), tasa_imitacion_pura(50, 100), tasa_imitacion_pura(100, 100)
 
-# ╔═╡ ba30dd66-c9eb-11f1-8675-f30b9c80414d
+# ╔═╡ 8eb98914-ca6b-11f1-8f20-1544f800cfaa
 md"""
 ## 2. El modelo de votante
 
@@ -153,7 +154,7 @@ Fracción inicial ``x_0``: $(@bind x0_vot Slider(0.1:0.1:0.9, default = 0.3, sho
   Número de agentes ``N``: $(@bind N_vot Slider([40, 80, 150], default = 80, show_value = true))
 """
 
-# ╔═╡ ba30dd7a-c9eb-11f1-9d97-59567d04119d
+# ╔═╡ 8eb9891e-ca6b-11f1-ad46-c90d63d00a4f
 md"""
 ### 2.1 Laboratorio: ¿cómo afecta la red al tiempo de consenso?
 
@@ -170,7 +171,7 @@ Comparamos cuatro redes con ``N = 144`` nodos, todas empezando mitad y mitad
 - **Barabási-Albert** (grado promedio ``\approx 4``).
 """
 
-# ╔═╡ ba30dd8e-c9eb-11f1-8b3d-b36fc8f1d91f
+# ╔═╡ 8eb98932-ca6b-11f1-8a07-d5894a58dec3
 md"""
 La estructura de la red cambia radicalmente la velocidad del consenso:
 
@@ -185,7 +186,7 @@ La estructura de la red cambia radicalmente la velocidad del consenso:
   vecinos a la vez y aceleran todavía más la llegada al consenso.
 """
 
-# ╔═╡ ba30dd8e-c9eb-11f1-8021-b31c7b64e531
+# ╔═╡ 8eb98932-ca6b-11f1-b79b-09b40783ca6f
 md"""
 ## 3. El modelo de hormigas de Kirman: herding y bimodalidad
 
@@ -221,7 +222,7 @@ Mueve ``a`` y observa tanto la trayectoria en el tiempo de la fracción
 Cambio autónomo frente a imitación ``a``: $(@bind a_kirman Slider([0.2, 0.5, 1.0, 2.0, 5.0], default = 0.2, show_value = true))
 """
 
-# ╔═╡ ba30dda2-c9eb-11f1-ba7f-89022dd9cd47
+# ╔═╡ 8eb98946-ca6b-11f1-97c2-7165f3e48da2
 md"""
 Observa las tres fases del modelo al variar ``a``:
 
@@ -245,7 +246,7 @@ que el **ruido de imitación se apaga cerca de los bordes** ``x = 0`` y
 en consensos cuasi-absorbentes.
 """
 
-# ╔═╡ ba30ddac-c9eb-11f1-934f-4f29b55971fc
+# ╔═╡ 8eb98946-ca6b-11f1-b189-9bb45a320dbc
 md"""
 ## 4. El modelo de segregación de Schelling
 
@@ -275,13 +276,13 @@ Umbral requerido ``\tau``: $(@bind τ_sch Slider([0.125, 0.25, 0.375, 0.50, 0.62
   Fracción de celdas vacías ``\rho_0``: $(@bind vac_sch Slider([0.05, 0.15, 0.30], default = 0.15, show_value = true))
 """
 
-# ╔═╡ ba30ddb6-c9eb-11f1-97c8-ff604b3e1731
+# ╔═╡ 8eb9895a-ca6b-11f1-9456-3d7d0b15f4ed
 md"""
 Para ver la transición completa, medimos la **similitud promedio final** y la
 **fracción de agentes satisfechos** al variar el umbral ``\tau`` de 0 a 0.85:
 """
 
-# ╔═╡ ba30ddd4-c9eb-11f1-963a-552a0eb453a0
+# ╔═╡ 8eb9896c-ca6b-11f1-93f6-4355cbb65e4e
 md"""
 ## 5. [Avanzado] Ecuación maestra y límite continuo de Kirman
 
@@ -304,10 +305,10 @@ P_k = \binom{N}{k}\frac{\mathrm{B}(k + a,\, N - k + a)}{\mathrm{B}(a, a)}.
 
 Cuando ``N \to \infty`` con ``a`` fijo, y midiendo el tiempo en unidades de
 ``N(N - 1 + 2a)/2 \approx N^2/2`` pasos (unos ``N/2`` barridos), la variable
-continua ``x = k / N \in (0, 1)`` cumple la ecuación de Fokker-Planck (repaso
-E.A4) con deriva ``A(x) = a(1/2 - x)`` y coeficiente de difusión
-``B(x) = x(1-x)``. Su densidad estacionaria es la **distribución Beta**
-simétrica:
+continua ``x = k / N \in (0, 1)`` cumple la ecuación de Fokker-Planck de
+``dx = A(x)\,dt + B(x)\,dW`` (repaso E.A4) con deriva ``A(x) = a(1/2 - x)`` e
+intensidad de ruido ``B(x)^2 = x(1-x)``. Su densidad estacionaria es la
+**distribución Beta** simétrica:
 
 ```math
 p(x) = \frac{\Gamma(2a)}{\Gamma(a)^2}\,x^{a-1}(1 - x)^{a-1}.
@@ -318,7 +319,7 @@ densidad continua ``\mathrm{Beta}(a, a)`` para los tres regímenes ``a = 0.4``,
 ``a = 1`` y ``a = 3``.
 """
 
-# ╔═╡ ba30dde8-c9eb-11f1-a088-2f2baabc45b9
+# ╔═╡ 8eb98978-ca6b-11f1-8a69-e7205ed995f1
 md"""
 ## Resumen
 
@@ -329,7 +330,7 @@ md"""
 | **Schelling** | Mudarse si la fracción de vecinos similares es ``< \tau`` | Preferencias leves (``\tau \approx 3/8``) desencadenan segregación fuerte (similitud de 75 a 80%, contra 50% al azar) |
 """
 
-# ╔═╡ ba30dde8-c9eb-11f1-a562-eb0c02114edc
+# ╔═╡ 8eb98982-ca6b-11f1-8df0-45865031842e
 md"""
 ## Ejercicios
 
@@ -340,12 +341,12 @@ en un paso del modelo de Kirman el número de agentes con opinión 1 suba de
 `k` a `k + 1`, usando la fórmula de la sección 3.
 """
 
-# ╔═╡ ba30ddf2-c9eb-11f1-b6f4-e1ef068699ca
+# ╔═╡ 8eb98982-ca6b-11f1-b624-b3b2ce31350d
 function tasa_kirman(k, N, a)
     missing  # reemplaza esta línea
 end
 
-# ╔═╡ ba30ddfc-c9eb-11f1-a2c9-1d6be8fcbf70
+# ╔═╡ 8eb9898c-ca6b-11f1-8fc0-55604d32fbb7
 md"""
 **2.** Escribe `satisfecho(iguales, totales, τ)`, que devuelva `true` si un
 agente de Schelling con `iguales` vecinos de su mismo grupo, de un total de
@@ -353,12 +354,12 @@ agente de Schelling con `iguales` vecinos de su mismo grupo, de un total de
 `true`).
 """
 
-# ╔═╡ ba30ddfc-c9eb-11f1-8381-bdc27d4c436e
+# ╔═╡ 8eb9898c-ca6b-11f1-bb4d-7d0a9f868707
 function satisfecho(iguales, totales, τ)
     missing  # reemplaza esta línea
 end
 
-# ╔═╡ ba30de06-c9eb-11f1-9460-856842467eac
+# ╔═╡ 8eb98996-ca6b-11f1-adba-87419cf1a1ef
 md"""
 ### Ruta básica: interpretación
 
@@ -387,7 +388,7 @@ md"""
    ecuación de balance detallado ``P_k W(k \to k+1) = P_{k+1} W(k+1 \to k)`` y
    comprueba que para ``a = 1`` se reduce a ``P_k = 1 / (N + 1)``.
 10. Usa la fórmula estacionaria de la ecuación de Fokker-Planck (repaso E.A4)
-    con ``A(x) = a(1/2 - x)`` y ``B(x) = x(1-x)`` para obtener la densidad
+    con ``A(x) = a(1/2 - x)`` y ``B(x)^2 = x(1-x)`` para obtener la densidad
     ``p(x) \propto x^{a-1}(1-x)^{a-1}``.
 11. En una red cualquiera donde un nodo se elige al azar y copia a un vecino al
     azar, demuestra que ``\sum_i k_i s_i`` (la opinión ponderada por el grado
@@ -407,7 +408,7 @@ md"""
   cooperación en redes**).
 """
 
-# ╔═╡ ba30de12-c9eb-11f1-90a2-0bf76f839b53
+# ╔═╡ 8eb989aa-ca6b-11f1-ba62-351b647f2fdf
 md"""
 ---
 ## Apéndice: paquetes y funciones auxiliares
@@ -416,7 +417,7 @@ Estas celdas definen herramientas que usa el cuaderno. No es necesario
 leerlas para seguir la sesión.
 """
 
-# ╔═╡ ba30de1a-c9eb-11f1-8e7e-a124f3e02890
+# ╔═╡ 8eb989b4-ca6b-11f1-94cb-6dd7f1f20fe2
 begin
     const AZUL       = "#2a78d6"   # serie principal, grupo 1
     const NARANJA    = "#eb6834"   # segunda serie o teoría, grupo 2
@@ -425,11 +426,11 @@ begin
     const BLANCO     = "#ffffff"
 end;
 
-# ╔═╡ ba30de24-c9eb-11f1-8ed9-a710a0ad859a
+# ╔═╡ 8eb989b4-ca6b-11f1-9227-f7c3282e587a
 "Porcentaje con a lo más un decimal: 0.375 → \"37.5%\", 0.25 → \"25%\"."
 porcentaje(x) = replace(string(round(100x, digits = 1)), r"\.0$" => "") * "%"
 
-# ╔═╡ ba30de24-c9eb-11f1-a08d-9f54f2b0ce27
+# ╔═╡ 8eb989be-ca6b-11f1-87f0-a57065cefdcf
 """
 Tiempo esperado exacto (en barridos) hasta el consenso en la red completa
 desde k₀ agentes en 1. Para N grande se aproxima por
@@ -441,7 +442,7 @@ function tiempo_teorico_votante(N, k0)
                    k0 * sum(1 / j for j in k0:N-1))
 end
 
-# ╔═╡ ba30de2e-c9eb-11f1-91a5-fdf7172ba36b
+# ╔═╡ 8eb989be-ca6b-11f1-88d5-49877fe3d55b
 """
 Simula M trayectorias del modelo de votante en la red completa con N agentes,
 empezando con una fracción x0 en 1. Guarda las primeras 12 trayectorias (en
@@ -473,10 +474,10 @@ function trayectorias_votante(N, x0; M = 200, rng = Xoshiro(7))
     (curvas = curvas, gana1 = gana1 / M, t_medio = mean(tiempos))
 end
 
-# ╔═╡ ba30dd66-c9eb-11f1-92ab-11cc0b323895
+# ╔═╡ 8eb98914-ca6b-11f1-9378-8f58e321c44d
 sim_votante = trayectorias_votante(N_vot, x0_vot; M = 200);
 
-# ╔═╡ ba30dd6e-c9eb-11f1-b5f5-8da193774ba6
+# ╔═╡ 8eb98914-ca6b-11f1-8490-4f6351fdd5cc
 let
     d = sim_votante
     p = plot(; xlabel = "tiempo (barridos)", ylabel = "fracción con opinión 1",
@@ -492,7 +493,7 @@ let
     p
 end
 
-# ╔═╡ ba30dd6e-c9eb-11f1-9ce8-f3fab3a8037f
+# ╔═╡ 8eb9891e-ca6b-11f1-9850-7d53db1259b3
 let
     pemp = round(Int, 100 * sim_votante.gana1)
     pteo = round(Int, 100 * x0_vot)
@@ -514,7 +515,7 @@ absorbentes.
 """)
 end
 
-# ╔═╡ ba30de38-c9eb-11f1-9748-71256e67926f
+# ╔═╡ 8eb989c8-ca6b-11f1-ab17-299895f00baa
 "Simula el modelo de votante en un grafo `g` desde k0 nodos en 1 al azar; devuelve los barridos hasta el consenso."
 function votante_en_red(g, k0, rng; max_barridos = 25_000)
     N = nv(g)
@@ -538,7 +539,7 @@ function votante_en_red(g, k0, rng; max_barridos = 25_000)
     pasos / N
 end
 
-# ╔═╡ ba30de38-c9eb-11f1-ab2b-83d7d582b2e8
+# ╔═╡ 8eb989c8-ca6b-11f1-ac55-c90f082a7204
 "Genera una red de Erdős-Rényi conexa con N nodos y grado promedio c."
 function er_conexa(N, c, semilla)
     m = round(Int, N * c / 2)
@@ -549,7 +550,7 @@ function er_conexa(N, c, semilla)
     erdos_renyi(N, m; seed = semilla)
 end
 
-# ╔═╡ ba30de44-c9eb-11f1-922e-bd6a199de4e5
+# ╔═╡ 8eb989c8-ca6b-11f1-81b0-1fb39908db76
 "Compara el tiempo al consenso en función de N (red completa) y entre distintas topologías de red."
 function comparar_redes_votante(N; M = 120)
     rng = Xoshiro(15)
@@ -570,10 +571,10 @@ function comparar_redes_votante(N; M = 120)
     (Ns = Ns, t_completa = t_comp, redes = redes)
 end
 
-# ╔═╡ ba30dd84-c9eb-11f1-bbd9-d3efeb45dde2
+# ╔═╡ 8eb98928-ca6b-11f1-8e9f-35f3207c0a05
 tiempos_redes = comparar_redes_votante(144; M = 120);
 
-# ╔═╡ ba30dd84-c9eb-11f1-85c5-efef78039671
+# ╔═╡ 8eb98928-ca6b-11f1-871f-877f660202ab
 let
     Ns = [20, 40, 80, 120, 160, 200]
     p1 = plot(Ns, tiempo_teorico_votante.(Ns, Ns .÷ 2); color = NARANJA, lw = 2.2,
@@ -586,14 +587,17 @@ let
     nombres = [r.nombre for r in tiempos_redes.redes]
     medias = [r.media for r in tiempos_redes.redes]
     errores = [1.96 * r.se for r in tiempos_redes.redes]
-    p2 = bar(1:length(nombres), medias; yerror = errores, color = AZUL, lw = 0,
+    p2 = bar(1:length(nombres), medias; color = AZUL, lw = 0,
              bar_width = 0.55, xticks = (1:length(nombres), nombres),
              ylabel = "barridos hasta el consenso", legend = false,
-             title = "Efecto de la topología (N = 144, x₀ = 0.5)")
+             ylims = (0, 1.08 * maximum(medias .+ errores)),
+             title = "Efecto de la topología (N = 144, IC 95%)")
+    scatter!(p2, 1:length(nombres), medias; yerror = errores, ms = 0, msc = GRIS,
+             msw = 1.5, color = GRIS, label = "")
     plot(p1, p2; layout = (1, 2), size = (900, 360), bottom_margin = 5Plots.mm)
 end
 
-# ╔═╡ ba30de44-c9eb-11f1-b07e-bb8bd54bdb70
+# ╔═╡ 8eb989d2-ca6b-11f1-aad7-ff8dbf6eaf6e
 """
 Simula el modelo de hormigas de Kirman con N agentes y parámetro de cambio
 autónomo `a` durante `barridos` barridos (descarta 200 de calentamiento).
@@ -619,14 +623,14 @@ function simular_kirman(N, a; barridos = 4_000, rng = Xoshiro(11))
     (k = ks,)
 end
 
-# ╔═╡ ba30dd98-c9eb-11f1-b878-bb6a34c88b64
+# ╔═╡ 8eb9893e-ca6b-11f1-a463-3f9d44dbe9e2
 sim_kirman = simular_kirman(100, a_kirman; barridos = 4_000, rng = Xoshiro(11));
 
-# ╔═╡ ba30de4c-c9eb-11f1-bc40-43b8e3c5e1e0
+# ╔═╡ 8eb989d2-ca6b-11f1-84c1-696cf354421f
 "Distribución estacionaria exacta P_k (k = 0, …, N) del modelo de Kirman: Beta-binomial(N, a, a)."
 kirman_estacionaria(N, a) = pdf.(BetaBinomial(N, a, a), 0:N)
 
-# ╔═╡ ba30dda2-c9eb-11f1-8619-1d310df67452
+# ╔═╡ 8eb9893e-ca6b-11f1-b261-a773e7dd52d5
 let
     N = 100
     x = sim_kirman.k ./ N
@@ -648,7 +652,7 @@ let
     plot(p1, p2; layout = (1, 2), size = (900, 360), bottom_margin = 5Plots.mm)
 end
 
-# ╔═╡ ba30dde0-c9eb-11f1-b517-a5b08cdc14b1
+# ╔═╡ 8eb98978-ca6b-11f1-bb6a-9103aaa8299a
 let
     N = 80
     ks = 1:N-1
@@ -666,7 +670,7 @@ let
     p
 end
 
-# ╔═╡ ba30de4c-c9eb-11f1-aaf4-3fb0f2adde31
+# ╔═╡ 8eb989dc-ca6b-11f1-a7dc-077cf1ff5b2f
 "Cuenta vecinos del mismo tipo y vecinos ocupados totales en la vecindad de Moore (8 vecinos, periódica)."
 function vecindad_schelling(tablero, r, c)
     L = size(tablero, 1)
@@ -683,7 +687,7 @@ function vecindad_schelling(tablero, r, c)
     iguales, totales
 end
 
-# ╔═╡ ba30de56-c9eb-11f1-aab1-81d30399b603
+# ╔═╡ 8eb989dc-ca6b-11f1-b6e8-414adfa6ea83
 "Mide la similitud promedio y la fracción de agentes satisfechos en el tablero de Schelling."
 function metricas_schelling(tablero, τ)
     L = size(tablero, 1)
@@ -704,7 +708,7 @@ function metricas_schelling(tablero, τ)
      felices = felices / max(agentes, 1))
 end
 
-# ╔═╡ ba30de56-c9eb-11f1-8921-27917a7fd6fc
+# ╔═╡ 8eb989e6-ca6b-11f1-ac6e-f365fc00471a
 """
 Simula el modelo de segregación de Schelling en una cuadrícula L × L con
 fracción `p_vacio` de celdas vacías y umbral de tolerancia `τ`.
@@ -750,10 +754,10 @@ function simular_schelling(L, p_vacio, τ; pasos_max = 120, rng = Xoshiro(21))
     (tablero = tablero, similitud = sim_hist, felices = fel_hist)
 end
 
-# ╔═╡ ba30ddac-c9eb-11f1-aeb3-77a493e4aa4d
+# ╔═╡ 8eb98950-ca6b-11f1-b39a-0de43e7f6caa
 sim_schelling = simular_schelling(40, vac_sch, τ_sch; pasos_max = 120, rng = Xoshiro(21));
 
-# ╔═╡ ba30ddb6-c9eb-11f1-bfe3-c18094e9e328
+# ╔═╡ 8eb98950-ca6b-11f1-a784-c7d5e47f2fdc
 let
     s = sim_schelling
     paleta = cgrad([BLANCO, AZUL, NARANJA])
@@ -771,7 +775,7 @@ let
     plot(p1, p2; layout = Plots.grid(1, 2; widths = [0.44, 0.56]), size = (900, 380))
 end
 
-# ╔═╡ ba30de60-c9eb-11f1-8abb-a5b49378d25d
+# ╔═╡ 8eb989e6-ca6b-11f1-86a5-8d07c8be2d7e
 "Ejemplo fijo de Schelling para la sección 0 (antes y después con τ = 0.375)."
 ejemplo_schelling = let
     ini = simular_schelling(40, 0.15, 0.375; pasos_max = 0, rng = Xoshiro(21))
@@ -780,7 +784,7 @@ ejemplo_schelling = let
      fin = (tablero = fin.tablero, similitud = fin.similitud[end], felices = fin.felices[end]))
 end;
 
-# ╔═╡ ba30dd3c-c9eb-11f1-b1b0-7b5be74895ab
+# ╔═╡ 8eb988ec-ca6b-11f1-ad27-e7e74181ad5a
 let
     ini, fin = ejemplo_schelling
     paleta = cgrad([BLANCO, AZUL, NARANJA])
@@ -793,7 +797,7 @@ let
     plot(p1, p2; layout = (1, 2), size = (820, 390))
 end
 
-# ╔═╡ ba30dd3c-c9eb-11f1-a8e8-7bd7b08b20e2
+# ╔═╡ 8eb988f6-ca6b-11f1-9fa1-1f68b2de923e
 md"""
 Nadie buscaba una ciudad con $(round(Int, 100ejemplo_schelling.fin.similitud))% de vecinos del mismo grupo: bastaba con
 37.5%. El exceso de segregación es una propiedad **emergente**. En esta sesión
@@ -801,7 +805,7 @@ estudiaremos tres mecanismos fundamentales de dinámica social: el **modelo de
 votante**, el **modelo de Kirman** y el **modelo de Schelling**.
 """
 
-# ╔═╡ ba30de6a-c9eb-11f1-ab55-5ddac6518317
+# ╔═╡ 8eb989f0-ca6b-11f1-8e8f-d5c7baafb04b
 "Barrido de la similitud final y fracción de satisfechos en Schelling para varios umbrales τ."
 function barrido_schelling(L, p_vacio; τs = 0.10:0.05:0.85)
     sim, fel = Float64[], Float64[]
@@ -813,10 +817,10 @@ function barrido_schelling(L, p_vacio; τs = 0.10:0.05:0.85)
     (τ = collect(τs), similitud = sim, felices = fel)
 end
 
-# ╔═╡ ba30ddc0-c9eb-11f1-8aee-8b4ddc4557ad
+# ╔═╡ 8eb9895a-ca6b-11f1-9d45-51aec80f0b02
 barrido_sch = barrido_schelling(35, 0.15; τs = 0.10:0.05:0.85);
 
-# ╔═╡ ba30ddc0-c9eb-11f1-bcd1-9365670f99ba
+# ╔═╡ 8eb98964-ca6b-11f1-bc90-09a3d1bf6356
 let
     b = barrido_sch
     p = plot(100 .* b.τ, 100 .* b.similitud; color = AZUL, lw = 2.5, marker = :circle, ms = 4, msw = 0,
@@ -829,7 +833,7 @@ let
     hline!(p, [50]; color = GRIS_CLARO, lw = 1, label = "Mezcla al azar (50%)")
 end
 
-# ╔═╡ ba30de6a-c9eb-11f1-8fb9-17405055c55e
+# ╔═╡ 8eb989f0-ca6b-11f1-99c8-674a894911ca
 "Rango de la similitud final del barrido de Schelling para τ entre `lo` y `hi`, como texto."
 function rango_sch(lo, hi)
     k = (barrido_sch.τ .>= lo - 1e-9) .& (barrido_sch.τ .<= hi + 1e-9)
@@ -837,19 +841,19 @@ function rango_sch(lo, hi)
     "$(round(Int, 100a))% y $(round(Int, 100b))%"
 end
 
-# ╔═╡ ba30ddca-c9eb-11f1-bac4-ebc2f299cc04
+# ╔═╡ 8eb98964-ca6b-11f1-820b-95f519b20970
 md"""
 La curva muestra tres regímenes muy claros:
 
 1. **``\tau \le 25\%`` (mezcla estable):** Casi todos los agentes ya cumplen su
    umbral en la configuración aleatoria inicial; casi nadie se muda y la
    similitud queda entre $(rango_sch(0.0, 0.25)), cerca de la mezcla al azar.
-2. **``30\% \le \tau \le 65\%`` (segregación fuerte con preferencias leves):**
-   En cuanto ``\tau`` cruza ``\approx 1/3``, las mudanzas de los pocos
+2. **``30\% \le \tau \le 70\%`` (segregación fuerte con preferencias leves):**
+   En cuanto ``\tau`` pasa de 25% a 30%, las mudanzas de los pocos
    insatisfechos iniciales reducen la fracción de su grupo en el barrio que
    dejan y la aumentan en el que llegan. Eso vuelve insatisfechos a otros
    vecinos y desata un efecto dominó que sólo se detiene cuando la similitud
-   llega a valores entre $(rango_sch(0.3, 0.65)), muy por encima de la línea
+   llega a valores entre $(rango_sch(0.3, 0.7)), muy por encima de la línea
    punteada ``\tau`` que cada agente pedía.
 3. **``\tau \ge 75\%`` (frustración / congelamiento):** Los agentes exigen
    vecindarios tan puros que no hay suficientes lugares satisfactorios; las
@@ -866,7 +870,7 @@ muda para cumplir su propio umbral, no para bajar ``H``, y una mudanza puede
 aumentar la energía total (Vinković y Kirman, 2006).
 """
 
-# ╔═╡ ba30de72-c9eb-11f1-b6a5-97d4fcf62c13
+# ╔═╡ 8eb989fa-ca6b-11f1-a3d5-19aeeb6cfd1f
 "Muestra si la respuesta de un ejercicio es correcta."
 function verificar(f, esperado; rtol = 1e-8, pista = md"")
     caja(tipo, titulo, texto) = Markdown.MD(Markdown.Admonition(tipo, titulo, [texto]))
@@ -887,69 +891,69 @@ function verificar(f, esperado; rtol = 1e-8, pista = md"")
     end
 end
 
-# ╔═╡ ba30ddf2-c9eb-11f1-be88-318a1442eaac
+# ╔═╡ 8eb9898c-ca6b-11f1-ae64-a53cbda930cb
 verificar(() -> [tasa_kirman(0, 100, 1.0), tasa_kirman(50, 100, 1.0), tasa_kirman(100, 100, 1.0)],
           [1.0 / 101.0, 0.5 * 51.0 / 101.0, 0.0];
           pista = md"La fórmula es ``\frac{N - k}{N}\,\frac{a + k}{N - 1 + 2a}``.")
 
-# ╔═╡ ba30ddfc-c9eb-11f1-a70f-49fb7f691238
+# ╔═╡ 8eb98996-ca6b-11f1-a13b-6bbd83b99dbc
 verificar(() -> [satisfecho(3, 8, 0.375), satisfecho(2, 8, 0.375), satisfecho(0, 0, 0.5)],
           [true, false, true];
           pista = md"Si `totales == 0` devuelve `true`; en caso contrario compara `iguales / totales >= τ`.")
 
 # ╔═╡ Cell order:
-# ╟─ba30dcf8-c9eb-11f1-9110-e936cab76302
-# ╟─ba30dd2a-c9eb-11f1-a955-f795c27e6017
-# ╟─ba30dd34-c9eb-11f1-9106-7533c1d56ae3
-# ╟─ba30dd3c-c9eb-11f1-b1b0-7b5be74895ab
-# ╟─ba30dd3c-c9eb-11f1-a8e8-7bd7b08b20e2
-# ╟─ba30dd52-c9eb-11f1-b7ce-61b65d44eeaf
-# ╠═ba30dd52-c9eb-11f1-bc01-db539696fd6d
-# ╠═ba30dd5c-c9eb-11f1-9249-51a366d88393
-# ╟─ba30dd66-c9eb-11f1-8675-f30b9c80414d
-# ╟─ba30dd66-c9eb-11f1-92ab-11cc0b323895
-# ╟─ba30dd6e-c9eb-11f1-b5f5-8da193774ba6
-# ╟─ba30dd6e-c9eb-11f1-9ce8-f3fab3a8037f
-# ╟─ba30dd7a-c9eb-11f1-9d97-59567d04119d
-# ╠═ba30dd84-c9eb-11f1-bbd9-d3efeb45dde2
-# ╟─ba30dd84-c9eb-11f1-85c5-efef78039671
-# ╟─ba30dd8e-c9eb-11f1-8b3d-b36fc8f1d91f
-# ╟─ba30dd8e-c9eb-11f1-8021-b31c7b64e531
-# ╠═ba30dd98-c9eb-11f1-b878-bb6a34c88b64
-# ╟─ba30dda2-c9eb-11f1-8619-1d310df67452
-# ╟─ba30dda2-c9eb-11f1-ba7f-89022dd9cd47
-# ╟─ba30ddac-c9eb-11f1-934f-4f29b55971fc
-# ╠═ba30ddac-c9eb-11f1-aeb3-77a493e4aa4d
-# ╟─ba30ddb6-c9eb-11f1-bfe3-c18094e9e328
-# ╟─ba30ddb6-c9eb-11f1-97c8-ff604b3e1731
-# ╠═ba30ddc0-c9eb-11f1-8aee-8b4ddc4557ad
-# ╟─ba30ddc0-c9eb-11f1-bcd1-9365670f99ba
-# ╟─ba30ddca-c9eb-11f1-bac4-ebc2f299cc04
-# ╟─ba30ddd4-c9eb-11f1-963a-552a0eb453a0
-# ╟─ba30dde0-c9eb-11f1-b517-a5b08cdc14b1
-# ╟─ba30dde8-c9eb-11f1-a088-2f2baabc45b9
-# ╟─ba30dde8-c9eb-11f1-a562-eb0c02114edc
-# ╠═ba30ddf2-c9eb-11f1-b6f4-e1ef068699ca
-# ╟─ba30ddf2-c9eb-11f1-be88-318a1442eaac
-# ╟─ba30ddfc-c9eb-11f1-a2c9-1d6be8fcbf70
-# ╠═ba30ddfc-c9eb-11f1-8381-bdc27d4c436e
-# ╟─ba30ddfc-c9eb-11f1-a70f-49fb7f691238
-# ╟─ba30de06-c9eb-11f1-9460-856842467eac
-# ╟─ba30de12-c9eb-11f1-90a2-0bf76f839b53
-# ╠═ba30de1a-c9eb-11f1-b180-47208819aec9
-# ╠═ba30de1a-c9eb-11f1-8e7e-a124f3e02890
-# ╠═ba30de24-c9eb-11f1-8ed9-a710a0ad859a
-# ╠═ba30de24-c9eb-11f1-a08d-9f54f2b0ce27
-# ╠═ba30de2e-c9eb-11f1-91a5-fdf7172ba36b
-# ╠═ba30de38-c9eb-11f1-9748-71256e67926f
-# ╠═ba30de38-c9eb-11f1-ab2b-83d7d582b2e8
-# ╠═ba30de44-c9eb-11f1-922e-bd6a199de4e5
-# ╠═ba30de44-c9eb-11f1-b07e-bb8bd54bdb70
-# ╠═ba30de4c-c9eb-11f1-bc40-43b8e3c5e1e0
-# ╠═ba30de4c-c9eb-11f1-aaf4-3fb0f2adde31
-# ╠═ba30de56-c9eb-11f1-aab1-81d30399b603
-# ╠═ba30de56-c9eb-11f1-8921-27917a7fd6fc
-# ╠═ba30de60-c9eb-11f1-8abb-a5b49378d25d
-# ╠═ba30de6a-c9eb-11f1-8fb9-17405055c55e
-# ╠═ba30de6a-c9eb-11f1-ab55-5ddac6518317
-# ╠═ba30de72-c9eb-11f1-b6a5-97d4fcf62c13
+# ╟─8eb988b0-ca6b-11f1-9f97-bf5c4033cedc
+# ╟─8eb988e2-ca6b-11f1-b1d3-31d7256b5fc7
+# ╟─8eb988ec-ca6b-11f1-93a2-27b4bbdb42f1
+# ╟─8eb988ec-ca6b-11f1-ad27-e7e74181ad5a
+# ╟─8eb988f6-ca6b-11f1-9fa1-1f68b2de923e
+# ╟─8eb98900-ca6b-11f1-b592-0d28c61c7dbb
+# ╠═8eb9890c-ca6b-11f1-8bea-b1cc151d5074
+# ╠═8eb9890c-ca6b-11f1-bd03-afcdd7a6642f
+# ╟─8eb98914-ca6b-11f1-8f20-1544f800cfaa
+# ╟─8eb98914-ca6b-11f1-9378-8f58e321c44d
+# ╟─8eb98914-ca6b-11f1-8490-4f6351fdd5cc
+# ╟─8eb9891e-ca6b-11f1-9850-7d53db1259b3
+# ╟─8eb9891e-ca6b-11f1-ad46-c90d63d00a4f
+# ╠═8eb98928-ca6b-11f1-8e9f-35f3207c0a05
+# ╟─8eb98928-ca6b-11f1-871f-877f660202ab
+# ╟─8eb98932-ca6b-11f1-8a07-d5894a58dec3
+# ╟─8eb98932-ca6b-11f1-b79b-09b40783ca6f
+# ╠═8eb9893e-ca6b-11f1-a463-3f9d44dbe9e2
+# ╟─8eb9893e-ca6b-11f1-b261-a773e7dd52d5
+# ╟─8eb98946-ca6b-11f1-97c2-7165f3e48da2
+# ╟─8eb98946-ca6b-11f1-b189-9bb45a320dbc
+# ╠═8eb98950-ca6b-11f1-b39a-0de43e7f6caa
+# ╟─8eb98950-ca6b-11f1-a784-c7d5e47f2fdc
+# ╟─8eb9895a-ca6b-11f1-9456-3d7d0b15f4ed
+# ╠═8eb9895a-ca6b-11f1-9d45-51aec80f0b02
+# ╟─8eb98964-ca6b-11f1-bc90-09a3d1bf6356
+# ╟─8eb98964-ca6b-11f1-820b-95f519b20970
+# ╟─8eb9896c-ca6b-11f1-93f6-4355cbb65e4e
+# ╟─8eb98978-ca6b-11f1-bb6a-9103aaa8299a
+# ╟─8eb98978-ca6b-11f1-8a69-e7205ed995f1
+# ╟─8eb98982-ca6b-11f1-8df0-45865031842e
+# ╠═8eb98982-ca6b-11f1-b624-b3b2ce31350d
+# ╟─8eb9898c-ca6b-11f1-ae64-a53cbda930cb
+# ╟─8eb9898c-ca6b-11f1-8fc0-55604d32fbb7
+# ╠═8eb9898c-ca6b-11f1-bb4d-7d0a9f868707
+# ╟─8eb98996-ca6b-11f1-a13b-6bbd83b99dbc
+# ╟─8eb98996-ca6b-11f1-adba-87419cf1a1ef
+# ╟─8eb989aa-ca6b-11f1-ba62-351b647f2fdf
+# ╠═8eb989aa-ca6b-11f1-8745-5fd4d183a8fc
+# ╠═8eb989b4-ca6b-11f1-94cb-6dd7f1f20fe2
+# ╠═8eb989b4-ca6b-11f1-9227-f7c3282e587a
+# ╠═8eb989be-ca6b-11f1-87f0-a57065cefdcf
+# ╠═8eb989be-ca6b-11f1-88d5-49877fe3d55b
+# ╠═8eb989c8-ca6b-11f1-ab17-299895f00baa
+# ╠═8eb989c8-ca6b-11f1-ac55-c90f082a7204
+# ╠═8eb989c8-ca6b-11f1-81b0-1fb39908db76
+# ╠═8eb989d2-ca6b-11f1-aad7-ff8dbf6eaf6e
+# ╠═8eb989d2-ca6b-11f1-84c1-696cf354421f
+# ╠═8eb989dc-ca6b-11f1-a7dc-077cf1ff5b2f
+# ╠═8eb989dc-ca6b-11f1-b6e8-414adfa6ea83
+# ╠═8eb989e6-ca6b-11f1-ac6e-f365fc00471a
+# ╠═8eb989e6-ca6b-11f1-86a5-8d07c8be2d7e
+# ╠═8eb989f0-ca6b-11f1-99c8-674a894911ca
+# ╠═8eb989f0-ca6b-11f1-8e8f-d5c7baafb04b
+# ╠═8eb989fa-ca6b-11f1-a3d5-19aeeb6cfd1f

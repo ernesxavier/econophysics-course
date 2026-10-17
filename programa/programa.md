@@ -197,8 +197,8 @@ y aprendizaje, y usarlos para reproducir patrones empíricos.
 	  b/c > k de reciprocidad de red.
 	- *Laboratorio*: Halcón-Paloma; Goodwin; cooperación en retícula vs. red BA.
 	- Lecturas: RC 7; SL 8.1; Nowak & May (1992).
-	  **[Avanzado]** Goodwin (1967); Strogatz (consulta); Schecter & Gintis
-	  (consulta).
+	  **[Avanzado]** Goodwin (1967); Ohtsuki et al. (2006); Santos & Pacheco
+	  (2005); Strogatz (consulta); Schecter & Gintis (consulta).
 - **Semana 13: Juego de la minoría**
 	- El Farol. Reglas del juego de la minoría.
 	- Volatilidad σ²/N vs. α = 2^M/N: fases eficiente e ineficiente.
@@ -209,7 +209,8 @@ y aprendizaje, y usarlos para reproducir patrones empíricos.
 	  **[Avanzado]** SL 5.2; Challet, Marsili & Zhang (2005, consulta).
 - **Semana 14: Mercados artificiales y expectativas heterogéneas**
 	- Brock-Hommes: selección evolutiva de reglas de predicción.
-	- Fundamentalistas vs. chartistas (Lux-Marchesi, Giardina-Bouchaud).
+	- Fundamentalistas vs. chartistas (Lux-Marchesi, Giardina-Bouchaud); en
+	  el laboratorio, la versión estimada de Franke & Westerhoff (2012).
 	- **Cierre del ciclo**: aplicar el análisis de la semana 1 a series
 	  simuladas. ¿Qué hechos estilizados reproduce cada modelo?
 	- **[Avanzado]** Bifurcaciones y caos: análisis de estabilidad de
@@ -217,7 +218,8 @@ y aprendizaje, y usarlos para reproducir patrones empíricos.
 	- *Laboratorio*: diagrama de bifurcación por simulación; hechos estilizados
 	  en series simuladas.
 	- Lecturas: HM 1; LeBaron (2006); Lux & Marchesi (1999).
-	  **[Avanzado]** HM 2, 6; SL 3.2; Giardina & Bouchaud (2003).
+	  **[Avanzado]** HM 2, 6; SL 3.2; Giardina & Bouchaud (2003); Brock &
+	  Hommes (1998).
 - **Semana 15: Proyecto final**
 	- Presentaciones.
 
@@ -303,6 +305,8 @@ tecnológica.
   Heesterbeek, H., Hommes, C., Jaeger, C., May, R., & Scheffer, M. (2016).
   Complexity theory and financial regulation. *Science*, 351(6275), 818–819.
   https://doi.org/10.1126/science.aad0299
+- Arthur, W. B. (1994). Inductive reasoning and bounded rationality.
+  *American Economic Review*, 84(2), 406–411. https://www.jstor.org/stable/2117868
 - Bouchaud, J.-P., & Mézard, M. (2000). Wealth condensation in a simple model
   of economy. *Physica A*, 282(3–4), 536–545.
   https://doi.org/10.1016/S0378-4371(00)00205-3
@@ -313,6 +317,9 @@ tecnológica.
 - Brock, W. A., & Durlauf, S. N. (2001). Discrete choice with social
   interactions. *Review of Economic Studies*, 68(2), 235–260.
   https://doi.org/10.1111/1467-937X.00168
+- Brock, W. A., & Hommes, C. H. (1998). Heterogeneous beliefs and routes to
+  chaos in a simple asset pricing model. *Journal of Economic Dynamics and
+  Control*, 22(8–9), 1235–1274. https://doi.org/10.1016/S0165-1889(98)00011-6
 - Castellano, C., Fortunato, S., & Loreto, V. (2009). Statistical physics of
   social dynamics. *Reviews of Modern Physics*, 81(2), 591–646.
   https://doi.org/10.1103/RevModPhys.81.591
@@ -328,6 +335,9 @@ tecnológica.
 - Eisenberg, L., & Noe, T. H. (2001). Systemic risk in financial systems.
   *Management Science*, 47(2), 236–249.
   https://doi.org/10.1287/mnsc.47.2.236.9835
+- Franke, R., & Westerhoff, F. (2012). Structural stochastic volatility in asset
+  pricing dynamics: Estimation and model contest. *Journal of Economic Dynamics
+  and Control*, 36(8), 1193–1211. https://doi.org/10.1016/j.jedc.2011.10.004
 - Gabaix, X. (2009). Power laws in economics and finance. *Annual Review of
   Economics*, 1, 255–294.
   https://doi.org/10.1146/annurev.economics.050708.142940
@@ -357,6 +367,12 @@ tecnológica.
   https://doi.org/10.1007/s100510050929
 - Nowak, M. A., & May, R. M. (1992). Evolutionary games and spatial chaos.
   *Nature*, 359(6398), 826–829. https://doi.org/10.1038/359826a0
+- Ohtsuki, H., Hauert, C., Lieberman, E., & Nowak, M. A. (2006). A simple rule
+  for the evolution of cooperation on graphs and social networks. *Nature*,
+  441(7092), 502–505. https://doi.org/10.1038/nature04605
+- Santos, F. C., & Pacheco, J. M. (2005). Scale-free networks provide a
+  unifying framework for the emergence of cooperation. *Physical Review
+  Letters*, 95(9), 098104. https://doi.org/10.1103/PhysRevLett.95.098104
 - Watts, D. J. (2002). A simple model of global cascades on random networks.
   *PNAS*, 99(9), 5766–5771. https://doi.org/10.1073/pnas.082090499
 - Yakovenko, V. M., & Rosser, J. B. (2009). Colloquium: Statistical mechanics

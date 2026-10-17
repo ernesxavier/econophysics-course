@@ -14,15 +14,17 @@
 > [E.I3](repaso/procesos_estocasticos.md#ei3) (cadenas de Markov y estados
 > absorbentes), [F.I3](repaso/fisica_estadistica.md#fi3) (Ising) y
 > [F.I4](repaso/fisica_estadistica.md#fi4) (campo medio); para la ruta
-> avanzada, [E.A3](repaso/procesos_estocasticos.md#ea3) (ecuación maestra y
-> Fokker-Planck), [E.A6](repaso/procesos_estocasticos.md#ea6) (ruina del
-> jugador y tiempos de salida) y [L.A1](repaso/algebra_lineal.md#la1)
-> (laplaciano de un grafo).
+> avanzada, [E.A2](repaso/procesos_estocasticos.md#ea2) (lema de Itô),
+> [E.A3](repaso/procesos_estocasticos.md#ea3) (ecuación maestra),
+> [E.A4](repaso/procesos_estocasticos.md#ea4) (Fokker-Planck) y
+> [E.A6](repaso/procesos_estocasticos.md#ea6) (ruina del jugador y tiempos de
+> salida).
 >
 > Lecturas: Sen & Chakrabarti (2014), caps. 3–4; Kirman (2011), caps. 2–3 y
-> 6; Requião da Cunha, sec. 8.2; Schelling (1971); Kirman (1993). Ruta
-> avanzada: Slanina, cap. 3 y sec. 8.2; Sen & Chakrabarti (2014), cap. 6; Castellano, Fortunato & Loreto (2009); Föllmer
-> (1974); Sood & Redner (2005); Grauwin et al. (2009).
+> 6; Requião da Cunha (2021), sec. 8.2; Schelling (1971). Ruta avanzada:
+> Slanina (2014), cap. 3 y sec. 8.2; Sen & Chakrabarti (2014), cap. 6;
+> Castellano, Fortunato & Loreto (2009); Kirman (1993); Föllmer (1974); Sood &
+> Redner (2005); Grauwin et al. (2009). De consulta: Wilensky & Rand (2015).
 
 ---
 
@@ -200,8 +202,8 @@ de grados cambian el escalamiento del tiempo medio al consenso $\langle\tau\rang
 | Topología de la red | Tiempo al consenso $\langle\tau\rangle$ (barridos) | Mecanismo físico |
 |---|---|---|
 | Anillo / red regular 1D | $\mathcal O(N^2)$ | Fronteras de dominio que difunden como caminatas aleatorias hasta aniquilarse |
-| Cuadrícula 2D | $\mathcal O(N \ln N)$ | Dimensión crítica superior $d_c = 2$: engrosamiento (*coarsening*) logarítmico |
-| Redes regulares $d \ge 3$, Erdős-Rényi, completa | $\mathcal O(N)$ | Sin tensión superficial; las fluctuaciones globales dominan |
+| Cuadrícula 2D | $\mathcal O(N \ln N)$ | Dimensión crítica $d_c = 2$: los dominios engrosan (*coarsening*) sólo logarítmicamente |
+| Redes regulares $d \ge 3$, Erdős-Rényi, completa | $\mathcal O(N)$ | Los dominios no engrosan; el sistema sigue mezclado y llega al consenso por una fluctuación global, como en la red completa |
 | Libre de escala ($\gamma = 3$, Barabási-Albert) | $\mathcal O(N / \ln N)$ | Los *hubs* sincronizan rápidamente a sus vecinos (Sood & Redner, 2005) |
 
 ---
@@ -311,18 +313,20 @@ $$
 En el límite $N \to \infty$ con $a > 0$ fijo (desarrollando hasta orden
 $1/N^2$, expansión de Kramers-Moyal,
 [E.A3](repaso/procesos_estocasticos.md#ea3)), la densidad $p(x, t)$ obedece la
-**ecuación de Fokker-Planck** (difusión de Wright-Fisher / Jacobi):
+**ecuación de Fokker-Planck** de la difusión $dx = A(x)\thinspace dt +
+B(x)\thinspace dW_t$ ([E.A4](repaso/procesos_estocasticos.md#ea4); difusión de
+Wright-Fisher / Jacobi):
 
 $$
 \frac{\partial p(x,t)}{\partial t}
 = -\frac{\partial}{\partial x}\bigl[A(x)p(x,t)\bigr] +
-\frac12\frac{\partial^2}{\partial x^2}\bigl[B(x)p(x,t)\bigr],
+\frac12\frac{\partial^2}{\partial x^2}\bigl[B(x)^2 p(x,t)\bigr],
 $$
 
-con deriva y varianza de difusión
+con deriva e intensidad de ruido
 
 $$
-A(x) = a\left(\frac12 - x\right), \qquad B(x) = x(1 - x) .
+A(x) = a\left(\frac12 - x\right), \qquad B(x)^2 = x(1 - x) .
 $$
 
 **Proposición.** La densidad estacionaria de la ecuación de Fokker-Planck en
@@ -334,7 +338,7 @@ p_{\text{est}}(x) = \frac{1}{\mathrm{B}(a, a)}\thinspace x^{a - 1}(1 - x)^{a - 1
 $$
 
 *Demostración.* Con flujo nulo en las fronteras ($J(x) = A(x)p(x) -
-\frac12\frac{d}{dx}[B(x)p(x)] = 0$),
+\frac12\frac{d}{dx}[B(x)^2 p(x)] = 0$),
 
 $$
 \frac{d}{dx}\bigl[x(1-x)p(x)\bigr] = 2a\left(\frac12 - x\right)p(x)
@@ -372,14 +376,14 @@ en $a = 1$:
 |---|---|---|
 | Regla individual | No lineal: probabilidad logit $\sigma(2\beta J m)$ | Lineal en la fracción $x = k/N$ |
 | Deriva determinista $A(x)$ | Tiene tres ceros cuando $\beta J > 1$ (doble pozo) | Lineal: $A(x) = a(1/2 - x)$, siempre apunta a $x = 1/2$ |
-| Difusión $B(x)$ | Constante de orden $1/N$ lejos de los bordes | Multiplicativa: $B(x) = x(1-x)$, se anula en $x = 0, 1$ |
+| Intensidad de ruido $B(x)^2$ | Constante de orden $1/N$ lejos de los bordes | Multiplicativa: $B(x)^2 = x(1-x)$, se anula en $x = 0, 1$ |
 | Origen de la bimodalidad | Bifurcación determinista de la deriva (ruptura de simetría) | **Bimodalidad inducida por el ruido**: el ruido se apaga en los bordes |
 | Tiempo de cruce entre modas | Exponencial en $N$: $\sim e^{N\Delta f}$ (barrera de energía libre) | Polinomial en $N$: las olas de opinión continúan aun con $N$ grande |
 
 En otras palabras, en el modelo de Kirman la tendencia determinista $A(x)$
 *siempre* empuja hacia el centro $x = 1/2$; la bimodalidad cuando $a < 1$ no
 proviene de un potencial de doble pozo determinista, sino de que la varianza de
-la imitación $B(x) = x(1-x)$ se anula en $x = 0$ y $x = 1$. Cuando casi todos
+la imitación $B(x)^2 = x(1-x)$ se anula en $x = 0$ y $x = 1$. Cuando casi todos
 los agentes coinciden, casi no hay pares discrepantes y el sistema queda
 atrapado temporalmente cerca de la frontera.
 
@@ -430,16 +434,19 @@ etc.). Al variar $\tau$ aparecen tres regímenes bien diferenciados:
 1. **Tolerancia alta ($\tau \le 1/4 = 0.25$):** En la configuración aleatoria
    inicial, la probabilidad binomial de que un agente con $7$ u $8$ vecinos
    tenga menos de $2$ del mismo grupo es pequeña. Pocos agentes se mudan y la
-   ciudad permanece integrada ($\bar s \approx 0.55$).
-2. **Segregación emergente ($1/3 \lesssim \tau \lesssim 2/3$, en particular
-   $\tau = 3/8 = 0.375$ y $\tau = 1/2$):** Aunque ningún agente desea una
+   ciudad permanece integrada ($\bar s$ entre 0.52 y 0.60 en el barrido del
+   cuaderno).
+2. **Segregación emergente ($0.3 \le \tau \le 0.7$ en el barrido, en
+   particular $\tau = 3/8 = 0.375$ y $\tau = 1/2$):** Con celdas vacías, un
+   agente puede tener menos de $8$ vecinos ocupados, y fracciones como
+   $2/7 \approx 0.29$ ya no cumplen $\tau = 0.3$. Aunque ningún agente desea una
    ciudad segregada —cada uno acepta hasta $5/8$ (62.5%) de vecinos del otro
    grupo cuando $\tau = 3/8$—, cada mudanza disminuye la fracción del propio
    grupo en el vecindario abandonado y la aumenta en el de llegada. Esta
    **externalidad de vecindario** desencadena una cascada de reubicaciones que
    solo se detiene cuando la ciudad se divide en grandes dominios homogéneos
-   con $\bar s$ entre 0.74 y 0.98 (en el barrido del cuaderno) y satisfacción
-   final del 100%.
+   con $\bar s$ entre 0.74 y casi 1 (en el barrido del cuaderno) y
+   satisfacción final del 100%.
 3. **Intolerancia extrema y frustración ($\tau \gtrsim 3/4 = 0.75$):** Casi
    ninguna frontera entre los dos grupos permite que ambos lados tengan
    simultáneamente $s_i \ge \tau$. El sistema no encuentra una configuración
@@ -456,22 +463,26 @@ número de agentes de cada grupo es fijo):
 - **Energía de interfaz.** En un modelo de Ising con estados $\pm 1$ y vacíos
   $0$, la energía de enlaces entre vecinos distintos es proporcional al
   perímetro total de las fronteras entre el grupo $1$ y el grupo $2$. Mudarse
-  hacia vecindarios con $s_i \ge \tau$ reduce el número de enlaces entre grupos
-  distintos, engrosando los dominios (*coarsening*) igual que un ferromagneto
-  enfriado por debajo de su temperatura crítica ($T \to 0$).
+  hacia vecindarios con $s_i \ge \tau$ suele reducir el número de enlaces entre
+  grupos distintos (aunque una mudanza concreta puede aumentarlo), engrosando
+  los dominios (*coarsening*) como un ferromagneto enfriado por debajo de su
+  temperatura crítica ($T \to 0$).
 - **Falta de función potencial exacta y función de Lyapunov acotada.** A
   diferencia del modelo de Ising estándar, la utilidad individual de Schelling
   es una función escalón $u_i = \mathbf 1(s_i \ge \tau)$, que depende del
   cociente $n_i^{=}/n_i$ y cuya ganancia al mudarse no es exactamente simétrica
-  respecto al cambio de la energía total de enlaces. Sin embargo, cuando la
-  densidad de vacíos $\rho_0$ es pequeña o la utilidad depende linealmente de
-  $n_i^{=}$, se puede construir una función potencial global (Grauwin et al.,
-  2009) que decrece en cada mudanza, explicando la separación de fases.
+  respecto al cambio de la energía total de enlaces. Grauwin et al. (2009)
+  resuelven exactamente una variante de Schelling (la utilidad depende de la
+  composición del bloque donde vive el agente) en la que un parámetro
+  interpola entre dinámica individual y cooperativa. Con una función que liga
+  el nivel individual con el global muestran que la dinámica individual lleva
+  a una fase segregada de baja utilidad, y la cooperativa, a una fase mezclada
+  de alta utilidad.
 - **Óptimo individual frente a óptimo social.** Con $\tau = 3/8$, una
-  configuración perfectamente integrada en tablero de ajedrez o en franjas
-  de dos celdas de ancho tiene $s_i \ge 3/8$ para todos los agentes (100% de satisfacción
-  con $\bar s \approx 0.5$), pero es dinámicamente inestable ante pequeñas
-  fluctuaciones: la dinámica descentralizada converge hacia el estado segregado
+  configuración integrada en tablero de ajedrez ($s_i = 4/8$ para todos) o en
+  franjas de dos celdas de ancho ($s_i = 5/8$) satisface al 100% de los
+  agentes con $\bar s$ entre 0.5 y 0.625, pero es dinámicamente inestable ante
+  pequeñas fluctuaciones: la dinámica descentralizada converge hacia el estado segregado
   de baja energía interfacial ($\bar s \approx 0.8$).
 
 ---
@@ -484,7 +495,7 @@ número de agentes de cada grupo es fijo):
 | Tiempo al consenso (red completa) | $\tau(x_0) = -(N-1)[x_0\ln x_0 + (1-x_0)\ln(1-x_0)]$ barridos; $\tau(1/2) = (N-1)\ln 2$ |
 | Votante en red arbitraria | $\bar s_w = (\sum_i k_i s_i)/(\sum_i k_i)$ es martingala; $\langle\tau\rangle \sim N^2$ en 1D, $N\ln N$ en 2D, $N/\ln N$ en BA |
 | Modelo de Kirman (discreto) | $W(k\to k+1) = \frac{N-k}{N}\frac{a+k}{N-1+2a}$; estacionaria exacta $\mathrm{BetaBinomial}(N, a, a)$ |
-| Modelo de Kirman (continuo) | Fokker-Planck con $A(x) = a(1/2 - x)$ y $B(x) = x(1-x)$; estacionaria $\mathrm{Beta}(a,a) \propto [x(1-x)]^{a-1}$ |
+| Modelo de Kirman (continuo) | Fokker-Planck con $A(x) = a(1/2 - x)$ y $B(x)^2 = x(1-x)$; estacionaria $\mathrm{Beta}(a,a) \propto [x(1-x)]^{a-1}$ |
 | Umbral de herding en Kirman | Bimodal si $a < 1$, exactamente uniforme si $a = 1$, unimodal si $a > 1$ |
 | Modelo de Schelling | Satisfecho si $s_i = n_i^{=}/n_i \ge \tau$; para $\tau \approx 3/8$ emerge segregación fuerte ($\bar s \approx 0.8$) |
 
@@ -589,3 +600,6 @@ número de agentes de cada grupo es fijo):
 - Vinković, D., & Kirman, A. (2006). A physical analogue of the Schelling
   model. *Proceedings of the National Academy of Sciences*, 103(51),
   19261–19265. https://doi.org/10.1073/pnas.0609371103
+- Wilensky, U., & Rand, W. (2015). *An Introduction to Agent-Based Modeling:
+  Modeling Natural, Social, and Engineered Complex Systems with NetLogo*.
+  MIT Press.
