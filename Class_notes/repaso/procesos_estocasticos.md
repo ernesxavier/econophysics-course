@@ -100,7 +100,7 @@ ensamble y la trayectoria típica se comportan muy distinto.
 <a id="ei1"></a>
 
 ### E.I1 Estacionariedad y autocorrelación
-*Sesiones 1, 5, 20.*
+*Sesiones 1, 2, 5, 20.*
 
 Un proceso es **débilmente estacionario** si su media y su varianza no
 dependen de $t$ y la covarianza entre $X_t$ y $X_{t+\tau}$ depende sólo de
@@ -311,7 +311,7 @@ potencias en tamaños de empresas, ciudades y riqueza (sesiones 6 y 9).
 <a id="ea1"></a>
 
 ### E.A1 Movimiento browniano
-*Sesión 5.*
+*Sesiones 4, 5.*
 
 El **movimiento browniano** (proceso de Wiener) $W_t$ es el límite continuo
 de la caminata aleatoria. Se caracteriza por:
@@ -354,7 +354,7 @@ $\mu - \sigma^2/2$: la versión continua del ejemplo de Gibrat ([E.I6](#ei6)).
 <a id="ea3"></a>
 
 ### E.A3 Ecuación maestra
-*Sesiones 5, 13, 15.*
+*Sesiones 4, 5, 13, 15.*
 
 Para un proceso de Markov en tiempo continuo con estados discretos $n$ y
 tasas de transición $W(m \to n)$, la probabilidad $P_n(t)$ evoluciona según

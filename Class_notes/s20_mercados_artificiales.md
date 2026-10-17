@@ -28,7 +28,7 @@
 
 ### 1.1 El problema que quedó abierto en las sesiones 1 y 2
 
-En las [sesiones 1 y 2](s01_retornos.md) vimos que los retornos logarítmicos
+En las [sesiones 1](s01_retornos.md) y [2](s02_volatilidad.md) vimos que los retornos logarítmicos
 diarios $r_t = \ln(P_t/P_{t-1})$ de cualquier activo financiero líquido cumplen
 tres regularidades universales (Cont, 2001):
 
@@ -43,7 +43,7 @@ tres regularidades universales (Cont, 2001):
    retornos, $\hat\rho_{|r|}(\tau) = \mathrm{corr}(|r_t|, |r_{t+\tau}|)$, es
    positiva y decae lentamente durante semanas o meses.
 
-En la [sesión 5](s04_caminata_markov.md) vimos que los procesos GARCH
+En la [sesión 5](s05_gbm_garch.md) vimos que los procesos GARCH
 describen estadísticamente esa varianza cambiante, pero no explican **qué
 mecanismo microeconómico** la produce ni por qué la volatilidad estalla incluso
 en días sin noticias macroeconómicas relevantes (Cutler, Poterba y Summers,
@@ -300,7 +300,7 @@ en el tiempo:
 2. **Colas pesadas ($\kappa > 0$):** Una mezcla de normales con varianza
    cambiante (baja la mayor parte del tiempo y alta durante las fases
    chartistas) produce una distribución incondicional leptocúrtica
-   ([sesión 5](s04_caminata_markov.md)). En el cuaderno la curtosis
+   ([sesión 5](s05_gbm_garch.md)). En el cuaderno la curtosis
    simulada es positiva pero bastante menor que la del S&P 500.
 3. **Ausencia de autocorrelación lineal ($\hat\rho_r(\tau) \approx 0$):** El
    término de tendencia de los chartistas entra multiplicado por

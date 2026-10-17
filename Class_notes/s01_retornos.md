@@ -1,25 +1,22 @@
-# Sesiones 1 y 2: Econofísica y hechos estilizados. Notas formales
+# Sesión 1: Retornos y colas pesadas. Notas formales
 
 > **Cómo leer estas notas.** Siguen el orden del programa: primero se observa
-> en el cuaderno (`Code/s01_retornos.jl`), después se formaliza
-> aquí. Lo que no tiene marca es **ruta básica**. Las secciones y
-> demostraciones marcadas **[Avanzado]** son opcionales.
+> en el cuaderno (`Code/s01_retornos.jl`), después se formaliza aquí. Lo que
+> no tiene marca es **ruta básica**. Las secciones y demostraciones marcadas
+> **[Avanzado]** son opcionales.
 >
 > Repaso recomendado: [C.B1](repaso/calculo.md#cb1) (logaritmos),
 > [P.B1–B5](repaso/probabilidad.md#pb1) (variables aleatorias, media,
 > varianza, normal), [E.B1](repaso/procesos_estocasticos.md#eb1) (procesos
-> estocásticos), [S.B1–B3](repaso/estadistica.md#sb1) y
-> [S.B5](repaso/estadistica.md#sb5) (estimación, pruebas y permutaciones),
-> [P.I1–I3](repaso/probabilidad.md#pi1) (correlación, esperanza condicional,
-> TLC), [E.I1–I2](repaso/procesos_estocasticos.md#ei1) (autocorrelación y
-> martingalas), [C.I1](repaso/calculo.md#ci1) (Taylor),
-> [S.I4](repaso/estadistica.md#si4) (datos dependientes); para la ruta
-> avanzada, [P.A1](repaso/probabilidad.md#pa1) (cumulantes),
-> [F.A2](repaso/fisica_estadistica.md#fa2) (universalidad) y
-> [S.A4](repaso/estadistica.md#sa4) (memoria larga).
+> estocásticos), [S.B1–B3](repaso/estadistica.md#sb1) (estimación y pruebas),
+> [P.I1–I2](repaso/probabilidad.md#pi1) (correlación y esperanza
+> condicional), [E.I1–I2](repaso/procesos_estocasticos.md#ei1)
+> (autocorrelación y martingalas), [C.I1](repaso/calculo.md#ci1) (Taylor),
+> [S.I2](repaso/estadistica.md#si2) (muchas pruebas a la vez); para la ruta
+> avanzada, [P.A5](repaso/probabilidad.md#pa5).
 >
-> Lecturas: Cont (2001), secciones 1–3; Mantegna & Stanley, caps. 1–2, 5 y 7;
-> Slanina 1.1–1.2; Requião da Cunha 2.4.
+> Lecturas: Mantegna & Stanley (1999), caps. 1–2. Complementaria: Slanina
+> (2014), secs. 1.1–1.2.
 
 ---
 
@@ -74,7 +71,7 @@ $1 + R_t(\Delta t) = \prod_{s=1}^{\Delta t}(1 + R_{t+s})$.
 Esta es la razón por la que trabajamos con $r_t$: convierte la pregunta "¿cómo
 es la distribución de los retornos a $\Delta t$ días?" en una pregunta sobre
 **sumas de variables aleatorias**, para la cual tenemos el teorema del límite
-central (sección 6).
+central (normalidad agregacional, [sesión 2](s02_volatilidad.md)).
 
 ### 1.3 Escalas de tiempo y volatilidad anualizada
 
@@ -222,26 +219,11 @@ evidencia (al 5%) de correlación en ese rezago.
 - Con 30 rezagos, esperamos que en promedio $0.05 \times 30 = 1.5$ barras
   salgan de la franja **por azar**. Una barra aislada fuera de la franja no
   es, por sí sola, evidencia fuerte.
-- La banda supone i.i.d. Con agrupamiento de volatilidad (sección 5) los
-  $r_t$ son incorrelados pero **no** independientes, y la varianza verdadera
+- La banda supone i.i.d. Con agrupamiento de volatilidad
+  ([sesión 2](s02_volatilidad.md)) los $r_t$ son incorrelados pero **no**
+  independientes, y la varianza verdadera
   de $\hat\rho(\tau)$ es mayor que $1/N$. La franja es, entonces, demasiado
   estrecha: exagera la significancia.
-
-### 3.3 Incorrelación no es independencia
-
-**Definición.** $X$ e $Y$ son **independientes** si
-$\mathbb{E}[f(X)\thinspace g(Y)] = \mathbb{E}[f(X)]\thinspace\mathbb{E}[g(Y)]$ para todo par de
-funciones (acotadas) $f, g$. Son **incorreladas** si eso se cumple sólo para
-$f(x) = x$, $g(y) = y$.
-
-La independencia implica incorrelación, pero no al revés. El ejemplo clásico:
-$X \sim \mathcal{N}(0,1)$ y $Y = X^2$ son incorreladas
-($\mathrm{Cov}(X, X^2) = \mathbb{E}[X^3] = 0$), aunque $Y$ está completamente
-determinada por $X$.
-
-En finanzas, la pregunta relevante es si $\rho_{f(r)}(\tau) = 0$ para
-funciones no lineales como $f(r) = |r|$ o $f(r) = r^2$. Los datos dicen que
-no (sección 5).
 
 ---
 
@@ -304,12 +286,13 @@ no hay ganancias sistemáticas*, no de que $\rho(1)$ sea exactamente cero.
 
 ---
 
-## 5. Los cuatro hechos estilizados
+## 5. Los hechos estilizados 1 y 2
 
 Un **hecho estilizado** es una propiedad estadística que se repite, con
 variaciones menores, en muchos activos, mercados y periodos (Cont, 2001). Es
 cualitativa: dice "las colas son más pesadas que las de la normal", no "la
-curtosis vale 7.3".
+curtosis vale 7.3". En esta sesión vemos los dos primeros; los hechos 3 y 4
+están en las [notas de la sesión 2](s02_volatilidad.md).
 
 ### Hecho 1: colas pesadas
 
@@ -361,182 +344,22 @@ microestructura.)
 **Interpretación.** Es la huella empírica de la hipótesis de mercado
 eficiente en su forma débil (proposición 4.2).
 
-### Hecho 3: agrupamiento de volatilidad
-
-**Enunciado.** La autocorrelación de los retornos absolutos es positiva y
-decae lentamente:
-
-$$
-\rho_{|r|}(\tau) > 0 \quad \text{para } \tau \text{ de días a meses},
-\qquad
-\rho_{|r|}(\tau) \sim A\thinspace\tau^{-\beta}, \quad \beta \in [0.2, 0.4].
-$$
-
-Lo mismo ocurre con $r_t^2$. Un decaimiento como ley de potencias, en lugar
-de exponencial $e^{-\tau/\tau_0}$, indica **memoria larga**: no hay una escala
-de tiempo característica a partir de la cual la volatilidad "olvide".
-
-**Un modelo mínimo.** Considera
-
-$$
-r_t = \sigma_t\thinspace\varepsilon_t,
-$$
-
-donde $\varepsilon_t$ son i.i.d. con media 0 y varianza 1, y $\lbrace\sigma_t\rbrace$
-es un proceso positivo (la volatilidad) independiente de los $\varepsilon$.
-
-**Proposición.** En este modelo:
-
-1. $\mathrm{Cov}(r_t, r_{t+\tau}) = 0$ para $\tau \ge 1$ (no hay
-   autocorrelación lineal).
-2. $\mathrm{Cov}(r_t^2, r_{t+\tau}^2) = \mathrm{Cov}(\sigma_t^2, \sigma_{t+\tau}^2)$:
-   si la volatilidad es persistente, los cuadrados están correlacionados.
-
-*Demostración.* Por independencia entre $\lbrace\sigma\rbrace$ y $\lbrace\varepsilon\rbrace$ y
-entre los $\varepsilon$:
-
-1. $\mathbb{E}[r_t r_{t+\tau}] = \mathbb{E}[\sigma_t\sigma_{t+\tau}]\thinspace\mathbb{E}[\varepsilon_t]\thinspace\mathbb{E}[\varepsilon_{t+\tau}] = 0$,
-   y $\mathbb{E}[r_t] = 0$.
-2. $\mathbb{E}[r_t^2 r_{t+\tau}^2] = \mathbb{E}[\sigma_t^2\sigma_{t+\tau}^2]\thinspace\mathbb{E}[\varepsilon_t^2]\thinspace\mathbb{E}[\varepsilon_{t+\tau}^2] = \mathbb{E}[\sigma_t^2\sigma_{t+\tau}^2]$
-   y $\mathbb{E}[r_t^2] = \mathbb{E}[\sigma_t^2]$. $\square$
-
-Este es el ejemplo de 3.3 en versión financiera: incorrelación sin
-independencia. Los modelos GARCH (sesión 5) son una forma concreta de
-especificar $\sigma_t$, con la diferencia de que $\sigma_t$ depende de los
-retornos pasados.
-
-**Proposición [Avanzado].** Si además $\varepsilon_t \sim \mathcal{N}(0,1)$,
-
-$$
-\mathbb{E}[r^4]/\mathbb{E}[r^2]^2 = 3\thinspace\frac{\mathbb{E}[\sigma^4]}{\mathbb{E}[\sigma^2]^2} \ \ge\  3,
-$$
-
-con igualdad sólo si $\sigma$ es constante.
-
-*Demostración.* $\mathbb{E}[r^4] = \mathbb{E}[\sigma^4]\thinspace\mathbb{E}[\varepsilon^4] = 3\thinspace\mathbb{E}[\sigma^4]$
-y $\mathbb{E}[r^2] = \mathbb{E}[\sigma^2]$. La desigualdad es
-$\mathbb{E}[\sigma^4] \ge \mathbb{E}[\sigma^2]^2$, es decir,
-$\mathrm{Var}[\sigma^2] \ge 0$. $\square$
-
-**Moraleja:** una mezcla de normales con varianzas distintas tiene colas más
-pesadas que una normal. Los hechos 1 y 3 no son independientes entre sí:
-**las fluctuaciones de la volatilidad generan colas pesadas**.
-
-### Hecho 4: normalidad agregacional
-
-**Enunciado.** Al aumentar el horizonte $\Delta t$, la distribución de
-$r_t(\Delta t)$ se parece cada vez más a la normal. Su curtosis disminuye,
-pero más lentamente de lo que predice la independencia.
-
-**El punto de referencia: teorema del límite central.** Si
-$r_1, r_2, \dots$ son i.i.d. con media $\mu$ y varianza $\sigma^2 < \infty$,
-entonces
-
-$$
-\frac{r_t(\Delta t) - \Delta t\thinspace\mu}{\sigma\sqrt{\Delta t}}
-\xrightarrow{d} \mathcal{N}(0, 1)
-\qquad (\Delta t \to \infty).
-$$
-
-**Proposición.** Si los retornos diarios son i.i.d. con curtosis en exceso
-$\kappa_1$ (finita), la curtosis en exceso de la suma de $n$ de ellos es
-
-$$
-\kappa_n = \frac{\kappa_1}{n}.
-$$
-
-*Demostración* **[Avanzado]**. Usamos **cumulantes**: $c_m$ es el coeficiente
-de $s^m/m!$ en $\ln\mathbb{E}[e^{sX}]$. Se cumple $c_2 = \sigma^2$ y
-$c_4 = \kappa\thinspace\sigma^4$. Como el logaritmo de la función generadora de una
-suma de independientes es la suma de los logaritmos, los cumulantes son
-aditivos: $c_m(S_n) = n\thinspace c_m(X)$. Entonces
-
-$$
-\kappa_n = \frac{c_4(S_n)}{c_2(S_n)^2} = \frac{n\thinspace c_4}{n^2 c_2^2} = \frac{\kappa_1}{n}. \quad\square
-$$
-
-**Contraste con los datos.** En el cuaderno, la curtosis empírica a
-$\Delta t$ días queda **por encima** de la curva $\kappa_1/\Delta t$. Las
-dos hipótesis de la proposición pueden fallar:
-
-- **Independencia.** Con agrupamiento de volatilidad, los días turbulentos
-  vienen juntos y la suma "hereda" la turbulencia, así que la curtosis baja
-  más despacio.
-- **Curtosis finita.** Si $\alpha \le 4$, $\kappa_1$ no existe y la
-  proposición no aplica. Si $\alpha < 2$ ni siquiera aplicaría el teorema del
-  límite central clásico (sesión 3, **[Avanzado]**: distribuciones estables).
-
 ---
 
-## 6. Modelos nulos
-
-Un patrón empírico sólo es interesante si no aparece en una versión de los
-datos donde, por construcción, no debería existir.
-
-**Modelo nulo 1: caminata gaussiana.** $\tilde r_t \overset{\text{i.i.d.}}{\sim} \mathcal{N}(\hat\mu, \hat\sigma^2)$.
-Conserva la media y la varianza; destruye las colas pesadas y toda estructura
-temporal.
-
-**Modelo nulo 2: barajado (permutación).** $\tilde r_t = r_{\pi(t)}$, donde
-$\pi$ es una permutación aleatoria uniforme de $\lbrace1, \dots, N\rbrace$. Conserva
-**exactamente** la distribución empírica (mismo histograma, misma
-$\hat\kappa$) y destruye el orden temporal: bajo la permutación,
-$\mathbb{E}[\hat\rho(\tau)] = -(N-\tau)/\big(N(N-1)\big) \approx -1/N \approx 0$ para toda
-función de los retornos, incluida $|r|$.
-
-| | Colas pesadas | ACF de $r$ ≈ 0 | ACF de $\lvert r\rvert$ > 0 |
-|---|---|---|---|
-| Datos reales | Sí | Sí | Sí |
-| Barajado | Sí | Sí | **No** |
-| Caminata gaussiana | **No** | Sí | **No** |
-
-**Conclusión.** Las colas pesadas son una propiedad de la **distribución
-marginal**; el agrupamiento de volatilidad es una propiedad del **orden
-temporal**. Un modelo de mercado tiene que reproducir ambas, y el barajado
-nos dice que son ingredientes separables.
-
-La idea de comparar contra datos barajados reaparece en la sesión 7: lo que
-sobresale del espectro de la matriz de correlación barajada es señal.
-
----
-
-## 7. Universalidad
-
-Los cuatro activos del curso (IPC, USD/MXN, S&P 500 y BTC) tienen
-volatilidades anuales entre 12% y 66% y mecanismos de mercado muy distintos.
-Aun así, los cuatro cumplen los cuatro hechos estilizados.
-
-En física estadística, **universalidad** significa que sistemas con detalles
-microscópicos distintos comparten el mismo comportamiento macroscópico
-(por ejemplo, los mismos exponentes críticos). La hipótesis de trabajo de la
-econofísica es análoga: los hechos estilizados no dependen de los detalles
-institucionales de cada mercado, sino de la forma en que interactúan muchos
-agentes heterogéneos. Si esto es cierto, modelos simples de agentes deberían
-reproducirlos. Esa es la pregunta que cerramos en la sesión 20.
-
----
-
-## 8. Resumen formal
+## 6. Resumen formal
 
 | Hecho | Enunciado | Modelo nulo que lo destruye |
 |---|---|---|
 | Colas pesadas | $\kappa > 0$; $\mathbb{P}(\lvert r\rvert > x) \sim x^{-\alpha}$, $\alpha \approx 3$ | Caminata gaussiana |
 | Sin autocorrelación lineal | $\rho_r(\tau) \approx 0$, $\tau \ge 1$ | (Ninguno: también lo cumplen) |
-| Agrupamiento de volatilidad | $\rho_{\lvert r\rvert}(\tau) \sim \tau^{-\beta}$, $\beta \in [0.2, 0.4]$ | Barajado y caminata gaussiana |
-| Normalidad agregacional | $\kappa_{\Delta t} \to 0$, pero más lento que $\kappa_1/\Delta t$ | — |
 
-Relaciones entre ellos:
-
-- Mercado eficiente (martingala) $\Rightarrow$ hecho 2, pero no restringe la
-  varianza condicional, así que permite el hecho 3.
-- Volatilidad fluctuante $\Rightarrow$ colas pesadas (hecho 3 $\Rightarrow$
-  contribuye al hecho 1).
-- Dependencia en la volatilidad $\Rightarrow$ convergencia lenta a la normal
-  (hecho 3 $\Rightarrow$ hecho 4 más lento).
+Mercado eficiente (martingala) $\Rightarrow$ hecho 2, pero no restringe la
+varianza condicional; en la sesión 2 veremos que eso deja espacio para el
+agrupamiento de volatilidad.
 
 ---
 
-## 9. Ejercicios formales
+## 7. Ejercicios formales
 
 **Ruta básica**
 
@@ -553,16 +376,8 @@ Relaciones entre ellos:
 **Ruta avanzada**
 
 - **F4.** Demuestra que $\mathbb{E}[Z^6] = 15$ para $Z \sim \mathcal{N}(0,1)$.
-- **F5.** Sea $r = \sigma\varepsilon$ con $\varepsilon \sim \mathcal{N}(0,1)$ y
-  $\sigma$ igual a $\sigma_1$ o $\sigma_2$ con probabilidad $1/2$ cada uno.
-  Calcula $\kappa$ en función de $\sigma_1/\sigma_2$. ¿Cuánto vale con
-  $\sigma_2 = 2\sigma_1$?
-- **F6.** Sea $\mathbb{P}(X > x) = x^{-\alpha}$ para $x \ge 1$ (Pareto).
+- **F5.** Sea $\mathbb{P}(X > x) = x^{-\alpha}$ para $x \ge 1$ (Pareto).
   Muestra que $\mathbb{E}[X^n] < \infty$ si y sólo si $n < \alpha$.
-- **F7.** Generaliza la proposición del hecho 4 a retornos con varianza
-  finita pero autocorrelación lineal $\rho(\tau)$: calcula
-  $\mathrm{Var}[r_t(\Delta t)]$ y muestra cómo cambia la regla de la raíz
-  cuadrada.
 
 ---
 
@@ -576,6 +391,3 @@ Relaciones entre ellos:
   https://doi.org/10.1017/CBO9780511755767
 - Slanina, F. (2014). *Essentials of Econophysics Modelling*. Oxford
   University Press.
-- Requião da Cunha, C. (2021). *Introduction to Econophysics: Contemporary
-  Approaches with Python Simulations*. CRC Press.
-  https://doi.org/10.1201/9781003127956

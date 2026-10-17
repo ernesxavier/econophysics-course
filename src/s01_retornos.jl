@@ -1,15 +1,13 @@
 #%% hide
 md"""
-# Sesiones 1 y 2: Econofísica y hechos estilizados
+# Sesión 1: Retornos y colas pesadas
 
 **Objetivos de la sesión**
 1. Entender qué busca la econofísica y por qué empieza por los datos.
 2. Repasar retornos logarítmicos, media, varianza y curtosis.
-3. Medir en datos reales los cuatro **hechos estilizados** de los mercados
-   financieros: colas pesadas, ausencia de autocorrelación lineal,
-   agrupamiento de volatilidad y normalidad agregacional.
-4. Comprobar que estos hechos aparecen en mercados muy distintos
-   (universalidad).
+3. Medir en datos reales los dos primeros **hechos estilizados** de los
+   mercados financieros: **colas pesadas** y **ausencia de autocorrelación
+   lineal**.
 
 **Cómo usar este cuaderno.** Pluto es *reactivo*: al mover un deslizador o
 cambiar un selector, todas las celdas que dependen de ese valor se recalculan
@@ -23,9 +21,9 @@ del curso.
 
 **Repaso recomendado** (en `Class_notes/repaso/`): C.B1 (logaritmos), P.B1–B5
 (variables aleatorias, media, varianza, normal), E.B1 (procesos
-estocásticos), S.B1–B3 y S.B5 (estimación, pruebas y permutaciones). Para
-las notas formales: P.I1–I3, E.I1–I2 (autocorrelación y martingalas), C.I1 y
-S.I4. Ruta avanzada: P.A1 (cumulantes), F.A2 (universalidad), S.A4.
+estocásticos), S.B1–B3 (estimación y pruebas). Para las notas formales:
+P.I1–I2, E.I1–I2 (autocorrelación y martingalas), C.I1–I2 y S.I2. Ruta
+avanzada: P.A5.
 """
 
 #%% hide
@@ -33,20 +31,55 @@ TableOfContents(title = "Contenido")
 
 #%% hide
 md"""
-## 0. ¿Qué es la econofísica?
+## 0. El fenómeno: ¿el mercado es un volado?
 
-La economía tradicional suele partir de un agente representativo que optimiza.
-La econofísica parte de otra pregunta: **¿qué patrones colectivos surgen cuando
-muchos agentes heterogéneos interactúan?** Es la misma pregunta que hace la
-física estadística con átomos y moléculas: nadie predice la trayectoria de una
-molécula, pero la presión de un gas sí se predice.
+Un modelo muy usado dice que el precio de una acción sube o baja cada día
+como un volado, con movimientos de tamaño típico parecido. Si fuera así, los
+días con caídas enormes serían rarísimos. Veamos el peor día del S&P 500 en
+los datos del curso:
+"""
+
+#%% hide
+peor_sp = let
+    sp = sort(filter(:activo => ==("S&P 500"), datos), :fecha)
+    r_sp = diff(log.(sp.cierre))
+    z_sp = (r_sp .- mean(r_sp)) ./ std(r_sp)
+    i = argmin(r_sp)
+    (fechas = sp.fecha, r = r_sp, i = i, fecha = sp.fecha[i + 1],
+     caida = round(-100r_sp[i], digits = 1), z = round(abs(z_sp[i]), digits = 1),
+     frec = frecuencia_normal(abs(z_sp[i]), 252))
+end;
+
+#%% hide
+let s = peor_sp
+    p = plot(s.fechas[2:end], 100s.r, color = AZUL, lw = 0.6, ylabel = "r (%)",
+             title = "S&P 500: retornos diarios", xticks = ticks_años(s.fechas))
+    scatter!(p, [s.fechas[s.i + 1]], [100s.r[s.i]], color = NARANJA, ms = 6, msw = 0)
+end
+
+#%% hide
+md"""
+El día $(peor_sp.fecha) el S&P 500 cayó **un $(peor_sp.caida)%** en una sola
+sesión (punto naranja): un movimiento de $(peor_sp.z) desviaciones estándar.
+Si los retornos fueran normales, un día así ocurriría $(peor_sp.frec). Y sin
+embargo ocurrió, junto con muchos otros días casi igual de extremos.
+"""
+
+#%% hide
+md"""
+**¿Qué es la econofísica?** La economía tradicional suele partir de un agente
+representativo que optimiza. La econofísica parte de otra pregunta: **¿qué
+patrones colectivos surgen cuando muchos agentes heterogéneos interactúan?**
+Es la misma pregunta que hace la física estadística con átomos y moléculas:
+nadie predice la trayectoria de una molécula, pero la presión de un gas sí se
+predice.
 
 Antes de construir modelos, un físico **mide**. Kepler describió las órbitas
 antes de que Newton las explicara. En finanzas, las regularidades empíricas que
 se repiten en casi todos los mercados y periodos se llaman **hechos
-estilizados** (Cont, 2001). Hoy los vamos a medir. Durante el semestre
-construiremos modelos que intenten explicarlos, y en la sesión 20 volveremos a
-este cuaderno para ver cuáles reproducen.
+estilizados** (Cont, 2001). Hoy medimos los dos primeros y en la sesión 2 los
+otros dos. Durante el curso construiremos modelos que intenten explicarlos, y
+en la sesión 20 volveremos a estas mediciones para ver cuáles reproducen.
 """
 
 #%% hide
@@ -271,177 +304,7 @@ los costos de transacción suelen impedir aprovecharla. *Pregunta:* ¿por qué u
 correlación positiva en el rezago 1?
 
 Pero cuidado: *ausencia de correlación lineal no significa independencia*.
-"""
-
-#%% hide
-md"""
-## 5. Hecho 3: agrupamiento de volatilidad
-
-Ahora miramos el **tamaño** del movimiento, ``|r_t|``, sin importar si fue
-subida o bajada.
-"""
-
-#%% hide
-let
-    p = plot(fechas_r, 100abs.(r), color = AZUL, lw = 0.6,
-             ylabel = "|r| (%)", title = "$activo: tamaño de los movimientos diarios",
-             xticks = ticks_años(fechas))
-    marcar_eventos!(p, fechas)
-end
-
-#%% hide
-md"""
-Los días grandes vienen **en racimos**: después de un día turbulento suele
-venir otro día turbulento. Medimos esto con la autocorrelación de ``|r|``.
-
-Rezagos: $(@bind L2 Slider(10:10:250, default = 100, show_value = true))
-"""
-
-#%% hide
-let
-    N = length(r)
-    banda = 1.96 / sqrt(N)
-    τ = 1:L2
-    p = plot(τ, fill(banda, L2), fillrange = fill(-banda, L2), color = GRIS,
-             fillalpha = 0.15, lw = 0, label = "",
-             xlabel = "Rezago τ (días)", ylabel = "ρ(τ)", legend = :topright,
-             title = "$activo: autocorrelación de r y de |r|")
-    plot!(p, τ, autocor(r, τ), color = AZUL, lw = 2, label = "r")
-    plot!(p, τ, autocor(abs.(r), τ), color = NARANJA, lw = 2, label = "|r|")
-    hline!(p, [0], color = :black, lw = 0.5, label = "")
-end
-
-#%% hide
-md"""
-La autocorrelación de ``r`` (azul) muere de inmediato. La de ``|r|`` (naranja)
-es positiva y **decae muy lentamente**: sigue siendo significativa después de
-semanas o meses. La dirección del mercado no tiene memoria; **la volatilidad
-sí**. Esto es lo que modelan los procesos GARCH (sesión 5).
-
-**[Avanzado]** Grafica la autocorrelación de ``|r|`` en escala log-log. ¿Decae
-como una exponencial ``e^{-\tau/\tau_0}`` o como una ley de potencias
-``\tau^{-\beta}``? Estima ``\beta``.
-"""
-
-#%% hide
-md"""
-## 6. Hecho 4: normalidad agregacional
-
-Los retornos de ``\Delta t`` días son sumas de ``\Delta t`` retornos diarios.
-Si el teorema del límite central aplica, al agregar la distribución debería
-acercarse a la normal. ¿Pasa eso?
-
-Horizonte ``\Delta t`` (días): $(@bind Δt Slider([1, 2, 5, 10, 20, 60], default = 1, show_value = true))
-"""
-
-#%% hide
-let
-    rΔ = agregar(r, Δt)
-    zΔ = (rΔ .- mean(rΔ)) ./ std(rΔ)
-    x, dens = densidad_empirica(zΔ)
-    zmax = rango_z(zΔ)
-    p = plot(-zmax:0.05:zmax, pdf.(Normal(), -zmax:0.05:zmax), color = GRIS, ls = :dash,
-             lw = 1.5, label = "Normal estándar", yscale = :log10,
-             ylims = (1e-4, 1), xlims = (-zmax, zmax), legend = :topright,
-             xlabel = "z", ylabel = "Densidad",
-             title = "Retornos de $Δt día(s): N = $(length(rΔ)), " *
-                     "curtosis en exceso = $(round(kurtosis(rΔ), digits = 1))")
-    scatter!(p, x, dens, color = AZUL, ms = 4, markerstrokewidth = 0,
-             label = "Datos")
-end
-
-#%% hide
-let
-    hs = [1, 2, 3, 5, 10, 20, 40, 60]
-    κ = [kurtosis(agregar(r, h)) for h in hs]
-    p = plot(hs, κ[1] ./ hs, color = GRIS, ls = :dash, lw = 1.5,
-             label = "Si los días fueran independientes: κ₁/Δt",
-             xscale = :log10, xticks = (hs, string.(hs)), legend = :topright,
-             xlabel = "Horizonte Δt (días)", ylabel = "Curtosis en exceso",
-             title = "$activo: las colas se adelgazan al agregar")
-    plot!(p, hs, κ, color = AZUL, lw = 2, marker = :circle, ms = 5,
-          markerstrokecolor = :white, markerstrokewidth = 2, label = "Datos")
-    hline!(p, [0], color = :black, lw = 0.5, label = "")
-end
-
-#%% hide
-md"""
-Al agregar, la curtosis baja y la distribución se acerca a la normal: el
-teorema del límite central termina ganando. Pero **gana más lento** de lo que
-predice la línea punteada, que supone días independientes.
-
-**[Avanzado]** Demuestra que si ``r_1, \dots, r_n`` son independientes e
-idénticamente distribuidos con curtosis en exceso ``\kappa_1``, su suma tiene
-curtosis ``\kappa_1/n``. ¿Qué hecho estilizado explica que los datos se alejen
-de esa predicción?
-"""
-
-#%% hide
-md"""
-## 7. ¿Qué tan especial es esto? Modelos nulos
-
-Para saber si un patrón es real, lo comparamos con un **modelo nulo**: una
-versión de los datos donde el patrón no debería existir.
-
-- **Caminata gaussiana**: retornos normales independientes, con la misma
-  ``\mu`` y ``\sigma`` que los datos. Es el modelo de libro de texto.
-- **Datos barajados**: los *mismos* retornos reales, pero en orden aleatorio.
-  Conserva exactamente la distribución y destruye cualquier estructura
-  temporal.
-
-Modelo: $(@bind modelo Select(["Datos reales", "Datos barajados", "Caminata gaussiana"]))
-  Semilla: $(@bind semilla NumberField(1:1000, default = 1))
-"""
-
-#%%
-r_modelo = if modelo == "Datos reales"
-    r
-elseif modelo == "Datos barajados"
-    shuffle(Xoshiro(semilla), r)
-else
-    μ .+ σ .* randn(Xoshiro(semilla), length(r))
-end;
-
-#%% hide
-panel_hechos(r_modelo; titulo = "$activo: $(lowercase(modelo))")
-
-#%% hide
-md"""
-Compara los tres modelos y responde:
-- ¿Cuál conserva las colas pesadas? ¿Cuál conserva el agrupamiento de
-  volatilidad?
-- Al barajar, la curtosis no cambia pero la autocorrelación de ``|r|``
-  desaparece. ¿Qué nos dice eso sobre **dónde** vive cada hecho estilizado?
-
-La función `panel_hechos` resume los cuatro hechos en una sola figura. La
-usaremos en la sesión 20 para evaluar mercados artificiales.
-"""
-
-#%% hide
-md"""
-## 8. Universalidad
-
-Hasta ahora miramos un activo a la vez. La tabla resume los mismos indicadores
-para los cuatro.
-"""
-
-#%% hide
-tabla_universalidad(datos)
-
-#%% hide
-md"""
-Los cuatro mercados son muy distintos: un índice de acciones mexicanas, una
-divisa, el mercado más grande del mundo y una criptomoneda sin flujos de
-efectivo. Sus volatilidades anuales van de 12% a 66%. Y sin embargo
-**los cuatro muestran los mismos hechos estilizados**: curtosis muy por encima
-de 0, autocorrelación de ``r`` casi nula, autocorrelación de ``|r|`` positiva
-y persistente, y muchos más eventos extremos de los que predice la normal.
-
-En física, cuando sistemas microscópicamente distintos comparten el mismo
-comportamiento macroscópico, se habla de **universalidad**. Es una pista de
-que el patrón no depende de los detalles de cada mercado, sino de algo más
-general: la forma en que interactúan muchos agentes. Esa es la hipótesis de
-trabajo de la econofísica.
+En la sesión 2 veremos que el **tamaño** de los movimientos sí tiene memoria.
 """
 
 #%% hide
@@ -452,8 +315,6 @@ md"""
 |---|---|---|
 | Colas pesadas | Densidad en escala log; curtosis; conteo de eventos extremos | Eventos de 5σ o más son comunes |
 | Sin autocorrelación lineal | ACF de ``r`` | Pequeña en el rezago 1 e indistinguible de cero después |
-| Agrupamiento de volatilidad | ACF de ``\lvert r\rvert`` | Positiva y persistente por meses |
-| Normalidad agregacional | Curtosis vs. ``\Delta t`` | Baja al agregar, pero más lento que con días independientes |
 """
 
 #%% hide
@@ -494,30 +355,33 @@ verificar(() -> curtosis_exceso(VECTOR_PRUEBA), kurtosis(VECTOR_PRUEBA); rtol = 
 md"""
 ### Ruta básica: interpretación
 
-3. Ordena los cuatro activos de colas más pesadas a menos pesadas. ¿Coincide
-   con tu intuición sobre qué tan riesgoso es cada uno?
+3. Ordena los cuatro activos de colas más pesadas a menos pesadas usando la
+   curtosis de cada uno. ¿Coincide con tu intuición sobre qué tan riesgoso es
+   cada uno?
 4. Según la tabla de eventos extremos, ¿cada cuánto debería ocurrir el peor día
    del S&P 500 si los retornos fueran normales? ¿Cuántos días con ``|z| > 5``
    hubo en realidad?
-5. Si los retornos no tienen autocorrelación, ¿por qué ``|r|`` sí la tiene?
-   ¿Qué implica para alguien que administra el riesgo de un portafolio?
-6. Con el selector de modelos nulos: ¿qué hecho estilizado sobrevive al
-   barajado y cuál no? Explica por qué.
+5. En el rezago 1, el IPC muestra una autocorrelación positiva pequeña. ¿Por
+   qué un índice con muchas acciones poco negociadas podría mostrarla? ¿Se
+   podría ganar dinero con ella?
+6. Un compañero dice: "los retornos tienen media casi cero y el histograma
+   parece una campana, así que son normales". ¿Qué gráfica de este cuaderno
+   usarías para convencerlo de lo contrario y qué le pedirías que mirara?
 
 ### Ruta avanzada
 
-7. Resuelve los dos ejercicios **[Avanzado]** de las secciones 5 y 6.
-8. **Efecto apalancamiento.** Calcula ``\mathrm{corr}(r_t, |r_{t+\tau}|)`` para
-   ``\tau = 1, \dots, 20`` en el S&P 500. ¿Es simétrica la relación entre
-   caídas y volatilidad futura?
+7. Demuestra que si el exceso de retorno es una diferencia de martingala, su
+   autocorrelación es cero en todos los rezagos (notas formales, sección 4).
+8. La distribución ``t`` de Student con ``\nu > 4`` grados de libertad tiene
+   curtosis en exceso ``6/(\nu - 4)``. ¿Qué ``\nu`` daría la curtosis que mediste
+   en cada activo? ¿Qué problema aparece si la curtosis es muy grande?
 
 ## Para la próxima sesión
 
-- Lectura: Cont (2001), *Empirical properties of asset returns: stylized facts
-  and statistical issues*, secciones 1–3.
-- Lectura complementaria: Mantegna & Stanley, capítulos 1–2.
-- En la sesión 3 mediremos **qué tan pesadas** son las colas: ¿siguen una ley
-  de potencias?
+- Lectura: Mantegna y Stanley (1999), capítulos 1 y 2. Complementaria: Slanina
+  (2014), secciones 1.1 y 1.2.
+- En la sesión 2 miramos el **tamaño** de los movimientos: ¿un día turbulento
+  anuncia otro? Y aprenderemos a comparar los datos contra **modelos nulos**.
 """
 
 #%% hide
@@ -561,10 +425,6 @@ function marcar_eventos!(p, fechas)
     dentro = filter(e -> first(fechas) <= e <= last(fechas), EVENTOS)
     vline!(p, dentro, color = GRIS, ls = :dot, lw = 1, label = "")
 end
-
-#%%
-"Retornos agregados en bloques no traslapados de `Δt` días."
-agregar(r, Δt) = [sum(@view r[i:i+Δt-1]) for i in 1:Δt:length(r)-Δt+1]
 
 #%%
 "Densidad empírica en bins de ancho `ancho`; descarta bins vacíos (para escala log)."
@@ -637,48 +497,6 @@ function grafica_acf(x, L; titulo = "", color = AZUL)
              ylabel = "ρ(τ)", title = titulo, ylims = (-0.15, 0.4))
     bar!(p, 1:L, autocor(x, 1:L), color = color, lw = 0, bar_width = 0.6)
     hline!(p, [0], color = :black, lw = 0.5)
-end
-
-#%%
-"Resumen visual de los cuatro hechos estilizados para una serie de retornos."
-function panel_hechos(x; titulo = "", L = 100)
-    z = (x .- mean(x)) ./ std(x)
-    p1 = plot(100x, color = AZUL, lw = 0.5, ylabel = "r (%)", xlabel = "Día",
-              title = "Retornos")
-    xs, dens = densidad_empirica(z)
-    zmax = rango_z(z)
-    p2 = plot(-zmax:0.05:zmax, pdf.(Normal(), -zmax:0.05:zmax), color = GRIS, ls = :dash,
-              lw = 1.5, yscale = :log10, ylims = (1e-5, 1), xlims = (-zmax, zmax),
-              xlabel = "z", title = "Densidad (κ = $(round(kurtosis(x), digits = 1)))")
-    scatter!(p2, xs, dens, color = AZUL, ms = 3, markerstrokewidth = 0)
-    p3 = grafica_acf(x, 30; titulo = "Autocorrelación de r")
-    banda = 1.96 / sqrt(length(x))
-    acf_abs = autocor(abs.(x), 1:L)
-    p4 = plot(1:L, fill(banda, L), fillrange = fill(-banda, L), color = GRIS,
-              fillalpha = 0.15, lw = 0, ylims = (-0.1, max(0.4, maximum(acf_abs) + 0.05)),
-              xlabel = "Rezago τ (días)", title = "Autocorrelación de |r|")
-    plot!(p4, 1:L, acf_abs, color = NARANJA, lw = 2)
-    hline!(p4, [0], color = :black, lw = 0.5)
-    plot(p1, p2, p3, p4, layout = (2, 2), size = (720, 520),
-         plot_title = titulo, plot_titlefontsize = 12)
-end
-
-#%%
-function tabla_universalidad(datos)
-    grupos = collect(groupby(datos, :activo))
-    nombres = [g.activo[1] for g in grupos]
-    rs = [diff(log.(sort(g, :fecha).cierre)) for g in grupos]
-    zs = [(r .- mean(r)) ./ std(r) for r in rs]
-    DataFrame(
-        "Activo" => nombres,
-        "Días" => length.(rs),
-        "Volatilidad anual (%)" => [round(100std(r) * sqrt(dias_por_año(n)), digits = 1) for (r, n) in zip(rs, nombres)],
-        "Curtosis en exceso" => [round(kurtosis(r), digits = 1) for r in rs],
-        "ACF de r (τ = 1)" => [round(autocor(r, [1])[1], digits = 3) for r in rs],
-        "ACF de |r| (promedio τ = 1–20)" => [round(mean(autocor(abs.(r), 1:20)), digits = 3) for r in rs],
-        "Días con |z| > 5" => [count(>(5), abs.(z)) for z in zs],
-        "Esperados (normal)" => [round(length(r) * 2ccdf(Normal(), 5), sigdigits = 2) for r in rs],
-    )
 end
 
 #%%

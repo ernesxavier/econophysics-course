@@ -79,7 +79,7 @@ con variables correlacionadas está en [P.I1](#pi1).
 <a id="pb3"></a>
 
 ### P.B3 Histogramas y densidad empírica
-*Sesiones 1, 3, 8.*
+*Sesiones 1, 2, 3, 8.*
 
 Un **histograma** divide el eje en intervalos (*bins*) y cuenta cuántos
 datos caen en cada uno. Para compararlo con una densidad teórica hay que
@@ -104,7 +104,7 @@ plot!(-4:0.01:4, z -> pdf(Normal(0, 1), z); lw = 2)
 <a id="pb4"></a>
 
 ### P.B4 Distribución normal y estandarización
-*Sesiones 1, 3, 5, 14.*
+*Sesiones 1, 2, 3, 5, 14.*
 
 $$
 f(x) = \frac{1}{\sigma\sqrt{2\pi}}\exp\negthinspace\left(-\frac{(x-\mu)^2}{2\sigma^2}\right),
@@ -153,7 +153,7 @@ la media muestral converge muy lentamente o no converge.
 <a id="pi1"></a>
 
 ### P.I1 Independencia, covarianza y correlación
-*Sesiones 1, 5, 7, 8.*
+*Sesiones 1, 2, 5, 7, 8.*
 
 $X$ e $Y$ son **independientes** si
 $\mathbb{P}(X \in A, Y \in B) = \mathbb{P}(X \in A)\thinspace\mathbb{P}(Y \in B)$
@@ -342,7 +342,7 @@ está detrás del estimador de Hill ([P.A3](#pa3)).
   tiene $c_n = 0$ para $n \ge 3$.
 - **Aditividad**: si $X$ e $Y$ son independientes,
   $M_{X+Y} = M_X M_Y$, así que $c_n(X+Y) = c_n(X) + c_n(Y)$. Consecuencia:
-  la curtosis de una suma de $n$ i.i.d. es $\kappa/n$ ([sesión 2](../s01_retornos.md)).
+  la curtosis de una suma de $n$ i.i.d. es $\kappa/n$ ([sesión 2](../s02_volatilidad.md)).
 
 <a id="pa2"></a>
 

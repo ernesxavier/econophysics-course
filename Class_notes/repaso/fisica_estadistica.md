@@ -387,7 +387,7 @@ Los detalles microscópicos no importan cerca del punto crítico, porque las
 correlaciones se extienden a todas las escalas (la longitud de correlación
 diverge).
 
-Por eso la universalidad de los hechos estilizados ([sesión 2](../s01_retornos.md)) sugiere a los
+Por eso la universalidad de los hechos estilizados ([sesión 2](../s02_volatilidad.md)) sugiere a los
 físicos que los mercados podrían estar cerca de un punto crítico. Es una
 hipótesis atractiva, pero no demostrada: hay otros mecanismos que generan
 leyes de potencias (Kesten, [E.I6](procesos_estocasticos.md#ei6)).

@@ -182,7 +182,7 @@ datos genera muestras compatibles con $H_0$:
 3. El p-valor es la fracción de versiones barajadas con $T \ge T_{\text{obs}}$:
    $p = (1 + \text{número de } T \ge T_{\text{obs}})/(1 + M)$.
 
-Es la versión formal de los modelos nulos de la [sesión 2](../s01_retornos.md). La misma idea
+Es la versión formal de los modelos nulos de la [sesión 2](../s02_volatilidad.md). La misma idea
 aparece en la sesión 7, donde el espectro de la matriz de correlación
 barajada indica qué es ruido.
 
@@ -303,7 +303,7 @@ qqplot(Normal(mean(x), std(x)), x)       # forma de S: colas más pesadas que la
 <a id="si4"></a>
 
 ### S.I4 Datos dependientes y tamaño efectivo de muestra
-*Sesiones 1, 5, 19, 20.*
+*Sesiones 2, 4, 5, 19, 20.*
 
 La fórmula $\mathrm{SE} = \sigma/\sqrt{N}$ supone datos independientes. Con
 datos autocorrelacionados, cada observación nueva aporta menos información.
@@ -413,7 +413,7 @@ alternativa estándar es el **método de momentos simulados**:
 
 1. Elegir **momentos** que resuman los datos: varianza, curtosis,
    autocorrelación de $r$ y de $\lvert r\rvert$ en varios rezagos, exponente
-   de Hill. Es decir, los hechos estilizados de las [sesiones 1 y 2](../s01_retornos.md).
+   de Hill. Es decir, los hechos estilizados de las [sesiones 1](../s01_retornos.md) y [2](../s02_volatilidad.md).
 2. Para cada valor de los parámetros $\theta$, simular el modelo y calcular
    los mismos momentos.
 3. Elegir $\theta$ minimizando la distancia ponderada entre momentos

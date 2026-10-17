@@ -431,7 +431,7 @@ un punto fijo interior estable: la mezcla de equilibrio.
 <a id="ca3"></a>
 
 ### C.A3 Ecuaciones en derivadas parciales: difusión
-*Sesiones 5, 9.*
+*Sesiones 4, 5, 9.*
 
 Cuando la incógnita depende de dos variables, como una densidad $p(x, t)$,
 la ecuación involucra derivadas parciales.

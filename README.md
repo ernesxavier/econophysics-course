@@ -10,9 +10,11 @@ Matemáticas), con simulaciones en Julia.
 │   ├── programa.md            → Programa rediseñado (20 sesiones; semestre o trimestre)
 │   └── programa-anterior.md   → Programa del semestre anterior
 ├── Class_notes/
-│   ├── s01_retornos.md            → Notas formales, sesiones 1 y 2 (se divide en la fase 3)
+│   ├── s01_retornos.md            → Notas formales, sesión 1
+│   ├── s02_volatilidad.md         → Notas formales, sesión 2
 │   ├── s03_colas_pesadas.md       → Notas formales, sesión 3
-│   ├── s04_caminata_markov.md     → Notas formales, sesiones 4 y 5 (se divide en la fase 3)
+│   ├── s04_caminata_markov.md     → Notas formales, sesión 4
+│   ├── s05_gbm_garch.md           → Notas formales, sesión 5
 │   ├── s06_crecimiento_multiplicativo.md → Notas formales, sesión 6
 │   ├── s07_correlaciones.md       → Notas formales, sesión 7
 │   ├── s08_intercambio.md         → Notas formales, sesión 8
@@ -40,9 +42,11 @@ Matemáticas), con simulaciones en Julia.
 │   ├── localidades_2020.csv   → Población por localidad, Censo 2020 (INEGI), ≥ 100 hab.
 │   └── municipios_2010_2020.csv → Población por municipio, Censos 2010 y 2020 (INEGI)
 ├── Code/                      → Todo el código Julia, un solo entorno
-│   ├── s01_retornos.jl            → Cuaderno de Pluto, sesiones 1 y 2 (se divide en la fase 3)
+│   ├── s01_retornos.jl            → Cuaderno de Pluto, sesión 1
+│   ├── s02_volatilidad.jl         → Cuaderno de Pluto, sesión 2
 │   ├── s03_colas_pesadas.jl       → Cuaderno de Pluto, sesión 3
-│   ├── s04_caminata_markov.jl     → Cuaderno de Pluto, sesiones 4 y 5 (se divide en la fase 3)
+│   ├── s04_caminata_markov.jl     → Cuaderno de Pluto, sesión 4
+│   ├── s05_gbm_garch.jl           → Cuaderno de Pluto, sesión 5
 │   ├── s06_crecimiento_multiplicativo.jl → Cuaderno de Pluto, sesión 6
 │   ├── s07_correlaciones.jl       → Cuaderno de Pluto, sesión 7
 │   ├── s08_intercambio.jl         → Cuaderno de Pluto, sesión 8
@@ -74,7 +78,7 @@ Matemáticas), con simulaciones en Julia.
 ├── src/                       → Fuentes de los cuadernos de Pluto (formato #%%)
 │   ├── construir_cuaderno.jl  → Genera y ejecuta un cuaderno a partir de su fuente
 │   ├── revisar_material.jl    → Revisa claves de repaso, enlaces y referencias a sesiones
-│   └── sNN_tema.jl            → Fuente de Code/sNN_tema.jl (14 fuentes; 20 sesiones al terminar la fase 3)
+│   └── sNN_tema.jl            → Fuente de Code/sNN_tema.jl (16 de 20 fuentes; el resto llega con la fase 3)
 └── README.md
 ```
 
