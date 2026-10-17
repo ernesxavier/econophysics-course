@@ -376,7 +376,7 @@ el efecto total es $(I - A)^{-1}s$. Esta estructura aparece en:
 <a id="la5"></a>
 
 ### L.A5 Teorema de Perron-Frobenius
-*Semanas 3, 8.*
+*Semanas 3, 8, 9.*
 
 Si $A$ tiene entradas no negativas y es **irreducible** (en la red asociada
 se puede llegar de cualquier nodo a cualquier otro), entonces:
