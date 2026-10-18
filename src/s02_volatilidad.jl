@@ -186,7 +186,7 @@ let
              lw = 1.5, label = "Normal estándar", yscale = :log10,
              ylims = (1e-4, 1), xlims = (-zmax, zmax), legend = :topright,
              xlabel = "z", ylabel = "Densidad",
-             title = "Retornos de $Δt día(s): N = $(length(rΔ)), " *
+             title = "Retornos de $Δt día$(Δt == 1 ? "" : "s"): N = $(length(rΔ)), " *
                      "curtosis en exceso = $(round(kurtosis(rΔ), digits = 1))")
     scatter!(p, x, dens, color = AZUL, ms = 4, markerstrokewidth = 0,
              label = "Datos")

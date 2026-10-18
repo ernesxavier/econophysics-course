@@ -136,9 +136,12 @@ let
     plot!(p1, ts, sim.n2; color = NARANJA, lw = 1.4, ls = :dot,
           label = "Fracción chartista n_{2,t}")
 
+    # rango mínimo de los ejes: si el precio converge a x* = 0 la escala no colapsa
+    lo, hi = min(0.0, minimum(sim.x)), max(0.3, maximum(sim.x))
+    lims = (lo - 0.05(hi - lo), hi + 0.05(hi - lo))
     p2 = scatter(sim.x[1:end-1], sim.x[2:end]; color = AZUL, alpha = 0.65, ms = 3.5, msw = 0,
                  xlabel = "desviación pasada x_{t-1}", ylabel = "desviación actual x_t",
-                 title = "Retrato en el plano (x_{t-1}, x_t)")
+                 xlims = lims, ylims = lims, title = "Retrato en el plano (x_{t-1}, x_t)")
     plot!(p2, sim.x[1:end-1], sim.x[2:end]; color = AZUL, alpha = 0.25, lw = 1.0)
     scatter!(p2, [0.0], [0.0]; color = NARANJA, marker = :xcross, ms = 6, msw = 2)
 

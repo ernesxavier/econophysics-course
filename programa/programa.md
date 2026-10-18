@@ -427,7 +427,7 @@ tecnológica.
   MIT Press.
 - Railsback, S. F., & Grimm, V. (2019). *Agent-Based and Individual-Based
   Modeling: A Practical Introduction* (2.ª ed.). Princeton University Press.
-- Strogatz, S. (2019). *Nonlinear Dynamics and Chaos* (2.ª ed.). CRC Press.
+- Strogatz, S. H. (2018). *Nonlinear Dynamics and Chaos* (2.ª ed.). CRC Press.
 - Schecter, S., & Gintis, H. (2016). *Game Theory in Action*. Princeton
   University Press.
 - Challet, D., Marsili, M., & Zhang, Y.-C. (2005). *Minority Games*. Oxford

@@ -185,12 +185,17 @@ U_i(s_i) = \underbrace{h\, s_i}_{\text{incentivo privado}}
 - ``h`` es el incentivo común a adoptar (un subsidio, un precio).
 - ``J > 0`` es el premio por **coincidir** con los vecinos.
 
-La suma de las dos primeras partes, sobre todos los agentes, es menos la
-energía del **modelo de Ising** (repaso F.I3):
+Lo que decide cada agente es la diferencia de utilidad entre adoptar y no
+adoptar, ``2\big(h + J\sum_{j} s_j\big)``. Es exactamente menos el cambio de
+energía al cambiar ``s_i`` en el **modelo de Ising** (repaso F.I3):
 
 ```math
-H(s) = -J\sum_{\langle i,j\rangle} s_i s_j - h\sum_i s_i .
+H(s) = -J\sum_{\langle i,j\rangle} s_i s_j - h\sum_i s_i ,
 ```
+
+donde ``\langle i,j\rangle`` recorre cada par de vecinos una sola vez.
+(Sumar las utilidades de todos los agentes contaría dos veces cada par: la
+equivalencia es entre las decisiones, no entre las sumas.)
 
 Los imanes se ordenan porque cada espín "prefiere" alinearse con sus
 vecinos; las poblaciones llegan a consensos porque cada agente prefiere

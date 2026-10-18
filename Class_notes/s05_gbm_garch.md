@@ -350,6 +350,10 @@ de la caminata aleatoria de Bachelier ([sesión 4](s04_caminata_markov.md)).
   estimates of the variance of United Kingdom inflation. *Econometrica*,
   50(4), 987–1007. https://doi.org/10.2307/1912773
 - Gardiner, C. (2021). *Elements of Stochastic Methods*. AIP Publishing.
+- Langevin, P. (1908). Sur la théorie du mouvement brownien. *Comptes Rendus
+  de l'Académie des Sciences*, 146, 530–533. Traducción al inglés: Lemons,
+  D. S., & Gythiel, A. (1997). *American Journal of Physics*, 65(11),
+  1079–1081. https://doi.org/10.1119/1.18725
 - Mantegna, R. N., & Stanley, H. E. (1999). *An Introduction to Econophysics:
   Correlations and Complexity in Finance*. Cambridge University Press.
   https://doi.org/10.1017/CBO9780511755767

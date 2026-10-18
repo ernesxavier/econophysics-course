@@ -207,7 +207,7 @@ pago medio por vecino $\pi_i = b q_i - c s_i$. Su aptitud reproductiva
 (*fitness*) bajo **selección débil** ($w \ll 1$) es $f_i = 1 + w\pi_i$.
 
 Con la regla de actualización **muerte-nacimiento** (*Death-Birth*): en cada
-pasos muere un individuo $i$ al azar y sus $k$ vecinos compiten por ocupar la
+paso muere un individuo $i$ al azar y sus $k$ vecinos compiten por ocupar la
 vacante con probabilidad proporcional a su aptitud $f_j$.
 
 **Resultado** (Ohtsuki, Hauert, Lieberman & Nowak, 2006). En una red grande

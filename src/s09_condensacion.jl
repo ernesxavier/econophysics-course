@@ -464,8 +464,10 @@ lo que ya sabes y con el laboratorio de hoy.
 6. Verifica que la densidad gamma inversa de la sección 1 está normalizada
    y tiene media 1 (repaso C.A4).
 7. Demuestra que si ``W`` tiene cola de Pareto con ``\mu < 1``, la suma de ``N``
-   copias independientes está dominada por la más grande: compara
-   ``\mathbb{E}[\max_i W_i]`` con ``\mathbb{E}[\sum_i W_i]`` para ``N`` grande.
+   copias independientes está dominada por la más grande. (Con ``\mu < 1`` la
+   media es infinita, así que no compares esperanzas: muestra que
+   ``\max_i W_i`` y ``\sum_i W_i`` crecen los dos como ``N^{1/\mu}`` y verifica
+   con una simulación que su cociente no tiende a cero.)
 8. Repite el laboratorio de la sección 3 con redes de 2 y de 8 socios en
    promedio. ¿Cómo cambia ``J_c``?
 

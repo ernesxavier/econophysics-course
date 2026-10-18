@@ -600,7 +600,7 @@ $= (dx - c)(a - by) + (by - a)(dx - c) = 0$.
 
 ## Para profundizar
 
-- Strogatz (2019), caps. 1–6 y 10: EDO, retratos de fase, estabilidad y
+- Strogatz (2018), caps. 1–6 y 10: EDO, retratos de fase, estabilidad y
   mapas discretos. Muy recomendable para las sesiones 17 y 20.
 - Chakrabarti et al. (2013), cap. 2: máxima entropía en distribuciones de
   ingreso.

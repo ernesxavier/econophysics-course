@@ -240,6 +240,8 @@ método de la sesión 3: ``\hat\alpha = `` $(round(ajuste_barrera.α, digits = 2
 
 $(-2m_barrera / s_barrera^2 > 5 ? md"Con ``\alpha`` tan grande la cola es muy delgada y hay pocos datos para estimarla: prueba con ``m`` más cercano a cero o con ``s`` mayor." : md"")
 
+$(s_barrera^2 / m_barrera^2 > 1000 ? md"Con ``m`` tan cerca de cero, el encogimiento es muy débil frente al ruido y el sistema tarda del orden de ``s^2/m^2`` periodos en llegar a su distribución de largo plazo, más que los 2000 simulados: la cola todavía no tiene la pendiente teórica. Prueba con ``m`` más negativo." : md"")
+
 Cambia al mecanismo de **Kesten**, ``x_{t+1} = a_t x_t + 1``: en lugar de una
 barrera, un pequeño ingreso fijo impide que ``x`` llegue a cero. El exponente
 teórico es el mismo. La ley de potencias sólo aparece en la cola, lejos de 1,

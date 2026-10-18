@@ -16,7 +16,7 @@ macro bind(def, element)
     #! format: on
 end
 
-# ╔═╡ d280f272-ca82-11f1-bd04-cdc85e52414a
+# ╔═╡ 5fd8ddb0-ca99-11f1-ab71-671597530ccf
 begin
     # Usa el entorno del curso (Code/Project.toml) en lugar del gestor de
     # paquetes propio de Pluto: un solo entorno para todo el repositorio.
@@ -31,7 +31,7 @@ begin
             background_color_legend = nothing, margin = 3Plots.mm)
 end
 
-# ╔═╡ d280f18e-ca82-11f1-a11e-5f5fffc81906
+# ╔═╡ 5fd8dcd4-ca99-11f1-82af-d1680d944b70
 md"""
 # Sesión 16: Schelling: segregación
 
@@ -56,10 +56,10 @@ opcionales.
 y F.I3 (modelo de Ising).
 """
 
-# ╔═╡ d280f1c0-ca82-11f1-912f-b9fee8994a01
+# ╔═╡ 5fd8dd1a-ca99-11f1-aa95-755acedf9428
 TableOfContents(title = "Contenido")
 
-# ╔═╡ d280f1ca-ca82-11f1-8a53-87c1a8ae43cd
+# ╔═╡ 5fd8dd24-ca99-11f1-b339-69d746493107
 md"""
 ## 0. El fenómeno: barrios segregados sin intolerancia
 
@@ -71,7 +71,7 @@ insatisfechos se mudan a viviendas vacías, la ciudad termina partida en barrios
 casi homogéneos (Schelling, 1971).
 """
 
-# ╔═╡ d280f1e8-ca82-11f1-8a51-314ae932cc4e
+# ╔═╡ 5fd8dd42-ca99-11f1-ae03-492b7ec955b2
 md"""
 ## 1. El modelo de segregación de Schelling
 
@@ -105,7 +105,7 @@ de 7 (``28.6\% < 37.5\%``), se vuelve insatisfecho y también se muda: una
 **cascada de mudanzas**.
 """
 
-# ╔═╡ d280f1f2-ca82-11f1-82f2-394c249b81e5
+# ╔═╡ 5fd8dd42-ca99-11f1-9cbb-794ea9ae186f
 md"""
 ## 2. Laboratorio: de las preferencias individuales a la ciudad segregada
 
@@ -116,7 +116,7 @@ Umbral requerido ``\tau``: $(@bind τ_sch Slider([0.125, 0.25, 0.375, 0.50, 0.62
   Fracción de celdas vacías ``\rho_0``: $(@bind vac_sch Slider([0.05, 0.15, 0.30], default = 0.15, show_value = true))
 """
 
-# ╔═╡ d280f206-ca82-11f1-8d4f-c56bc5b1555d
+# ╔═╡ 5fd8dd56-ca99-11f1-b56d-8d66bebe7e8c
 md"""
 ### 2.1 Barrido del umbral de tolerancia: las tres fases
 
@@ -125,7 +125,7 @@ final** y la **fracción de agentes satisfechos** al variar el umbral ``\tau``
 de 10% a 85%:
 """
 
-# ╔═╡ d280f21a-ca82-11f1-aa33-df4d69094a64
+# ╔═╡ 5fd8dd74-ca99-11f1-8b75-d36133f8be52
 md"""
 ## 3. Analogía con el modelo de Ising y sus límites
 
@@ -148,7 +148,7 @@ entre vecinos ocupados que conectan a dos grupos distintos (**frontera
 interfacial**):
 """
 
-# ╔═╡ d280f22e-ca82-11f1-9a57-35b76e88752b
+# ╔═╡ 5fd8dd7e-ca99-11f1-a4ff-c3b2fe25dff9
 md"""
 **¿Dónde termina la analogía?** En el algoritmo de Metropolis (sesión 13), cada
 cambio se acepta según el cambio en la energía **global** ``\Delta H``. En
@@ -163,7 +163,7 @@ Schelling, en cambio:
   el sistema no logra ordenarse).
 """
 
-# ╔═╡ d280f22e-ca82-11f1-b900-d7b22aa1e4b6
+# ╔═╡ 5fd8dd7e-ca99-11f1-95d4-6759870c4d4b
 md"""
 ## Resumen
 
@@ -176,7 +176,7 @@ md"""
 | Analogía con Ising | Equivale aproximadamente a enfriar un Ising con número fijo de espines ``\pm 1``, reduciendo las fronteras entre dominios |
 """
 
-# ╔═╡ d280f238-ca82-11f1-9f4f-75b5d41d6aea
+# ╔═╡ 5fd8dd88-ca99-11f1-a00a-bfe4565de570
 md"""
 ## Ejercicios
 
@@ -186,12 +186,12 @@ md"""
 `iguales / totales` cuando `totales > 0`, y `1.0` cuando `totales == 0`.
 """
 
-# ╔═╡ d280f238-ca82-11f1-ae2f-b73e9892bf69
+# ╔═╡ 5fd8dd88-ca99-11f1-b9b9-2538e39e5940
 function similitud_local(iguales, totales)
     missing  # reemplaza esta línea
 end
 
-# ╔═╡ d280f240-ca82-11f1-a34d-4f84d2cb6983
+# ╔═╡ 5fd8dd90-ca99-11f1-aced-4789e029f1f1
 md"""
 **2.** Escribe `satisfecho(iguales, totales, τ)`, que devuelva `true` si un
 agente de Schelling con `iguales` vecinos de su mismo grupo, de un total de
@@ -199,12 +199,12 @@ agente de Schelling con `iguales` vecinos de su mismo grupo, de un total de
 `true`).
 """
 
-# ╔═╡ d280f240-ca82-11f1-8c60-7f56261cacc5
+# ╔═╡ 5fd8dd9c-ca99-11f1-b981-179ab47888a5
 function satisfecho(iguales, totales, τ)
     missing  # reemplaza esta línea
 end
 
-# ╔═╡ d280f256-ca82-11f1-8433-09442f3b3a03
+# ╔═╡ 5fd8dda6-ca99-11f1-896a-1568952f93ca
 md"""
 ### Ruta básica: interpretación
 
@@ -237,7 +237,7 @@ md"""
   **Halcón-Paloma** y el **ciclo macroeconómico de Goodwin**.
 """
 
-# ╔═╡ d280f256-ca82-11f1-a18a-03ea63a2c00e
+# ╔═╡ 5fd8ddb0-ca99-11f1-b860-15f2fba26bb6
 md"""
 ---
 ## Apéndice: paquetes y funciones auxiliares
@@ -246,7 +246,7 @@ Estas celdas definen herramientas que usa el cuaderno. No es necesario
 leerlas para seguir la sesión.
 """
 
-# ╔═╡ d280f27e-ca82-11f1-a98d-d17c8e5a6c43
+# ╔═╡ 5fd8ddba-ca99-11f1-a148-e7a30a37cc1c
 begin
     const AZUL       = "#2a78d6"   # serie principal, grupo 1
     const NARANJA    = "#eb6834"   # segunda serie o teoría, grupo 2
@@ -255,11 +255,11 @@ begin
     const BLANCO     = "#ffffff"
 end;
 
-# ╔═╡ d280f27e-ca82-11f1-9839-174c24afac5f
+# ╔═╡ 5fd8ddba-ca99-11f1-86de-49a392b808d7
 "Porcentaje con a lo más un decimal: 0.375 → \"37.5%\", 0.25 → \"25%\"."
 porcentaje(x) = replace(string(round(100x, digits = 1)), r"\.0$" => "") * "%"
 
-# ╔═╡ d280f288-ca82-11f1-a69f-1593a6eaef1c
+# ╔═╡ 5fd8ddc2-ca99-11f1-b93d-65a67eb63d89
 "Cuenta vecinos del mismo tipo y vecinos ocupados totales en la vecindad de Moore (8 vecinos, periódica)."
 function vecindad_schelling(tablero, r, c)
     L = size(tablero, 1)
@@ -276,7 +276,7 @@ function vecindad_schelling(tablero, r, c)
     iguales, totales
 end
 
-# ╔═╡ d280f292-ca82-11f1-b185-ffc45311fb88
+# ╔═╡ 5fd8ddc2-ca99-11f1-beb7-a50256a2b0c8
 "Mide la similitud promedio, la fracción de agentes satisfechos y la fracción de enlaces entre grupos distintos."
 function metricas_schelling(tablero, τ)
     L = size(tablero, 1)
@@ -301,7 +301,7 @@ function metricas_schelling(tablero, τ)
      frontera = enlaces_ocupados > 0 ? enlaces_distintos / enlaces_ocupados : 0.0)
 end
 
-# ╔═╡ d280f292-ca82-11f1-a198-37dfd4fc16e0
+# ╔═╡ 5fd8ddce-ca99-11f1-a0e6-5f0b42e11e97
 """
 Simula el modelo de segregación de Schelling en una cuadrícula L × L con
 fracción `p_vacio` de celdas vacías y umbral de tolerancia `τ`.
@@ -349,10 +349,10 @@ function simular_schelling(L, p_vacio, τ; pasos_max = 120, rng = Xoshiro(21))
     (tablero = tablero, similitud = sim_hist, felices = fel_hist, frontera = fro_hist)
 end
 
-# ╔═╡ d280f1fc-ca82-11f1-b238-c7fd3d25220c
+# ╔═╡ 5fd8dd4c-ca99-11f1-b8b0-7b497eae9945
 sim_schelling = simular_schelling(40, vac_sch, τ_sch; pasos_max = 120, rng = Xoshiro(21));
 
-# ╔═╡ d280f1fc-ca82-11f1-b08e-9701c6811457
+# ╔═╡ 5fd8dd56-ca99-11f1-a39e-831fd9d924ee
 let
     s = sim_schelling
     paleta = cgrad([BLANCO, AZUL, NARANJA])
@@ -363,14 +363,14 @@ let
     p2 = plot(rondas, 100 .* s.similitud; color = AZUL, lw = 2.2, ylims = (0, 105),
               xlabel = "ronda", ylabel = "porcentaje (%)", legend = :bottomright,
               label = "Similitud promedio de los vecindarios",
-              title = "Evolución en $(length(rondas)-1) rondas")
+              title = "Evolución en $(length(rondas)-1) ronda$(length(rondas) == 2 ? "" : "s")")
     plot!(p2, rondas, 100 .* s.felices; color = NARANJA, lw = 2, ls = :dash,
           label = "Agentes satisfechos")
     hline!(p2, [100τ_sch]; color = GRIS, ls = :dot, label = "Umbral pedido τ = $(porcentaje(τ_sch))")
     plot(p1, p2; layout = Plots.grid(1, 2; widths = [0.44, 0.56]), size = (900, 380))
 end
 
-# ╔═╡ d280f224-ca82-11f1-9ba8-e55f35d2e107
+# ╔═╡ 5fd8dd7e-ca99-11f1-bcaa-71cb5dd10fe1
 let
     s = sim_schelling
     rondas = 0:length(s.frontera)-1
@@ -382,7 +382,7 @@ let
     hline!(p, [50]; color = GRIS_CLARO, ls = :dot, label = "Mezcla al azar (50%)")
 end
 
-# ╔═╡ d280f29c-ca82-11f1-bd78-0f32ebffb350
+# ╔═╡ 5fd8ddd8-ca99-11f1-9b4f-6bd2ba53a711
 "Ejemplo fijo de Schelling para la sección 0 (antes y después con τ = 0.375)."
 ejemplo_schelling = let
     ini = simular_schelling(40, 0.15, 0.375; pasos_max = 0, rng = Xoshiro(21))
@@ -391,7 +391,7 @@ ejemplo_schelling = let
      fin = (tablero = fin.tablero, similitud = fin.similitud[end], felices = fin.felices[end]))
 end;
 
-# ╔═╡ d280f1d4-ca82-11f1-9d15-edb142eb71eb
+# ╔═╡ 5fd8dd30-ca99-11f1-b88a-27531d3ec76c
 let
     ini, fin = ejemplo_schelling
     paleta = cgrad([BLANCO, AZUL, NARANJA])
@@ -404,7 +404,7 @@ let
     plot(p1, p2; layout = (1, 2), size = (820, 390))
 end
 
-# ╔═╡ d280f1e0-ca82-11f1-9f45-2b0ba5d7c176
+# ╔═╡ 5fd8dd30-ca99-11f1-ab4c-df3a1788c707
 md"""
 Nadie buscaba una ciudad con $(round(Int, 100ejemplo_schelling.fin.similitud))%
 de vecinos del mismo grupo: a cada agente le bastaba con 37.5%. El exceso de
@@ -412,7 +412,7 @@ segregación es una propiedad **emergente**: las intenciones individuales no se
 suman linealmente cuando las decisiones de unos alteran el entorno de los demás.
 """
 
-# ╔═╡ d280f2a6-ca82-11f1-9f5b-7d3e3482f820
+# ╔═╡ 5fd8dde2-ca99-11f1-94fe-d3e1870ee399
 "Barrido de la similitud final y fracción de satisfechos en Schelling para varios umbrales τ."
 function barrido_schelling(L, p_vacio; τs = 0.10:0.05:0.85)
     sim, fel = Float64[], Float64[]
@@ -424,10 +424,10 @@ function barrido_schelling(L, p_vacio; τs = 0.10:0.05:0.85)
     (τ = collect(τs), similitud = sim, felices = fel)
 end
 
-# ╔═╡ d280f206-ca82-11f1-8d3c-07ebe98b322e
+# ╔═╡ 5fd8dd62-ca99-11f1-bf70-61ef562e1345
 barrido_sch = barrido_schelling(35, 0.15; τs = 0.10:0.05:0.85);
 
-# ╔═╡ d280f20e-ca82-11f1-a332-f976888917a3
+# ╔═╡ 5fd8dd62-ca99-11f1-ba54-f9622090cfce
 let
     b = barrido_sch
     p = plot(100 .* b.τ, 100 .* b.similitud; color = AZUL, lw = 2.5, marker = :circle, ms = 4, msw = 0,
@@ -440,7 +440,7 @@ let
     hline!(p, [50]; color = GRIS_CLARO, lw = 1, label = "Mezcla al azar (50%)")
 end
 
-# ╔═╡ d280f2a6-ca82-11f1-ae58-cb53b7f2dece
+# ╔═╡ 5fd8dde2-ca99-11f1-84e0-416dfa0ed5f9
 "Rango de la similitud final del barrido de Schelling para τ entre `lo` y `hi`, como texto."
 function rango_sch(lo, hi)
     k = (barrido_sch.τ .>= lo - 1e-9) .& (barrido_sch.τ .<= hi + 1e-9)
@@ -448,7 +448,7 @@ function rango_sch(lo, hi)
     "$(round(Int, 100a))% y $(round(Int, 100b))%"
 end
 
-# ╔═╡ d280f21a-ca82-11f1-a8d3-c70e7e52ac92
+# ╔═╡ 5fd8dd6a-ca99-11f1-98a9-c1334683a092
 md"""
 La curva muestra tres regímenes muy claros:
 
@@ -465,7 +465,7 @@ La curva muestra tres regímenes muy claros:
    mudanzas no logran acomodar a todos y la fracción de satisfechos cae.
 """
 
-# ╔═╡ d280f2b0-ca82-11f1-87ca-eb99d7fc2bb5
+# ╔═╡ 5fd8ddec-ca99-11f1-b1e0-0112bf6b5376
 "Muestra si la respuesta de un ejercicio es correcta."
 function verificar(f, esperado; rtol = 1e-8, pista = md"")
     caja(tipo, titulo, texto) = Markdown.MD(Markdown.Admonition(tipo, titulo, [texto]))
@@ -486,49 +486,49 @@ function verificar(f, esperado; rtol = 1e-8, pista = md"")
     end
 end
 
-# ╔═╡ d280f240-ca82-11f1-b786-ef461e691b84
+# ╔═╡ 5fd8dd90-ca99-11f1-a217-e540e90b89a8
 verificar(() -> [similitud_local(3, 8), similitud_local(0, 5), similitud_local(0, 0)],
           [0.375, 0.0, 1.0];
           pista = md"Usa un condicional: `totales == 0 ? 1.0 : iguales / totales`.")
 
-# ╔═╡ d280f24c-ca82-11f1-ba75-e91cbc01a7a1
+# ╔═╡ 5fd8dd9c-ca99-11f1-b7a7-2b98de6ecae9
 verificar(() -> [satisfecho(3, 8, 0.375), satisfecho(2, 8, 0.375), satisfecho(0, 0, 0.5)],
           [true, false, true];
           pista = md"Puedes usar `similitud_local(iguales, totales) >= τ` o `totales == 0 || iguales / totales >= τ`.")
 
 # ╔═╡ Cell order:
-# ╟─d280f18e-ca82-11f1-a11e-5f5fffc81906
-# ╟─d280f1c0-ca82-11f1-912f-b9fee8994a01
-# ╟─d280f1ca-ca82-11f1-8a53-87c1a8ae43cd
-# ╟─d280f1d4-ca82-11f1-9d15-edb142eb71eb
-# ╟─d280f1e0-ca82-11f1-9f45-2b0ba5d7c176
-# ╟─d280f1e8-ca82-11f1-8a51-314ae932cc4e
-# ╟─d280f1f2-ca82-11f1-82f2-394c249b81e5
-# ╠═d280f1fc-ca82-11f1-b238-c7fd3d25220c
-# ╟─d280f1fc-ca82-11f1-b08e-9701c6811457
-# ╟─d280f206-ca82-11f1-8d4f-c56bc5b1555d
-# ╠═d280f206-ca82-11f1-8d3c-07ebe98b322e
-# ╟─d280f20e-ca82-11f1-a332-f976888917a3
-# ╟─d280f21a-ca82-11f1-a8d3-c70e7e52ac92
-# ╟─d280f21a-ca82-11f1-aa33-df4d69094a64
-# ╟─d280f224-ca82-11f1-9ba8-e55f35d2e107
-# ╟─d280f22e-ca82-11f1-9a57-35b76e88752b
-# ╟─d280f22e-ca82-11f1-b900-d7b22aa1e4b6
-# ╟─d280f238-ca82-11f1-9f4f-75b5d41d6aea
-# ╠═d280f238-ca82-11f1-ae2f-b73e9892bf69
-# ╟─d280f240-ca82-11f1-b786-ef461e691b84
-# ╟─d280f240-ca82-11f1-a34d-4f84d2cb6983
-# ╠═d280f240-ca82-11f1-8c60-7f56261cacc5
-# ╟─d280f24c-ca82-11f1-ba75-e91cbc01a7a1
-# ╟─d280f256-ca82-11f1-8433-09442f3b3a03
-# ╟─d280f256-ca82-11f1-a18a-03ea63a2c00e
-# ╠═d280f272-ca82-11f1-bd04-cdc85e52414a
-# ╠═d280f27e-ca82-11f1-a98d-d17c8e5a6c43
-# ╠═d280f27e-ca82-11f1-9839-174c24afac5f
-# ╠═d280f288-ca82-11f1-a69f-1593a6eaef1c
-# ╠═d280f292-ca82-11f1-b185-ffc45311fb88
-# ╠═d280f292-ca82-11f1-a198-37dfd4fc16e0
-# ╠═d280f29c-ca82-11f1-bd78-0f32ebffb350
-# ╠═d280f2a6-ca82-11f1-ae58-cb53b7f2dece
-# ╠═d280f2a6-ca82-11f1-9f5b-7d3e3482f820
-# ╠═d280f2b0-ca82-11f1-87ca-eb99d7fc2bb5
+# ╟─5fd8dcd4-ca99-11f1-82af-d1680d944b70
+# ╟─5fd8dd1a-ca99-11f1-aa95-755acedf9428
+# ╟─5fd8dd24-ca99-11f1-b339-69d746493107
+# ╟─5fd8dd30-ca99-11f1-b88a-27531d3ec76c
+# ╟─5fd8dd30-ca99-11f1-ab4c-df3a1788c707
+# ╟─5fd8dd42-ca99-11f1-ae03-492b7ec955b2
+# ╟─5fd8dd42-ca99-11f1-9cbb-794ea9ae186f
+# ╠═5fd8dd4c-ca99-11f1-b8b0-7b497eae9945
+# ╟─5fd8dd56-ca99-11f1-a39e-831fd9d924ee
+# ╟─5fd8dd56-ca99-11f1-b56d-8d66bebe7e8c
+# ╠═5fd8dd62-ca99-11f1-bf70-61ef562e1345
+# ╟─5fd8dd62-ca99-11f1-ba54-f9622090cfce
+# ╟─5fd8dd6a-ca99-11f1-98a9-c1334683a092
+# ╟─5fd8dd74-ca99-11f1-8b75-d36133f8be52
+# ╟─5fd8dd7e-ca99-11f1-bcaa-71cb5dd10fe1
+# ╟─5fd8dd7e-ca99-11f1-a4ff-c3b2fe25dff9
+# ╟─5fd8dd7e-ca99-11f1-95d4-6759870c4d4b
+# ╟─5fd8dd88-ca99-11f1-a00a-bfe4565de570
+# ╠═5fd8dd88-ca99-11f1-b9b9-2538e39e5940
+# ╟─5fd8dd90-ca99-11f1-a217-e540e90b89a8
+# ╟─5fd8dd90-ca99-11f1-aced-4789e029f1f1
+# ╠═5fd8dd9c-ca99-11f1-b981-179ab47888a5
+# ╟─5fd8dd9c-ca99-11f1-b7a7-2b98de6ecae9
+# ╟─5fd8dda6-ca99-11f1-896a-1568952f93ca
+# ╟─5fd8ddb0-ca99-11f1-b860-15f2fba26bb6
+# ╠═5fd8ddb0-ca99-11f1-ab71-671597530ccf
+# ╠═5fd8ddba-ca99-11f1-a148-e7a30a37cc1c
+# ╠═5fd8ddba-ca99-11f1-86de-49a392b808d7
+# ╠═5fd8ddc2-ca99-11f1-b93d-65a67eb63d89
+# ╠═5fd8ddc2-ca99-11f1-beb7-a50256a2b0c8
+# ╠═5fd8ddce-ca99-11f1-a0e6-5f0b42e11e97
+# ╠═5fd8ddd8-ca99-11f1-9b4f-6bd2ba53a711
+# ╠═5fd8dde2-ca99-11f1-84e0-416dfa0ed5f9
+# ╠═5fd8dde2-ca99-11f1-94fe-d3e1870ee399
+# ╠═5fd8ddec-ca99-11f1-b1e0-0112bf6b5376

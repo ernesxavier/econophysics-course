@@ -16,7 +16,7 @@ macro bind(def, element)
     #! format: on
 end
 
-# ╔═╡ 68a07cb6-ca92-11f1-956a-0f4d9e8391a4
+# ╔═╡ 44d4a49a-ca99-11f1-a78e-490f2a3da518
 begin
     # Usa el entorno del curso (Code/Project.toml) en lugar del gestor de
     # paquetes propio de Pluto: un solo entorno para todo el repositorio.
@@ -32,7 +32,7 @@ begin
             background_color_legend = nothing, margin = 3Plots.mm)
 end
 
-# ╔═╡ 68a07be4-ca92-11f1-8c2d-812bf3cb5c0b
+# ╔═╡ 44d4a396-ca99-11f1-825c-9fb9e60e66c8
 md"""
 # Sesión 2: Volatilidad y modelos nulos
 
@@ -63,10 +63,10 @@ correlación), P.I3 (teorema del límite central), E.I1 (autocorrelación), S.I4
 correlación**. Se retoman los **retornos logarítmicos** (sesión 1).
 """
 
-# ╔═╡ 68a07c0c-ca92-11f1-a6a6-e30f91840b30
+# ╔═╡ 44d4a3dc-ca99-11f1-90cb-c17fc51bc99c
 TableOfContents(title = "Contenido")
 
-# ╔═╡ 68a07c16-ca92-11f1-8813-a1d1c36f6730
+# ╔═╡ 44d4a3e6-ca99-11f1-bf71-87d06822b610
 md"""
 ## 0. El fenómeno: los días malos llegan juntos
 
@@ -75,7 +75,7 @@ saber si hoy subió no ayuda a predecir si mañana sube. Pero mira el **tamaño*
 de los movimientos del S&P 500:
 """
 
-# ╔═╡ 68a07c28-ca92-11f1-acd2-091aa1885efe
+# ╔═╡ 44d4a40e-ca99-11f1-b2bc-c3ea55f40143
 md"""
 ## 1. Repaso: incorrelación no es independencia
 
@@ -85,7 +85,7 @@ Independencia implica incorrelación, pero no al revés. El ejemplo clásico:
 ``X`` normal estándar e ``Y = X^2``.
 """
 
-# ╔═╡ 68a07c34-ca92-11f1-9702-81fb28c7f8fc
+# ╔═╡ 44d4a41a-ca99-11f1-92d9-33c41592f2b8
 md"""
 La correlación es casi cero porque los valores negativos y positivos de ``X``
 dan el mismo ``Y``: no hay una recta que describa la relación. Pero ``Y`` está
@@ -98,15 +98,15 @@ dice algo sobre ``|r_{t+1}|``.
 Los mismos cuatro activos de la sesión 1 (`Data/precios.csv`).
 """
 
-# ╔═╡ 68a07c3e-ca92-11f1-8746-0ffac5cbd5a7
+# ╔═╡ 44d4a41a-ca99-11f1-b38c-1d063a76b008
 datos = CSV.read(joinpath(@__DIR__, "..", "Data", "precios.csv"), DataFrame)
 
-# ╔═╡ 68a07c3e-ca92-11f1-b431-0746bae0d2d7
+# ╔═╡ 44d4a41a-ca99-11f1-8771-a313b4b073a9
 md"""
 **Activo:** $(@bind activo Select(unique(datos.activo)))
 """
 
-# ╔═╡ 68a07c3e-ca92-11f1-ab3b-31705a74f3a1
+# ╔═╡ 44d4a422-ca99-11f1-b717-d539642e6b97
 begin
     serie = sort(filter(:activo => ==(activo), datos), :fecha)
     fechas = serie.fecha
@@ -116,7 +116,7 @@ begin
     μ, σ = mean(r), std(r)
 end;
 
-# ╔═╡ 68a07c48-ca92-11f1-8e0a-bd6a17a56da4
+# ╔═╡ 44d4a422-ca99-11f1-9374-13fec9e0fd83
 md"""
 ## 3. Hecho 3: agrupamiento de volatilidad
 
@@ -124,7 +124,7 @@ Ahora miramos el **tamaño** del movimiento, ``|r_t|``, sin importar si fue
 subida o bajada.
 """
 
-# ╔═╡ 68a07c52-ca92-11f1-a245-3bf92d57192b
+# ╔═╡ 44d4a42c-ca99-11f1-8ec9-b1440ae7dfdb
 md"""
 Los días grandes vienen **en racimos**: después de un día turbulento suele
 venir otro día turbulento. Medimos esto con la autocorrelación de ``|r|``.
@@ -132,7 +132,7 @@ venir otro día turbulento. Medimos esto con la autocorrelación de ``|r|``.
 Rezagos: $(@bind L2 Slider(10:10:250, default = 100, show_value = true))
 """
 
-# ╔═╡ 68a07c5c-ca92-11f1-8adc-45faedfc9e8b
+# ╔═╡ 44d4a436-ca99-11f1-824c-9988c8b79cb3
 md"""
 La autocorrelación de ``r`` (azul) muere de inmediato. La de ``|r|`` (naranja)
 es positiva y **decae muy lentamente**: sigue siendo significativa después de
@@ -144,7 +144,7 @@ como una exponencial ``e^{-\tau/\tau_0}`` o como una ley de potencias
 ``\tau^{-\beta}``? Estima ``\beta``.
 """
 
-# ╔═╡ 68a07c5c-ca92-11f1-9776-c9e747877d64
+# ╔═╡ 44d4a436-ca99-11f1-a311-9dcf95f373d7
 md"""
 ## 4. Hecho 4: normalidad agregacional
 
@@ -155,7 +155,7 @@ acercarse a la normal. ¿Pasa eso?
 Horizonte ``\Delta t`` (días): $(@bind Δt Slider([1, 2, 5, 10, 20, 60], default = 1, show_value = true))
 """
 
-# ╔═╡ 68a07c66-ca92-11f1-b07c-65311a17037c
+# ╔═╡ 44d4a44c-ca99-11f1-8303-87f23bbc2b03
 md"""
 Al agregar, la curtosis baja y la distribución se acerca a la normal: el
 teorema del límite central termina ganando. Pero **gana más lento** de lo que
@@ -167,7 +167,7 @@ curtosis ``\kappa_1/n``. ¿Qué hecho estilizado explica que los datos se alejen
 de esa predicción?
 """
 
-# ╔═╡ 68a07c70-ca92-11f1-b4e9-4993515b5710
+# ╔═╡ 44d4a44c-ca99-11f1-99a5-4b370d2fe5cf
 md"""
 ## 5. ¿Qué tan especial es esto? Modelos nulos
 
@@ -184,7 +184,7 @@ Modelo: $(@bind modelo Select(["Datos reales", "Datos barajados", "Caminata gaus
   Semilla: $(@bind semilla NumberField(1:1000, default = 1))
 """
 
-# ╔═╡ 68a07c70-ca92-11f1-9d98-573ddf062da1
+# ╔═╡ 44d4a454-ca99-11f1-994b-e3f29d0e89e7
 r_modelo = if modelo == "Datos reales"
     r
 elseif modelo == "Datos barajados"
@@ -193,7 +193,7 @@ else
     μ .+ σ .* randn(Xoshiro(semilla), length(r))
 end;
 
-# ╔═╡ 68a07c7a-ca92-11f1-8f07-17b10caae732
+# ╔═╡ 44d4a45e-ca99-11f1-b35d-57ddc21d2f4d
 md"""
 Compara los tres modelos y responde:
 - ¿Cuál conserva las colas pesadas? ¿Cuál conserva el agrupamiento de
@@ -205,7 +205,7 @@ La función `panel_hechos` resume los cuatro hechos de las sesiones 1 y 2 en una
 usaremos en la sesión 20 para evaluar mercados artificiales.
 """
 
-# ╔═╡ 68a07c7a-ca92-11f1-aff8-65359beb63a7
+# ╔═╡ 44d4a45e-ca99-11f1-93be-1dc2f03e1480
 md"""
 ## 6. Universalidad
 
@@ -213,7 +213,7 @@ Hasta ahora miramos un activo a la vez. La tabla resume los mismos indicadores
 para los cuatro.
 """
 
-# ╔═╡ 68a07c84-ca92-11f1-8a71-b3d76f31d9b8
+# ╔═╡ 44d4a468-ca99-11f1-bc75-55b3e96c94ff
 md"""
 Los cuatro mercados son muy distintos: un índice de acciones mexicanas, una
 divisa, el mercado más grande del mundo y una criptomoneda sin flujos de
@@ -229,7 +229,7 @@ general: la forma en que interactúan muchos agentes. Esa es la hipótesis de
 trabajo de la econofísica.
 """
 
-# ╔═╡ 68a07c8e-ca92-11f1-9ef0-3163b0fe8193
+# ╔═╡ 44d4a472-ca99-11f1-8e65-1d0263f34ff7
 md"""
 ## Resumen
 
@@ -246,7 +246,7 @@ md"""
 | Caminata gaussiana | Media y varianza | Colas pesadas y agrupamiento |
 """
 
-# ╔═╡ 68a07c8e-ca92-11f1-a036-f1354a46b762
+# ╔═╡ 44d4a472-ca99-11f1-a886-657d1daa6206
 md"""
 ## Ejercicios
 
@@ -258,24 +258,24 @@ descartan). Por ejemplo, con `Δt = 2` y los retornos `[1, 2, 3, 4, 5]` debe
 devolver `[3, 7]`.
 """
 
-# ╔═╡ 68a07c9a-ca92-11f1-b2be-c766ea145013
+# ╔═╡ 44d4a47e-ca99-11f1-819f-49211e1008ad
 function agregar_retornos(r, Δt)
     missing  # reemplaza esta línea
 end
 
-# ╔═╡ 68a07c9a-ca92-11f1-a092-6b6c5dfb13dd
+# ╔═╡ 44d4a486-ca99-11f1-bbc4-4df98d1a6013
 md"""
 **2.** Escribe `prob_racha_mia(z, k)`: entre los días con ``|z_t| > k`` (que tengan
 un día siguiente), la fracción en que también ``|z_{t+1}| > k``. Es el número
 de la sección 0.
 """
 
-# ╔═╡ 68a07ca2-ca92-11f1-8771-97e9daa7a217
+# ╔═╡ 44d4a486-ca99-11f1-b074-15e828dab82c
 function prob_racha_mia(z, k)
     missing  # reemplaza esta línea
 end
 
-# ╔═╡ 68a07cac-ca92-11f1-8cc9-3d6a4708ad92
+# ╔═╡ 44d4a490-ca99-11f1-92aa-0f26fff3c75d
 md"""
 ### Ruta básica: interpretación
 
@@ -315,7 +315,7 @@ lo que ya sabes y con el laboratorio de hoy.
   de potencias?
 """
 
-# ╔═╡ 68a07cac-ca92-11f1-b16a-abc15ddd8336
+# ╔═╡ 44d4a49a-ca99-11f1-9ae7-2327d7f8cec8
 md"""
 ---
 ## Apéndice: paquetes y funciones auxiliares
@@ -324,14 +324,14 @@ Estas celdas definen herramientas que usa el cuaderno. No es necesario
 leerlas para seguir la sesión.
 """
 
-# ╔═╡ 68a07cb6-ca92-11f1-aa4b-edd560938362
+# ╔═╡ 44d4a4a4-ca99-11f1-bbda-437a064bc308
 begin
     const AZUL    = "#2a78d6"   # serie principal
     const NARANJA = "#eb6834"   # segunda serie
     const GRIS    = "#52514e"   # referencias (normal, bandas, eventos)
 end;
 
-# ╔═╡ 68a07c28-ca92-11f1-aecc-f750e0b31dec
+# ╔═╡ 44d4a40e-ca99-11f1-911b-f1989f6e84a3
 let
     x = randn(Xoshiro(3), 2_000)
     y = x .^ 2
@@ -340,7 +340,7 @@ let
             title = "corr(X, Y) = $(round(cor(x, y), digits = 3)), pero Y depende por completo de X")
 end
 
-# ╔═╡ 68a07c52-ca92-11f1-93b1-7b6cb97b0391
+# ╔═╡ 44d4a436-ca99-11f1-9ebe-3bf73bdba430
 let
     N = length(r)
     banda = 1.96 / sqrt(N)
@@ -354,21 +354,21 @@ let
     hline!(p, [0], color = :black, lw = 0.5, label = "")
 end
 
-# ╔═╡ 68a07cb6-ca92-11f1-a298-0fa856b0aa5b
+# ╔═╡ 44d4a4a4-ca99-11f1-8be8-47369878ac8b
 const EVENTOS = [Date(2008, 10, 10), Date(2016, 11, 9), Date(2020, 3, 16)];
 
-# ╔═╡ 68a07cc0-ca92-11f1-be02-b538452978d1
+# ╔═╡ 44d4a4ac-ca99-11f1-a298-c5a53882c8f0
 "Dibuja líneas verticales en los eventos que caen dentro del rango de `fechas`."
 function marcar_eventos!(p, fechas)
     dentro = filter(e -> first(fechas) <= e <= last(fechas), EVENTOS)
     vline!(p, dentro, color = GRIS, ls = :dot, lw = 1, label = "")
 end
 
-# ╔═╡ 68a07cc0-ca92-11f1-a0cb-e7ed3fde1f8b
+# ╔═╡ 44d4a4ac-ca99-11f1-a0bd-b1583f3d3e79
 "Retornos agregados en bloques no traslapados de `Δt` días."
 agregar(r, Δt) = [sum(@view r[i:i+Δt-1]) for i in 1:Δt:length(r)-Δt+1]
 
-# ╔═╡ 68a07c66-ca92-11f1-9a6e-2bb6a7c963e8
+# ╔═╡ 44d4a440-ca99-11f1-8292-97bffea14b26
 let
     hs = [1, 2, 3, 5, 10, 20, 40, 60]
     κ = [kurtosis(agregar(r, h)) for h in hs]
@@ -382,7 +382,7 @@ let
     hline!(p, [0], color = :black, lw = 0.5, label = "")
 end
 
-# ╔═╡ 68a07ccc-ca92-11f1-b35f-61f8f17deb4d
+# ╔═╡ 44d4a4ac-ca99-11f1-ae75-551ebce79ceb
 "Densidad empírica en bins de ancho `ancho`; descarta bins vacíos (para escala log)."
 function densidad_empirica(z; ancho = 0.25)
     h = fit(Histogram, z, -16:ancho:16)
@@ -392,14 +392,14 @@ function densidad_empirica(z; ancho = 0.25)
     centros[keep], dens[keep]
 end
 
-# ╔═╡ 68a07ccc-ca92-11f1-9e8d-49d632a4b558
+# ╔═╡ 44d4a4b8-ca99-11f1-a939-cf8a2fe706cd
 dias_por_año(activo) = activo == "Bitcoin" ? 365 : 252
 
-# ╔═╡ 68a07cd4-ca92-11f1-8b6b-33959cc9e643
+# ╔═╡ 44d4a4b8-ca99-11f1-a012-2d8cc90da92d
 "Límite simétrico del eje z: al menos ±8 y siempre mayor que el dato más extremo."
 rango_z(z) = max(8, ceil(Int, maximum(abs, z)) + 1)
 
-# ╔═╡ 68a07c5c-ca92-11f1-bd86-990ba444e080
+# ╔═╡ 44d4a440-ca99-11f1-b15e-e789194ea649
 let
     rΔ = agregar(r, Δt)
     zΔ = (rΔ .- mean(rΔ)) ./ std(rΔ)
@@ -409,13 +409,13 @@ let
              lw = 1.5, label = "Normal estándar", yscale = :log10,
              ylims = (1e-4, 1), xlims = (-zmax, zmax), legend = :topright,
              xlabel = "z", ylabel = "Densidad",
-             title = "Retornos de $Δt día(s): N = $(length(rΔ)), " *
+             title = "Retornos de $Δt día$(Δt == 1 ? "" : "s"): N = $(length(rΔ)), " *
                      "curtosis en exceso = $(round(kurtosis(rΔ), digits = 1))")
     scatter!(p, x, dens, color = AZUL, ms = 4, markerstrokewidth = 0,
              label = "Datos")
 end
 
-# ╔═╡ 68a07cd4-ca92-11f1-9a69-53fc7f26cac2
+# ╔═╡ 44d4a4c2-ca99-11f1-a71f-e78526582a70
 "Marcas del eje x: un año de cada `paso`, etiquetado sólo con el año."
 function ticks_años(fechas; paso = 4)
     años = year(first(fechas)):paso:year(last(fechas))
@@ -423,7 +423,7 @@ function ticks_años(fechas; paso = 4)
     (Dates.value.(marcas), string.(años))
 end
 
-# ╔═╡ 68a07c48-ca92-11f1-bc8c-59fc17978061
+# ╔═╡ 44d4a42c-ca99-11f1-a697-fbb7b93f6b36
 let
     p = plot(fechas_r, 100abs.(r), color = AZUL, lw = 0.6,
              ylabel = "|r| (%)", title = "$activo: tamaño de los movimientos diarios",
@@ -431,7 +431,7 @@ let
     marcar_eventos!(p, fechas)
 end
 
-# ╔═╡ 68a07cd4-ca92-11f1-b240-f1d2bd627786
+# ╔═╡ 44d4a4c2-ca99-11f1-8a71-65edea0f4fa9
 function grafica_acf(x, L; titulo = "", color = AZUL)
     banda = 1.96 / sqrt(length(x))
     p = plot(1:L, fill(banda, L), fillrange = fill(-banda, L), color = GRIS,
@@ -441,7 +441,7 @@ function grafica_acf(x, L; titulo = "", color = AZUL)
     hline!(p, [0], color = :black, lw = 0.5)
 end
 
-# ╔═╡ 68a07cde-ca92-11f1-94e0-f92a7e045cb7
+# ╔═╡ 44d4a4cc-ca99-11f1-b6f6-1718684c7d25
 "Resumen visual de los cuatro hechos estilizados para una serie de retornos."
 function panel_hechos(x; titulo = "", L = 100)
     z = (x .- mean(x)) ./ std(x)
@@ -465,10 +465,10 @@ function panel_hechos(x; titulo = "", L = 100)
          plot_title = titulo, plot_titlefontsize = 12)
 end
 
-# ╔═╡ 68a07c7a-ca92-11f1-95e6-35efdc2ff389
+# ╔═╡ 44d4a454-ca99-11f1-ac22-59023d0a8335
 panel_hechos(r_modelo; titulo = "$activo: $(lowercase(modelo))")
 
-# ╔═╡ 68a07cde-ca92-11f1-92a9-b5205136ebca
+# ╔═╡ 44d4a4cc-ca99-11f1-8bca-43d146f5ab0d
 function tabla_universalidad(datos)
     grupos = collect(groupby(datos, :activo))
     nombres = [g.activo[1] for g in grupos]
@@ -486,17 +486,17 @@ function tabla_universalidad(datos)
     )
 end
 
-# ╔═╡ 68a07c84-ca92-11f1-a84c-cf9db2a6f274
+# ╔═╡ 44d4a45e-ca99-11f1-8bf7-3364de8eb2a2
 tabla_universalidad(datos)
 
-# ╔═╡ 68a07ce8-ca92-11f1-a5b6-075ef1131d2a
+# ╔═╡ 44d4a4d6-ca99-11f1-8d29-4fc4902dd3f2
 "Fracción de días con |z| > k, entre los que siguen a un día con |z| > k."
 function prob_racha(z, k)
     dias = findall(t -> abs(z[t]) > k, 1:length(z)-1)
     mean(abs.(z[dias .+ 1]) .> k)
 end
 
-# ╔═╡ 68a07c16-ca92-11f1-8f01-437ba7403d9b
+# ╔═╡ 44d4a3f0-ca99-11f1-93e0-79b5c896b4ed
 racha_sp = let
     sp = sort(filter(:activo => ==("S&P 500"), datos), :fecha)
     r_sp = diff(log.(sp.cierre))
@@ -505,14 +505,14 @@ racha_sp = let
      racha = round(100prob_racha(z_sp, 2), digits = 1))
 end;
 
-# ╔═╡ 68a07c20-ca92-11f1-8c8a-21063a6297ea
+# ╔═╡ 44d4a3fa-ca99-11f1-a237-153b13ce3830
 let s = racha_sp
     p = plot(s.fechas[2:end], 100abs.(s.r), color = AZUL, lw = 0.6, ylabel = "|r| (%)",
              title = "S&P 500: tamaño de los movimientos diarios", xticks = ticks_años(s.fechas))
     marcar_eventos!(p, s.fechas)
 end
 
-# ╔═╡ 68a07c28-ca92-11f1-bafd-67406e63ca6b
+# ╔═╡ 44d4a404-ca99-11f1-b86d-235e59ddb40e
 md"""
 En un día cualquiera, la probabilidad de un movimiento de más de 2
 desviaciones estándar es de $(racha_sp.base)%. Pero si **ayer** hubo uno, la
@@ -520,7 +520,7 @@ probabilidad de que **hoy** haya otro sube a $(racha_sp.racha)%. Los días
 turbulentos vienen en racimos. ¿Cómo encaja eso con un mercado sin memoria?
 """
 
-# ╔═╡ 68a07ce8-ca92-11f1-9c60-7dd449f0a9ca
+# ╔═╡ 44d4a4d6-ca99-11f1-8005-bdb3459f9642
 "Muestra si la respuesta de un ejercicio es correcta."
 function verificar(f, esperado; rtol = 1e-8, pista = md"")
     caja(tipo, titulo, texto) = Markdown.MD(Markdown.Admonition(tipo, titulo, [texto]))
@@ -541,63 +541,63 @@ function verificar(f, esperado; rtol = 1e-8, pista = md"")
     end
 end
 
-# ╔═╡ 68a07c9a-ca92-11f1-9703-5f73d554de69
+# ╔═╡ 44d4a47e-ca99-11f1-aed4-3551f92fe7b4
 verificar(() -> agregar_retornos([1.0, 2.0, 3.0, 4.0, 5.0], 2), [3.0, 7.0];
           pista = md"Recorre los inicios de bloque `1:Δt:length(r)-Δt+1` y suma `r[i:i+Δt-1]`.")
 
-# ╔═╡ 68a07ca2-ca92-11f1-9ee8-87125568694c
+# ╔═╡ 44d4a490-ca99-11f1-a2b2-0f1937e76160
 verificar(() -> prob_racha_mia([3.0, 3.0, 0.0, 3.0, 0.0, 0.0, 3.0, 3.0], 2), 0.5;
           pista = md"Encuentra los días `t` con `abs(z[t]) > k` entre `1` y `length(z) - 1`, y promedia `abs(z[t + 1]) > k` sobre ellos.")
 
 # ╔═╡ Cell order:
-# ╟─68a07be4-ca92-11f1-8c2d-812bf3cb5c0b
-# ╟─68a07c0c-ca92-11f1-a6a6-e30f91840b30
-# ╟─68a07c16-ca92-11f1-8813-a1d1c36f6730
-# ╟─68a07c16-ca92-11f1-8f01-437ba7403d9b
-# ╟─68a07c20-ca92-11f1-8c8a-21063a6297ea
-# ╟─68a07c28-ca92-11f1-bafd-67406e63ca6b
-# ╟─68a07c28-ca92-11f1-acd2-091aa1885efe
-# ╟─68a07c28-ca92-11f1-aecc-f750e0b31dec
-# ╟─68a07c34-ca92-11f1-9702-81fb28c7f8fc
-# ╠═68a07c3e-ca92-11f1-8746-0ffac5cbd5a7
-# ╟─68a07c3e-ca92-11f1-b431-0746bae0d2d7
-# ╠═68a07c3e-ca92-11f1-ab3b-31705a74f3a1
-# ╟─68a07c48-ca92-11f1-8e0a-bd6a17a56da4
-# ╟─68a07c48-ca92-11f1-bc8c-59fc17978061
-# ╟─68a07c52-ca92-11f1-a245-3bf92d57192b
-# ╟─68a07c52-ca92-11f1-93b1-7b6cb97b0391
-# ╟─68a07c5c-ca92-11f1-8adc-45faedfc9e8b
-# ╟─68a07c5c-ca92-11f1-9776-c9e747877d64
-# ╟─68a07c5c-ca92-11f1-bd86-990ba444e080
-# ╟─68a07c66-ca92-11f1-9a6e-2bb6a7c963e8
-# ╟─68a07c66-ca92-11f1-b07c-65311a17037c
-# ╟─68a07c70-ca92-11f1-b4e9-4993515b5710
-# ╠═68a07c70-ca92-11f1-9d98-573ddf062da1
-# ╟─68a07c7a-ca92-11f1-95e6-35efdc2ff389
-# ╟─68a07c7a-ca92-11f1-8f07-17b10caae732
-# ╟─68a07c7a-ca92-11f1-aff8-65359beb63a7
-# ╟─68a07c84-ca92-11f1-a84c-cf9db2a6f274
-# ╟─68a07c84-ca92-11f1-8a71-b3d76f31d9b8
-# ╟─68a07c8e-ca92-11f1-9ef0-3163b0fe8193
-# ╟─68a07c8e-ca92-11f1-a036-f1354a46b762
-# ╠═68a07c9a-ca92-11f1-b2be-c766ea145013
-# ╟─68a07c9a-ca92-11f1-9703-5f73d554de69
-# ╟─68a07c9a-ca92-11f1-a092-6b6c5dfb13dd
-# ╠═68a07ca2-ca92-11f1-8771-97e9daa7a217
-# ╟─68a07ca2-ca92-11f1-9ee8-87125568694c
-# ╟─68a07cac-ca92-11f1-8cc9-3d6a4708ad92
-# ╟─68a07cac-ca92-11f1-b16a-abc15ddd8336
-# ╠═68a07cb6-ca92-11f1-956a-0f4d9e8391a4
-# ╠═68a07cb6-ca92-11f1-aa4b-edd560938362
-# ╠═68a07cb6-ca92-11f1-a298-0fa856b0aa5b
-# ╠═68a07cc0-ca92-11f1-be02-b538452978d1
-# ╠═68a07cc0-ca92-11f1-a0cb-e7ed3fde1f8b
-# ╠═68a07ccc-ca92-11f1-b35f-61f8f17deb4d
-# ╠═68a07ccc-ca92-11f1-9e8d-49d632a4b558
-# ╠═68a07cd4-ca92-11f1-8b6b-33959cc9e643
-# ╠═68a07cd4-ca92-11f1-9a69-53fc7f26cac2
-# ╠═68a07cd4-ca92-11f1-b240-f1d2bd627786
-# ╠═68a07cde-ca92-11f1-94e0-f92a7e045cb7
-# ╠═68a07cde-ca92-11f1-92a9-b5205136ebca
-# ╠═68a07ce8-ca92-11f1-a5b6-075ef1131d2a
-# ╠═68a07ce8-ca92-11f1-9c60-7dd449f0a9ca
+# ╟─44d4a396-ca99-11f1-825c-9fb9e60e66c8
+# ╟─44d4a3dc-ca99-11f1-90cb-c17fc51bc99c
+# ╟─44d4a3e6-ca99-11f1-bf71-87d06822b610
+# ╟─44d4a3f0-ca99-11f1-93e0-79b5c896b4ed
+# ╟─44d4a3fa-ca99-11f1-a237-153b13ce3830
+# ╟─44d4a404-ca99-11f1-b86d-235e59ddb40e
+# ╟─44d4a40e-ca99-11f1-b2bc-c3ea55f40143
+# ╟─44d4a40e-ca99-11f1-911b-f1989f6e84a3
+# ╟─44d4a41a-ca99-11f1-92d9-33c41592f2b8
+# ╠═44d4a41a-ca99-11f1-b38c-1d063a76b008
+# ╟─44d4a41a-ca99-11f1-8771-a313b4b073a9
+# ╠═44d4a422-ca99-11f1-b717-d539642e6b97
+# ╟─44d4a422-ca99-11f1-9374-13fec9e0fd83
+# ╟─44d4a42c-ca99-11f1-a697-fbb7b93f6b36
+# ╟─44d4a42c-ca99-11f1-8ec9-b1440ae7dfdb
+# ╟─44d4a436-ca99-11f1-9ebe-3bf73bdba430
+# ╟─44d4a436-ca99-11f1-824c-9988c8b79cb3
+# ╟─44d4a436-ca99-11f1-a311-9dcf95f373d7
+# ╟─44d4a440-ca99-11f1-b15e-e789194ea649
+# ╟─44d4a440-ca99-11f1-8292-97bffea14b26
+# ╟─44d4a44c-ca99-11f1-8303-87f23bbc2b03
+# ╟─44d4a44c-ca99-11f1-99a5-4b370d2fe5cf
+# ╠═44d4a454-ca99-11f1-994b-e3f29d0e89e7
+# ╟─44d4a454-ca99-11f1-ac22-59023d0a8335
+# ╟─44d4a45e-ca99-11f1-b35d-57ddc21d2f4d
+# ╟─44d4a45e-ca99-11f1-93be-1dc2f03e1480
+# ╟─44d4a45e-ca99-11f1-8bf7-3364de8eb2a2
+# ╟─44d4a468-ca99-11f1-bc75-55b3e96c94ff
+# ╟─44d4a472-ca99-11f1-8e65-1d0263f34ff7
+# ╟─44d4a472-ca99-11f1-a886-657d1daa6206
+# ╠═44d4a47e-ca99-11f1-819f-49211e1008ad
+# ╟─44d4a47e-ca99-11f1-aed4-3551f92fe7b4
+# ╟─44d4a486-ca99-11f1-bbc4-4df98d1a6013
+# ╠═44d4a486-ca99-11f1-b074-15e828dab82c
+# ╟─44d4a490-ca99-11f1-a2b2-0f1937e76160
+# ╟─44d4a490-ca99-11f1-92aa-0f26fff3c75d
+# ╟─44d4a49a-ca99-11f1-9ae7-2327d7f8cec8
+# ╠═44d4a49a-ca99-11f1-a78e-490f2a3da518
+# ╠═44d4a4a4-ca99-11f1-bbda-437a064bc308
+# ╠═44d4a4a4-ca99-11f1-8be8-47369878ac8b
+# ╠═44d4a4ac-ca99-11f1-a298-c5a53882c8f0
+# ╠═44d4a4ac-ca99-11f1-a0bd-b1583f3d3e79
+# ╠═44d4a4ac-ca99-11f1-ae75-551ebce79ceb
+# ╠═44d4a4b8-ca99-11f1-a939-cf8a2fe706cd
+# ╠═44d4a4b8-ca99-11f1-a012-2d8cc90da92d
+# ╠═44d4a4c2-ca99-11f1-a71f-e78526582a70
+# ╠═44d4a4c2-ca99-11f1-8a71-65edea0f4fa9
+# ╠═44d4a4cc-ca99-11f1-b6f6-1718684c7d25
+# ╠═44d4a4cc-ca99-11f1-8bca-43d146f5ab0d
+# ╠═44d4a4d6-ca99-11f1-8d29-4fc4902dd3f2
+# ╠═44d4a4d6-ca99-11f1-8005-bdb3459f9642

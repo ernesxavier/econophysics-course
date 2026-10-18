@@ -16,7 +16,7 @@ macro bind(def, element)
     #! format: on
 end
 
-# ╔═╡ 49752cda-ca95-11f1-b7fe-6d825e81b731
+# ╔═╡ 7db70cda-ca99-11f1-8c6d-1f44cb6bfb1a
 begin
     # Usa el entorno del curso (Code/Project.toml) en lugar del gestor de
     # paquetes propio de Pluto: un solo entorno para todo el repositorio.
@@ -32,7 +32,7 @@ begin
             background_color_legend = nothing, margin = 3Plots.mm)
 end
 
-# ╔═╡ 49752bae-ca95-11f1-b4d8-a1af09c45a17
+# ╔═╡ 7db70b92-ca99-11f1-be11-598adb5d183f
 md"""
 # Taller del Módulo II: desigualdad y contagio
 
@@ -80,10 +80,10 @@ micro a lo macro, entropía y temperatura), L.B4 (matriz de adyacencia), E.B3
 medio) y C.I5 (puntos fijos).
 """
 
-# ╔═╡ 49752bfe-ca95-11f1-9e82-0fdc45e09cbb
+# ╔═╡ 7db70be0-ca99-11f1-8548-4d2f73814b79
 TableOfContents(title = "Contenido")
 
-# ╔═╡ 49752c08-ca95-11f1-bb0d-e74508e3cb79
+# ╔═╡ 7db70bea-ca99-11f1-9549-47938cb3db28
 md"""
 ## 1. Parte 1: la desigualdad en tu entidad
 
@@ -92,10 +92,10 @@ expansión** dice a cuántos. Todas las medidas de esta parte usan ese factor
 como peso (sesión 8).
 """
 
-# ╔═╡ 49752c12-ca95-11f1-9ea6-15409016042a
+# ╔═╡ 7db70bf2-ca99-11f1-af27-43263d7baa23
 enigh = CSV.read(joinpath(@__DIR__, "..", "Data", "enigh2024_hogares.csv"), DataFrame);
 
-# ╔═╡ 49752c26-ca95-11f1-8a1d-49f5e5bf5f22
+# ╔═╡ 7db70c08-ca99-11f1-af3c-db9bac6e2676
 md"""
 ### Ejercicio 1 (10 puntos)
 
@@ -109,12 +109,12 @@ primeros hasta que sus pesos acumulados alcancen `q` del peso total (incluye
 el hogar con el que se alcanza o rebasa `q`).
 """
 
-# ╔═╡ 49752c30-ca95-11f1-b6c2-79c3cb161f82
+# ╔═╡ 7db70c08-ca99-11f1-a06e-cb71e41dc855
 function participacion_top(x, w, q)
     missing  # reemplaza esta línea
 end
 
-# ╔═╡ 49752c44-ca95-11f1-bd07-f198a45ca9df
+# ╔═╡ 7db70c24-ca99-11f1-bef4-fdfcc6468358
 md"""
 **Pregunta 1** (10 puntos). ¿Qué tan desigual es el ingreso en tu entidad
 comparado con el país? Usa el Gini y la participación del 10% y del 1% más
@@ -122,19 +122,19 @@ ricos. ¿Dice lo mismo la curva de Lorenz que el Gini? ¿Por qué dos entidades
 con el mismo Gini podrían tener curvas de Lorenz distintas?
 """
 
-# ╔═╡ 49752c44-ca95-11f1-8eab-3fab2ca1e4fe
+# ╔═╡ 7db70c30-ca99-11f1-b6a8-f95402e32f24
 md"""
 **Tu respuesta.** Escribe aquí.
 """
 
-# ╔═╡ 49752c4c-ca95-11f1-9293-653617000644
+# ╔═╡ 7db70c3a-ca99-11f1-8901-2bf3f09c3053
 md"""
 Ahora la **forma** de la distribución. Dividimos el ingreso entre su media
 ponderada y dibujamos la CCDF en dos escalas: en **semilog** una exponencial
 se ve recta, y en **log-log** se ve recta una ley de Pareto (sesiones 3 y 8).
 """
 
-# ╔═╡ 49752c4c-ca95-11f1-a90f-49e87270ed21
+# ╔═╡ 7db70c44-ca99-11f1-b537-190a6584f26b
 md"""
 **Pregunta 2** (10 puntos). ¿En qué parte de la distribución se parece tu
 entidad a una exponencial, y en qué parte se separa? ¿Hacia dónde se separa:
@@ -142,12 +142,12 @@ hay más o menos hogares muy ricos que los que predice la exponencial? ¿En
 qué escala se ve mejor cada cosa y por qué?
 """
 
-# ╔═╡ 49752c58-ca95-11f1-a55c-b135d2f7e01c
+# ╔═╡ 7db70c44-ca99-11f1-9670-71c4849ac597
 md"""
 **Tu respuesta.** Escribe aquí.
 """
 
-# ╔═╡ 49752c58-ca95-11f1-9e92-cd376dd11923
+# ╔═╡ 7db70c4e-ca99-11f1-87d8-8940e485d01f
 md"""
 ## 2. Parte 2: ¿la explica un modelo de intercambio?
 
@@ -171,12 +171,12 @@ veces: toma el punto medio del intervalo y quédate con la mitad donde está la
 solución.
 """
 
-# ╔═╡ 49752c62-ca95-11f1-9f49-efa3cc5602c4
+# ╔═╡ 7db70c4e-ca99-11f1-86bc-15e3c2e108d6
 function lambda_para_gini(G)
     missing  # reemplaza esta línea
 end
 
-# ╔═╡ 49752c76-ca95-11f1-acc6-ff42d0e1c6f9
+# ╔═╡ 7db70c6c-ca99-11f1-8040-6b2521b2ec04
 md"""
 **Pregunta 3** (10 puntos). Calibramos el modelo para que tenga el mismo
 Gini que tu entidad. ¿Reproduce también el cuerpo de la distribución (la
@@ -185,12 +185,12 @@ coincide el Gini pero no la cola, ¿qué te dice eso sobre resumir la
 desigualdad con un solo número?
 """
 
-# ╔═╡ 49752c7e-ca95-11f1-a016-33d19490e7cd
+# ╔═╡ 7db70c6c-ca99-11f1-b7a4-45e63be46bb9
 md"""
 **Tu respuesta.** Escribe aquí.
 """
 
-# ╔═╡ 49752c7e-ca95-11f1-ad29-b97eb92fc7b3
+# ╔═╡ 7db70c76-ca99-11f1-9ce4-5f64b0eff02d
 md"""
 **Pregunta 4** (10 puntos). ¿Qué significa en tu entidad el valor de
 ``\lambda`` que encontraste? Menciona dos razones por las que el modelo de
@@ -199,12 +199,12 @@ ingreso (piensa en qué mide la ENIGH, en el trabajo y en la herencia), y una
 razón por la que de todos modos es útil (sesiones 8 y 9).
 """
 
-# ╔═╡ 49752c8a-ca95-11f1-91c9-d11a7a6ed5a6
+# ╔═╡ 7db70c76-ca99-11f1-9f99-cb9524652177
 md"""
 **Tu respuesta.** Escribe aquí.
 """
 
-# ╔═╡ 49752c8a-ca95-11f1-9409-7b87df79b356
+# ╔═╡ 7db70c80-ca99-11f1-ad86-8bcbb50b0075
 md"""
 ## 3. Parte 3: ¿a quién proteger del contagio?
 
@@ -223,12 +223,12 @@ Escribe `mas_conectados(grados, m)`: los índices de los `m` nodos con mayor
 grado (en cualquier orden).
 """
 
-# ╔═╡ 49752c94-ca95-11f1-9c55-53cc4d806982
+# ╔═╡ 7db70c80-ca99-11f1-bdc6-1b7821a8ebf8
 function mas_conectados(grados, m)
     missing  # reemplaza esta línea
 end
 
-# ╔═╡ 49752c9e-ca95-11f1-b02d-a17bca35692c
+# ╔═╡ 7db70c8a-ca99-11f1-ae73-f11b1e95c48f
 md"""
 ### Ejercicio 4 (5 puntos)
 
@@ -237,12 +237,12 @@ Escribe `fraccion_vulnerables(grados, φ)`: la fracción de nodos que caen con
 ``1/k \ge \varphi``.
 """
 
-# ╔═╡ 49752c9e-ca95-11f1-9f28-09049fcca2a7
+# ╔═╡ 7db70c96-ca99-11f1-8dc9-7fed5f7ad10c
 function fraccion_vulnerables(grados, φ)
     missing  # reemplaza esta línea
 end
 
-# ╔═╡ 49752ca8-ca95-11f1-832a-a980ee3475b8
+# ╔═╡ 7db70c9e-ca99-11f1-a2c1-2b912b2da96a
 md"""
 **El experimento.** Para cada configuración simulamos 100 redes de 2,000
 nodos con umbral ``\varphi = 0.18``. En cada red comparamos:
@@ -256,7 +256,7 @@ Tipo de red: $(@bind red_t2 Select(["Erdős-Rényi", "Barabási-Albert"]))
 Grado promedio ``z``: $(@bind z_t2 Select([2, 4, 6, 8], default = 4))
 """
 
-# ╔═╡ 49752cbc-ca95-11f1-a410-134f0aa99ffe
+# ╔═╡ 7db70cb2-ca99-11f1-bb49-9987b621a2b5
 md"""
 **Pregunta 5** (10 puntos). ¿Importa quién cae primero? Compara un nodo al
 azar con el de mayor grado en las dos redes con ``z = 4``. ¿En cuál de las
@@ -264,26 +264,28 @@ dos redes la diferencia es más grande y por qué? Explica qué les pasa a los
 vecinos del nodo de mayor grado cuando éste cae.
 """
 
-# ╔═╡ 49752cbc-ca95-11f1-9143-811304c2e7d6
+# ╔═╡ 7db70cbc-ca99-11f1-9999-13e23f32a422
 md"""
 **Tu respuesta.** Escribe aquí.
 """
 
-# ╔═╡ 49752cc6-ca95-11f1-a957-9f3c76528bba
+# ╔═╡ 7db70cbc-ca99-11f1-af47-c3145c896e45
 md"""
 **Pregunta 6** (10 puntos). En una epidemia, vacunar a los más conectados es
 mucho más eficaz que vacunar al azar. ¿Pasa lo mismo aquí? Compara las dos
-estrategias de protección en las dos redes y explica el resultado con la idea
-de nodo **vulnerable** (ejercicio 4): ¿son vulnerables los nodos más
-conectados? ¿Qué papel tienen en la cascada si nadie los protege?
+estrategias de protección en Erdős-Rényi con ``z = 4`` y con ``z = 2``, y
+después en Barabási-Albert. Explica en qué casos conviene proteger a los más
+conectados usando la idea de nodo **vulnerable** (ejercicio 4): ¿son
+vulnerables los nodos más conectados? ¿Qué papel tienen en la cascada si nadie
+los protege, cuando la red está muy conectada y cuando apenas lo está?
 """
 
-# ╔═╡ 49752cc6-ca95-11f1-8a11-51d2ddc0867b
+# ╔═╡ 7db70cc8-ca99-11f1-8b21-87fe79a2cf49
 md"""
 **Tu respuesta.** Escribe aquí.
 """
 
-# ╔═╡ 49752cd0-ca95-11f1-8e0a-a3bdc190cd60
+# ╔═╡ 7db70cc8-ca99-11f1-820d-e3e7e5672402
 md"""
 **Pregunta 7** (10 puntos). Escribe una recomendación de cinco a ocho líneas
 para un regulador bancario con base en las preguntas 5 y 6. ¿Dónde pondrías
@@ -292,12 +294,12 @@ modelo que podría cambiar tu recomendación (por ejemplo, que en la red real
 los bancos grandes también son los que más prestan, sesión 12).
 """
 
-# ╔═╡ 49752cd0-ca95-11f1-9760-35776bdbfffe
+# ╔═╡ 7db70cd0-ca99-11f1-9bc3-694f119f9aac
 md"""
 **Tu respuesta.** Escribe aquí.
 """
 
-# ╔═╡ 49752cd0-ca95-11f1-8402-57bae088d538
+# ╔═╡ 7db70cd0-ca99-11f1-847a-0da4c3783373
 md"""
 ## 4. Ruta avanzada (extra, hasta 10 puntos)
 
@@ -321,7 +323,7 @@ cuaderno.
   cambio pequeño que produce un cambio grande (sesiones 13 y 14)?
 """
 
-# ╔═╡ 49752cda-ca95-11f1-b1bd-cf8e120c62db
+# ╔═╡ 7db70cda-ca99-11f1-bb32-dd7a6e47e176
 md"""
 ---
 ## Apéndice: paquetes y funciones auxiliares
@@ -330,14 +332,14 @@ Estas celdas definen herramientas que usa el cuaderno. No es necesario
 leerlas para resolver el taller.
 """
 
-# ╔═╡ 49752ce4-ca95-11f1-a7e0-55b88fb69170
+# ╔═╡ 7db70ce4-ca99-11f1-8e5a-5bc92af01953
 begin
     const AZUL    = "#2a78d6"   # serie principal
     const NARANJA = "#eb6834"   # segunda serie
     const GRIS    = "#52514e"   # referencias
 end;
 
-# ╔═╡ 49752ce4-ca95-11f1-9fac-816a6b83d06a
+# ╔═╡ 7db70cee-ca99-11f1-a5b4-73a597a989a9
 "Nombres de las entidades federativas, en el orden de su clave del INEGI."
 const ENTIDADES = ["Aguascalientes", "Baja California", "Baja California Sur", "Campeche",
                    "Coahuila", "Colima", "Chiapas", "Chihuahua", "Ciudad de México", "Durango",
@@ -346,22 +348,22 @@ const ENTIDADES = ["Aguascalientes", "Baja California", "Baja California Sur", "
                    "Querétaro", "Quintana Roo", "San Luis Potosí", "Sinaloa", "Sonora",
                    "Tabasco", "Tamaulipas", "Tlaxcala", "Veracruz", "Yucatán", "Zacatecas"];
 
-# ╔═╡ 49752c1e-ca95-11f1-b818-69f9dc438d1a
+# ╔═╡ 7db70bf2-ca99-11f1-a127-351330b93036
 md"""
 **Tu entidad:** $(@bind entidad Select(collect(1:32) .=> ENTIDADES, default = 1))
 """
 
-# ╔═╡ 49752c26-ca95-11f1-a33d-979d7d9c2ec0
+# ╔═╡ 7db70bfe-ca99-11f1-8b73-a77797fc6a7a
 begin
     hogares = filter(:entidad => ==(entidad), enigh)
     x_ent, w_ent = hogares.ingreso, Float64.(hogares.factor)
     x_nac, w_nac = enigh.ingreso, Float64.(enigh.factor)
 end;
 
-# ╔═╡ 49752cee-ca95-11f1-a4fb-ffd8a264b10b
+# ╔═╡ 7db70cee-ca99-11f1-8cc6-2be3f0d3e03a
 miles(x) = replace(string(round(Int, x)), r"(?<=\d)(?=(\d{3})+$)" => ",")
 
-# ╔═╡ 49752cee-ca95-11f1-a496-6f2b87e03fce
+# ╔═╡ 7db70cfa-ca99-11f1-bbe7-15d3fa44abba
 "Curva de Lorenz ponderada: fracción acumulada de la población y del ingreso."
 function lorenz(x, w)
     o = sortperm(x)
@@ -369,7 +371,7 @@ function lorenz(x, w)
     [0; W ./ W[end]], [0; S ./ S[end]]
 end
 
-# ╔═╡ 49752c3a-ca95-11f1-92ad-7db4bd933fad
+# ╔═╡ 7db70c1c-ca99-11f1-8c11-ad0361929a12
 let
     pe, Le = lorenz(x_ent, w_ent)
     pn, Ln = lorenz(x_nac, w_nac)
@@ -381,14 +383,14 @@ let
     plot!(p, pe, Le; color = AZUL, lw = 2.5, label = ENTIDADES[entidad])
 end
 
-# ╔═╡ 49752cf8-ca95-11f1-88dc-e54c73c628be
+# ╔═╡ 7db70cfa-ca99-11f1-8b29-d3eacdf2e5a1
 "Índice de Gini con pesos (por defecto, todos iguales): 1 menos el doble del área bajo la curva de Lorenz."
 function gini(x, w = ones(length(x)))
     p, L = lorenz(x, w)
     1 - sum(diff(p) .* (L[2:end] .+ L[1:end-1]))
 end
 
-# ╔═╡ 49752cf8-ca95-11f1-848f-8f8f3cf16222
+# ╔═╡ 7db70d02-ca99-11f1-b167-9597daac4068
 "Participación en el ingreso de la fracción `q` más rica (versión de referencia)."
 function participacion_top_ref(x, w, q)
     o = sortperm(x; rev = true)
@@ -396,7 +398,7 @@ function participacion_top_ref(x, w, q)
     sum(x[o][1:n] .* w[o][1:n]) / sum(x .* w)
 end
 
-# ╔═╡ 49752c3a-ca95-11f1-8c7f-9f617772b75a
+# ╔═╡ 7db70c24-ca99-11f1-98dc-2d961441b910
 let
     fila(nombre, x, w) = "| $nombre | $(length(x)) | $(round(gini(x, w), digits = 3)) | " *
         "$(miles(quantile(x, Weights(w), 0.5))) | $(round(100participacion_top_ref(x, w, 0.1), digits = 1))% | " *
@@ -414,12 +416,12 @@ let
     """)
 end
 
-# ╔═╡ 49752d02-ca95-11f1-9fb4-51725aafaa60
+# ╔═╡ 7db70d02-ca99-11f1-a66d-7b47cb5bf6f8
 "Gini de una gamma con forma n."
 gini_gamma(n) = exp(Distributions.SpecialFunctions.loggamma(n + 0.5) -
                     Distributions.SpecialFunctions.loggamma(n)) / (n * sqrt(π))
 
-# ╔═╡ 49752d02-ca95-11f1-b89f-4d3f10fb1b77
+# ╔═╡ 7db70d0c-ca99-11f1-8d93-b98ed2ef8f95
 "Ahorro λ con el que el modelo de intercambio tiene Gini `G` (versión de referencia)."
 function lambda_para_gini_ref(G)
     a, b = 0.0, 0.99
@@ -430,21 +432,21 @@ function lambda_para_gini_ref(G)
     (a + b) / 2
 end
 
-# ╔═╡ 49752d02-ca95-11f1-b84f-c5b3bae4add7
+# ╔═╡ 7db70d0c-ca99-11f1-aeec-7fb4d776be67
 "Datos ordenados de mayor a menor y su CCDF empírica, P(X ≥ x)."
 function ccdf_empirica(x)
     s = sort(x; rev = true)
     s, (1:length(s)) ./ length(s)
 end
 
-# ╔═╡ 49752d0c-ca95-11f1-9e2b-d7ac2e3d9010
+# ╔═╡ 7db70d0c-ca99-11f1-919a-3788476e4ff6
 "CCDF con pesos: P(X ≥ x) usando el factor de expansión."
 function ccdf_ponderada(x, w)
     o = sortperm(x; rev = true)
     x[o], cumsum(w[o]) ./ sum(w)
 end
 
-# ╔═╡ 49752c4c-ca95-11f1-ac5f-6b06a842e016
+# ╔═╡ 7db70c3a-ca99-11f1-842c-23a21e9bda10
 let
     m = mean(x_ent, Weights(w_ent))
     k = x_ent .> 0
@@ -462,7 +464,7 @@ let
     plot(p1, p2; layout = (1, 2), size = (780, 340))
 end
 
-# ╔═╡ 49752d16-ca95-11f1-8e1b-a1cfc9f3b0bb
+# ╔═╡ 7db70d16-ca99-11f1-a12a-d99f99c579aa
 "Estimador de Hill del exponente de la cola, con la fracción `q` de datos más grandes."
 function hill_cola(x, q)
     s = sort(x; rev = true)
@@ -470,7 +472,7 @@ function hill_cola(x, q)
     n / sum(log.(s[1:n] ./ s[n]))
 end
 
-# ╔═╡ 49752d16-ca95-11f1-8e49-f7fe81cb8ca8
+# ╔═╡ 7db70d16-ca99-11f1-a035-2fa2f243110b
 "Modelo con ahorro: el agente i guarda la fracción λ[i] de su dinero. `pasos` transacciones por agente."
 function simular_ahorro(λ; pasos = 500, rng = Xoshiro(2))
     N = length(λ)
@@ -485,13 +487,13 @@ function simular_ahorro(λ; pasos = 500, rng = Xoshiro(2))
     m
 end
 
-# ╔═╡ 49752c6c-ca95-11f1-9ffe-0dade971f9f9
+# ╔═╡ 7db70c58-ca99-11f1-8f9a-55b7597be0ad
 modelo_ent = let
     λ = lambda_para_gini_ref(gini(x_ent, w_ent))
     (λ = λ, m = simular_ahorro(fill(λ, 5_000)))
 end;
 
-# ╔═╡ 49752c6c-ca95-11f1-8ce0-8361973a22d3
+# ╔═╡ 7db70c62-ca99-11f1-8996-6d837d64f631
 let
     m = mean(x_ent, Weights(w_ent))
     k = x_ent .> 0
@@ -510,7 +512,7 @@ let
     plot(p1, p2; layout = (1, 2), size = (780, 340))
 end
 
-# ╔═╡ 49752c76-ca95-11f1-82ab-9bc37e3ae26a
+# ╔═╡ 7db70c62-ca99-11f1-b50d-69bf1edaeb6f
 let
     W = Weights(w_ent)
     u = x_ent ./ mean(x_ent, W)
@@ -527,15 +529,15 @@ let
     """)
 end
 
-# ╔═╡ 49752d16-ca95-11f1-ae6d-1d4412a88317
+# ╔═╡ 7db70d20-ca99-11f1-8455-b519d54c2b90
 "Ahorros heterogéneos λᵢ = 1 - Uᵢ^(1/a), con Uᵢ uniforme."
 ahorros_heterogeneos(a; N = 5_000, rng = Xoshiro(3)) = 1 .- rand(rng, N) .^ (1 / a)
 
-# ╔═╡ 49752d22-ca95-11f1-9d11-9b85deb02d37
+# ╔═╡ 7db70d20-ca99-11f1-8f23-d3d354127634
 "Fracción de nodos vulnerables (versión de referencia)."
 fraccion_vulnerables_ref(grados, φ) = count(k -> k >= 1 && 1 / k >= φ, grados) / length(grados)
 
-# ╔═╡ 49752d22-ca95-11f1-93fb-9feb66639c9d
+# ╔═╡ 7db70d28-ca99-11f1-8b27-912053711850
 """
 Cascada de umbral a partir de `semilla`: un nodo cae cuando la fracción de
 sus vecinos caídos es al menos `φ`. Los nodos `protegidos` no caen nunca.
@@ -563,7 +565,7 @@ function rondas_cascada(g, φ, semilla; protegidos = falses(nv(g)))
     ronda
 end
 
-# ╔═╡ 49752d2a-ca95-11f1-894b-6589e389f73f
+# ╔═╡ 7db70d34-ca99-11f1-8a2f-0f88a57f3c92
 """
 Experimento de la parte 3: en `corridas` redes de `n` nodos, la probabilidad
 de una cascada global (más del 5%) y su tamaño promedio, según quién cae
@@ -604,10 +606,10 @@ function experimento_proteccion(red, z; n = 2000, φ = 0.18, corridas = 100,
      grados_ejemplo = k_ejemplo)
 end
 
-# ╔═╡ 49752ca8-ca95-11f1-8849-015fbd2d9452
+# ╔═╡ 7db70c9e-ca99-11f1-8839-297befae210f
 experimento_t2 = experimento_proteccion(red_t2, z_t2);
 
-# ╔═╡ 49752cb0-ca95-11f1-81ca-db2c0e5413af
+# ╔═╡ 7db70ca8-ca99-11f1-8f0a-3fb7367ebee3
 let
     e = experimento_t2
     k = e.grados_ejemplo
@@ -623,7 +625,7 @@ let
     """)
 end
 
-# ╔═╡ 49752cb0-ca95-11f1-bbdf-9b580f5f7edd
+# ╔═╡ 7db70ca8-ca99-11f1-9283-9b056f24e1ee
 let
     e = experimento_t2
     fr = 100 .* e.fracciones
@@ -643,7 +645,7 @@ let
          plot_title = "$red_t2, z = $z_t2, φ = 0.18", plot_titlefontsize = 11)
 end
 
-# ╔═╡ 49752d34-ca95-11f1-845d-9d7ef15d8f9b
+# ╔═╡ 7db70d3e-ca99-11f1-837e-55657c87fbdd
 "Muestra si la respuesta de un ejercicio es correcta."
 function verificar(f, esperado; rtol = 1e-8, pista = md"")
     caja(tipo, titulo, texto) = Markdown.MD(Markdown.Admonition(tipo, titulo, [texto]))
@@ -664,87 +666,87 @@ function verificar(f, esperado; rtol = 1e-8, pista = md"")
     end
 end
 
-# ╔═╡ 49752c30-ca95-11f1-9b8a-c93dec7ebf10
+# ╔═╡ 7db70c12-ca99-11f1-8c41-735ad79d3288
 verificar(() -> [participacion_top([1.0, 2.0, 3.0, 4.0], [1.0, 1.0, 1.0, 1.0], 0.25),
                  participacion_top([1.0, 2.0, 3.0, 4.0], [1.0, 1.0, 1.0, 1.0], 0.5),
                  participacion_top([10.0, 1.0], [1.0, 9.0], 0.1)],
           [0.4, 0.7, 10 / 19];
           pista = md"Con `o = sortperm(x; rev = true)`, acumula `cumsum(w[o]) ./ sum(w)`; `n = findfirst(>=(q), acumulado)`; la respuesta es `sum(x[o][1:n] .* w[o][1:n]) / sum(x .* w)`.")
 
-# ╔═╡ 49752c6c-ca95-11f1-9739-c197875de233
+# ╔═╡ 7db70c58-ca99-11f1-b35e-4f505a8c89c4
 verificar(() -> [lambda_para_gini(gini_gamma(1.0)), lambda_para_gini(gini_gamma(4.0))], [0.0, 0.5];
           rtol = 1e-6,
           pista = md"Empieza con `a, b = 0.0, 0.99`. En cada paso, `c = (a + b) / 2`; si `gini_gamma((1 + 2c) / (1 - c)) > G`, la solución está a la derecha (`a = c`); si no, `b = c`.")
 
-# ╔═╡ 49752c94-ca95-11f1-a500-0573f9c5bf21
-verificar(() -> sort(mas_conectados([3, 9, 1, 7, 2], 2)), [2, 4];
+# ╔═╡ 7db70c8a-ca99-11f1-b7ed-c178031138d9
+verificar(() -> (r = mas_conectados([3, 9, 1, 7, 2], 2); r === missing ? missing : sort(r)), [2, 4];
           pista = md"`sortperm(grados; rev = true)[1:m]` o `partialsortperm(grados, 1:m; rev = true)`.")
 
-# ╔═╡ 49752ca8-ca95-11f1-af14-ef4406ceebf2
+# ╔═╡ 7db70c96-ca99-11f1-868c-4f192c9a4764
 verificar(() -> fraccion_vulnerables([0, 1, 2, 5, 6, 10], 0.18), 0.5;
           pista = md"Cuenta los `k` con `k >= 1 && 1 / k >= φ` y divide entre `length(grados)`.")
 
 # ╔═╡ Cell order:
-# ╟─49752bae-ca95-11f1-b4d8-a1af09c45a17
-# ╟─49752bfe-ca95-11f1-9e82-0fdc45e09cbb
-# ╟─49752c08-ca95-11f1-bb0d-e74508e3cb79
-# ╠═49752c12-ca95-11f1-9ea6-15409016042a
-# ╟─49752c1e-ca95-11f1-b818-69f9dc438d1a
-# ╠═49752c26-ca95-11f1-a33d-979d7d9c2ec0
-# ╟─49752c26-ca95-11f1-8a1d-49f5e5bf5f22
-# ╠═49752c30-ca95-11f1-b6c2-79c3cb161f82
-# ╟─49752c30-ca95-11f1-9b8a-c93dec7ebf10
-# ╟─49752c3a-ca95-11f1-92ad-7db4bd933fad
-# ╟─49752c3a-ca95-11f1-8c7f-9f617772b75a
-# ╟─49752c44-ca95-11f1-bd07-f198a45ca9df
-# ╠═49752c44-ca95-11f1-8eab-3fab2ca1e4fe
-# ╟─49752c4c-ca95-11f1-9293-653617000644
-# ╟─49752c4c-ca95-11f1-ac5f-6b06a842e016
-# ╟─49752c4c-ca95-11f1-a90f-49e87270ed21
-# ╠═49752c58-ca95-11f1-a55c-b135d2f7e01c
-# ╟─49752c58-ca95-11f1-9e92-cd376dd11923
-# ╠═49752c62-ca95-11f1-9f49-efa3cc5602c4
-# ╟─49752c6c-ca95-11f1-9739-c197875de233
-# ╠═49752c6c-ca95-11f1-9ffe-0dade971f9f9
-# ╟─49752c6c-ca95-11f1-8ce0-8361973a22d3
-# ╟─49752c76-ca95-11f1-82ab-9bc37e3ae26a
-# ╟─49752c76-ca95-11f1-acc6-ff42d0e1c6f9
-# ╠═49752c7e-ca95-11f1-a016-33d19490e7cd
-# ╟─49752c7e-ca95-11f1-ad29-b97eb92fc7b3
-# ╠═49752c8a-ca95-11f1-91c9-d11a7a6ed5a6
-# ╟─49752c8a-ca95-11f1-9409-7b87df79b356
-# ╠═49752c94-ca95-11f1-9c55-53cc4d806982
-# ╟─49752c94-ca95-11f1-a500-0573f9c5bf21
-# ╟─49752c9e-ca95-11f1-b02d-a17bca35692c
-# ╠═49752c9e-ca95-11f1-9f28-09049fcca2a7
-# ╟─49752ca8-ca95-11f1-af14-ef4406ceebf2
-# ╟─49752ca8-ca95-11f1-832a-a980ee3475b8
-# ╠═49752ca8-ca95-11f1-8849-015fbd2d9452
-# ╟─49752cb0-ca95-11f1-81ca-db2c0e5413af
-# ╟─49752cb0-ca95-11f1-bbdf-9b580f5f7edd
-# ╟─49752cbc-ca95-11f1-a410-134f0aa99ffe
-# ╠═49752cbc-ca95-11f1-9143-811304c2e7d6
-# ╟─49752cc6-ca95-11f1-a957-9f3c76528bba
-# ╠═49752cc6-ca95-11f1-8a11-51d2ddc0867b
-# ╟─49752cd0-ca95-11f1-8e0a-a3bdc190cd60
-# ╠═49752cd0-ca95-11f1-9760-35776bdbfffe
-# ╟─49752cd0-ca95-11f1-8402-57bae088d538
-# ╟─49752cda-ca95-11f1-b1bd-cf8e120c62db
-# ╠═49752cda-ca95-11f1-b7fe-6d825e81b731
-# ╠═49752ce4-ca95-11f1-a7e0-55b88fb69170
-# ╠═49752ce4-ca95-11f1-9fac-816a6b83d06a
-# ╠═49752cee-ca95-11f1-a4fb-ffd8a264b10b
-# ╠═49752cee-ca95-11f1-a496-6f2b87e03fce
-# ╠═49752cf8-ca95-11f1-88dc-e54c73c628be
-# ╠═49752cf8-ca95-11f1-848f-8f8f3cf16222
-# ╠═49752d02-ca95-11f1-9fb4-51725aafaa60
-# ╠═49752d02-ca95-11f1-b89f-4d3f10fb1b77
-# ╠═49752d02-ca95-11f1-b84f-c5b3bae4add7
-# ╠═49752d0c-ca95-11f1-9e2b-d7ac2e3d9010
-# ╠═49752d16-ca95-11f1-8e1b-a1cfc9f3b0bb
-# ╠═49752d16-ca95-11f1-8e49-f7fe81cb8ca8
-# ╠═49752d16-ca95-11f1-ae6d-1d4412a88317
-# ╠═49752d22-ca95-11f1-9d11-9b85deb02d37
-# ╠═49752d22-ca95-11f1-93fb-9feb66639c9d
-# ╠═49752d2a-ca95-11f1-894b-6589e389f73f
-# ╠═49752d34-ca95-11f1-845d-9d7ef15d8f9b
+# ╟─7db70b92-ca99-11f1-be11-598adb5d183f
+# ╟─7db70be0-ca99-11f1-8548-4d2f73814b79
+# ╟─7db70bea-ca99-11f1-9549-47938cb3db28
+# ╠═7db70bf2-ca99-11f1-af27-43263d7baa23
+# ╟─7db70bf2-ca99-11f1-a127-351330b93036
+# ╠═7db70bfe-ca99-11f1-8b73-a77797fc6a7a
+# ╟─7db70c08-ca99-11f1-af3c-db9bac6e2676
+# ╠═7db70c08-ca99-11f1-a06e-cb71e41dc855
+# ╟─7db70c12-ca99-11f1-8c41-735ad79d3288
+# ╟─7db70c1c-ca99-11f1-8c11-ad0361929a12
+# ╟─7db70c24-ca99-11f1-98dc-2d961441b910
+# ╟─7db70c24-ca99-11f1-bef4-fdfcc6468358
+# ╠═7db70c30-ca99-11f1-b6a8-f95402e32f24
+# ╟─7db70c3a-ca99-11f1-8901-2bf3f09c3053
+# ╟─7db70c3a-ca99-11f1-842c-23a21e9bda10
+# ╟─7db70c44-ca99-11f1-b537-190a6584f26b
+# ╠═7db70c44-ca99-11f1-9670-71c4849ac597
+# ╟─7db70c4e-ca99-11f1-87d8-8940e485d01f
+# ╠═7db70c4e-ca99-11f1-86bc-15e3c2e108d6
+# ╟─7db70c58-ca99-11f1-b35e-4f505a8c89c4
+# ╠═7db70c58-ca99-11f1-8f9a-55b7597be0ad
+# ╟─7db70c62-ca99-11f1-8996-6d837d64f631
+# ╟─7db70c62-ca99-11f1-b50d-69bf1edaeb6f
+# ╟─7db70c6c-ca99-11f1-8040-6b2521b2ec04
+# ╠═7db70c6c-ca99-11f1-b7a4-45e63be46bb9
+# ╟─7db70c76-ca99-11f1-9ce4-5f64b0eff02d
+# ╠═7db70c76-ca99-11f1-9f99-cb9524652177
+# ╟─7db70c80-ca99-11f1-ad86-8bcbb50b0075
+# ╠═7db70c80-ca99-11f1-bdc6-1b7821a8ebf8
+# ╟─7db70c8a-ca99-11f1-b7ed-c178031138d9
+# ╟─7db70c8a-ca99-11f1-ae73-f11b1e95c48f
+# ╠═7db70c96-ca99-11f1-8dc9-7fed5f7ad10c
+# ╟─7db70c96-ca99-11f1-868c-4f192c9a4764
+# ╟─7db70c9e-ca99-11f1-a2c1-2b912b2da96a
+# ╠═7db70c9e-ca99-11f1-8839-297befae210f
+# ╟─7db70ca8-ca99-11f1-8f0a-3fb7367ebee3
+# ╟─7db70ca8-ca99-11f1-9283-9b056f24e1ee
+# ╟─7db70cb2-ca99-11f1-bb49-9987b621a2b5
+# ╠═7db70cbc-ca99-11f1-9999-13e23f32a422
+# ╟─7db70cbc-ca99-11f1-af47-c3145c896e45
+# ╠═7db70cc8-ca99-11f1-8b21-87fe79a2cf49
+# ╟─7db70cc8-ca99-11f1-820d-e3e7e5672402
+# ╠═7db70cd0-ca99-11f1-9bc3-694f119f9aac
+# ╟─7db70cd0-ca99-11f1-847a-0da4c3783373
+# ╟─7db70cda-ca99-11f1-bb32-dd7a6e47e176
+# ╠═7db70cda-ca99-11f1-8c6d-1f44cb6bfb1a
+# ╠═7db70ce4-ca99-11f1-8e5a-5bc92af01953
+# ╠═7db70cee-ca99-11f1-a5b4-73a597a989a9
+# ╠═7db70cee-ca99-11f1-8cc6-2be3f0d3e03a
+# ╠═7db70cfa-ca99-11f1-bbe7-15d3fa44abba
+# ╠═7db70cfa-ca99-11f1-8b29-d3eacdf2e5a1
+# ╠═7db70d02-ca99-11f1-b167-9597daac4068
+# ╠═7db70d02-ca99-11f1-a66d-7b47cb5bf6f8
+# ╠═7db70d0c-ca99-11f1-8d93-b98ed2ef8f95
+# ╠═7db70d0c-ca99-11f1-aeec-7fb4d776be67
+# ╠═7db70d0c-ca99-11f1-919a-3788476e4ff6
+# ╠═7db70d16-ca99-11f1-a12a-d99f99c579aa
+# ╠═7db70d16-ca99-11f1-a035-2fa2f243110b
+# ╠═7db70d20-ca99-11f1-8455-b519d54c2b90
+# ╠═7db70d20-ca99-11f1-8f23-d3d354127634
+# ╠═7db70d28-ca99-11f1-8b27-912053711850
+# ╠═7db70d34-ca99-11f1-8a2f-0f88a57f3c92
+# ╠═7db70d3e-ca99-11f1-837e-55657c87fbdd

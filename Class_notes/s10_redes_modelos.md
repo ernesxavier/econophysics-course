@@ -452,6 +452,9 @@ Con $p = 0.1$ da $0.486$, y la simulación da $0.476$.
 - Padgett, J. F., & Ansell, C. K. (1993). Robust action and the rise of the
   Medici, 1400–1434. *American Journal of Sociology*, 98(6), 1259–1319.
   https://doi.org/10.1086/230190
+- Requião da Cunha, C. (2021). *Introduction to Econophysics: Contemporary
+  Approaches with Python Simulations*. CRC Press.
+  https://doi.org/10.1201/9781003127956
 - Watts, D. J., & Strogatz, S. H. (1998). Collective dynamics of
   'small-world' networks. *Nature*, 393(6684), 440–442.
   https://doi.org/10.1038/30918

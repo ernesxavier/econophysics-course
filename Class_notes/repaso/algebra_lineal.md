@@ -481,4 +481,4 @@ estabilidad la deciden los términos no lineales.
   árbol de expansión mínima.
 - Laloux et al. (1999) y Requião da Cunha (2021), sec. 5.2: matrices
   aleatorias en finanzas.
-- Strogatz (2019), caps. 5–6: estabilidad lineal en dos dimensiones.
+- Strogatz (2018), caps. 5–6: estabilidad lineal en dos dimensiones.

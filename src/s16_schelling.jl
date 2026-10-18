@@ -118,7 +118,7 @@ let
     p2 = plot(rondas, 100 .* s.similitud; color = AZUL, lw = 2.2, ylims = (0, 105),
               xlabel = "ronda", ylabel = "porcentaje (%)", legend = :bottomright,
               label = "Similitud promedio de los vecindarios",
-              title = "Evolución en $(length(rondas)-1) rondas")
+              title = "Evolución en $(length(rondas)-1) ronda$(length(rondas) == 2 ? "" : "s")")
     plot!(p2, rondas, 100 .* s.felices; color = NARANJA, lw = 2, ls = :dash,
           label = "Agentes satisfechos")
     hline!(p2, [100τ_sch]; color = GRIS, ls = :dot, label = "Umbral pedido τ = $(porcentaje(τ_sch))")

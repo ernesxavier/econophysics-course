@@ -17,7 +17,7 @@
 > lineal).
 >
 > Lecturas: Requião da Cunha (2021), cap. 7. Ruta avanzada: Goodwin (1967); de
-> consulta: Strogatz (2019), caps. 5–6; Schecter & Gintis (2016).
+> consulta: Strogatz (2018), caps. 5–6; Schecter & Gintis (2016).
 
 ---
 
@@ -461,7 +461,7 @@ acotadas que rodean al equilibrio. $\square$
 - Schlag, K. H. (1998). Why imitate, and if so, how? A boundedly rational
   approach to multi-armed bandits. *Journal of Economic Theory*, 78(1),
   130–156. https://doi.org/10.1006/jeth.1997.2347
-- Strogatz, S. H. (2019). *Nonlinear Dynamics and Chaos* (2.ª ed.). CRC Press.
+- Strogatz, S. H. (2018). *Nonlinear Dynamics and Chaos* (2.ª ed.). CRC Press.
 - Taylor, P. D., & Jonker, L. B. (1978). Evolutionary stable strategies and
   game dynamics. *Mathematical Biosciences*, 40(1–2), 145–156.
   https://doi.org/10.1016/0025-5564(78)90077-9

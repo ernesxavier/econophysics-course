@@ -309,7 +309,7 @@ function mas_conectados(grados, m)
 end
 
 #%% hide
-verificar(() -> sort(mas_conectados([3, 9, 1, 7, 2], 2)), [2, 4];
+verificar(() -> (r = mas_conectados([3, 9, 1, 7, 2], 2); r === missing ? missing : sort(r)), [2, 4];
           pista = md"`sortperm(grados; rev = true)[1:m]` o `partialsortperm(grados, 1:m; rev = true)`.")
 
 #%% hide
@@ -400,9 +400,11 @@ md"""
 md"""
 **Pregunta 6** (10 puntos). En una epidemia, vacunar a los más conectados es
 mucho más eficaz que vacunar al azar. ¿Pasa lo mismo aquí? Compara las dos
-estrategias de protección en las dos redes y explica el resultado con la idea
-de nodo **vulnerable** (ejercicio 4): ¿son vulnerables los nodos más
-conectados? ¿Qué papel tienen en la cascada si nadie los protege?
+estrategias de protección en Erdős-Rényi con ``z = 4`` y con ``z = 2``, y
+después en Barabási-Albert. Explica en qué casos conviene proteger a los más
+conectados usando la idea de nodo **vulnerable** (ejercicio 4): ¿son
+vulnerables los nodos más conectados? ¿Qué papel tienen en la cascada si nadie
+los protege, cuando la red está muy conectada y cuando apenas lo está?
 """
 
 #%%

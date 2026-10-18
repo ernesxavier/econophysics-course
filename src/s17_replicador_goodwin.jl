@@ -456,7 +456,7 @@ lo que ya sabes y con el laboratorio de hoy.
 ## Para la próxima sesión
 
 - Lectura: Requião da Cunha (2021), capítulo 7. Para la ruta avanzada, Goodwin
-  (1967); de consulta, Strogatz (2019).
+  (1967); de consulta, Strogatz (2018).
 - En la **sesión 18** (`Code/s18_cooperacion_redes.jl`) veremos qué pasa cuando
   traicionar domina estrictamente a cooperar (**dilema del prisionero**), pero
   los agentes interactúan en una **red**: reciprocidad espacial en retículas y

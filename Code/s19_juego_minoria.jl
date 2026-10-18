@@ -16,7 +16,7 @@ macro bind(def, element)
     #! format: on
 end
 
-# ╔═╡ 352684f6-ca93-11f1-af04-e3af70088595
+# ╔═╡ ed7693d6-ca9b-11f1-a7dd-7b7d6c8e368c
 begin
     # Usa el entorno del curso (Code/Project.toml) en lugar del gestor de
     # paquetes propio de Pluto: un solo entorno para todo el repositorio.
@@ -31,7 +31,7 @@ begin
             background_color_legend = nothing, margin = 3Plots.mm)
 end
 
-# ╔═╡ 352683ca-ca93-11f1-90ae-d90e98a0a67a
+# ╔═╡ ed769318-ca9b-11f1-bb82-fd96e5a7923e
 md"""
 # Sesión 19: Juego de la minoría
 
@@ -69,10 +69,10 @@ avanzada: F.A2 (exponentes críticos), F.A4 (vidrios de espín y frustración).
 1, 2 y 4) y la idea de **promediar simulaciones** (sesión 4).
 """
 
-# ╔═╡ 35268410-ca93-11f1-8fb5-f1bd3ee61960
+# ╔═╡ ed76934a-ca9b-11f1-ab9e-9ba666bcaeb8
 TableOfContents(title = "Contenido")
 
-# ╔═╡ 3526841a-ca93-11f1-ab36-6df5bbe12dd0
+# ╔═╡ ed76934a-ca9b-11f1-9c8c-010a69e8a87e
 md"""
 ## 0. El fenómeno: el bar El Farol y la trampa de pensar igual
 
@@ -97,14 +97,14 @@ las últimas semanas y aprende cuál funciona mejor, la asistencia se estabiliza
 sola alrededor del cupo de 60 (Challet, Marsili y Ottino, 2004):
 """
 
-# ╔═╡ 3526842e-ca93-11f1-9379-fd093ed563e7
+# ╔═╡ ed769356-ca9b-11f1-acac-7117fa87c598
 md"""
 Sin que nadie coordine los turnos, un conjunto de agentes con **racionalidad
 acotada e inductiva** resuelve un problema de coordinación que una regla
 deductiva única e idéntica para todos vuelve imposible.
 """
 
-# ╔═╡ 35268442-ca93-11f1-9792-b34d6579255b
+# ╔═╡ ed76935e-ca9b-11f1-900f-4f98a9b3eac5
 md"""
 ## 1. Repaso: el referente aleatorio (``\sigma^2 / N = 1``)
 
@@ -144,15 +144,15 @@ que el **referente aleatorio** es exactamente:
 ```
 """
 
-# ╔═╡ 3526844c-ca93-11f1-859e-c308decb0f3e
+# ╔═╡ ed769368-ca9b-11f1-a55a-a927085c435c
 # Número de ganadores en un turno con N agentes y acción agregada A
 ganadores_minoria(A, N) = (N - abs(A)) ÷ 2
 
-# ╔═╡ 3526844c-ca93-11f1-a20e-051467b59117
+# ╔═╡ ed769368-ca9b-11f1-b958-735cb120ac4a
 # Con N = 101: si A = 1 ganan 50 agentes (el máximo); si todos hacen lo mismo (A = 101) no gana nadie
 ganadores_minoria(1, 101), ganadores_minoria(21, 101), ganadores_minoria(101, 101)
 
-# ╔═╡ 35268456-ca93-11f1-8b96-4b4d3a7c3ec4
+# ╔═╡ ed769372-ca9b-11f1-a4ab-0bb3987ba6b5
 md"""
 ## 2. Reglas del juego de la minoría y lectura como mercado
 
@@ -198,7 +198,7 @@ el cociente ``\alpha = 2^M / N``):
 Memoria ``M`` (con ``N = 101``): $(@bind M_lab Slider([2, 3, 4, 5, 6, 7, 8, 10], default = 5, show_value = true))
 """
 
-# ╔═╡ 35268488-ca93-11f1-9e95-393fb3b2ba68
+# ╔═╡ ed769390-ca9b-11f1-84b1-71d1811433cb
 md"""
 ## 3. Laboratorio: la curva universal ``\sigma^2 / N`` contra ``\alpha = 2^M / N``
 
@@ -218,7 +218,7 @@ medir: con muchas historias, el aprendizaje tarda en llegar al estado
 estacionario.
 """
 
-# ╔═╡ 3526849c-ca93-11f1-9995-8dc225c4915a
+# ╔═╡ ed76939a-ca9b-11f1-a5c7-e9623f3ec3d0
 md"""
 La gráfica derecha resume toda la física del juego de la minoría:
 
@@ -236,7 +236,7 @@ La gráfica derecha resume toda la física del juego de la minoría:
    ``\sigma^2 / N`` sube desde abajo hacia ``1`` (el límite aleatorio).
 """
 
-# ╔═╡ 352684a6-ca93-11f1-9e85-8f5dc749799b
+# ╔═╡ ed7693a4-ca9b-11f1-8ee5-7d7ca3553ba0
 md"""
 ## 4. [Avanzado] Teoría del punto crítico ``\alpha_c``: predictibilidad y congelamiento
 
@@ -288,7 +288,7 @@ finito la caída de ``1 - \phi`` se suaviza y cruza la recta ``\alpha`` un poco 
 la derecha de ``\alpha_c``; al crecer ``N`` el cruce se acerca a ``0.3374``.
 """
 
-# ╔═╡ 352684ba-ca93-11f1-8dc2-596be0e84c22
+# ╔═╡ ed7693ae-ca9b-11f1-8e5d-755dd8183381
 md"""
 ## Resumen
 
@@ -297,11 +297,11 @@ md"""
 | **Juego de la minoría** | ``N`` agentes con ``S=2`` tablas sobre ``P = 2^M`` historias; gana ``-\mathrm{sgn}(A(t))`` | Aprendizaje inductivo sin equilibrio deductivo común |
 | **Referente aleatorio** | Elección independiente ``a_i = \pm 1`` con probabilidad ``1/2`` | ``\sigma_{\text{azar}}^2 / N = 1`` |
 | **Fase hacinada (``\alpha = 2^M/N < \alpha_c``)** | Pocas historias frente al número de agentes (``P \ll N``) | Efecto manada: ``\sigma^2/N \sim \alpha^{-1} > 1``, pero mercado impredecible (``H/N = 0``) |
-| **Punto crítico (``\alpha_c \approx 0.3374``)** | Grados de libertad libres igualan restricciones: ``1 - \phi(\alpha_c) = \alpha_c`` | Mínimo global de volatilidad (``\sigma^2/N \approx 0.25 < 1``) y máxima eficiencia |
+| **Punto crítico (``\alpha_c \approx 0.3374``)** | Grados de libertad libres igualan restricciones: ``1 - \phi(\alpha_c) = \alpha_c`` | Mínimo global de volatilidad (``\sigma^2/N \approx 0.2 < 1``) y máxima eficiencia |
 | **Fase diluida (``\alpha > \alpha_c``)** | Muchas historias frente al número de agentes (``P \gtrsim N``) | ``\sigma^2/N < 1`` tiende a ``1``; quedan patrones predecibles (``H/N > 0``) y agentes congelados |
 """
 
-# ╔═╡ 352684c4-ca93-11f1-b110-13408c9c2293
+# ╔═╡ ed7693ae-ca9b-11f1-8bf2-19b4762f7edb
 md"""
 ## Ejercicios
 
@@ -311,12 +311,12 @@ md"""
 ``\alpha = 2^M / N`` del juego de la minoría para una memoria `M` y `N` agentes.
 """
 
-# ╔═╡ 352684ce-ca93-11f1-beb9-e36a95110b86
+# ╔═╡ ed7693b6-ca9b-11f1-b641-5320edbada5c
 function parametro_alfa(M, N)
     missing  # reemplaza esta línea
 end
 
-# ╔═╡ 352684da-ca93-11f1-a4d4-8bb51aa5443f
+# ╔═╡ ed7693c2-ca9b-11f1-9046-d3f3af5b9cc8
 md"""
 **2.** Escribe `actualizar_puntaje(U, s_mu, A)`, que devuelva el nuevo puntaje
 virtual de una estrategia cuyo puntaje actual es `U`, que ante la historia
@@ -324,12 +324,12 @@ actual recomendó la acción `s_mu` (``\pm 1``), cuando la acción agregada fue 
 (usando la regla ``U_{\text{nuevo}} = U - s(\mu)\,A``).
 """
 
-# ╔═╡ 352684da-ca93-11f1-b588-5d1dcd1860d0
+# ╔═╡ ed7693c2-ca9b-11f1-b157-738196d50c24
 function actualizar_puntaje(U, s_mu, A)
     missing  # reemplaza esta línea
 end
 
-# ╔═╡ 352684e2-ca93-11f1-8f9c-51971c030ec7
+# ╔═╡ ed7693cc-ca9b-11f1-9664-2fde4f37f2a4
 md"""
 ### Ruta básica: interpretación
 
@@ -384,7 +384,7 @@ lo que ya sabes y con el laboratorio de hoy.
   las colas pesadas y el agrupamiento de volatilidad.
 """
 
-# ╔═╡ 352684ec-ca93-11f1-91a7-1fb47c4ec2aa
+# ╔═╡ ed7693d6-ca9b-11f1-a40a-9535c98fe35e
 md"""
 ---
 ## Apéndice: paquetes y funciones auxiliares
@@ -393,7 +393,7 @@ Estas celdas definen herramientas que usa el cuaderno. No es necesario
 leerlas para seguir la sesión.
 """
 
-# ╔═╡ 35268500-ca93-11f1-ab19-1f8a54356bea
+# ╔═╡ ed7693e0-ca9b-11f1-bf6b-fd8ab9023d3b
 begin
     const AZUL       = "#2a78d6"   # serie principal
     const NARANJA    = "#eb6834"   # segunda serie o referencia teórica
@@ -402,7 +402,7 @@ begin
     const BLANCO     = "#ffffff"
 end;
 
-# ╔═╡ 35268500-ca93-11f1-80c3-a73bf8e9f95d
+# ╔═╡ ed7693e0-ca9b-11f1-986c-5be1a5e08fc0
 """
 Simula el bar El Farol con `N` agentes, cupo `L` y memoria `M` (Challet, Marsili
 y Ottino, 2004). Cada agente tiene dos tablas que dicen si ir (+1) o quedarse (-1)
@@ -434,7 +434,7 @@ function simular_el_farol(N, L, M; semanas = 40, calent = 500, rng = Xoshiro(19)
     asistencia
 end
 
-# ╔═╡ 3526850c-ca93-11f1-8cad-4b1cd46cd855
+# ╔═╡ ed7693e8-ca9b-11f1-8f2c-1d716078c552
 """
 Ejemplo motivador de la sección 0 (El Farol con 100 agentes y cupo 60):
 compara una población que comparte la misma regla de tendencia con una población
@@ -456,7 +456,7 @@ ejemplo_el_farol = let
     (homogenea = hom, inductiva = ind)
 end;
 
-# ╔═╡ 35268424-ca93-11f1-a4ed-41702f7f491c
+# ╔═╡ ed769356-ca9b-11f1-9b93-b1983bebb391
 let
     ef = ejemplo_el_farol
     sem = 1:length(ef.homogenea)
@@ -472,7 +472,7 @@ let
     plot(p1, p2; layout = (1, 2), size = (880, 340), bottom_margin = 4Plots.mm)
 end
 
-# ╔═╡ 35268514-ca93-11f1-9e41-3324add4bddf
+# ╔═╡ ed7693f4-ca9b-11f1-95f0-d19cf9e10790
 """
 Simula una realización del juego de la minoría con `N` agentes, memoria `M` y
 `S = 2` estrategias por agente. Devuelve la serie estacionaria de `A(t)`, la
@@ -532,10 +532,10 @@ function simular_mg_serie(N, M; pasos = 800, calent = 300, rng = Xoshiro(13))
     (A = As, vol = vol, ganadores = gan, H = H_norm, congelados = congelados)
 end
 
-# ╔═╡ 35268468-ca93-11f1-8de9-f77a0d506f69
+# ╔═╡ ed76937c-ca9b-11f1-9ed0-cdf84c7604d3
 sim_m = simular_mg_serie(101, M_lab; pasos = 600, calent = max(300, 50 * 2^M_lab), rng = Xoshiro(13));
 
-# ╔═╡ 35268474-ca93-11f1-84b0-c168196e9b34
+# ╔═╡ ed769388-ca9b-11f1-a7de-93299ac6f8aa
 let
     s = sim_m
     N = 101
@@ -564,7 +564,7 @@ let
     plot(p1, p2; layout = (1, 2), size = (900, 390), bottom_margin = 4Plots.mm)
 end
 
-# ╔═╡ 3526847e-ca93-11f1-b3c8-a7a641a62a45
+# ╔═╡ ed769388-ca9b-11f1-9107-9d83315e3fdd
 let
     N = 101
     α = round(2.0^M_lab / N, digits = 2)
@@ -578,7 +578,7 @@ let
     Markdown.parse(regimen)
 end
 
-# ╔═╡ 3526851e-ca93-11f1-afca-8bb41549ddfa
+# ╔═╡ ed7693f4-ca9b-11f1-9989-23b4cdf7fa56
 "Barrido de la volatilidad σ²/N frente a M y α = 2^M / N para varios tamaños de población N."
 function barrido_escala_mg(Ns = [51, 101, 201]; Ms = 2:10, R = 20)
     series = map(Ns) do N
@@ -595,10 +595,10 @@ function barrido_escala_mg(Ns = [51, 101, 201]; Ms = 2:10, R = 20)
     (series = series,)
 end
 
-# ╔═╡ 35268492-ca93-11f1-bda9-fd27196fb8dc
+# ╔═╡ ed769390-ca9b-11f1-b027-f9eb5ba3490c
 barrido_mg = barrido_escala_mg([51, 101, 201]; Ms = 2:10, R = 20);
 
-# ╔═╡ 35268492-ca93-11f1-98ce-81d147a7ab58
+# ╔═╡ ed76939a-ca9b-11f1-8610-a3e74d323103
 let
     b = barrido_mg
     colores = (AZUL, NARANJA, GRIS)
@@ -627,7 +627,7 @@ let
     plot(p1, p2; layout = (1, 2), size = (900, 410), bottom_margin = 4Plots.mm)
 end
 
-# ╔═╡ 3526851e-ca93-11f1-ace6-f3871385132f
+# ╔═╡ ed7693fe-ca9b-11f1-88de-9f21107fb6db
 """
 Curvas estacionarias de predictibilidad H/N y fracción de agentes congelados ϕ(α)
 frente a α = P/N. Minimiza H(m) = (1/P) Σ_μ (Ω(μ) + Σ_i ξ_i(μ) m_i)² sobre m ∈ [-1, 1]^N
@@ -663,7 +663,7 @@ curvas_transicion_mg = let
     (alfas = alfas, H = Hs, congelados = cong, libres = 1.0 .- cong)
 end;
 
-# ╔═╡ 352684ba-ca93-11f1-97b0-ff71eb8f23cf
+# ╔═╡ ed7693a4-ca9b-11f1-b7d2-77c08ea5fadc
 let
     t = curvas_transicion_mg
     p1 = plot(t.alfas, t.H; color = AZUL, lw = 2.4, marker = :circle, ms = 4.5, msw = 0,
@@ -689,7 +689,7 @@ let
     plot(p1, p2; layout = (1, 2), size = (900, 400), bottom_margin = 4Plots.mm)
 end
 
-# ╔═╡ 35268528-ca93-11f1-a454-1d9d96959dd3
+# ╔═╡ ed7693fe-ca9b-11f1-ba51-7d069c18af73
 "Muestra si la respuesta de un ejercicio es correcta."
 function verificar(f, esperado; rtol = 1e-8, pista = md"")
     caja(tipo, titulo, texto) = Markdown.MD(Markdown.Admonition(tipo, titulo, [texto]))
@@ -710,49 +710,49 @@ function verificar(f, esperado; rtol = 1e-8, pista = md"")
     end
 end
 
-# ╔═╡ 352684ce-ca93-11f1-ad16-e522e2e1caca
+# ╔═╡ ed7693b6-ca9b-11f1-a1d9-e5262e0c632b
 verificar(() -> [parametro_alfa(2, 100), parametro_alfa(5, 100), parametro_alfa(8, 200)],
           [4 / 100, 32 / 100, 256 / 200];
           pista = md"Usa `(2.0 ^ M) / N`.")
 
-# ╔═╡ 352684e2-ca93-11f1-8984-b1980559b3d1
+# ╔═╡ ed7693cc-ca9b-11f1-80cf-55264d426dc6
 verificar(() -> [actualizar_puntaje(10.0, 1, 15), actualizar_puntaje(10.0, -1, 15), actualizar_puntaje(0.0, 1, -7)],
           [-5.0, 25.0, 7.0];
           pista = md"Si `s_mu` y `A` tienen signos opuestos el puntaje sube: `U - s_mu * A`.")
 
 # ╔═╡ Cell order:
-# ╟─352683ca-ca93-11f1-90ae-d90e98a0a67a
-# ╟─35268410-ca93-11f1-8fb5-f1bd3ee61960
-# ╟─3526841a-ca93-11f1-ab36-6df5bbe12dd0
-# ╟─35268424-ca93-11f1-a4ed-41702f7f491c
-# ╟─3526842e-ca93-11f1-9379-fd093ed563e7
-# ╟─35268442-ca93-11f1-9792-b34d6579255b
-# ╠═3526844c-ca93-11f1-859e-c308decb0f3e
-# ╠═3526844c-ca93-11f1-a20e-051467b59117
-# ╟─35268456-ca93-11f1-8b96-4b4d3a7c3ec4
-# ╠═35268468-ca93-11f1-8de9-f77a0d506f69
-# ╟─35268474-ca93-11f1-84b0-c168196e9b34
-# ╟─3526847e-ca93-11f1-b3c8-a7a641a62a45
-# ╟─35268488-ca93-11f1-9e95-393fb3b2ba68
-# ╠═35268492-ca93-11f1-bda9-fd27196fb8dc
-# ╟─35268492-ca93-11f1-98ce-81d147a7ab58
-# ╟─3526849c-ca93-11f1-9995-8dc225c4915a
-# ╟─352684a6-ca93-11f1-9e85-8f5dc749799b
-# ╟─352684ba-ca93-11f1-97b0-ff71eb8f23cf
-# ╟─352684ba-ca93-11f1-8dc2-596be0e84c22
-# ╟─352684c4-ca93-11f1-b110-13408c9c2293
-# ╠═352684ce-ca93-11f1-beb9-e36a95110b86
-# ╟─352684ce-ca93-11f1-ad16-e522e2e1caca
-# ╟─352684da-ca93-11f1-a4d4-8bb51aa5443f
-# ╠═352684da-ca93-11f1-b588-5d1dcd1860d0
-# ╟─352684e2-ca93-11f1-8984-b1980559b3d1
-# ╟─352684e2-ca93-11f1-8f9c-51971c030ec7
-# ╟─352684ec-ca93-11f1-91a7-1fb47c4ec2aa
-# ╠═352684f6-ca93-11f1-af04-e3af70088595
-# ╠═35268500-ca93-11f1-ab19-1f8a54356bea
-# ╠═35268500-ca93-11f1-80c3-a73bf8e9f95d
-# ╠═3526850c-ca93-11f1-8cad-4b1cd46cd855
-# ╠═35268514-ca93-11f1-9e41-3324add4bddf
-# ╠═3526851e-ca93-11f1-afca-8bb41549ddfa
-# ╠═3526851e-ca93-11f1-ace6-f3871385132f
-# ╠═35268528-ca93-11f1-a454-1d9d96959dd3
+# ╟─ed769318-ca9b-11f1-bb82-fd96e5a7923e
+# ╟─ed76934a-ca9b-11f1-ab9e-9ba666bcaeb8
+# ╟─ed76934a-ca9b-11f1-9c8c-010a69e8a87e
+# ╟─ed769356-ca9b-11f1-9b93-b1983bebb391
+# ╟─ed769356-ca9b-11f1-acac-7117fa87c598
+# ╟─ed76935e-ca9b-11f1-900f-4f98a9b3eac5
+# ╠═ed769368-ca9b-11f1-a55a-a927085c435c
+# ╠═ed769368-ca9b-11f1-b958-735cb120ac4a
+# ╟─ed769372-ca9b-11f1-a4ab-0bb3987ba6b5
+# ╠═ed76937c-ca9b-11f1-9ed0-cdf84c7604d3
+# ╟─ed769388-ca9b-11f1-a7de-93299ac6f8aa
+# ╟─ed769388-ca9b-11f1-9107-9d83315e3fdd
+# ╟─ed769390-ca9b-11f1-84b1-71d1811433cb
+# ╠═ed769390-ca9b-11f1-b027-f9eb5ba3490c
+# ╟─ed76939a-ca9b-11f1-8610-a3e74d323103
+# ╟─ed76939a-ca9b-11f1-a5c7-e9623f3ec3d0
+# ╟─ed7693a4-ca9b-11f1-8ee5-7d7ca3553ba0
+# ╟─ed7693a4-ca9b-11f1-b7d2-77c08ea5fadc
+# ╟─ed7693ae-ca9b-11f1-8e5d-755dd8183381
+# ╟─ed7693ae-ca9b-11f1-8bf2-19b4762f7edb
+# ╠═ed7693b6-ca9b-11f1-b641-5320edbada5c
+# ╟─ed7693b6-ca9b-11f1-a1d9-e5262e0c632b
+# ╟─ed7693c2-ca9b-11f1-9046-d3f3af5b9cc8
+# ╠═ed7693c2-ca9b-11f1-b157-738196d50c24
+# ╟─ed7693cc-ca9b-11f1-80cf-55264d426dc6
+# ╟─ed7693cc-ca9b-11f1-9664-2fde4f37f2a4
+# ╟─ed7693d6-ca9b-11f1-a40a-9535c98fe35e
+# ╠═ed7693d6-ca9b-11f1-a7dd-7b7d6c8e368c
+# ╠═ed7693e0-ca9b-11f1-bf6b-fd8ab9023d3b
+# ╠═ed7693e0-ca9b-11f1-986c-5be1a5e08fc0
+# ╠═ed7693e8-ca9b-11f1-8f2c-1d716078c552
+# ╠═ed7693f4-ca9b-11f1-95f0-d19cf9e10790
+# ╠═ed7693f4-ca9b-11f1-9989-23b4cdf7fa56
+# ╠═ed7693fe-ca9b-11f1-88de-9f21107fb6db
+# ╠═ed7693fe-ca9b-11f1-ba51-7d069c18af73

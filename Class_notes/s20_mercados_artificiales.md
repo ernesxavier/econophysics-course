@@ -321,11 +321,11 @@ retornos financieros:
 
 | Modelo | Sesión | $\hat\rho_r(\tau) \approx 0$ (sin memoria lineal) | Colas pesadas ($\kappa \gg 0$) | Agrupamiento de volatilidad ($\hat\rho_{\lvert r\rvert}(\tau) > 0$) | ¿El mecanismo es microeconómico? |
 |---|---|---|---|---|---|
-| **Caminata aleatoria gaussiana (GBM)** | 1, 3 | Sí | No ($\kappa = 0$) | No ($\hat\rho_{\lvert r\rvert}(\tau) = 0$) | No (choques externos i.i.d.) |
-| **Ruido i.i.d. con colas pesadas ($t$-Student / Lévy)** | 2 | Sí | Sí | No (días independientes) | No (distribución impuesta) |
-| **GARCH(1,1)** | 3 | Sí | Sí | Sí (decaimiento exponencial) | No (ecuación estadística para $\sigma_t^2$) |
-| **Juego de la minoría básico ($N$ fijo)** | 13 | Depende de $\alpha$: sin predictibilidad ($H = 0$) sólo si $\alpha < \alpha_c$ | No (fluctuaciones casi gaussianas) | No (aparece en variantes gran canónicas con número variable de agentes activos; Challet, Marsili & Zhang, 2005) | Sí (competencia inductiva por estar en la minoría) |
-| **Fundamentalistas y chartistas (Lux-Marchesi, Franke-Westerhoff)** | 14 | Sí | Sí, aunque menores que en los datos | Sí (persistencia larga por cambio de régimen en $z_t$) | **Sí** (selección evolutiva + contagio entre reglas) |
+| **Caminata aleatoria gaussiana (GBM)** | 4, 5 | Sí | No ($\kappa = 0$) | No ($\hat\rho_{\lvert r\rvert}(\tau) = 0$) | No (choques externos i.i.d.) |
+| **Ruido i.i.d. con colas pesadas ($t$-Student / Lévy)** | 1, 3 | Sí | Sí | No (días independientes) | No (distribución impuesta) |
+| **GARCH(1,1)** | 5 | Sí | Sí | Sí (decaimiento exponencial) | No (ecuación estadística para $\sigma_t^2$) |
+| **Juego de la minoría básico ($N$ fijo)** | 19 | Depende de $\alpha$: sin predictibilidad ($H = 0$) sólo si $\alpha < \alpha_c$ | No (fluctuaciones casi gaussianas) | No (aparece en variantes gran canónicas con número variable de agentes activos; Challet, Marsili & Zhang, 2005) | Sí (competencia inductiva por estar en la minoría) |
+| **Fundamentalistas y chartistas (Lux-Marchesi, Franke-Westerhoff)** | 20 | Sí | Sí, aunque menores que en los datos | Sí (persistencia larga por cambio de régimen en $z_t$) | **Sí** (selección evolutiva + contagio entre reglas) |
 
 ---
 
