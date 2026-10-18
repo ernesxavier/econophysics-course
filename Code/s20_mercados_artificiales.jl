@@ -16,7 +16,7 @@ macro bind(def, element)
     #! format: on
 end
 
-# ╔═╡ c87462d6-ca80-11f1-b112-f1ce784dbe3d
+# ╔═╡ 4498d2bc-ca8a-11f1-9914-47dd9088c421
 begin
     import Pkg
     Pkg.activate(@__DIR__)
@@ -30,7 +30,7 @@ begin
             background_color_legend = nothing, margin = 3Plots.mm)
 end
 
-# ╔═╡ c87461be-ca80-11f1-9ef1-7d01dc6a855a
+# ╔═╡ 4498d1b8-ca8a-11f1-b4c7-afd16fb80eb0
 md"""
 # Sesión 20: Mercados artificiales y expectativas heterogéneas
 
@@ -66,10 +66,10 @@ C.A5 (mapas discretos, bifurcaciones y caos), S.A3 (calibración por momentos
 simulados), S.A4 (memoria larga).
 """
 
-# ╔═╡ c87461f0-ca80-11f1-b391-954dc75b8de3
+# ╔═╡ 4498d1ea-ca8a-11f1-97df-63a94842f375
 TableOfContents(title = "Contenido")
 
-# ╔═╡ c87461fa-ca80-11f1-8383-510998e63c52
+# ╔═╡ 4498d1f4-ca8a-11f1-b7fb-dfcb961b77f2
 md"""
 ## 0. El fenómeno: ¿por qué los mercados alternan entre calma y tormenta?
 
@@ -88,7 +88,7 @@ contagian entre sí), el propio cambio en la fracción de especuladores produce
 etapas tranquilas seguidas de **burbujas y tormentas de volatilidad** (derecha):
 """
 
-# ╔═╡ c874620e-ca80-11f1-a123-1fea5d8b8b76
+# ╔═╡ 4498d208-ca8a-11f1-bbdc-2da44fb99e9a
 md"""
 ## 1. El modelo de Brock y Hommes (1998): selección evolutiva de predictores
 
@@ -132,7 +132,7 @@ costo fundamentalista ``C = 1.0``):
 - **Fuerza de tendencia ``g``:** $(@bind g_bh Slider(1.12:0.02:1.20, default = 1.20, show_value = true))
 """
 
-# ╔═╡ c8746222-ca80-11f1-84bb-a37dd31d1e04
+# ╔═╡ 4498d21c-ca8a-11f1-88c1-9f01cdc4f557
 let
     R = 1.10
     C = 1.0
@@ -154,7 +154,7 @@ let
     """)
 end
 
-# ╔═╡ c874622c-ca80-11f1-a6cd-39f8cefa5064
+# ╔═╡ 4498d226-ca8a-11f1-85cb-cd563a765f4c
 md"""
 ## 2. Fundamentalistas, chartistas y contagio estocástico
 
@@ -201,7 +201,7 @@ y el **ruido chartista** ``\sigma_c`` (estimado: ``\sigma_c = 2.087``, con
 - **Ruido chartista ``\sigma_c``:** $(@bind sigma_c_lm Slider([1.0, 1.5, 2.087, 2.5, 3.0], default = 2.087, show_value = true))
 """
 
-# ╔═╡ c8746240-ca80-11f1-b0be-8379ad89f50b
+# ╔═╡ 4498d23a-ca8a-11f1-9a89-c9fde9176fb8
 md"""
 Cada vez que la curva naranja (fracción de chartistas ``z_t``) sube, el mercado
 pierde su ancla fundamentalista y aparece un **racimo de alta volatilidad**; el
@@ -210,9 +210,13 @@ Cuando el desalineamiento acumulado hace atractivo el fundamentalismo
 (``z_t`` baja), regresa la calma.
 """
 
-# ╔═╡ c874624a-ca80-11f1-b37b-4fb6721fde41
+# ╔═╡ 4498d246-ca8a-11f1-9618-bf1474f559a9
 md"""
 ## 3. Cierre del ciclo: el análisis de las sesiones 1 y 2 en series simuladas y reales
+
+Esta sección es el punto de partida del **taller para casa del Módulo III**.
+En clase basta con leer la tabla; en el taller se repite el análisis con otros
+modelos y parámetros.
 
 Pongamos a prueba lo aprendido en las 20 sesiones aplicando exactamente las
 gráficas de diagnóstico de las **sesiones 1 y 2** a tres series de retornos
@@ -224,7 +228,7 @@ estandarizados ``z_t = (r_t - \hat\mu)/\hat\sigma``:
    mismo número de días que el S&P 500.
 """
 
-# ╔═╡ c874625e-ca80-11f1-81aa-4327a0952c3c
+# ╔═╡ 4498d258-ca8a-11f1-b58a-d5b34c0b67aa
 md"""
 **Lectura de la tabla.** En una normal sólo el 0.27% de los días tiene
 ``\lvert z \rvert > 3``. El mercado artificial reproduce los dos
@@ -237,7 +241,7 @@ que hacen Franke y Westerhoff (2012) con el método de momentos simulados
 (repaso S.A3).
 """
 
-# ╔═╡ c8746268-ca80-11f1-8529-f3678e9b24bf
+# ╔═╡ 4498d262-ca8a-11f1-8004-e793c3be58b6
 md"""
 ## 4. [Avanzado] Bifurcaciones, estabilidad y caos en Brock-Hommes
 
@@ -272,7 +276,7 @@ Neimark-Sacker, ``\lambda \approx 0``) y la dinámica se vuelve cuasiperiódica 
 luego caótica:
 """
 
-# ╔═╡ c8746272-ca80-11f1-b398-0fd76d7031ed
+# ╔═╡ 4498d26c-ca8a-11f1-b9fd-87add13f5f2d
 md"""
 ## Resumen
 
@@ -284,7 +288,7 @@ md"""
 | **Contagio y cambio de régimen (Franke-Westerhoff)** | ``\sigma_t^2 = \mu^2\bigl[(1-z_{t-1})^2\sigma_f^2 + z_{t-1}^2\sigma_c^2\bigr]`` con ``\sigma_c > \sigma_f`` | Las olas de chartismo ``z_t`` generan colas pesadas y agrupamiento de volatilidad sin memoria lineal en ``r_t`` |
 """
 
-# ╔═╡ c874627c-ca80-11f1-b7f7-6925476e6de4
+# ╔═╡ 4498d26c-ca8a-11f1-a0aa-2b42c7c30b50
 md"""
 ## Ejercicios
 
@@ -299,12 +303,12 @@ n_2 = \frac{1}{1 + \exp\!\big(\beta\,(\pi_1 - \pi_2)\big)} .
 ```
 """
 
-# ╔═╡ c874627c-ca80-11f1-9547-cb3f0a56d60b
+# ╔═╡ 4498d278-ca8a-11f1-8591-f10e112590f8
 function fraccion_logit_dos(pi_1, pi_2, beta)
     missing  # reemplaza esta línea
 end
 
-# ╔═╡ c8746288-ca80-11f1-9e40-55f272285a8c
+# ╔═╡ 4498d280-ca8a-11f1-b62f-4fc1fe92608c
 md"""
 **2.** Escribe `paso_precio_bh(x_ant, n2, g, R)`, que calcule la nueva
 desviación del precio ``x_t`` en el modelo de Brock-Hommes con fundamentalistas
@@ -312,65 +316,61 @@ desviación del precio ``x_t`` en el modelo de Brock-Hommes con fundamentalistas
 de la ecuación de vaciado de mercado ``R\,x_t = n_2\,g\,x_{t-1}``.
 """
 
-# ╔═╡ c8746290-ca80-11f1-aa5c-39056a143ed1
+# ╔═╡ 4498d280-ca8a-11f1-9b85-113fd75ae229
 function paso_precio_bh(x_ant, n2, g, R)
     missing  # reemplaza esta línea
 end
 
-# ╔═╡ c874629a-ca80-11f1-8771-233ba3458e4c
+# ╔═╡ 4498d28a-ca8a-11f1-b787-9f9bd0956fa9
 md"""
-**3.** Escribe `varianza_condicional_fc(z, sigma_f, sigma_c)`, que calcule la
-varianza condicional del exceso de demanda ``(1 - z)^2 \sigma_f^2 + z^2 \sigma_c^2``
-cuando una fracción `z` de los agentes son chartistas (con ruido `sigma_c`) y
-una fracción `1 - z` son fundamentalistas (con ruido `sigma_f`). La varianza
-del retorno es ``\mu^2`` veces este valor.
+### Ruta básica: interpretación
+
+3. En el laboratorio de la sección 1, ¿por qué un costo de información ``C > 0``
+   para ser fundamentalista es indispensable para que el aumento de ``\beta``
+   desestabilice el equilibrio fundamental cuando ``R < g < 2R``? ¿Qué ocurre si
+   ``C = 0``?
+4. En el laboratorio de la sección 2, sube la intensidad de elección ``\beta``
+   y después el ruido chartista ``\sigma_c``. ¿Qué pasa con las olas de
+   chartismo ``z_t`` y con los racimos de volatilidad? ¿Por qué un mercado
+   dominado por fundamentalistas es más tranquilo?
+5. En la tabla de la sección 3, compara la caminata aleatoria gaussiana y el
+   mercado artificial frente al S&P 500. ¿Qué dos hechos estilizados captura el
+   mercado artificial que la caminata aleatoria no puede reproducir? ¿Cuál no
+   alcanza a reproducir bien?
 """
 
-# ╔═╡ c874629a-ca80-11f1-ae49-ed27079f5cf3
-function varianza_condicional_fc(z, sigma_f, sigma_c)
-    missing  # reemplaza esta línea
-end
-
-# ╔═╡ c87462a4-ca80-11f1-871a-2f3660d2f0f8
+# ╔═╡ 4498d294-ca8a-11f1-b2e5-17ab6cfcb605
 md"""
 ### Ruta avanzada: completa el código
 
-**4. [Avanzado]** Escribe `beta_critico_bh(g, R, C)`, que devuelva la intensidad
+Los ejercicios 6 a 8 son opcionales.
+
+**6.** Escribe `beta_critico_bh(g, R, C)`, que devuelva la intensidad
 de elección crítica ``\beta_c = \frac{1}{C}\ln\!\left(\frac{R}{g - R}\right)``
 en la que el equilibrio fundamental ``x^* = 0`` pierde estabilidad cuando
 ``R < g < 2R`` y ``C > 0``.
 """
 
-# ╔═╡ c87462ae-ca80-11f1-b972-fbd03d8a4e5f
+# ╔═╡ 4498d294-ca8a-11f1-8b47-e3af8cfae3d2
 function beta_critico_bh(g, R, C)
     missing  # reemplaza esta línea
 end
 
-# ╔═╡ c87462ba-ca80-11f1-9b36-6565d5e69448
+# ╔═╡ 4498d2aa-ca8a-11f1-9b45-7728376c4073
 md"""
-**5. [Avanzado]** Escribe `multiplicador_origen_bh(beta, g, R, C)`, que calcule
+**7.** Escribe `multiplicador_origen_bh(beta, g, R, C)`, que calcule
 el eigenvalor linealizado ``\lambda_1 = \frac{g\,n_2^*(\beta)}{R}`` en el punto
 fijo fundamental ``x^* = 0``, donde ``n_2^*(\beta) = \frac{1}{1 + e^{-\beta C}}``.
 """
 
-# ╔═╡ c87462ba-ca80-11f1-a6e5-f7a14fa71c6f
+# ╔═╡ 4498d2aa-ca8a-11f1-ab38-e9ce457542ee
 function multiplicador_origen_bh(beta, g, R, C)
     missing  # reemplaza esta línea
 end
 
-# ╔═╡ c87462c2-ca80-11f1-ac71-2526740f6f62
+# ╔═╡ 4498d2b2-ca8a-11f1-9ba6-c9dcd1857d1c
 md"""
-### Preguntas de interpretación
-
-1. En el laboratorio de la sección 1, ¿por qué un costo de información ``C > 0``
-   para ser fundamentalista es indispensable para que el aumento de ``\beta``
-   desestabilice el equilibrio fundamental cuando ``R < g < 2R``? ¿Qué ocurre si
-   ``C = 0``?
-2. En la tabla de la sección 3, compara la caminata aleatoria gaussiana y el
-   mercado artificial de fundamentalistas y chartistas frente al S&P 500. ¿Qué
-   dos hechos estilizados captura el mercado artificial que la caminata
-   aleatoria no puede reproducir?
-3. **[Avanzado]** En el diagrama de bifurcación de la sección 4, ¿qué significa
+**8.** En el diagrama de bifurcación de la sección 4, ¿qué significa
    económicamente que el exponente de Lyapunov ``\lambda(\beta)`` sea positivo
    para valores altos de ``\beta`` aunque el modelo no tenga ningún término de
    ruido aleatorio?
@@ -380,6 +380,8 @@ md"""
 - Lectura: LeBaron (2006). Complementaria: Hommes (2013), capítulo 1; Lux y
   Marchesi (1999). Para la ruta avanzada, Hommes (2013), capítulos 2 y 6; Slanina (2014),
   sección 3.2; Giardina y Bouchaud (2003); Brock y Hommes (1998).
+- **Entrega**: taller para casa del Módulo III (cierre del ciclo con los modelos
+  de agentes frente a los datos).
 - Presentación de los proyectos finales: réplica y extensión de un artículo de
   econofísica usando las herramientas de simulación y diagnóstico estadístico
   del curso.
@@ -388,7 +390,7 @@ md"""
   (calibración de modelos de agentes por momentos simulados).
 """
 
-# ╔═╡ c87462cc-ca80-11f1-ad9b-b7706efdee68
+# ╔═╡ 4498d2bc-ca8a-11f1-a843-49ee18022187
 md"""
 ---
 ## Apéndice: paquetes y funciones auxiliares
@@ -397,7 +399,7 @@ Estas celdas definen herramientas que usa el cuaderno. No es necesario
 leerlas para seguir la sesión.
 """
 
-# ╔═╡ c87462d6-ca80-11f1-a523-b3df9a2cf5b2
+# ╔═╡ 4498d2bc-ca8a-11f1-8d30-4f18f02dfb51
 begin
     const AZUL       = "#2a78d6"
     const NARANJA    = "#eb6834"
@@ -406,7 +408,7 @@ begin
     const BLANCO     = "#ffffff"
 end;
 
-# ╔═╡ c87462e0-ca80-11f1-9d00-e7d71338ae2b
+# ╔═╡ 4498d2c6-ca8a-11f1-be5d-efa1eee97fbb
 """
 Simula el modelo determinista de Brock y Hommes (1998) con fundamentalistas
 (`f_1 = 0`, costo `C`) y seguidores de tendencia (`f_2 = g * x_{t-1}`, costo `0`)
@@ -431,7 +433,7 @@ function simular_brock_hommes(beta, g; R = 1.10, C = 1.0, pasos = 200, calent = 
     (x = x[idx], n2 = n2[idx])
 end
 
-# ╔═╡ c8746218-ca80-11f1-895c-130b8a78eca7
+# ╔═╡ 4498d212-ca8a-11f1-8abc-e1ba717f0ede
 let
     R = 1.10
     C = 1.0
@@ -455,7 +457,7 @@ let
     plot(p1, p2; layout = (1, 2), size = (880, 370), bottom_margin = 4Plots.mm)
 end
 
-# ╔═╡ c87462e0-ca80-11f1-ab30-0522724f30dd
+# ╔═╡ 4498d2c6-ca8a-11f1-bd01-efe74bf8d945
 """
 Simula el modelo DCA-HPM de Franke y Westerhoff (2012): fundamentalistas y
 chartistas con contagio (herding), predisposición y temor al desalineamiento.
@@ -481,7 +483,7 @@ function simular_franke_westerhoff(; pasos = 2500, calent = 1000, beta = 1.0, mu
     (p = p[idx], r = p[idx] .- p[idx .- 1], z = 1 .- nf[idx])
 end
 
-# ╔═╡ c8746236-ca80-11f1-8f63-1d2e173607ed
+# ╔═╡ 4498d23a-ca8a-11f1-8112-31f98c65623b
 let
     sim = simular_franke_westerhoff(; pasos = 1500, beta = beta_lm, sigma_c = sigma_c_lm, rng = Xoshiro(42))
     t = 1:length(sim.r)
@@ -503,7 +505,7 @@ let
     plot(p1, p2; layout = (1, 2), size = (880, 360), bottom_margin = 4Plots.mm)
 end
 
-# ╔═╡ c87462e8-ca80-11f1-a350-fb0a50cc110b
+# ╔═╡ 4498d2d0-ca8a-11f1-88fb-d9421c1cc5f6
 "Ejemplo inicial de la sección 0: caminata aleatoria frente a mercado artificial heterogéneo."
 ejemplo_calma_tormenta = let
     rng = Xoshiro(14)
@@ -513,7 +515,7 @@ ejemplo_calma_tormenta = let
     (r_gbm = z_gbm, r_abm = z_abm)
 end;
 
-# ╔═╡ c8746204-ca80-11f1-8a1c-1f72c2186ff1
+# ╔═╡ 4498d1fe-ca8a-11f1-ac46-432558ed1c89
 let
     s = ejemplo_calma_tormenta
     t = 1:length(s.r_gbm)
@@ -530,7 +532,7 @@ let
     plot(p1, p2; layout = (1, 2), size = (880, 320), bottom_margin = 4Plots.mm)
 end
 
-# ╔═╡ c87462e8-ca80-11f1-81c6-fdacefa5ce71
+# ╔═╡ 4498d2d8-ca8a-11f1-bc09-eb9191c599e2
 "Calcula la CCDF empírica de |z|, la curtosis en exceso y las autocorrelaciones de z y |z|."
 function resumen_hechos_estilizados(r; max_lag = 25)
     z = (r .- mean(r)) ./ std(r)
@@ -549,7 +551,7 @@ function resumen_hechos_estilizados(r; max_lag = 25)
      acf_abs = autocor(abs_z, 1:max_lag))
 end
 
-# ╔═╡ c87462f4-ca80-11f1-b05b-2386d2a50c9f
+# ╔═╡ 4498d2d8-ca8a-11f1-bfe7-458d15ff9ba3
 "Comparación de la sección 3 entre el S&P 500 real, una caminata aleatoria y el mercado artificial."
 comparacion_semana1 = let
     ruta = joinpath(@__DIR__, "..", "Data", "precios.csv")
@@ -567,7 +569,7 @@ comparacion_semana1 = let
      abm = resumen_hechos_estilizados(r_abm))
 end;
 
-# ╔═╡ c874624a-ca80-11f1-9b38-5b6932e758f4
+# ╔═╡ 4498d24e-ca8a-11f1-9d7a-4993e52d13fa
 let
     c = comparacion_semana1
     x_grid = range(0.2, 5.5, length = 150)
@@ -609,7 +611,7 @@ let
     plot(p1, p2, p3; layout = (1, 3), size = (960, 360), bottom_margin = 5Plots.mm)
 end
 
-# ╔═╡ c8746256-ca80-11f1-93b4-e1eca6d0f791
+# ╔═╡ 4498d24e-ca8a-11f1-8af5-fb7781f2a169
 let
     c = comparacion_semana1
     f(x) = round(x, digits = 3)
@@ -622,7 +624,7 @@ let
         fila("**Mercado artificial (Franke-Westerhoff)**", c.abm)], "\n"))
 end
 
-# ╔═╡ c87462fe-ca80-11f1-8d16-9b713e888f86
+# ╔═╡ 4498d2e4-ca8a-11f1-b6b5-09c0613f9ef5
 "Diagrama de bifurcación y exponente de Lyapunov del modelo de Brock-Hommes frente a β."
 diagrama_bifurcacion_bh = let
     R = 1.10
@@ -679,7 +681,7 @@ diagrama_bifurcacion_bh = let
      lyap = lyap, beta_c = beta_c)
 end;
 
-# ╔═╡ c8746268-ca80-11f1-9e05-3bea2a132bb4
+# ╔═╡ 4498d262-ca8a-11f1-8723-bf4b20afea19
 let
     b = diagrama_bifurcacion_bh
     p1 = scatter(b.betas_pts, b.x_pts; color = AZUL, alpha = 0.22, ms = 1.5, msw = 0,
@@ -699,7 +701,7 @@ let
     plot(p1, p2; layout = (1, 2), size = (880, 370), bottom_margin = 4Plots.mm)
 end
 
-# ╔═╡ c87462fe-ca80-11f1-9dc2-bddb489e9af8
+# ╔═╡ 4498d2e4-ca8a-11f1-95d2-4f6748bf651d
 "Muestra si la respuesta de un ejercicio es correcta."
 function verificar(f, esperado; rtol = 1e-8, pista = md"")
     caja(tipo, titulo, texto) = Markdown.MD(Markdown.Admonition(tipo, titulo, [texto]))
@@ -720,80 +722,71 @@ function verificar(f, esperado; rtol = 1e-8, pista = md"")
     end
 end
 
-# ╔═╡ c8746288-ca80-11f1-a6cd-f177be412a77
+# ╔═╡ 4498d278-ca8a-11f1-b618-7795921e2730
 verificar(() -> [fraccion_logit_dos(-1.0, 0.0, 0.0),
                  fraccion_logit_dos(-1.0, 0.0, 2.0),
                  fraccion_logit_dos(1.5, 0.5, 3.0)],
           [0.5, 1.0 / (1.0 + exp(-2.0)), 1.0 / (1.0 + exp(3.0))];
           pista = md"Usa `1.0 / (1.0 + exp(beta * (pi_1 - pi_2)))`.")
 
-# ╔═╡ c8746290-ca80-11f1-929c-670c33fa8cbe
+# ╔═╡ 4498d28a-ca8a-11f1-9cb8-2186dbd5da2d
 verificar(() -> [paso_precio_bh(2.0, 0.85, 1.2, 1.01),
                  paso_precio_bh(-1.5, 0.5, 1.1, 1.02),
                  paso_precio_bh(0.0, 0.9, 1.3, 1.01)],
           [0.85 * 1.2 * 2.0 / 1.01, 0.5 * 1.1 * (-1.5) / 1.02, 0.0];
           pista = md"Despeja `x_t` de `R * x_t = n2 * g * x_ant`: `(n2 * g * x_ant) / R`.")
 
-# ╔═╡ c87462a4-ca80-11f1-b818-77239527e7d7
-verificar(() -> [varianza_condicional_fc(0.0, 0.01, 0.05),
-                 varianza_condicional_fc(1.0, 0.01, 0.05),
-                 varianza_condicional_fc(0.5, 0.01, 0.05)],
-          [0.01^2, 0.05^2, 0.25 * 0.01^2 + 0.25 * 0.05^2];
-          pista = md"Calcula `(1 - z)^2 * sigma_f^2 + z^2 * sigma_c^2`.")
-
-# ╔═╡ c87462ae-ca80-11f1-b63c-c3088c68a95b
+# ╔═╡ 4498d29e-ca8a-11f1-acd4-fbd8f3e80fba
 verificar(() -> [beta_critico_bh(1.20, 1.01, 1.0),
                  beta_critico_bh(1.35, 1.01, 0.5)],
           [log(1.01 / (1.20 - 1.01)), log(1.01 / (1.35 - 1.01)) / 0.5];
           pista = md"Usa `log(R / (g - R)) / C`.")
 
-# ╔═╡ c87462c2-ca80-11f1-9ebd-856d8623b9ce
+# ╔═╡ 4498d2aa-ca8a-11f1-9c9f-c3a8d2013898
 verificar(() -> [multiplicador_origen_bh(0.0, 1.20, 1.01, 1.0),
                  multiplicador_origen_bh(3.0, 1.20, 1.01, 1.0)],
           [1.20 * 0.5 / 1.01, (1.20 / 1.01) / (1.0 + exp(-3.0))];
           pista = md"Calcula `n2 = 1.0 / (1.0 + exp(-beta * C))` y devuelve `(g * n2) / R`.")
 
 # ╔═╡ Cell order:
-# ╟─c87461be-ca80-11f1-9ef1-7d01dc6a855a
-# ╟─c87461f0-ca80-11f1-b391-954dc75b8de3
-# ╟─c87461fa-ca80-11f1-8383-510998e63c52
-# ╟─c8746204-ca80-11f1-8a1c-1f72c2186ff1
-# ╟─c874620e-ca80-11f1-a123-1fea5d8b8b76
-# ╟─c8746218-ca80-11f1-895c-130b8a78eca7
-# ╟─c8746222-ca80-11f1-84bb-a37dd31d1e04
-# ╟─c874622c-ca80-11f1-a6cd-39f8cefa5064
-# ╟─c8746236-ca80-11f1-8f63-1d2e173607ed
-# ╟─c8746240-ca80-11f1-b0be-8379ad89f50b
-# ╟─c874624a-ca80-11f1-b37b-4fb6721fde41
-# ╟─c874624a-ca80-11f1-9b38-5b6932e758f4
-# ╟─c8746256-ca80-11f1-93b4-e1eca6d0f791
-# ╟─c874625e-ca80-11f1-81aa-4327a0952c3c
-# ╟─c8746268-ca80-11f1-8529-f3678e9b24bf
-# ╟─c8746268-ca80-11f1-9e05-3bea2a132bb4
-# ╟─c8746272-ca80-11f1-b398-0fd76d7031ed
-# ╟─c874627c-ca80-11f1-b7f7-6925476e6de4
-# ╠═c874627c-ca80-11f1-9547-cb3f0a56d60b
-# ╟─c8746288-ca80-11f1-a6cd-f177be412a77
-# ╟─c8746288-ca80-11f1-9e40-55f272285a8c
-# ╠═c8746290-ca80-11f1-aa5c-39056a143ed1
-# ╟─c8746290-ca80-11f1-929c-670c33fa8cbe
-# ╟─c874629a-ca80-11f1-8771-233ba3458e4c
-# ╠═c874629a-ca80-11f1-ae49-ed27079f5cf3
-# ╟─c87462a4-ca80-11f1-b818-77239527e7d7
-# ╟─c87462a4-ca80-11f1-871a-2f3660d2f0f8
-# ╠═c87462ae-ca80-11f1-b972-fbd03d8a4e5f
-# ╟─c87462ae-ca80-11f1-b63c-c3088c68a95b
-# ╟─c87462ba-ca80-11f1-9b36-6565d5e69448
-# ╠═c87462ba-ca80-11f1-a6e5-f7a14fa71c6f
-# ╟─c87462c2-ca80-11f1-9ebd-856d8623b9ce
-# ╟─c87462c2-ca80-11f1-ac71-2526740f6f62
-# ╟─c87462cc-ca80-11f1-ad9b-b7706efdee68
-# ╠═c87462d6-ca80-11f1-b112-f1ce784dbe3d
-# ╠═c87462d6-ca80-11f1-a523-b3df9a2cf5b2
-# ╠═c87462e0-ca80-11f1-9d00-e7d71338ae2b
-# ╠═c87462e0-ca80-11f1-ab30-0522724f30dd
-# ╠═c87462e8-ca80-11f1-a350-fb0a50cc110b
-# ╠═c87462e8-ca80-11f1-81c6-fdacefa5ce71
-# ╠═c87462f4-ca80-11f1-b05b-2386d2a50c9f
-# ╠═c87462fe-ca80-11f1-8d16-9b713e888f86
-# ╠═c87462fe-ca80-11f1-9dc2-bddb489e9af8
+# ╟─4498d1b8-ca8a-11f1-b4c7-afd16fb80eb0
+# ╟─4498d1ea-ca8a-11f1-97df-63a94842f375
+# ╟─4498d1f4-ca8a-11f1-b7fb-dfcb961b77f2
+# ╟─4498d1fe-ca8a-11f1-ac46-432558ed1c89
+# ╟─4498d208-ca8a-11f1-bbdc-2da44fb99e9a
+# ╟─4498d212-ca8a-11f1-8abc-e1ba717f0ede
+# ╟─4498d21c-ca8a-11f1-88c1-9f01cdc4f557
+# ╟─4498d226-ca8a-11f1-85cb-cd563a765f4c
+# ╟─4498d23a-ca8a-11f1-8112-31f98c65623b
+# ╟─4498d23a-ca8a-11f1-9a89-c9fde9176fb8
+# ╟─4498d246-ca8a-11f1-9618-bf1474f559a9
+# ╟─4498d24e-ca8a-11f1-9d7a-4993e52d13fa
+# ╟─4498d24e-ca8a-11f1-8af5-fb7781f2a169
+# ╟─4498d258-ca8a-11f1-b58a-d5b34c0b67aa
+# ╟─4498d262-ca8a-11f1-8004-e793c3be58b6
+# ╟─4498d262-ca8a-11f1-8723-bf4b20afea19
+# ╟─4498d26c-ca8a-11f1-b9fd-87add13f5f2d
+# ╟─4498d26c-ca8a-11f1-a0aa-2b42c7c30b50
+# ╠═4498d278-ca8a-11f1-8591-f10e112590f8
+# ╟─4498d278-ca8a-11f1-b618-7795921e2730
+# ╟─4498d280-ca8a-11f1-b62f-4fc1fe92608c
+# ╠═4498d280-ca8a-11f1-9b85-113fd75ae229
+# ╟─4498d28a-ca8a-11f1-9cb8-2186dbd5da2d
+# ╟─4498d28a-ca8a-11f1-b787-9f9bd0956fa9
+# ╟─4498d294-ca8a-11f1-b2e5-17ab6cfcb605
+# ╠═4498d294-ca8a-11f1-8b47-e3af8cfae3d2
+# ╟─4498d29e-ca8a-11f1-acd4-fbd8f3e80fba
+# ╟─4498d2aa-ca8a-11f1-9b45-7728376c4073
+# ╠═4498d2aa-ca8a-11f1-ab38-e9ce457542ee
+# ╟─4498d2aa-ca8a-11f1-9c9f-c3a8d2013898
+# ╟─4498d2b2-ca8a-11f1-9ba6-c9dcd1857d1c
+# ╟─4498d2bc-ca8a-11f1-a843-49ee18022187
+# ╠═4498d2bc-ca8a-11f1-9914-47dd9088c421
+# ╠═4498d2bc-ca8a-11f1-8d30-4f18f02dfb51
+# ╠═4498d2c6-ca8a-11f1-be5d-efa1eee97fbb
+# ╠═4498d2c6-ca8a-11f1-bd01-efe74bf8d945
+# ╠═4498d2d0-ca8a-11f1-88fb-d9421c1cc5f6
+# ╠═4498d2d8-ca8a-11f1-bc09-eb9191c599e2
+# ╠═4498d2d8-ca8a-11f1-bfe7-458d15ff9ba3
+# ╠═4498d2e4-ca8a-11f1-b6b5-09c0613f9ef5
+# ╠═4498d2e4-ca8a-11f1-95d2-4f6748bf651d

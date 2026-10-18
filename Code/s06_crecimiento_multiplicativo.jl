@@ -16,7 +16,7 @@ macro bind(def, element)
     #! format: on
 end
 
-# ╔═╡ 72b22860-ca80-11f1-93ab-bb4f57361bb4
+# ╔═╡ 7ad21efc-ca89-11f1-a183-4f3484351f7e
 begin
     # Usa el entorno del curso (Code/Project.toml) en lugar del gestor de
     # paquetes propio de Pluto: un solo entorno para todo el repositorio.
@@ -32,7 +32,7 @@ begin
             background_color_legend = nothing, margin = 3Plots.mm)
 end
 
-# ╔═╡ 72b2275c-ca80-11f1-a543-c7ba0ef3d512
+# ╔═╡ 7ad21df8-ca89-11f1-97ba-cdac1f0b5427
 md"""
 # Sesión 6: Crecimiento multiplicativo
 
@@ -59,10 +59,10 @@ opcionales.
 P.I5 (leyes de potencias). Ruta avanzada: E.A4 y E.A5.
 """
 
-# ╔═╡ 72b2278e-ca80-11f1-a605-411e269ca031
+# ╔═╡ 7ad21e2a-ca89-11f1-8f14-0fb897c70423
 TableOfContents(title = "Contenido")
 
-# ╔═╡ 72b22798-ca80-11f1-942b-2f88d12f53b8
+# ╔═╡ 7ad21e34-ca89-11f1-8dff-b3dc92cb2354
 md"""
 ## 0. El fenómeno: ¿crecen igual los grandes y los pequeños?
 
@@ -78,23 +78,23 @@ están en `Data/municipios_2010_2020.csv` y se regeneran con
 `Code/descargar_inegi.jl`.
 """
 
-# ╔═╡ 72b227a2-ca80-11f1-a707-5dd76d00d838
+# ╔═╡ 7ad21e3e-ca89-11f1-80aa-3f29a0e6eecc
 municipios = CSV.read(joinpath(@__DIR__, "..", "Data", "municipios_2010_2020.csv"), DataFrame)
 
-# ╔═╡ 72b227a2-ca80-11f1-92a1-41b18fc0dd62
+# ╔═╡ 7ad21e3e-ca89-11f1-bfe2-41c88266bb20
 begin
     p10 = Float64.(municipios.poblacion_2010)
     p20 = Float64.(municipios.poblacion_2020)
     g = log.(p20 ./ p10)          # tasa de crecimiento logarítmica 2010–2020
 end;
 
-# ╔═╡ 72b227c0-ca80-11f1-8e39-ab53ebed0d9e
+# ╔═╡ 7ad21e5c-ca89-11f1-b890-57b1e87d312b
 gibrat_reg = let x = log.(p10)
     b = cov(x, g) / var(x)
     (b = b, R2 = cor(x, g)^2)
 end;
 
-# ╔═╡ 72b227b6-ca80-11f1-a82c-9f8769aa5627
+# ╔═╡ 7ad21e54-ca89-11f1-9fcb-e733dbcb5b8f
 md"""
 La ley de Gibrat dice dos cosas, y los datos responden distinto a cada una:
 
@@ -114,7 +114,7 @@ Gibrat es una buena **primera aproximación**. Veamos qué distribución de
 tamaños produce.
 """
 
-# ╔═╡ 72b227ca-ca80-11f1-8f1a-5957995f23ee
+# ╔═╡ 7ad21e66-ca89-11f1-bd6f-cbeddd99a19c
 md"""
 ## 1. Repaso: el logaritmo de un producto es una suma
 
@@ -136,7 +136,7 @@ histograma de ``x_n`` se vuelve cada vez más asimétrico, mientras el de
 Número de periodos ``n``: $(@bind n_factores Slider([1, 2, 5, 10, 25, 50, 100], default = 10, show_value = true))
 """
 
-# ╔═╡ 72b227d4-ca80-11f1-afd8-95a08ad2f61c
+# ╔═╡ 7ad21e70-ca89-11f1-8522-b18628f9aa50
 md"""
 ## 2. La ley de Gibrat no produce una ley de potencias
 
@@ -147,7 +147,7 @@ gráfica muestra la CCDF de los tamaños en tres momentos.
 Volatilidad del crecimiento ``\sigma``: $(@bind σ_gibrat Slider(0.05:0.05:0.5, default = 0.2, show_value = true))
 """
 
-# ╔═╡ 72b227e8-ca80-11f1-8b4b-23d97cdcfe2d
+# ╔═╡ 7ad21e86-ca89-11f1-808e-31a402d2428f
 md"""
 Dos problemas para explicar la ley de Zipf:
 
@@ -160,7 +160,7 @@ Dos problemas para explicar la ley de Zipf:
 Falta algo que impida que los tamaños se dispersen para siempre.
 """
 
-# ╔═╡ 72b227e8-ca80-11f1-9e21-6ff0820b1146
+# ╔═╡ 7ad21e86-ca89-11f1-9940-531e9bcc71a3
 md"""
 ## 3. Laboratorio: Gibrat con una barrera inferior
 
@@ -190,14 +190,14 @@ Media del crecimiento logarítmico ``m``: $(@bind m_barrera Slider(-0.10:0.005:-
   Mecanismo: $(@bind mecanismo Select(["Barrera inferior", "Kesten: x ← a·x + 1"]))
 """
 
-# ╔═╡ 72b22806-ca80-11f1-a7c4-f12025acf0e1
+# ╔═╡ 7ad21ea2-ca89-11f1-b04e-5f18bc5dfe00
 md"""
 **¿Cómo cambia el exponente con los parámetros?** La gráfica compara el
 exponente estimado con el teórico para varias combinaciones de ``m`` y ``s``,
 con los dos mecanismos.
 """
 
-# ╔═╡ 72b2281a-ca80-11f1-93d5-d3ed87c43b1e
+# ╔═╡ 7ad21eb4-ca89-11f1-b709-97418b51e0ba
 md"""
 Para la barrera, los puntos caen sobre la diagonal: ``\alpha = -2m/s^2``. Más
 ruido o menos encogimiento dan colas **más pesadas** (``\alpha`` menor). Kesten
@@ -207,34 +207,31 @@ corta. Es una lección general: un exponente medido en datos finitos puede
 diferir del asintótico.
 """
 
-# ╔═╡ 72b2281a-ca80-11f1-86e6-83783d811eae
+# ╔═╡ 7ad21eb4-ca89-11f1-8860-eb6bde617372
 md"""
 ## 4. ¿Por qué ``\alpha \approx 1`` en las ciudades?
 
 El mecanismo de la sección 3 produce cualquier exponente. ¿Por qué las
-ciudades eligen justamente ``\alpha = 1``? Gabaix (1999) observó que hay una
-restricción adicional: si medimos cada ciudad como **fracción de la población
-total**, el tamaño promedio no puede crecer ni encogerse, porque las
-fracciones suman 1. Con crecimiento de Gibrat, esa restricción y una barrera
-``x_{\min}`` muy por debajo del tamaño promedio ``\bar x`` dan
+ciudades eligen justamente ``\alpha = 1``? Gabaix (1999) observó que si
+medimos cada ciudad como **fracción de la población total**, el tamaño
+promedio es fijo porque las fracciones suman 1. Con crecimiento de Gibrat y
+una barrera ``x_{\min}`` muy pequeña frente al promedio ``\bar x``, el
+exponente estacionario es
 
 ```math
 \alpha = \frac{1}{1 - x_{\min}/\bar x} \;\longrightarrow\; 1
 \qquad \text{cuando } x_{\min}/\bar x \to 0 .
 ```
 
-La ley de Zipf sería, entonces, la huella de dos hechos: las ciudades crecen
-aproximadamente en proporción a su tamaño (sección 0) y la ciudad más pequeña
-es diminuta comparada con la promedio.
-
-Las localidades de México dieron ``\hat\alpha = 0.99`` (sesión 3), consistente
-con este argumento. Pero ojo: que un mecanismo **pueda** producir lo observado
-no prueba que sea **el** mecanismo. En la sección 0 vimos que el crecimiento
-de los municipios no es exactamente proporcional, y hay otros modelos que
-también dan Zipf.
+La ley de Zipf surge cuando las unidades crecen en proporción a su tamaño y
+el piso inferior es diminuto frente al promedio (en México,
+``\hat\alpha = 0.99`` en la sesión 3). Pero que un mecanismo **pueda**
+producir lo observado no prueba que sea **el** mecanismo: en la sección 0 vimos
+que el crecimiento de los municipios no es exactamente proporcional, y otros
+modelos también dan Zipf.
 """
 
-# ╔═╡ 72b22824-ca80-11f1-9659-29f1fed44f37
+# ╔═╡ 7ad21ec0-ca89-11f1-9d96-b34a1203700e
 md"""
 ## 5. [Avanzado] GARCH es un proceso de Kesten
 
@@ -254,7 +251,7 @@ Reacción ``a``: $(@bind a_k Slider(0.02:0.005:0.25, default = 0.075, show_value
   Memoria ``b``: $(@bind b_k Slider(0.70:0.0025:0.97, default = 0.9125, show_value = true))
 """
 
-# ╔═╡ 72b22838-ca80-11f1-aeb3-c5e462900e20
+# ╔═╡ 7ad21eca-ca89-11f1-b5cd-6db6bd2c5f54
 md"""
 ## Resumen
 
@@ -269,7 +266,7 @@ Y en los datos: el crecimiento de los municipios de México cumple la parte de
 Gibrat sobre la dispersión, pero no del todo la del promedio (urbanización).
 """
 
-# ╔═╡ 72b22838-ca80-11f1-b7b8-9b3a8d75e652
+# ╔═╡ 7ad21ed4-ca89-11f1-8de3-ffe434df3403
 md"""
 ## Ejercicios
 
@@ -280,52 +277,46 @@ tamaños y devuelva los tamaños después de un periodo del modelo de la
 sección 3. Genera los factores con `exp.(m .+ s .* randn(rng, length(x)))`.
 """
 
-# ╔═╡ 72b22842-ca80-11f1-bab7-e1980b2ef665
+# ╔═╡ 7ad21ed4-ca89-11f1-82ab-a775181f6c26
 function paso_barrera(x, m, s, xmin, rng)
     missing  # reemplaza esta línea
 end
 
-# ╔═╡ 72b2284c-ca80-11f1-a8c9-017ffcd05452
+# ╔═╡ 7ad21ede-ca89-11f1-a446-1f469abb1237
 md"""
 **2.** Escribe `alpha_barrera(m, s)`, que devuelva el exponente teórico de la
 sección 3.
 """
 
-# ╔═╡ 72b2284c-ca80-11f1-b213-c5aecb9769c1
+# ╔═╡ 7ad21ede-ca89-11f1-a933-03005a8e123a
 function alpha_barrera(m, s)
     missing  # reemplaza esta línea
 end
 
-# ╔═╡ 72b22856-ca80-11f1-84b6-c3cfa24c6670
+# ╔═╡ 7ad21ee6-ca89-11f1-9660-83e297c1fda8
 md"""
 ### Ruta básica: interpretación
 
 3. En la gráfica de la sección 0, ¿qué parte de la ley de Gibrat se cumple
    mejor? Propón una explicación económica para la que no se cumple.
-4. Si una variable es el producto de muchos factores aleatorios
-   independientes, ¿qué distribución esperas? ¿Por qué no una normal?
-5. En el modelo con barrera, ¿qué le pasa a la cola si la volatilidad ``s``
+4. En el modelo con barrera, ¿qué le pasa a la cola si la volatilidad ``s``
    se duplica? ¿Y si el encogimiento promedio ``|m|`` se duplica?
-6. Explica con tus palabras por qué hace falta una barrera (o un ingreso
-   fijo) para obtener una ley de potencias estable.
-7. Según el argumento de Gabaix, ¿qué esperarías del exponente de Zipf en un
-   país donde la ciudad más pequeña considerada tiene un tamaño cercano al
-   promedio?
+5. Explica con tus palabras por qué el crecimiento multiplicativo puro
+   produce una lognormal cuya varianza crece sin límite, y por qué basta un
+   piso inferior o un término aditivo (Kesten) para estabilizar una cola de
+   ley de potencias.
 
 ### Ruta avanzada
 
-8. Deriva ``\alpha = -2m/s^2`` para el modelo con barrera: escribe la
+6. Deriva ``\alpha = -2m/s^2`` para el modelo con barrera: escribe la
    ecuación de Fokker-Planck de ``y = \ln x`` (una difusión con deriva ``m``,
    varianza ``s^2`` y barrera reflejante), encuentra su solución estacionaria
    y transfórmala a ``x``.
-9. Para Kesten con ``\ln a \sim \mathcal{N}(m, s^2)``, verifica que la
+7. Para Kesten con ``\ln a \sim \mathcal{N}(m, s^2)``, verifica que la
    condición ``\mathbb{E}[a^\alpha] = 1`` da exactamente ``\alpha = -2m/s^2``.
-10. Simula el modelo de Gabaix: crecimiento con ``\mathbb{E}[a_t] = 1`` y
-    barrera igual a una fracción ``c`` del promedio. Compara el exponente
-    estimado con ``1/(1-c)`` para varios ``c``. ¿Qué pasa cuando ``c`` es muy
-    pequeño y por qué influye el número de ciudades?
-11. Regresa el crecimiento de los municipios sobre el logaritmo de su tamaño
-    agregando como control el estado. ¿Cambia la pendiente?
+8. Simula el modelo de Gabaix: crecimiento con ``\mathbb{E}[a_t] = 1`` y
+   barrera igual a una fracción ``c`` del promedio. Compara el exponente
+   estimado con ``1/(1-c)`` para varios ``c``.
 
 ## Para la próxima sesión
 
@@ -335,7 +326,7 @@ md"""
   activos, matrices aleatorias y la estructura de sectores del mercado.
 """
 
-# ╔═╡ 72b22860-ca80-11f1-bfa5-67d28625df6a
+# ╔═╡ 7ad21ef2-ca89-11f1-9827-070b062f638e
 md"""
 ---
 ## Apéndice: paquetes y funciones auxiliares
@@ -344,7 +335,7 @@ Estas celdas definen herramientas que usa el cuaderno. No es necesario
 leerlas para seguir la sesión.
 """
 
-# ╔═╡ 72b2286a-ca80-11f1-91f1-eb2b9c3aa05a
+# ╔═╡ 7ad21efc-ca89-11f1-a298-33cd54b9945e
 begin
     const AZUL    = "#2a78d6"   # serie principal
     const NARANJA = "#eb6834"   # segunda serie o teoría
@@ -352,7 +343,7 @@ begin
     const RAMPA   = ["#86b6ef", "#3987e5", "#1c5cab", "#0d366b"]   # azul secuencial
 end;
 
-# ╔═╡ 72b227ca-ca80-11f1-bd0e-a3bb461c2b9c
+# ╔═╡ 7ad21e66-ca89-11f1-8657-11e4a01f59a0
 let
     rng = Xoshiro(11)
     x = [prod(rand(rng, Uniform(0.7, 1.4), n_factores)) for _ in 1:10_000]
@@ -366,18 +357,18 @@ let
     plot(p1, p2; layout = (1, 2), size = (720, 300))
 end
 
-# ╔═╡ 72b22874-ca80-11f1-a676-557674c0fd67
+# ╔═╡ 7ad21efc-ca89-11f1-8f93-5b8e968462c1
 "Número entero con comas como separador de miles."
 miles(x) = replace(string(round(Int, x)), r"(?<=\d)(?=(\d{3})+$)" => ",")
 
-# ╔═╡ 72b22874-ca80-11f1-bd6f-b97a6bc1103a
+# ╔═╡ 7ad21f06-ca89-11f1-9639-237eb0b020af
 "Datos ordenados de mayor a menor y su CCDF empírica, P(X ≥ x)."
 function ccdf_empirica(x)
     s = sort(x; rev = true)
     s, (1:length(s)) ./ length(s)
 end
 
-# ╔═╡ 72b22880-ca80-11f1-a96c-d1ca8c15da4f
+# ╔═╡ 7ad21f06-ca89-11f1-8cdd-7dfe5f302bc2
 "Media y desviación estándar de `g` por decil de `x` (centro geométrico de cada decil)."
 function por_deciles(x, g)
     cortes = quantile(x, 0:0.1:1)
@@ -387,7 +378,7 @@ function por_deciles(x, g)
      sd = [std(g[grupo .== k]) for k in 1:10])
 end
 
-# ╔═╡ 72b227b6-ca80-11f1-a136-63c9829e632a
+# ╔═╡ 7ad21e54-ca89-11f1-8538-47c8a0a74756
 let
     d = por_deciles(p10, g)
     p1 = scatter(p10, 100 .* g; xscale = :log10, ms = 2, msw = 0, color = AZUL, alpha = 0.35,
@@ -405,7 +396,7 @@ let
     plot(p1, p2; layout = (2, 1), size = (720, 560))
 end
 
-# ╔═╡ 72b22880-ca80-11f1-b2db-c3e2485063c0
+# ╔═╡ 7ad21f10-ca89-11f1-8728-fd2db4cb9ae7
 "Gibrat puro: guarda los tamaños en los `tiempos` pedidos y la varianza de ln x en cada periodo."
 function simular_gibrat(σ; N = 10_000, tiempos = [10, 100, 1000], rng = Xoshiro(12))
     lx = zeros(N)
@@ -419,10 +410,10 @@ function simular_gibrat(σ; N = 10_000, tiempos = [10, 100, 1000], rng = Xoshiro
     (tiempos = tiempos, x = fotos, var_log = var_log)
 end
 
-# ╔═╡ 72b227dc-ca80-11f1-b426-79dee3272b03
+# ╔═╡ 7ad21e7a-ca89-11f1-a182-9bd1c5cae975
 gibrat_sim = simular_gibrat(σ_gibrat; N = 10_000, tiempos = [10, 100, 1000]);
 
-# ╔═╡ 72b227dc-ca80-11f1-9e27-19b52f59ae27
+# ╔═╡ 7ad21e7a-ca89-11f1-90ee-3b6584d59af9
 let
     p1 = plot(xscale = :log10, yscale = :log10, ylims = (1e-4, 1.2), legend = :bottomleft,
               xlabel = "tamaño x", ylabel = "P(X ≥ x)", title = "Gibrat puro: CCDF en tres momentos")
@@ -438,11 +429,11 @@ let
     plot(p1, p2; layout = (1, 2), size = (900, 340))
 end
 
-# ╔═╡ 72b22888-ca80-11f1-bfc2-2744a9dbc6e1
+# ╔═╡ 7ad21f10-ca89-11f1-844a-a3dadced708c
 "Un periodo del modelo de Gibrat con barrera inferior."
 paso_barrera_ref(x, m, s, xmin, rng) = max.(x .* exp.(m .+ s .* randn(rng, length(x))), xmin)
 
-# ╔═╡ 72b22888-ca80-11f1-bcd0-296177d18592
+# ╔═╡ 7ad21f18-ca89-11f1-a03f-ad363bd04c71
 "Gibrat con barrera inferior en x = 1, después de T periodos."
 function simular_barrera(m, s; N = 10_000, T = 2_000, rng = Xoshiro(13))
     x = ones(N)
@@ -452,7 +443,7 @@ function simular_barrera(m, s; N = 10_000, T = 2_000, rng = Xoshiro(13))
     x
 end
 
-# ╔═╡ 72b22888-ca80-11f1-a5b3-db87eb04d9b9
+# ╔═╡ 7ad21f18-ca89-11f1-af90-774821049a4e
 "Proceso de Kesten x ← a·x + 1, con ln a normal, después de T periodos."
 function simular_kesten(m, s; N = 10_000, T = 2_000, rng = Xoshiro(14))
     x = ones(N)
@@ -462,12 +453,12 @@ function simular_kesten(m, s; N = 10_000, T = 2_000, rng = Xoshiro(14))
     x
 end
 
-# ╔═╡ 72b227f2-ca80-11f1-8d99-7b15f8792aa7
+# ╔═╡ 7ad21e8e-ca89-11f1-a2ae-29bfe177d4da
 sim_barrera = mecanismo == "Barrera inferior" ?
     simular_barrera(m_barrera, s_barrera; N = 10_000, T = 2_000) :
     simular_kesten(m_barrera, s_barrera; N = 10_000, T = 2_000);
 
-# ╔═╡ 72b227fc-ca80-11f1-9333-35a21fffde88
+# ╔═╡ 7ad21e98-ca89-11f1-940b-01fd9fe272f7
 let
     α_teo = -2m_barrera / s_barrera^2
     s, P = ccdf_empirica(sim_barrera)
@@ -481,7 +472,7 @@ let
           label = "Teoría: pendiente −α = $(round(-α_teo, digits = 2))")
 end
 
-# ╔═╡ 72b22892-ca80-11f1-8c60-7163cbefe601
+# ╔═╡ 7ad21f24-ca89-11f1-900e-e1f83e82d8a0
 """
 Método de Clauset, Shalizi y Newman (2009): elige `xmin` minimizando la
 distancia de Kolmogorov-Smirnov y estima α por máxima verosimilitud.
@@ -503,10 +494,10 @@ function clauset(x; candidatos = quantile(x, 0.5:0.005:0.995), nmin = 50)
                         se = res.α[i] / sqrt(res.n[i])))
 end
 
-# ╔═╡ 72b227fc-ca80-11f1-a9ff-9f717171b924
+# ╔═╡ 7ad21e8e-ca89-11f1-9363-9bd08e3437d7
 ajuste_barrera = clauset(sim_barrera).mejor;
 
-# ╔═╡ 72b22806-ca80-11f1-a11a-53b0c3618ff9
+# ╔═╡ 7ad21ea2-ca89-11f1-8373-491b23bd139f
 md"""
 Con ``m = `` $(m_barrera) y ``s = `` $(s_barrera), la teoría predice
 ``\alpha = `` $(round(-2m_barrera / s_barrera^2, digits = 2)). Estimado con el
@@ -521,7 +512,7 @@ así que con ``\alpha`` grande la estimación suele quedar por debajo de la
 teoría.
 """
 
-# ╔═╡ 72b2289c-ca80-11f1-808c-1b5ca8df82df
+# ╔═╡ 7ad21f24-ca89-11f1-9e03-e1de5b14d3ea
 "Exponente estimado contra teórico para varias combinaciones de (m, s), con ambos mecanismos."
 function barrido_exponentes()
     combos = [(-0.01, 0.2), (-0.02, 0.2), (-0.03, 0.2), (-0.04, 0.2), (-0.03, 0.3),
@@ -532,10 +523,10 @@ function barrido_exponentes()
     (teo = teo, barrera = barrera, kesten = kesten)
 end
 
-# ╔═╡ 72b2280e-ca80-11f1-befa-d13601356f69
+# ╔═╡ 7ad21eac-ca89-11f1-a54e-e750fbc099fe
 barrido = barrido_exponentes();
 
-# ╔═╡ 72b2280e-ca80-11f1-995c-315c1a89add6
+# ╔═╡ 7ad21eac-ca89-11f1-8f85-c150cc8d253d
 let
     p = plot([0, 3.5], [0, 3.5]; color = GRIS, ls = :dash, lw = 1.5, label = "Estimado = teórico",
              xlabel = "α teórico = −2m/s²", ylabel = "α estimado", legend = :topleft,
@@ -546,7 +537,7 @@ let
              label = "Kesten")
 end
 
-# ╔═╡ 72b2289c-ca80-11f1-907b-8d6ceebdecf2
+# ╔═╡ 7ad21f2e-ca89-11f1-b3df-efdb84ea03f9
 """
 Exponente κ de la cola de σ² en GARCH(1,1): resuelve E[(aZ² + b)^κ] = 1 con Z
 normal estándar, por bisección y cuadratura en una malla fina.
@@ -564,7 +555,7 @@ function kappa_garch(a, b)
     (lo + hi) / 2
 end
 
-# ╔═╡ 72b2282e-ca80-11f1-a242-ab22604ba0cc
+# ╔═╡ 7ad21eca-ca89-11f1-b64d-6bd76e3162db
 md"""
 $(a_k + b_k >= 1 ? md"Con ``a + b \ge 1`` el proceso no es estacionario." : md"Con ``a = `` $(a_k) y ``b = `` $(b_k), el exponente de la cola de los retornos es ``2\kappa = `` $(round(2kappa_garch(a_k, b_k), digits = 2)).")
 
@@ -582,7 +573,7 @@ de los datos: sus colas son más ligeras. Es la explicación teórica de lo que
 vimos en el laboratorio de la sesión 5.
 """
 
-# ╔═╡ 72b228a6-ca80-11f1-88d4-7b87e236a6b1
+# ╔═╡ 7ad21f38-ca89-11f1-ba6a-17af166762fd
 "Muestra si la respuesta de un ejercicio es correcta."
 function verificar(f, esperado; rtol = 1e-8, pista = md"")
     caja(tipo, titulo, texto) = Markdown.MD(Markdown.Admonition(tipo, titulo, [texto]))
@@ -603,61 +594,61 @@ function verificar(f, esperado; rtol = 1e-8, pista = md"")
     end
 end
 
-# ╔═╡ 72b22842-ca80-11f1-b1d1-e380e043cd17
+# ╔═╡ 7ad21ede-ca89-11f1-b1ca-799cba1a7629
 verificar(() -> paso_barrera(fill(2.0, 1000), -0.05, 0.3, 1.0, Xoshiro(1)),
           paso_barrera_ref(fill(2.0, 1000), -0.05, 0.3, 1.0, Xoshiro(1));
           pista = md"Multiplica `x` por los factores elemento a elemento (`.*`) y aplica `max.(…, xmin)` para que nadie quede por debajo de la barrera.")
 
-# ╔═╡ 72b22856-ca80-11f1-9b3d-3347ac6943b2
+# ╔═╡ 7ad21ee6-ca89-11f1-a573-6bdb0c31d93c
 verificar(() -> alpha_barrera(-0.03, 0.25), 0.96;
           pista = md"La fórmula es ``\alpha = -2m/s^2``.")
 
 # ╔═╡ Cell order:
-# ╟─72b2275c-ca80-11f1-a543-c7ba0ef3d512
-# ╟─72b2278e-ca80-11f1-a605-411e269ca031
-# ╟─72b22798-ca80-11f1-942b-2f88d12f53b8
-# ╠═72b227a2-ca80-11f1-a707-5dd76d00d838
-# ╠═72b227a2-ca80-11f1-92a1-41b18fc0dd62
-# ╟─72b227b6-ca80-11f1-a136-63c9829e632a
-# ╟─72b227b6-ca80-11f1-a82c-9f8769aa5627
-# ╟─72b227c0-ca80-11f1-8e39-ab53ebed0d9e
-# ╟─72b227ca-ca80-11f1-8f1a-5957995f23ee
-# ╟─72b227ca-ca80-11f1-bd0e-a3bb461c2b9c
-# ╟─72b227d4-ca80-11f1-afd8-95a08ad2f61c
-# ╟─72b227dc-ca80-11f1-b426-79dee3272b03
-# ╟─72b227dc-ca80-11f1-9e27-19b52f59ae27
-# ╟─72b227e8-ca80-11f1-8b4b-23d97cdcfe2d
-# ╟─72b227e8-ca80-11f1-9e21-6ff0820b1146
-# ╟─72b227f2-ca80-11f1-8d99-7b15f8792aa7
-# ╟─72b227fc-ca80-11f1-a9ff-9f717171b924
-# ╟─72b227fc-ca80-11f1-9333-35a21fffde88
-# ╟─72b22806-ca80-11f1-a11a-53b0c3618ff9
-# ╟─72b22806-ca80-11f1-a7c4-f12025acf0e1
-# ╟─72b2280e-ca80-11f1-befa-d13601356f69
-# ╟─72b2280e-ca80-11f1-995c-315c1a89add6
-# ╟─72b2281a-ca80-11f1-93d5-d3ed87c43b1e
-# ╟─72b2281a-ca80-11f1-86e6-83783d811eae
-# ╟─72b22824-ca80-11f1-9659-29f1fed44f37
-# ╟─72b2282e-ca80-11f1-a242-ab22604ba0cc
-# ╟─72b22838-ca80-11f1-aeb3-c5e462900e20
-# ╟─72b22838-ca80-11f1-b7b8-9b3a8d75e652
-# ╠═72b22842-ca80-11f1-bab7-e1980b2ef665
-# ╟─72b22842-ca80-11f1-b1d1-e380e043cd17
-# ╟─72b2284c-ca80-11f1-a8c9-017ffcd05452
-# ╠═72b2284c-ca80-11f1-b213-c5aecb9769c1
-# ╟─72b22856-ca80-11f1-9b3d-3347ac6943b2
-# ╟─72b22856-ca80-11f1-84b6-c3cfa24c6670
-# ╟─72b22860-ca80-11f1-bfa5-67d28625df6a
-# ╠═72b22860-ca80-11f1-93ab-bb4f57361bb4
-# ╠═72b2286a-ca80-11f1-91f1-eb2b9c3aa05a
-# ╠═72b22874-ca80-11f1-a676-557674c0fd67
-# ╠═72b22874-ca80-11f1-bd6f-b97a6bc1103a
-# ╠═72b22880-ca80-11f1-a96c-d1ca8c15da4f
-# ╠═72b22880-ca80-11f1-b2db-c3e2485063c0
-# ╠═72b22888-ca80-11f1-bfc2-2744a9dbc6e1
-# ╠═72b22888-ca80-11f1-bcd0-296177d18592
-# ╠═72b22888-ca80-11f1-a5b3-db87eb04d9b9
-# ╠═72b22892-ca80-11f1-8c60-7163cbefe601
-# ╠═72b2289c-ca80-11f1-808c-1b5ca8df82df
-# ╠═72b2289c-ca80-11f1-907b-8d6ceebdecf2
-# ╠═72b228a6-ca80-11f1-88d4-7b87e236a6b1
+# ╟─7ad21df8-ca89-11f1-97ba-cdac1f0b5427
+# ╟─7ad21e2a-ca89-11f1-8f14-0fb897c70423
+# ╟─7ad21e34-ca89-11f1-8dff-b3dc92cb2354
+# ╠═7ad21e3e-ca89-11f1-80aa-3f29a0e6eecc
+# ╠═7ad21e3e-ca89-11f1-bfe2-41c88266bb20
+# ╟─7ad21e54-ca89-11f1-8538-47c8a0a74756
+# ╟─7ad21e54-ca89-11f1-9fcb-e733dbcb5b8f
+# ╟─7ad21e5c-ca89-11f1-b890-57b1e87d312b
+# ╟─7ad21e66-ca89-11f1-bd6f-cbeddd99a19c
+# ╟─7ad21e66-ca89-11f1-8657-11e4a01f59a0
+# ╟─7ad21e70-ca89-11f1-8522-b18628f9aa50
+# ╟─7ad21e7a-ca89-11f1-a182-9bd1c5cae975
+# ╟─7ad21e7a-ca89-11f1-90ee-3b6584d59af9
+# ╟─7ad21e86-ca89-11f1-808e-31a402d2428f
+# ╟─7ad21e86-ca89-11f1-9940-531e9bcc71a3
+# ╟─7ad21e8e-ca89-11f1-a2ae-29bfe177d4da
+# ╟─7ad21e8e-ca89-11f1-9363-9bd08e3437d7
+# ╟─7ad21e98-ca89-11f1-940b-01fd9fe272f7
+# ╟─7ad21ea2-ca89-11f1-8373-491b23bd139f
+# ╟─7ad21ea2-ca89-11f1-b04e-5f18bc5dfe00
+# ╟─7ad21eac-ca89-11f1-a54e-e750fbc099fe
+# ╟─7ad21eac-ca89-11f1-8f85-c150cc8d253d
+# ╟─7ad21eb4-ca89-11f1-b709-97418b51e0ba
+# ╟─7ad21eb4-ca89-11f1-8860-eb6bde617372
+# ╟─7ad21ec0-ca89-11f1-9d96-b34a1203700e
+# ╟─7ad21eca-ca89-11f1-b64d-6bd76e3162db
+# ╟─7ad21eca-ca89-11f1-b5cd-6db6bd2c5f54
+# ╟─7ad21ed4-ca89-11f1-8de3-ffe434df3403
+# ╠═7ad21ed4-ca89-11f1-82ab-a775181f6c26
+# ╟─7ad21ede-ca89-11f1-b1ca-799cba1a7629
+# ╟─7ad21ede-ca89-11f1-a446-1f469abb1237
+# ╠═7ad21ede-ca89-11f1-a933-03005a8e123a
+# ╟─7ad21ee6-ca89-11f1-a573-6bdb0c31d93c
+# ╟─7ad21ee6-ca89-11f1-9660-83e297c1fda8
+# ╟─7ad21ef2-ca89-11f1-9827-070b062f638e
+# ╠═7ad21efc-ca89-11f1-a183-4f3484351f7e
+# ╠═7ad21efc-ca89-11f1-a298-33cd54b9945e
+# ╠═7ad21efc-ca89-11f1-8f93-5b8e968462c1
+# ╠═7ad21f06-ca89-11f1-9639-237eb0b020af
+# ╠═7ad21f06-ca89-11f1-8cdd-7dfe5f302bc2
+# ╠═7ad21f10-ca89-11f1-8728-fd2db4cb9ae7
+# ╠═7ad21f10-ca89-11f1-844a-a3dadced708c
+# ╠═7ad21f18-ca89-11f1-a03f-ad363bd04c71
+# ╠═7ad21f18-ca89-11f1-af90-774821049a4e
+# ╠═7ad21f24-ca89-11f1-900e-e1f83e82d8a0
+# ╠═7ad21f24-ca89-11f1-9e03-e1de5b14d3ea
+# ╠═7ad21f2e-ca89-11f1-b3df-efdb84ea03f9
+# ╠═7ad21f38-ca89-11f1-ba6a-17af166762fd

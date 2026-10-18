@@ -9,8 +9,9 @@ md"""
    en los retornos financieros.
 3. Distinguir una ley de potencias de una lognormal, y entender por qué no
    basta con "ver una recta".
-4. Estimar el exponente de una cola con recetas confiables: máxima
-   verosimilitud, el estimador de Hill y la elección de ``x_{\min}``.
+4. Estimar el exponente de una cola con una receta confiable, el estimador de
+   Hill. **[Avanzado]** Elegir ``x_{\min}`` con el método de Clauset, Shalizi y
+   Newman.
 
 **Cómo usar este cuaderno.** Como en la sesión 1, Pluto es reactivo: al mover
 un deslizador o cambiar un selector, todo lo que depende de ese valor se
@@ -323,14 +324,19 @@ los cuatro activos?
 
 #%% hide
 md"""
-## 5. ¿Cómo se mide α? Tres recetas
+## 5. ¿Cómo se mide α?
 
-### 5.1 La tentación: ajustar una recta
+### 5.1 La tentación de ajustar una recta frente a la receta de Hill
 
 Si la CCDF es una recta en log-log, ¿por qué no ajustar una recta por mínimos
 cuadrados y leer la pendiente? Hagamos un experimento: generamos 1000
 muestras de 200 datos de una Pareto con ``\alpha = 2`` (sabemos la respuesta)
-y estimamos ``\alpha`` en cada una de dos formas.
+y comparamos la recta por mínimos cuadrados con la **receta de Hill**, que
+promedia los logaritmos de los datos respecto al umbral ``x_{\min}``:
+
+```math
+\hat\alpha = \frac{n}{\sum_{i=1}^{n} \ln(x_i / x_{\min})} .
+```
 """
 
 #%% hide
@@ -344,7 +350,7 @@ let
                   xlabel = "α estimado", ylabel = "número de muestras",
                   title = "1000 muestras de una Pareto con α = 2 (200 datos cada una)")
     histogram!(p, experimento.mle; bins = bordes, color = AZUL, alpha = 0.55, lw = 0,
-               label = "Máxima verosimilitud")
+               label = "Receta de Hill (máxima verosimilitud)")
     vline!(p, [2.0]; color = GRIS, lw = 1.5, ls = :dash, label = "Valor verdadero")
 end
 
@@ -353,27 +359,21 @@ md"""
 | Método | Promedio de ``\hat\alpha`` | Desviación estándar |
 |---|---|---|
 | Recta por mínimos cuadrados | $(round(mean(experimento.ols), digits = 2)) | $(round(std(experimento.ols), digits = 2)) |
-| Máxima verosimilitud | $(round(mean(experimento.mle), digits = 2)) | $(round(std(experimento.mle), digits = 2)) |
+| Receta de Hill (máxima verosimilitud) | $(round(mean(experimento.mle), digits = 2)) | $(round(std(experimento.mle), digits = 2)) |
 
 La recta es más imprecisa: los puntos de la CCDF no son independientes (cada
 uno incluye a todos los que están a su derecha) y los últimos, que tienen muy
-pocos datos, pesan lo mismo que los demás. Además, sus errores estándar no son
-válidos. La **máxima verosimilitud** usa la fórmula
-
-```math
-\hat\alpha = \frac{n}{\sum_{i=1}^{n} \ln(x_i / x_{\min})},
-```
-
-que es más precisa y tiene un error estándar conocido,
-``\hat\alpha/\sqrt{n}`` (repaso P.A3).
+pocos datos, pesan lo mismo que los demás. La receta de Hill (que en la ruta
+avanzada se obtiene por máxima verosimilitud, repaso P.A3) es más precisa y su
+error estándar es ``\hat\alpha/\sqrt{n}``.
 """
 
 #%% hide
 md"""
-### 5.2 El estimador de Hill
+### 5.2 El estimador de Hill en la cola
 
 En la práctica, sólo la **cola** sigue una ley de potencias. El **estimador de
-Hill** aplica la fórmula anterior a los ``k`` datos más grandes, usando como
+Hill** aplica la receta anterior a los ``k`` datos más grandes, usando como
 ``x_{\min}`` el dato número ``k + 1``:
 
 ```math
@@ -410,8 +410,7 @@ el estimador de Hill da ``\hat\alpha = `` $(round(hill_actual.α, digits = 2)) �
 
 Con ``k`` muy pequeño hay pocos datos y mucho ruido; con ``k`` muy grande se
 incluye el centro de la distribución, que no es ley de potencias, y el
-estimador se sesga. Por eso el resultado depende de una decisión que
-conviene hacer con un criterio objetivo.
+estimador se sesga.
 """
 
 #%% hide
@@ -419,9 +418,10 @@ hill_actual = (k = round(Int, frac_k * length(z)), hill(abs.(z), round(Int, frac
 
 #%% hide
 md"""
-### 5.3 Elegir ``x_{\min}`` con un criterio: Kolmogorov-Smirnov
+### 5.3 [Avanzado] Elegir ``x_{\min}`` con el método de Clauset, Shalizi y Newman
 
-Clauset, Shalizi y Newman (2009) proponen una receta:
+Para elegir ``x_{\min}`` sin hacerlo a ojo, Clauset, Shalizi y Newman (2009)
+proponen:
 
 1. Para cada candidato a ``x_{\min}``, estimar ``\alpha`` por máxima
    verosimilitud con los datos mayores o iguales a ``x_{\min}``.
@@ -459,8 +459,8 @@ con $(ajuste_activo.mejor.n) días en la cola.
 md"""
 ## 6. Universalidad de las colas
 
-La tabla aplica la receta de la sección 5.3 a los cuatro activos, por
-separado para caídas, subidas y valor absoluto.
+La tabla resume los exponentes estimados para los cuatro activos (por separado
+para caídas, subidas y valor absoluto) y para las localidades de México:
 """
 
 #%% hide
@@ -538,7 +538,7 @@ md"""
 | Ley de Zipf | ``\alpha = 1`` en tamaños | Localidades de México: ``\hat\alpha \approx 1`` |
 | Ley cúbica inversa | ``\alpha \approx 3`` en retornos | IPC, USD/MXN y S&P 500 cerca de 3; Bitcoin asimétrico |
 | Lognormal | Curva en log-log, pero puede parecer recta | Ver una recta no basta |
-| Estimación | Máxima verosimilitud o Hill, con ``x_{\min}`` elegido por KS | La recta por mínimos cuadrados es menos precisa |
+| Estimación | Receta de Hill en la cola; elección de ``x_{\min}`` por KS [Avanzado] | La recta por mínimos cuadrados es menos precisa |
 """
 
 #%% hide
@@ -581,37 +581,27 @@ verificar(() -> pendiente_loglog(collect(1.0:100.0), 3 .* collect(1.0:100.0) .^ 
 md"""
 ### Ruta básica: interpretación
 
-3. Con el deslizador de la sección 1: ¿qué le pasa a la CCDF cuando ``\alpha``
-   crece? ¿Cuántos momentos finitos tiene una distribución con ``\alpha = 2.5``?
-4. Si las localidades siguieran exactamente la ley de Zipf, ¿cuántos
-   habitantes tendría la décima localidad comparada con la primera? ¿Se
-   cumple en la tabla de la sección 0? ¿Qué papel juega la forma en que se
-   define una localidad?
-5. ¿Qué activo tiene la cola más pesada según la tabla de la sección 6?
-   ¿Coincide con el orden por curtosis de la sesión 1? ¿Por qué podrían no
-   coincidir?
-6. Si los días con ``|z| > 3`` ocurren 12 veces al año en un mercado con
+3. Si las localidades siguieran exactamente la ley de Zipf (``\alpha = 1``),
+   ¿cuántos habitantes tendría la décima localidad comparada con la primera?
+   ¿Se cumple en la tabla de la sección 0?
+4. Si los días con ``|z| > 3`` ocurren 12 veces al año en un mercado con
    ``\alpha = 3``, ¿cuántas veces al año esperarías días con ``|z| > 6``?
    ¿Cuántas si los retornos fueran normales?
-7. En la gráfica de Hill, ¿por qué el intervalo se ensancha a la izquierda y
-   el estimador se aleja de 3 a la derecha?
+5. En la gráfica de Hill de la sección 5.2, ¿por qué el intervalo de confianza
+   se ensancha a la izquierda (``k`` pequeño) y el estimador se aleja de 3 a la
+   derecha (``k`` grande)?
 
 ### Ruta avanzada
 
-8. **Bondad de ajuste.** Para el S&P 500, calcula el p-valor de la ley de
-   potencias con el bootstrap de Clauset et al. (2009): genera muchas
-   muestras sintéticas (datos reales por debajo de ``x_{\min}``, Pareto por
-   encima), aplica a cada una la receta completa de la sección 5.3 y compara
-   sus distancias KS con la observada.
-9. **Ley de potencias contra lognormal.** Para las localidades por encima de
-   ``x_{\min}``, ajusta también una lognormal truncada por máxima
-   verosimilitud y compara ambas con la prueba de Vuong (repaso S.A2).
-   ¿Pueden los datos distinguirlas?
-10. Demuestra que si ``P(X > x) = (x/x_{\min})^{-\alpha}``, entonces
-    ``\mathbb{E}[X^n]`` es finito si y sólo si ``n < \alpha``, y deriva el
-    estimador de máxima verosimilitud de ``\alpha``.
-11. Con la simulación de la sección 7, mide la mediana de ``|S_n|`` para
-    varios ``n`` y verifica que crece como ``n^{1/\alpha}`` cuando ``\alpha < 2``.
+6. Demuestra que si ``P(X > x) = (x/x_{\min})^{-\alpha}``, entonces
+   ``\mathbb{E}[X^n]`` es finito si y sólo si ``n < \alpha``, y deriva el
+   estimador de máxima verosimilitud de ``\alpha``.
+7. **Ley de potencias contra lognormal.** Para las localidades por encima de
+   ``x_{\min}``, ajusta también una lognormal truncada por máxima verosimilitud
+   y compara ambas con la prueba de Vuong (repaso S.A2). ¿Pueden los datos
+   distinguirlas?
+8. Con la simulación de la sección 7, mide la mediana de ``|S_n|`` para varios
+   ``n`` y verifica que crece como ``n^{1/\alpha}`` cuando ``\alpha < 2``.
 
 ## Para la próxima sesión
 
@@ -621,8 +611,8 @@ md"""
 - Ruta avanzada: Mantegna y Stanley (1999), capítulos 3 y 4; Requião da Cunha
   (2021), secciones 2.2.5 y 2.2.6; Clauset, Shalizi y Newman (2009),
   *Power-law distributions in empirical data*, secciones 1 a 4.
-- En la sesión 4 pasamos de las distribuciones a los **procesos**: qué
-  mecanismos aleatorios generan series como las que medimos.
+- En la **sesión 4** pasamos de describir distribuciones a construir **procesos
+  en el tiempo**: la caminata aleatoria y las cadenas de Markov.
 """
 
 #%% hide

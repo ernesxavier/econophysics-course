@@ -526,38 +526,37 @@ md"""
 3. ¿Por qué barajar cada serie por separado destruye las correlaciones pero
    conserva la distribución de rendimientos de cada acción? ¿Qué pasaría si
    barajáramos los días de todas las acciones con la **misma** permutación?
-4. Si el mercado explica el 36% de la varianza, ¿qué significa eso para un
-   inversionista que cree estar diversificado porque tiene 95 acciones?
-5. En la sección 3, ``\lambda_1/N`` subió en 2020. Explica con tus palabras
-   por qué la diversificación falla justo en las crisis.
-6. Elige una rama del árbol que no sea de un solo sector e investiga qué
-   tienen en común sus empresas.
-7. ¿Cómo afecta el sesgo de supervivencia a lo que vimos? Piensa en qué
-   tipo de empresas salen del índice.
+4. Si el modo de mercado explica el 36% de la varianza y ``\lambda_1/N`` sube
+   en 2020 (sección 3), ¿qué significa eso para un inversionista que cree estar
+   protegido en una crisis sólo porque tiene 95 acciones distintas?
+5. Elige una rama del árbol de expansión mínima de la sección 5 y explica qué
+   tienen en común sus empresas y por qué una empresa como Berkshire Hathaway
+   (BRK-B) queda cerca del centro.
 
 ### Ruta avanzada
 
-8. Para el modelo de un factor, ``C = (1-\rho)I + \rho\,\mathbf{1}\mathbf{1}^\top``,
+6. Para el modelo de un factor, ``C = (1-\rho)I + \rho\,\mathbf{1}\mathbf{1}^\top``,
    demuestra que ``\lambda_1 = 1 + (N-1)\rho`` con ``v_1 = \mathbf{1}/\sqrt{N}``
    y que los demás eigenvalores valen ``1 - \rho``. Usa la correlación
    promedio de la sección 1 para predecir ``\lambda_1`` y compárala con la
    observada.
-9. Simula ``N = 100`` series normales independientes con ``T = 400`` y
+7. Simula ``N = 100`` series normales independientes con ``T = 400`` y
    verifica la ley de Marchenko-Pastur. Repite con series ``t`` de Student
    con 3 grados de libertad: ¿cambia el borde ``\lambda_+``?
-10. Quita el modo de mercado: regresa cada serie sobre la cartera ``v_1`` y
-    calcula la matriz de correlación de los residuos. ¿Qué eigenvalores
-    quedan fuera del ruido? ¿Cambia el árbol?
-11. Construye el árbol con los datos de 2015–2019 y con los de 2022–2026.
-    ¿Qué enlaces sobreviven? Propón una medida de cuánto cambió.
+8. Quita el modo de mercado: regresa cada serie sobre la cartera ``v_1`` y
+   calcula la matriz de correlación de los residuos. ¿Qué eigenvalores
+   quedan fuera del ruido? ¿Cambia el árbol?
 
 ## Para la próxima sesión
 
 - Lectura: Mantegna y Stanley (1999), capítulos 12 y 13. Complementaria:
   Slanina (2014), sección 1.4; Mantegna (1999). Para la ruta avanzada,
   Requião da Cunha (2021), sección 5.2; Laloux et al. (1999).
+- **Cierre del Módulo I**: con esta sesión se entrega el taller para casa del
+  Módulo I (hechos estilizados y colas de un activo distinto a los vistos en
+  clase).
 - En la sesión 8 empieza el Módulo II: la **distribución del dinero** como
-  un problema de física estadística (máxima entropía y modelos de
+  un problema de física estadística (curva de Lorenz, Gini y modelos de
   intercambio).
 """
 

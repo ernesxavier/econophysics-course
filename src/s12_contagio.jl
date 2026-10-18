@@ -590,24 +590,18 @@ md"""
 4. Un regulador observa diez años sin ninguna crisis bancaria y concluye
    que el sistema es estable. Según la sección 3, ¿por qué podría estar
    equivocado?
-5. En el modelo de Gai y Kapadia, ¿qué dos políticas cierran la ventana de
-   contagio? ¿Cuál te parece más fácil de aplicar?
-6. ¿Por qué DebtRank da pérdidas mayores que un modelo en el que sólo
-   importan las quiebras?
-7. Da un argumento a favor y uno en contra de rescatar a un banco que es
-   "demasiado central para caer".
+5. Da un argumento a favor y uno en contra de rescatar a un banco que es
+   "demasiado central para caer", usando lo que mide DebtRank.
 
 ### Ruta avanzada
 
-8. Modifica `rondas_cascada` para que el umbral de cada nodo sea aleatorio,
+6. Modifica `rondas_cascada` para que el umbral de cada nodo sea aleatorio,
    con distribución uniforme entre 0.1 y 0.3. ¿Cómo cambia la ventana?
-9. Repite la sección 4 con un apalancamiento distinto para cada banco
+7. Repite la sección 4 con un apalancamiento distinto para cada banco
    (por ejemplo, ``\ell_i`` uniforme entre 0.3 y 1.2). Calcula el radio
    espectral de ``\Lambda`` y compara con lo que pasa ante un choque del 1%.
-10. Demuestra que ``\Phi`` de la sección 5 es creciente y que la iteración
-    desde ``p = \bar p`` es una sucesión decreciente. ¿Por qué converge?
-11. En el ejemplo de Acemoglu et al., ¿con qué ``\varepsilon`` exacto pasa la
-    red completa de 1 a 10 quiebras? Explica el valor.
+8. Demuestra que ``\Phi`` de la sección 5 es creciente y que la iteración
+   desde ``p = \bar p`` es una sucesión decreciente. ¿Por qué converge?
 
 ## Para la próxima sesión
 

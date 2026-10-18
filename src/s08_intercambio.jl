@@ -504,32 +504,24 @@ verificar(() -> intercambio(3.0, 1.0, 0.5, 0.1), [1.7, 2.3];
 md"""
 ### Ruta básica: interpretación
 
-3. ¿Por qué el Gini de una exponencial no depende de ``T``? ¿Qué significa
-   eso para un país con el doble de dinero promedio y la misma regla de
-   intercambio?
-4. En el modelo sin ahorro nadie es más hábil que otro. ¿Qué nos dice el
+3. En el modelo sin ahorro nadie es más hábil que otro. ¿Qué nos dice el
    modelo sobre la desigualdad que observamos? ¿Qué **no** nos dice?
-5. Explica con tus palabras por qué ahorrar reduce la desigualdad en el
+4. Explica con tus palabras por qué ahorrar reduce la desigualdad en el
    modelo de la sección 3.
-6. En la ENIGH, compara el Gini por hogar con el Gini por persona. ¿Por qué
-   difieren?
-7. ¿Por qué las encuestas de hogares subestiman la cola de la distribución?
-   ¿Qué otra fuente de datos usarías para medirla?
+5. ¿Por qué las encuestas de hogares como la ENIGH subestiman la cola de la
+   distribución? ¿Qué otra fuente de datos usarías para medirla?
 
 ### Ruta avanzada
 
-8. Demuestra que el Gini de una exponencial es 1/2 y que el de una gamma
+6. Demuestra que el Gini de una exponencial es 1/2 y que el de una gamma
    con forma ``n`` es ``\Gamma(n + 1/2) / \big(n\, \Gamma(n) \sqrt{\pi}\big)``.
-9. Calcula la varianza estacionaria del dinero en el modelo con ahorro
+7. Calcula la varianza estacionaria del dinero en el modelo con ahorro
    uniforme: escribe ``\mathbb{E}[m_i'^2]`` en términos de ``\mathbb{E}[m^2]`` y
    ``\mathbb{E}[m]^2``, impón estacionariedad y deduce ``n = 1 + 3\lambda/(1-\lambda)``.
-10. Repite el laboratorio con el **ingreso por trabajo** (columna
-    `ingreso_trabajo`) en lugar del ingreso corriente. ¿Qué cambia y por
-    qué? (Pista: ¿cuántos hogares tienen ingreso por trabajo igual a cero?)
-11. Calcula el Gini de la ENIGH con intervalos de confianza bootstrap
-    remuestreando hogares (repaso S.I1). ¿Es estadísticamente distinto el
-    Gini de las localidades rurales (`tam_loc == 4`) del de las ciudades
-    grandes (`tam_loc == 1`)?
+8. Calcula el Gini de la ENIGH con intervalos de confianza bootstrap
+   remuestreando hogares (repaso S.I1). ¿Es estadísticamente distinto el
+   Gini de las localidades rurales (`tam_loc == 4`) del de las ciudades
+   grandes (`tam_loc == 1`)?
 
 ## Para la próxima sesión
 

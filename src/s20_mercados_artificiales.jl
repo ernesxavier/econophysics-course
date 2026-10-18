@@ -245,6 +245,10 @@ Cuando el desalineamiento acumulado hace atractivo el fundamentalismo
 md"""
 ## 3. Cierre del ciclo: el análisis de las sesiones 1 y 2 en series simuladas y reales
 
+Esta sección es el punto de partida del **taller para casa del Módulo III**.
+En clase basta con leer la tabla; en el taller se repite el análisis con otros
+modelos y parámetros.
+
 Pongamos a prueba lo aprendido en las 20 sesiones aplicando exactamente las
 gráficas de diagnóstico de las **sesiones 1 y 2** a tres series de retornos
 estandarizados ``z_t = (r_t - \hat\mu)/\hat\sigma``:
@@ -439,30 +443,29 @@ verificar(() -> [paso_precio_bh(2.0, 0.85, 1.2, 1.01),
 
 #%% hide
 md"""
-**3.** Escribe `varianza_condicional_fc(z, sigma_f, sigma_c)`, que calcule la
-varianza condicional del exceso de demanda ``(1 - z)^2 \sigma_f^2 + z^2 \sigma_c^2``
-cuando una fracción `z` de los agentes son chartistas (con ruido `sigma_c`) y
-una fracción `1 - z` son fundamentalistas (con ruido `sigma_f`). La varianza
-del retorno es ``\mu^2`` veces este valor.
+### Ruta básica: interpretación
+
+3. En el laboratorio de la sección 1, ¿por qué un costo de información ``C > 0``
+   para ser fundamentalista es indispensable para que el aumento de ``\beta``
+   desestabilice el equilibrio fundamental cuando ``R < g < 2R``? ¿Qué ocurre si
+   ``C = 0``?
+4. En el laboratorio de la sección 2, sube la intensidad de elección ``\beta``
+   y después el ruido chartista ``\sigma_c``. ¿Qué pasa con las olas de
+   chartismo ``z_t`` y con los racimos de volatilidad? ¿Por qué un mercado
+   dominado por fundamentalistas es más tranquilo?
+5. En la tabla de la sección 3, compara la caminata aleatoria gaussiana y el
+   mercado artificial frente al S&P 500. ¿Qué dos hechos estilizados captura el
+   mercado artificial que la caminata aleatoria no puede reproducir? ¿Cuál no
+   alcanza a reproducir bien?
 """
-
-#%%
-function varianza_condicional_fc(z, sigma_f, sigma_c)
-    missing  # reemplaza esta línea
-end
-
-#%% hide
-verificar(() -> [varianza_condicional_fc(0.0, 0.01, 0.05),
-                 varianza_condicional_fc(1.0, 0.01, 0.05),
-                 varianza_condicional_fc(0.5, 0.01, 0.05)],
-          [0.01^2, 0.05^2, 0.25 * 0.01^2 + 0.25 * 0.05^2];
-          pista = md"Calcula `(1 - z)^2 * sigma_f^2 + z^2 * sigma_c^2`.")
 
 #%% hide
 md"""
 ### Ruta avanzada: completa el código
 
-**4. [Avanzado]** Escribe `beta_critico_bh(g, R, C)`, que devuelva la intensidad
+Los ejercicios 6 a 8 son opcionales.
+
+**6.** Escribe `beta_critico_bh(g, R, C)`, que devuelva la intensidad
 de elección crítica ``\beta_c = \frac{1}{C}\ln\!\left(\frac{R}{g - R}\right)``
 en la que el equilibrio fundamental ``x^* = 0`` pierde estabilidad cuando
 ``R < g < 2R`` y ``C > 0``.
@@ -481,7 +484,7 @@ verificar(() -> [beta_critico_bh(1.20, 1.01, 1.0),
 
 #%% hide
 md"""
-**5. [Avanzado]** Escribe `multiplicador_origen_bh(beta, g, R, C)`, que calcule
+**7.** Escribe `multiplicador_origen_bh(beta, g, R, C)`, que calcule
 el eigenvalor linealizado ``\lambda_1 = \frac{g\,n_2^*(\beta)}{R}`` en el punto
 fijo fundamental ``x^* = 0``, donde ``n_2^*(\beta) = \frac{1}{1 + e^{-\beta C}}``.
 """
@@ -499,17 +502,7 @@ verificar(() -> [multiplicador_origen_bh(0.0, 1.20, 1.01, 1.0),
 
 #%% hide
 md"""
-### Preguntas de interpretación
-
-1. En el laboratorio de la sección 1, ¿por qué un costo de información ``C > 0``
-   para ser fundamentalista es indispensable para que el aumento de ``\beta``
-   desestabilice el equilibrio fundamental cuando ``R < g < 2R``? ¿Qué ocurre si
-   ``C = 0``?
-2. En la tabla de la sección 3, compara la caminata aleatoria gaussiana y el
-   mercado artificial de fundamentalistas y chartistas frente al S&P 500. ¿Qué
-   dos hechos estilizados captura el mercado artificial que la caminata
-   aleatoria no puede reproducir?
-3. **[Avanzado]** En el diagrama de bifurcación de la sección 4, ¿qué significa
+**8.** En el diagrama de bifurcación de la sección 4, ¿qué significa
    económicamente que el exponente de Lyapunov ``\lambda(\beta)`` sea positivo
    para valores altos de ``\beta`` aunque el modelo no tenga ningún término de
    ruido aleatorio?
@@ -519,6 +512,8 @@ md"""
 - Lectura: LeBaron (2006). Complementaria: Hommes (2013), capítulo 1; Lux y
   Marchesi (1999). Para la ruta avanzada, Hommes (2013), capítulos 2 y 6; Slanina (2014),
   sección 3.2; Giardina y Bouchaud (2003); Brock y Hommes (1998).
+- **Entrega**: taller para casa del Módulo III (cierre del ciclo con los modelos
+  de agentes frente a los datos).
 - Presentación de los proyectos finales: réplica y extensión de un artículo de
   econofísica usando las herramientas de simulación y diagnóstico estadístico
   del curso.

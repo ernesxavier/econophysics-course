@@ -280,26 +280,23 @@ md"""
 ## 4. ¿Por qué ``\alpha \approx 1`` en las ciudades?
 
 El mecanismo de la sección 3 produce cualquier exponente. ¿Por qué las
-ciudades eligen justamente ``\alpha = 1``? Gabaix (1999) observó que hay una
-restricción adicional: si medimos cada ciudad como **fracción de la población
-total**, el tamaño promedio no puede crecer ni encogerse, porque las
-fracciones suman 1. Con crecimiento de Gibrat, esa restricción y una barrera
-``x_{\min}`` muy por debajo del tamaño promedio ``\bar x`` dan
+ciudades eligen justamente ``\alpha = 1``? Gabaix (1999) observó que si
+medimos cada ciudad como **fracción de la población total**, el tamaño
+promedio es fijo porque las fracciones suman 1. Con crecimiento de Gibrat y
+una barrera ``x_{\min}`` muy pequeña frente al promedio ``\bar x``, el
+exponente estacionario es
 
 ```math
 \alpha = \frac{1}{1 - x_{\min}/\bar x} \;\longrightarrow\; 1
 \qquad \text{cuando } x_{\min}/\bar x \to 0 .
 ```
 
-La ley de Zipf sería, entonces, la huella de dos hechos: las ciudades crecen
-aproximadamente en proporción a su tamaño (sección 0) y la ciudad más pequeña
-es diminuta comparada con la promedio.
-
-Las localidades de México dieron ``\hat\alpha = 0.99`` (sesión 3), consistente
-con este argumento. Pero ojo: que un mecanismo **pueda** producir lo observado
-no prueba que sea **el** mecanismo. En la sección 0 vimos que el crecimiento
-de los municipios no es exactamente proporcional, y hay otros modelos que
-también dan Zipf.
+La ley de Zipf surge cuando las unidades crecen en proporción a su tamaño y
+el piso inferior es diminuto frente al promedio (en México,
+``\hat\alpha = 0.99`` en la sesión 3). Pero que un mecanismo **pueda**
+producir lo observado no prueba que sea **el** mecanismo: en la sección 0 vimos
+que el crecimiento de los municipios no es exactamente proporcional, y otros
+modelos también dan Zipf.
 """
 
 #%% hide
@@ -397,30 +394,24 @@ md"""
 
 3. En la gráfica de la sección 0, ¿qué parte de la ley de Gibrat se cumple
    mejor? Propón una explicación económica para la que no se cumple.
-4. Si una variable es el producto de muchos factores aleatorios
-   independientes, ¿qué distribución esperas? ¿Por qué no una normal?
-5. En el modelo con barrera, ¿qué le pasa a la cola si la volatilidad ``s``
+4. En el modelo con barrera, ¿qué le pasa a la cola si la volatilidad ``s``
    se duplica? ¿Y si el encogimiento promedio ``|m|`` se duplica?
-6. Explica con tus palabras por qué hace falta una barrera (o un ingreso
-   fijo) para obtener una ley de potencias estable.
-7. Según el argumento de Gabaix, ¿qué esperarías del exponente de Zipf en un
-   país donde la ciudad más pequeña considerada tiene un tamaño cercano al
-   promedio?
+5. Explica con tus palabras por qué el crecimiento multiplicativo puro
+   produce una lognormal cuya varianza crece sin límite, y por qué basta un
+   piso inferior o un término aditivo (Kesten) para estabilizar una cola de
+   ley de potencias.
 
 ### Ruta avanzada
 
-8. Deriva ``\alpha = -2m/s^2`` para el modelo con barrera: escribe la
+6. Deriva ``\alpha = -2m/s^2`` para el modelo con barrera: escribe la
    ecuación de Fokker-Planck de ``y = \ln x`` (una difusión con deriva ``m``,
    varianza ``s^2`` y barrera reflejante), encuentra su solución estacionaria
    y transfórmala a ``x``.
-9. Para Kesten con ``\ln a \sim \mathcal{N}(m, s^2)``, verifica que la
+7. Para Kesten con ``\ln a \sim \mathcal{N}(m, s^2)``, verifica que la
    condición ``\mathbb{E}[a^\alpha] = 1`` da exactamente ``\alpha = -2m/s^2``.
-10. Simula el modelo de Gabaix: crecimiento con ``\mathbb{E}[a_t] = 1`` y
-    barrera igual a una fracción ``c`` del promedio. Compara el exponente
-    estimado con ``1/(1-c)`` para varios ``c``. ¿Qué pasa cuando ``c`` es muy
-    pequeño y por qué influye el número de ciudades?
-11. Regresa el crecimiento de los municipios sobre el logaritmo de su tamaño
-    agregando como control el estado. ¿Cambia la pendiente?
+8. Simula el modelo de Gabaix: crecimiento con ``\mathbb{E}[a_t] = 1`` y
+   barrera igual a una fracción ``c`` del promedio. Compara el exponente
+   estimado con ``1/(1-c)`` para varios ``c``.
 
 ## Para la próxima sesión
 

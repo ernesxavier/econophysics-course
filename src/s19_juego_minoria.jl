@@ -434,14 +434,7 @@ md"""
    cuando ``M = 2`` y cuando ``M = 5``. ¿Por qué tener **menos** memoria
    (``M = 2``) produce fluctuaciones mucho más violentas que tirar monedas al
    azar?
-5. Si en un mercado de ``N = 101`` agentes se duplica el número de participantes
-   a ``N \approx 201``, ¿en cuánto debe aumentar la memoria ``M`` de los agentes
-   para que el mercado se mantenga en el mismo valor de ``\alpha = 2^M / N`` (y
-   por tanto cerca del mínimo de volatilidad)?
-6. ¿Qué significa económicamente que en la región ``\alpha \approx 0.34`` se
-   cumpla ``\sigma^2 / N < 1``? ¿Están cooperando deliberadamente los agentes o
-   cada uno sigue buscando su propio beneficio?
-7. En el juego de la minoría las tablas de estrategias de cada agente se sortean
+5. En el juego de la minoría las tablas de estrategias de cada agente se sortean
    al azar en ``t = 0`` y quedan fijas (**desorden congelado**). ¿Por qué para
    construir la curva de la sección 3 es indispensable promediar sobre varias
    realizaciones del sorteo de estrategias y no basta con una sola corrida larga
@@ -449,21 +442,17 @@ md"""
 
 ### Ruta avanzada
 
-8. En la fase hacinada (``\alpha < \alpha_c``), la volatilidad es muy alta
+6. En la fase hacinada (``\alpha < \alpha_c``), la volatilidad es muy alta
    (``\sigma^2/N \gg 1``) pero la predictibilidad es nula (``H/N = 0``). Explica
    por qué estas dos propiedades no se contradicen: ¿por qué un mercado sin
    oportunidades lineales de arbitraje según la historia ``\mu`` puede aun así
    sufrir enormes oscilaciones?
-9. Explica qué es un **agente congelado** en el juego de la minoría y por qué
+7. Explica qué es un **agente congelado** en el juego de la minoría y por qué
    la fracción de agentes congelados ``\phi(\alpha)`` es casi nula cuando
    ``\alpha < \alpha_c`` pero positiva cuando ``\alpha > \alpha_c``.
-10. Usando el argumento de conteo de ecuaciones y variables libres de Challet y
-    Marsili, explica por qué la transición entre ``H = 0`` y ``H > 0`` ocurre
-    cuando ``1 - \phi(\alpha_c) = \alpha_c``.
-11. Si cada agente tuviera ``S = 4`` estrategias en lugar de ``S = 2``, ¿cómo
-    esperarías que cambie cualitativamente la curva de ``\sigma^2 / N``: habría
-    más o menos grados de libertad efectivos por agente, y cómo afectaría eso a
-    la coordinación?
+8. Usando el argumento de conteo de ecuaciones y variables libres de Challet y
+   Marsili, explica por qué la transición entre ``H = 0`` y ``H > 0`` ocurre
+   cuando ``1 - \phi(\alpha_c) = \alpha_c``.
 
 ## Para la próxima sesión
 

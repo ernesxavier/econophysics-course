@@ -16,7 +16,7 @@ macro bind(def, element)
     #! format: on
 end
 
-# ╔═╡ 823ee49e-ca80-11f1-acd2-3d414bc95fa4
+# ╔═╡ 98dc14ca-ca89-11f1-9c36-658da7941268
 begin
     # Usa el entorno del curso (Code/Project.toml) en lugar del gestor de
     # paquetes propio de Pluto: un solo entorno para todo el repositorio.
@@ -31,7 +31,7 @@ begin
             background_color_legend = nothing, margin = 3Plots.mm)
 end
 
-# ╔═╡ 823ee34a-ca80-11f1-906d-37eff8d968b3
+# ╔═╡ 98dc136c-ca89-11f1-aafa-fbbbf1ab17e7
 md"""
 # Sesión 7: Correlaciones y matrices aleatorias
 
@@ -58,10 +58,10 @@ L.I1–I3 (eigenvalores, matrices simétricas, componentes principales), L.I5
 (distancia entre activos). Ruta avanzada: L.A2 (Marchenko-Pastur).
 """
 
-# ╔═╡ 823ee370-ca80-11f1-995e-9b104afdea92
+# ╔═╡ 98dc139e-ca89-11f1-8f7f-2159c914c130
 TableOfContents(title = "Contenido")
 
-# ╔═╡ 823ee37c-ca80-11f1-a695-c5b70d702a47
+# ╔═╡ 98dc13a8-ca89-11f1-919b-a5f9c007abf8
 md"""
 ## 0. El fenómeno: las acciones se mueven juntas
 
@@ -75,7 +75,7 @@ salieron (por quiebra, compra o pérdida de valor) no aparecen, así que la
 muestra tiene **sesgo de supervivencia**.
 """
 
-# ╔═╡ 823ee390-ca80-11f1-aca8-6b8e059ea3a4
+# ╔═╡ 98dc13bc-ca89-11f1-a808-6b6f20607fec
 begin
     precios = CSV.read(joinpath(@__DIR__, "..", "Data", "sp100_precios.csv"), DataFrame)
     sectores = CSV.read(joinpath(@__DIR__, "..", "Data", "sp100_sectores.csv"), DataFrame)
@@ -86,7 +86,7 @@ begin
     T, N = size(R)
 end;
 
-# ╔═╡ 823ee390-ca80-11f1-861c-bd9aacb29bff
+# ╔═╡ 98dc13bc-ca89-11f1-9934-ad1fcf5dea38
 md"""
 Tenemos ``T = `` $(T) días y ``N = `` $(N) acciones. Elige dos acciones y
 compara sus rendimientos diarios, día por día:
@@ -95,7 +95,7 @@ Acción 1: $(@bind accion1 Select(tickers, default = "JPM"))
   Acción 2: $(@bind accion2 Select(tickers, default = "BAC"))
 """
 
-# ╔═╡ 823ee3a2-ca80-11f1-95aa-537ae946b2c0
+# ╔═╡ 98dc13da-ca89-11f1-a0bf-274386ac68dd
 md"""
 ## 1. Repaso: la matriz de correlación
 
@@ -113,10 +113,10 @@ está completa, con las acciones ordenadas por sector: los bloques oscuros
 sobre la diagonal son sectores cuyas acciones se mueven juntas.
 """
 
-# ╔═╡ 823ee3ae-ca80-11f1-a874-ef132643d574
+# ╔═╡ 98dc13da-ca89-11f1-9376-59bf1bc500d0
 C = cor(R);
 
-# ╔═╡ 823ee3b8-ca80-11f1-a4f2-dbae20b60a02
+# ╔═╡ 98dc13e4-ca89-11f1-bd3b-352d61708099
 md"""
 **Eigenvalores como direcciones principales** (repaso L.I1–I3). Como ``C`` es
 simétrica, tiene ``N`` eigenvalores reales ``\lambda_1 \ge \lambda_2 \ge \dots \ge \lambda_N \ge 0``
@@ -134,13 +134,13 @@ eigenvalores valdrían 1. Un eigenvalor grande indica una dirección en la que
 muchas acciones se mueven juntas.
 """
 
-# ╔═╡ 823ee3c2-ca80-11f1-8a23-2144a189a357
+# ╔═╡ 98dc13ee-ca89-11f1-b679-c524e6bde687
 espectro = eigen(Symmetric(C));   # eigenvalores en orden creciente
 
-# ╔═╡ 823ee3c2-ca80-11f1-8a19-bf1625be78ea
+# ╔═╡ 98dc13fa-ca89-11f1-93b4-7b9a0fd8c8f0
 λ = reverse(espectro.values);     # λ[1] es el mayor
 
-# ╔═╡ 823ee3cc-ca80-11f1-9b7d-3933bc5ad931
+# ╔═╡ 98dc13fa-ca89-11f1-b19a-2b8434131a08
 md"""
 Los cinco mayores eigenvalores son $(join(round.(λ[1:5], digits = 1), ", ")).
 El primero, ``\lambda_1 = `` $(round(λ[1], digits = 1)), concentra el
@@ -149,7 +149,7 @@ son significativos? Con ``T`` finito, incluso acciones independientes darían
 eigenvalores distintos de 1.
 """
 
-# ╔═╡ 823ee3cc-ca80-11f1-92f7-291318cf2056
+# ╔═╡ 98dc13fa-ca89-11f1-959a-977f75f29c7e
 md"""
 ## 2. Laboratorio: ¿señal o ruido?
 
@@ -162,7 +162,7 @@ espectro barajado es **señal**.
 $(@bind barajar Button("Barajar otra vez"))
 """
 
-# ╔═╡ 823ee3d6-ca80-11f1-986f-c577c6ad93d8
+# ╔═╡ 98dc1402-ca89-11f1-b72b-472e96ab5067
 λ_barajado = let
     barajar
     rng = Xoshiro()
@@ -173,7 +173,7 @@ $(@bind barajar Button("Barajar otra vez"))
     sort(eigvals(Symmetric(cor(Rb))); rev = true)
 end;
 
-# ╔═╡ 823ee3e0-ca80-11f1-83d2-f1c92b705e6f
+# ╔═╡ 98dc140c-ca89-11f1-b06d-e76cc0275bbd
 md"""
 Al barajar, todos los eigenvalores quedan entre
 $(round(minimum(λ_barajado), digits = 2)) y $(round(maximum(λ_barajado), digits = 2)):
@@ -188,7 +188,7 @@ barajado: los eigenvalores grandes se llevan parte de la suma ``N``, y al
 resto le toca menos.
 """
 
-# ╔═╡ 823ee3ea-ca80-11f1-82e4-43177fc88f50
+# ╔═╡ 98dc1416-ca89-11f1-bd59-45319c91d62e
 md"""
 ## 3. El modo de mercado
 
@@ -197,10 +197,10 @@ muestra multiplicados por ``\sqrt{N}``, así que una cartera con el mismo peso
 en todas las acciones daría barras de altura 1.
 """
 
-# ╔═╡ 823ee3ea-ca80-11f1-81fc-233c2e60b46b
+# ╔═╡ 98dc1416-ca89-11f1-9746-971c50a6a082
 v1 = espectro.vectors[:, end] .* sign(sum(espectro.vectors[:, end]));   # el signo es arbitrario
 
-# ╔═╡ 823ee3f4-ca80-11f1-8bac-89c9e80546f2
+# ╔═╡ 98dc1420-ca89-11f1-9188-5d7caca32d53
 md"""
 Todas las componentes son positivas y parecidas: ``v_1`` es, casi, comprar
 un poco de cada acción. Es el **modo de mercado**: el factor común que mueve
@@ -208,7 +208,7 @@ a todas a la vez. Para comprobarlo, comparemos el rendimiento diario de esa
 cartera con el del índice S&P 500 completo (de `Data/precios.csv`):
 """
 
-# ╔═╡ 823ee3fe-ca80-11f1-86e9-5d5ebc9bab20
+# ╔═╡ 98dc1428-ca89-11f1-b485-4b35981022ff
 md"""
 La correlación es casi 1: el primer eigenvector **es** el mercado, aunque no
 le dijimos nada sobre el índice.
@@ -220,7 +220,7 @@ ventana móvil.
 Longitud de la ventana (días hábiles): $(@bind ventana Select([60 => "60 (3 meses)", 125 => "125 (6 meses)", 250 => "250 (1 año)", 500 => "500 (2 años)"], default = 250))
 """
 
-# ╔═╡ 823ee412-ca80-11f1-bb82-9b9320842c63
+# ╔═╡ 98dc143e-ca89-11f1-ab15-196116d14241
 md"""
 En marzo de 2020 (la caída por la pandemia) el mercado llegó a explicar más
 de la mitad de la varianza: **en las crisis todo cae junto**. Es una mala
@@ -229,7 +229,7 @@ son bajas. Con ventanas cortas la serie es más ruidosa, porque cada matriz
 se estima con menos días.
 """
 
-# ╔═╡ 823ee412-ca80-11f1-99fb-37271add34f8
+# ╔═╡ 98dc143e-ca89-11f1-b9e2-1fe8970cb959
 md"""
 ## 4. Sectores en los eigenvectores
 
@@ -242,7 +242,7 @@ tienen el mismo signo y cuáles el contrario.
 Eigenvector ``k``: $(@bind k_vec Slider(2:8, default = 2, show_value = true))
 """
 
-# ╔═╡ 823ee41c-ca80-11f1-8e2d-45ea67166fa7
+# ╔═╡ 98dc1448-ca89-11f1-8da4-39ef9f84208a
 md"""
 Cada eigenvector cuenta una historia económica:
 
@@ -261,7 +261,7 @@ que cruzan sectores (defensivas) o que los parten (semiconductores contra
 software).
 """
 
-# ╔═╡ 823ee426-ca80-11f1-b481-c5c9b9792590
+# ╔═╡ 98dc1452-ca89-11f1-acd3-216c123bc176
 md"""
 ## 5. Del mercado a una red: el árbol de expansión mínima
 
@@ -283,10 +283,10 @@ menor a mayor distancia y recórrelos; agrega el enlace si une dos grupos que
 todavía no estaban conectados, y descártalo si cerraría un ciclo.
 """
 
-# ╔═╡ 823ee430-ca80-11f1-81d8-77076281b8b8
+# ╔═╡ 98dc145a-ca89-11f1-b279-41bd87f0ee8c
 D = sqrt.(2 .* (1 .- C));
 
-# ╔═╡ 823ee430-ca80-11f1-84e5-bf1bcdcbcdff
+# ╔═╡ 98dc145a-ca89-11f1-8605-2bef1d02619a
 md"""
 Resalta dos sectores:
 
@@ -294,7 +294,7 @@ Sector en azul: $(@bind sector_a Select(sort(unique(sectores.sector)), default =
   Sector en naranja: $(@bind sector_b Select(sort(unique(sectores.sector)), default = "Tecnología"))
 """
 
-# ╔═╡ 823ee44e-ca80-11f1-a5e3-4d471590983b
+# ╔═╡ 98dc147a-ca89-11f1-b1a5-c7a056ed60b2
 md"""
 ## 6. [Avanzado] La ley de Marchenko-Pastur
 
@@ -314,7 +314,7 @@ eigenvalores. Usa sólo los últimos ``T = QN`` días:
 ``Q = T/N``: $(@bind Q_mp Select([q => string(q) for q in (1.5, 2, 3, 5, 10, 20, round(T / N, digits = 1))], default = 5))
 """
 
-# ╔═╡ 823ee46c-ca80-11f1-8038-5901ebcc0b46
+# ╔═╡ 98dc148e-ca89-11f1-88a3-5dce7977e3df
 md"""
 ## Resumen
 
@@ -328,7 +328,7 @@ md"""
 | Marchenko-Pastur | La forma exacta del ruido para series independientes |
 """
 
-# ╔═╡ 823ee46c-ca80-11f1-81ee-d3882dd60763
+# ╔═╡ 98dc1498-ca89-11f1-95a5-e174ba0e0239
 md"""
 ## Ejercicios
 
@@ -340,65 +340,64 @@ fórmula ``C = Z^\top Z/(T-1)`` de la sección 1, sin usar `cor`. Estandariza
 cada columna con `mean(R; dims = 1)` y `std(R; dims = 1)`.
 """
 
-# ╔═╡ 823ee478-ca80-11f1-a421-5d3f3b4bab54
+# ╔═╡ 98dc1498-ca89-11f1-b94b-77bd69b8d447
 function correlacion(R)
     missing  # reemplaza esta línea
 end
 
-# ╔═╡ 823ee478-ca80-11f1-b36e-87156de7e8dd
+# ╔═╡ 98dc14a2-ca89-11f1-b0bf-379f20728c47
 md"""
 **2.** Escribe `distancia(ρ)`, que convierta una correlación en la distancia
 de la sección 5.
 """
 
-# ╔═╡ 823ee480-ca80-11f1-b5f4-fdb9b79e2106
+# ╔═╡ 98dc14ac-ca89-11f1-a669-a903c9e79c9b
 function distancia(ρ)
     missing  # reemplaza esta línea
 end
 
-# ╔═╡ 823ee48a-ca80-11f1-84ae-7faef8d64005
+# ╔═╡ 98dc14b6-ca89-11f1-8563-3ff9c09d876d
 md"""
 ### Ruta básica: interpretación
 
 3. ¿Por qué barajar cada serie por separado destruye las correlaciones pero
    conserva la distribución de rendimientos de cada acción? ¿Qué pasaría si
    barajáramos los días de todas las acciones con la **misma** permutación?
-4. Si el mercado explica el 36% de la varianza, ¿qué significa eso para un
-   inversionista que cree estar diversificado porque tiene 95 acciones?
-5. En la sección 3, ``\lambda_1/N`` subió en 2020. Explica con tus palabras
-   por qué la diversificación falla justo en las crisis.
-6. Elige una rama del árbol que no sea de un solo sector e investiga qué
-   tienen en común sus empresas.
-7. ¿Cómo afecta el sesgo de supervivencia a lo que vimos? Piensa en qué
-   tipo de empresas salen del índice.
+4. Si el modo de mercado explica el 36% de la varianza y ``\lambda_1/N`` sube
+   en 2020 (sección 3), ¿qué significa eso para un inversionista que cree estar
+   protegido en una crisis sólo porque tiene 95 acciones distintas?
+5. Elige una rama del árbol de expansión mínima de la sección 5 y explica qué
+   tienen en común sus empresas y por qué una empresa como Berkshire Hathaway
+   (BRK-B) queda cerca del centro.
 
 ### Ruta avanzada
 
-8. Para el modelo de un factor, ``C = (1-\rho)I + \rho\,\mathbf{1}\mathbf{1}^\top``,
+6. Para el modelo de un factor, ``C = (1-\rho)I + \rho\,\mathbf{1}\mathbf{1}^\top``,
    demuestra que ``\lambda_1 = 1 + (N-1)\rho`` con ``v_1 = \mathbf{1}/\sqrt{N}``
    y que los demás eigenvalores valen ``1 - \rho``. Usa la correlación
    promedio de la sección 1 para predecir ``\lambda_1`` y compárala con la
    observada.
-9. Simula ``N = 100`` series normales independientes con ``T = 400`` y
+7. Simula ``N = 100`` series normales independientes con ``T = 400`` y
    verifica la ley de Marchenko-Pastur. Repite con series ``t`` de Student
    con 3 grados de libertad: ¿cambia el borde ``\lambda_+``?
-10. Quita el modo de mercado: regresa cada serie sobre la cartera ``v_1`` y
-    calcula la matriz de correlación de los residuos. ¿Qué eigenvalores
-    quedan fuera del ruido? ¿Cambia el árbol?
-11. Construye el árbol con los datos de 2015–2019 y con los de 2022–2026.
-    ¿Qué enlaces sobreviven? Propón una medida de cuánto cambió.
+8. Quita el modo de mercado: regresa cada serie sobre la cartera ``v_1`` y
+   calcula la matriz de correlación de los residuos. ¿Qué eigenvalores
+   quedan fuera del ruido? ¿Cambia el árbol?
 
 ## Para la próxima sesión
 
 - Lectura: Mantegna y Stanley (1999), capítulos 12 y 13. Complementaria:
   Slanina (2014), sección 1.4; Mantegna (1999). Para la ruta avanzada,
   Requião da Cunha (2021), sección 5.2; Laloux et al. (1999).
+- **Cierre del Módulo I**: con esta sesión se entrega el taller para casa del
+  Módulo I (hechos estilizados y colas de un activo distinto a los vistos en
+  clase).
 - En la sesión 8 empieza el Módulo II: la **distribución del dinero** como
-  un problema de física estadística (máxima entropía y modelos de
+  un problema de física estadística (curva de Lorenz, Gini y modelos de
   intercambio).
 """
 
-# ╔═╡ 823ee49e-ca80-11f1-be1d-e3b642437755
+# ╔═╡ 98dc14c0-ca89-11f1-b9c6-07e790ede947
 md"""
 ---
 ## Apéndice: paquetes y funciones auxiliares
@@ -407,7 +406,7 @@ Estas celdas definen herramientas que usa el cuaderno. No es necesario
 leerlas para seguir la sesión.
 """
 
-# ╔═╡ 823ee4a6-ca80-11f1-9fcd-cd7e3ef0258a
+# ╔═╡ 98dc14ca-ca89-11f1-ad24-9d5ef34c5fb7
 begin
     const AZUL       = "#2a78d6"   # serie principal o primer sector resaltado
     const NARANJA    = "#eb6834"   # segunda serie, teoría o segundo sector
@@ -417,7 +416,7 @@ begin
                         "#256abf", "#184f95", "#0d366b"]   # azul secuencial, 0 → 1
 end;
 
-# ╔═╡ 823ee3e0-ca80-11f1-a95a-739d80f8b883
+# ╔═╡ 98dc140c-ca89-11f1-9236-ed03412833d2
 let
     bordes = 0:0.1:7.5
     p = histogram(λ_barajado; bins = bordes, color = GRIS, alpha = 0.45, lw = 0,
@@ -429,11 +428,11 @@ let
     annotate!(p, 7.4, 4, text("λ₁ = $(round(λ[1], digits = 1)) →\nfuera de la gráfica", 8, :right, GRIS))
 end
 
-# ╔═╡ 823ee4a6-ca80-11f1-b4de-3d4aa73ad187
+# ╔═╡ 98dc14d4-ca89-11f1-ac8f-054fb7193df5
 "Número entero con comas como separador de miles."
 miles(x) = replace(string(round(Int, x)), r"(?<=\d)(?=(\d{3})+$)" => ",")
 
-# ╔═╡ 823ee3a2-ca80-11f1-ace0-dfb419e29361
+# ╔═╡ 98dc13d0-ca89-11f1-9c5f-2f307ec4e49f
 md"""
 Con JPMorgan y Bank of America (dos bancos) la nube es una elipse alargada:
 cuando uno sube, el otro tiende a subir. Prueba ahora con JPM y DUK (Duke
@@ -445,11 +444,11 @@ Con ``N = `` $(N) acciones hay ``N(N-1)/2 = `` $(miles(N * (N - 1) ÷ 2)) pares.
 No podemos mirarlos uno por uno: necesitamos una manera de resumirlos.
 """
 
-# ╔═╡ 823ee4a6-ca80-11f1-9e4e-5570f2b667a2
+# ╔═╡ 98dc14d4-ca89-11f1-b367-0b518bfedfe2
 "Nombre de la empresa a partir de su ticker."
 nombre_de(t) = sectores.nombre[findfirst(==(t), sectores.ticker)]
 
-# ╔═╡ 823ee39a-ca80-11f1-9ac7-5159cd791c15
+# ╔═╡ 98dc13c8-ca89-11f1-b176-cba10ac162d7
 let
     i, j = findfirst(==(accion1), tickers), findfirst(==(accion2), tickers)
     ρ = cor(R[:, i], R[:, j])
@@ -461,7 +460,7 @@ let
             size = (520, 500))
 end
 
-# ╔═╡ 823ee4b2-ca80-11f1-b7a9-e5cf44dfe042
+# ╔═╡ 98dc14de-ca89-11f1-8d39-d1f74aabf339
 "Orden de las acciones por sector. Los sectores pequeños van entre los grandes para que sus etiquetas no se encimen."
 orden_sector = let
     orden = ["Tecnología", "Energía", "Finanzas", "Servicios públicos", "Salud", "Bienes raíces",
@@ -469,7 +468,7 @@ orden_sector = let
     sortperm(collect(zip(sectores.sector, tickers)); by = x -> (findfirst(==(x[1]), orden), x[2]))
 end;
 
-# ╔═╡ 823ee4b2-ca80-11f1-ad83-ed1a077a35f7
+# ╔═╡ 98dc14de-ca89-11f1-acf0-8b9be542f299
 "Centro y borde de cada sector en el orden `orden_sector`."
 grupos = let
     s = sectores.sector[orden_sector]
@@ -478,7 +477,7 @@ grupos = let
     (sector = s[inicio], centro = (inicio .+ fin) ./ 2, borde = fin[1:end-1] .+ 0.5)
 end;
 
-# ╔═╡ 823ee3b8-ca80-11f1-8cc8-932b94815cdd
+# ╔═╡ 98dc13e4-ca89-11f1-aba6-21f06c8131a1
 let
     o = orden_sector
     p1 = heatmap(C[o, o]; color = cgrad(RAMPA_SEC), clims = (0, 1), yflip = true,
@@ -499,7 +498,7 @@ let
     plot(p1, p2; layout = grid(1, 2, widths = [0.6, 0.4]), size = (900, 480), bottom_margin = 8Plots.mm)
 end
 
-# ╔═╡ 823ee4bc-ca80-11f1-9b68-63f4e9bdcce0
+# ╔═╡ 98dc14e8-ca89-11f1-abaa-75369adf06cb
 "Barras de un vector de N componentes, agrupadas por sector con un hueco entre sectores."
 function barras_por_sector(v; ylabel = "", titulo = "", referencia = 0)
     s = sectores.sector[orden_sector]
@@ -515,16 +514,16 @@ function barras_por_sector(v; ylabel = "", titulo = "", referencia = 0)
     hline!(p, [referencia]; color = GRIS, lw = 1, ls = referencia == 0 ? :solid : :dash)
 end
 
-# ╔═╡ 823ee3f4-ca80-11f1-8469-2959bf5f94ab
+# ╔═╡ 98dc1420-ca89-11f1-b096-f93fd684fb20
 barras_por_sector(sqrt(N) .* v1; ylabel = "√N · componente de v₁",
                   titulo = "Primer eigenvector: todas las acciones con el mismo signo",
                   referencia = 1)
 
-# ╔═╡ 823ee41c-ca80-11f1-b7f4-d5bd61ac3eee
+# ╔═╡ 98dc1448-ca89-11f1-ae54-7d03b0eb6f7a
 barras_por_sector(sqrt(N) .* espectro.vectors[:, end-k_vec+1]; ylabel = "√N · componente de v$(k_vec)",
                   titulo = "Eigenvector $k_vec (λ = $(round(λ[k_vec], digits = 2)))", referencia = 0)
 
-# ╔═╡ 823ee4c6-ca80-11f1-92cd-0bd73f2a3d13
+# ╔═╡ 98dc14f2-ca89-11f1-9178-eb7a94f2b7f2
 "Rendimiento diario del índice S&P 500 y de la cartera del modo de mercado, en las mismas fechas."
 modo_vs_indice = let
     p = CSV.read(joinpath(@__DIR__, "..", "Data", "precios.csv"), DataFrame)
@@ -536,7 +535,7 @@ modo_vs_indice = let
     (indice = [log(sp[f0[t+1]] / sp[f0[t]]) for t in findall(k)], modo = modo[k])
 end;
 
-# ╔═╡ 823ee3fe-ca80-11f1-95c8-fd427e12fee4
+# ╔═╡ 98dc1428-ca89-11f1-af66-e9d4284633c5
 let
     m = modo_vs_indice
     lim = quantile(abs.(m.indice), 0.999)
@@ -548,7 +547,7 @@ let
             size = (620, 400))
 end
 
-# ╔═╡ 823ee4c6-ca80-11f1-8421-9f073e52979d
+# ╔═╡ 98dc14f2-ca89-11f1-ac10-afd08f732b61
 "λ₁/N en ventanas móviles de `ventana` días, avanzando de 5 en 5."
 function lambda1_movil(R, fechas, ventana)
     T, N = size(R)
@@ -557,10 +556,10 @@ function lambda1_movil(R, fechas, ventana)
      fraccion = [eigmax(Symmetric(cor(R[t:t+ventana-1, :]))) / N for t in inicios])
 end
 
-# ╔═╡ 823ee408-ca80-11f1-8063-ad26ed159013
+# ╔═╡ 98dc1434-ca89-11f1-96d1-73894aaff02f
 movil = lambda1_movil(R, fechas, ventana);
 
-# ╔═╡ 823ee408-ca80-11f1-bc3e-316d4ad67163
+# ╔═╡ 98dc1434-ca89-11f1-a4b0-5177d52e3734
 let
     años = Date(2016):Year(2):Date(2026)
     p = plot(movil.fecha, movil.fraccion; color = AZUL, lw = 2, ylims = (0, 1),
@@ -573,7 +572,7 @@ let
               text("$(round(movil.fraccion[i], digits = 2)) al $(movil.fecha[i])", 8, GRIS))
 end
 
-# ╔═╡ 823ee4d0-ca80-11f1-ae6a-ed5661ccb30f
+# ╔═╡ 98dc14fe-ca89-11f1-936c-c787b3672691
 """
 Árbol de expansión mínima con el algoritmo de Kruskal. Usa una estructura de
 conjuntos disjuntos (`jefe`) para saber si dos nodos ya están conectados.
@@ -594,10 +593,10 @@ function kruskal(D)
     enlaces
 end
 
-# ╔═╡ 823ee430-ca80-11f1-aaf1-0f5dcc7c07df
+# ╔═╡ 98dc145a-ca89-11f1-9748-43f955e9e50e
 arbol = kruskal(D);   # lista de enlaces (i, j)
 
-# ╔═╡ 823ee43a-ca80-11f1-9793-f52dceb0ec58
+# ╔═╡ 98dc1466-ca89-11f1-9653-3164f4d908da
 md"""
 Sin decirle al algoritmo a qué sector pertenece cada acción, el árbol agrupa
 a los bancos en una cadena, a la tecnología en ramas propias y a los
@@ -611,7 +610,7 @@ etiquetas de sector se repartieran al azar entre las acciones (otra prueba
 de permutación).
 """
 
-# ╔═╡ 823ee4d0-ca80-11f1-a1eb-8b3ab3186e0d
+# ╔═╡ 98dc14fe-ca89-11f1-af72-630b0ebb138d
 """
 Posiciones 2D para dibujar un árbol: escalamiento multidimensional clásico de
 las distancias en la red, refinado con mayorización de estrés.
@@ -646,10 +645,10 @@ function disposicion(enlaces, N; iter = 300)
     X
 end
 
-# ╔═╡ 823ee4d8-ca80-11f1-9a0c-f5bc0e40c6c5
+# ╔═╡ 98dc1506-ca89-11f1-adf3-5f265f2087e6
 posiciones_arbol = disposicion(arbol, N);
 
-# ╔═╡ 823ee43a-ca80-11f1-85ca-1523f499cdfd
+# ╔═╡ 98dc1466-ca89-11f1-8ca5-395433fe6f85
 let
     X = posiciones_arbol
     color = [s == sector_a ? AZUL : s == sector_b ? NARANJA : GRIS_CLARO for s in sectores.sector]
@@ -667,7 +666,7 @@ let
     annotate!(p, X[:, 1], X[:, 2] .+ 0.35, text.(tickers, 6, GRIS))
 end
 
-# ╔═╡ 823ee4d8-ca80-11f1-b7ee-c5a4bf39d155
+# ╔═╡ 98dc1506-ca89-11f1-b6b1-9f64a78866a4
 "Enlaces del árbol dentro del mismo sector, observados y con etiquetas al azar."
 prueba_sectores = let
     rng = Xoshiro(5)
@@ -676,7 +675,7 @@ prueba_sectores = let
      azar = [mismos(shuffle(rng, sectores.sector)) for _ in 1:999])
 end;
 
-# ╔═╡ 823ee446-ca80-11f1-84e1-851b35df297b
+# ╔═╡ 98dc1470-ca89-11f1-8df0-7fd868c16d9b
 let
     t = prueba_sectores
     p = histogram(t.azar; bins = -0.5:1:maximum(t.azar)+0.5, color = GRIS, alpha = 0.6, lw = 0,
@@ -686,7 +685,7 @@ let
     vline!(p, [t.observado]; color = AZUL, lw = 3, label = "Árbol real: $(t.observado) de $(length(arbol))")
 end
 
-# ╔═╡ 823ee44e-ca80-11f1-8726-d358025fe479
+# ╔═╡ 98dc147a-ca89-11f1-be8d-15a9b3de1a52
 md"""
 Con sectores al azar, en promedio sólo
 $(round(mean(prueba_sectores.azar), digits = 1)) enlaces unirían acciones del
@@ -699,14 +698,14 @@ mercado con modelos de redes, conviene otra red construida con las mismas
 correlaciones, porque un árbol no tiene triángulos.
 """
 
-# ╔═╡ 823ee4e4-ca80-11f1-ad10-d523cc9f0f08
+# ╔═╡ 98dc1506-ca89-11f1-9b97-09c7fb182929
 "Densidad de Marchenko-Pastur para Q = T/N."
 function densidad_mp(λ, Q)
     λm, λp = (1 - 1 / sqrt(Q))^2, (1 + 1 / sqrt(Q))^2
     λm <= λ <= λp ? Q / (2π) * sqrt((λp - λ) * (λ - λm)) / λ : 0.0
 end
 
-# ╔═╡ 823ee4e4-ca80-11f1-a9b8-03617fd3db38
+# ╔═╡ 98dc1510-ca89-11f1-98b7-2f5fee45b956
 "Espectros real y barajado usando los últimos T = Q·N días."
 function espectros_mp(R, Q; rng = Xoshiro(6))
     N = size(R, 2)
@@ -718,10 +717,10 @@ function espectros_mp(R, Q; rng = Xoshiro(6))
      λmenos = (1 - 1 / sqrt(q))^2, λmas = (1 + 1 / sqrt(q))^2)
 end
 
-# ╔═╡ 823ee458-ca80-11f1-9745-2d10c6b53297
+# ╔═╡ 98dc1484-ca89-11f1-ab9f-bbeb7abace03
 mp = espectros_mp(R, Q_mp);
 
-# ╔═╡ 823ee458-ca80-11f1-93e6-7fcc794ec19a
+# ╔═╡ 98dc1484-ca89-11f1-80d9-73ee60f4494d
 let
     xmax = max(4, mp.λmas + 1)
     Δ = xmax / 60
@@ -739,7 +738,7 @@ let
     plot!(p, x, densidad_mp.(x, Q_mp); color = NARANJA, lw = 2, label = "Marchenko-Pastur")
 end
 
-# ╔═╡ 823ee462-ca80-11f1-b626-334257c8b3af
+# ╔═╡ 98dc148e-ca89-11f1-a0e6-193dbcc62bf8
 md"""
 Con ``Q = `` $(Q_mp), el ruido va de ``\lambda_- = `` $(round(mp.λmenos, digits = 2))
 a ``\lambda_+ = `` $(round(mp.λmas, digits = 2)). Los datos barajados siguen la curva teórica, y
@@ -754,7 +753,7 @@ volatilidad agrupada. Barajar conserva las colas; por eso es la comparación
 más honesta.
 """
 
-# ╔═╡ 823ee4e4-ca80-11f1-a9b8-4d451b1741f4
+# ╔═╡ 98dc1510-ca89-11f1-a83f-77ba413fa847
 "Muestra si la respuesta de un ejercicio es correcta."
 function verificar(f, esperado; rtol = 1e-8, pista = md"")
     caja(tipo, titulo, texto) = Markdown.MD(Markdown.Admonition(tipo, titulo, [texto]))
@@ -775,79 +774,79 @@ function verificar(f, esperado; rtol = 1e-8, pista = md"")
     end
 end
 
-# ╔═╡ 823ee478-ca80-11f1-bd3b-699c128af538
+# ╔═╡ 98dc14a2-ca89-11f1-8895-f3a05d1d5a65
 verificar(() -> correlacion(R[1:300, 1:5]), cor(R[1:300, 1:5]);
           pista = md"Calcula `Z = (R .- mean(R; dims = 1)) ./ std(R; dims = 1)`; luego `Z' * Z` y divide entre `size(R, 1) - 1`.")
 
-# ╔═╡ 823ee480-ca80-11f1-b0e3-65a77006585f
+# ╔═╡ 98dc14ac-ca89-11f1-9c4b-a3b16684e521
 verificar(() -> distancia.([1.0, 0.5, 0.0, -1.0]), [0.0, 1.0, sqrt(2), 2.0];
           pista = md"La fórmula es ``d = \sqrt{2(1-\rho)}``. Para que funcione con `distancia.(…)` basta escribirla para un número.")
 
 # ╔═╡ Cell order:
-# ╟─823ee34a-ca80-11f1-906d-37eff8d968b3
-# ╟─823ee370-ca80-11f1-995e-9b104afdea92
-# ╟─823ee37c-ca80-11f1-a695-c5b70d702a47
-# ╠═823ee390-ca80-11f1-aca8-6b8e059ea3a4
-# ╟─823ee390-ca80-11f1-861c-bd9aacb29bff
-# ╟─823ee39a-ca80-11f1-9ac7-5159cd791c15
-# ╟─823ee3a2-ca80-11f1-ace0-dfb419e29361
-# ╟─823ee3a2-ca80-11f1-95aa-537ae946b2c0
-# ╠═823ee3ae-ca80-11f1-a874-ef132643d574
-# ╟─823ee3b8-ca80-11f1-8cc8-932b94815cdd
-# ╟─823ee3b8-ca80-11f1-a4f2-dbae20b60a02
-# ╠═823ee3c2-ca80-11f1-8a23-2144a189a357
-# ╠═823ee3c2-ca80-11f1-8a19-bf1625be78ea
-# ╟─823ee3cc-ca80-11f1-9b7d-3933bc5ad931
-# ╟─823ee3cc-ca80-11f1-92f7-291318cf2056
-# ╠═823ee3d6-ca80-11f1-986f-c577c6ad93d8
-# ╟─823ee3e0-ca80-11f1-a95a-739d80f8b883
-# ╟─823ee3e0-ca80-11f1-83d2-f1c92b705e6f
-# ╟─823ee3ea-ca80-11f1-82e4-43177fc88f50
-# ╠═823ee3ea-ca80-11f1-81fc-233c2e60b46b
-# ╟─823ee3f4-ca80-11f1-8469-2959bf5f94ab
-# ╟─823ee3f4-ca80-11f1-8bac-89c9e80546f2
-# ╟─823ee3fe-ca80-11f1-95c8-fd427e12fee4
-# ╟─823ee3fe-ca80-11f1-86e9-5d5ebc9bab20
-# ╟─823ee408-ca80-11f1-8063-ad26ed159013
-# ╟─823ee408-ca80-11f1-bc3e-316d4ad67163
-# ╟─823ee412-ca80-11f1-bb82-9b9320842c63
-# ╟─823ee412-ca80-11f1-99fb-37271add34f8
-# ╟─823ee41c-ca80-11f1-b7f4-d5bd61ac3eee
-# ╟─823ee41c-ca80-11f1-8e2d-45ea67166fa7
-# ╟─823ee426-ca80-11f1-b481-c5c9b9792590
-# ╠═823ee430-ca80-11f1-81d8-77076281b8b8
-# ╠═823ee430-ca80-11f1-aaf1-0f5dcc7c07df
-# ╟─823ee430-ca80-11f1-84e5-bf1bcdcbcdff
-# ╟─823ee43a-ca80-11f1-85ca-1523f499cdfd
-# ╟─823ee43a-ca80-11f1-9793-f52dceb0ec58
-# ╟─823ee446-ca80-11f1-84e1-851b35df297b
-# ╟─823ee44e-ca80-11f1-8726-d358025fe479
-# ╟─823ee44e-ca80-11f1-a5e3-4d471590983b
-# ╟─823ee458-ca80-11f1-9745-2d10c6b53297
-# ╟─823ee458-ca80-11f1-93e6-7fcc794ec19a
-# ╟─823ee462-ca80-11f1-b626-334257c8b3af
-# ╟─823ee46c-ca80-11f1-8038-5901ebcc0b46
-# ╟─823ee46c-ca80-11f1-81ee-d3882dd60763
-# ╠═823ee478-ca80-11f1-a421-5d3f3b4bab54
-# ╟─823ee478-ca80-11f1-bd3b-699c128af538
-# ╟─823ee478-ca80-11f1-b36e-87156de7e8dd
-# ╠═823ee480-ca80-11f1-b5f4-fdb9b79e2106
-# ╟─823ee480-ca80-11f1-b0e3-65a77006585f
-# ╟─823ee48a-ca80-11f1-84ae-7faef8d64005
-# ╟─823ee49e-ca80-11f1-be1d-e3b642437755
-# ╠═823ee49e-ca80-11f1-acd2-3d414bc95fa4
-# ╠═823ee4a6-ca80-11f1-9fcd-cd7e3ef0258a
-# ╠═823ee4a6-ca80-11f1-b4de-3d4aa73ad187
-# ╠═823ee4a6-ca80-11f1-9e4e-5570f2b667a2
-# ╠═823ee4b2-ca80-11f1-b7a9-e5cf44dfe042
-# ╠═823ee4b2-ca80-11f1-ad83-ed1a077a35f7
-# ╠═823ee4bc-ca80-11f1-9b68-63f4e9bdcce0
-# ╠═823ee4c6-ca80-11f1-92cd-0bd73f2a3d13
-# ╠═823ee4c6-ca80-11f1-8421-9f073e52979d
-# ╠═823ee4d0-ca80-11f1-ae6a-ed5661ccb30f
-# ╠═823ee4d0-ca80-11f1-a1eb-8b3ab3186e0d
-# ╠═823ee4d8-ca80-11f1-9a0c-f5bc0e40c6c5
-# ╠═823ee4d8-ca80-11f1-b7ee-c5a4bf39d155
-# ╠═823ee4e4-ca80-11f1-ad10-d523cc9f0f08
-# ╠═823ee4e4-ca80-11f1-a9b8-03617fd3db38
-# ╠═823ee4e4-ca80-11f1-a9b8-4d451b1741f4
+# ╟─98dc136c-ca89-11f1-aafa-fbbbf1ab17e7
+# ╟─98dc139e-ca89-11f1-8f7f-2159c914c130
+# ╟─98dc13a8-ca89-11f1-919b-a5f9c007abf8
+# ╠═98dc13bc-ca89-11f1-a808-6b6f20607fec
+# ╟─98dc13bc-ca89-11f1-9934-ad1fcf5dea38
+# ╟─98dc13c8-ca89-11f1-b176-cba10ac162d7
+# ╟─98dc13d0-ca89-11f1-9c5f-2f307ec4e49f
+# ╟─98dc13da-ca89-11f1-a0bf-274386ac68dd
+# ╠═98dc13da-ca89-11f1-9376-59bf1bc500d0
+# ╟─98dc13e4-ca89-11f1-aba6-21f06c8131a1
+# ╟─98dc13e4-ca89-11f1-bd3b-352d61708099
+# ╠═98dc13ee-ca89-11f1-b679-c524e6bde687
+# ╠═98dc13fa-ca89-11f1-93b4-7b9a0fd8c8f0
+# ╟─98dc13fa-ca89-11f1-b19a-2b8434131a08
+# ╟─98dc13fa-ca89-11f1-959a-977f75f29c7e
+# ╠═98dc1402-ca89-11f1-b72b-472e96ab5067
+# ╟─98dc140c-ca89-11f1-9236-ed03412833d2
+# ╟─98dc140c-ca89-11f1-b06d-e76cc0275bbd
+# ╟─98dc1416-ca89-11f1-bd59-45319c91d62e
+# ╠═98dc1416-ca89-11f1-9746-971c50a6a082
+# ╟─98dc1420-ca89-11f1-b096-f93fd684fb20
+# ╟─98dc1420-ca89-11f1-9188-5d7caca32d53
+# ╟─98dc1428-ca89-11f1-af66-e9d4284633c5
+# ╟─98dc1428-ca89-11f1-b485-4b35981022ff
+# ╟─98dc1434-ca89-11f1-96d1-73894aaff02f
+# ╟─98dc1434-ca89-11f1-a4b0-5177d52e3734
+# ╟─98dc143e-ca89-11f1-ab15-196116d14241
+# ╟─98dc143e-ca89-11f1-b9e2-1fe8970cb959
+# ╟─98dc1448-ca89-11f1-ae54-7d03b0eb6f7a
+# ╟─98dc1448-ca89-11f1-8da4-39ef9f84208a
+# ╟─98dc1452-ca89-11f1-acd3-216c123bc176
+# ╠═98dc145a-ca89-11f1-b279-41bd87f0ee8c
+# ╠═98dc145a-ca89-11f1-9748-43f955e9e50e
+# ╟─98dc145a-ca89-11f1-8605-2bef1d02619a
+# ╟─98dc1466-ca89-11f1-8ca5-395433fe6f85
+# ╟─98dc1466-ca89-11f1-9653-3164f4d908da
+# ╟─98dc1470-ca89-11f1-8df0-7fd868c16d9b
+# ╟─98dc147a-ca89-11f1-be8d-15a9b3de1a52
+# ╟─98dc147a-ca89-11f1-b1a5-c7a056ed60b2
+# ╟─98dc1484-ca89-11f1-ab9f-bbeb7abace03
+# ╟─98dc1484-ca89-11f1-80d9-73ee60f4494d
+# ╟─98dc148e-ca89-11f1-a0e6-193dbcc62bf8
+# ╟─98dc148e-ca89-11f1-88a3-5dce7977e3df
+# ╟─98dc1498-ca89-11f1-95a5-e174ba0e0239
+# ╠═98dc1498-ca89-11f1-b94b-77bd69b8d447
+# ╟─98dc14a2-ca89-11f1-8895-f3a05d1d5a65
+# ╟─98dc14a2-ca89-11f1-b0bf-379f20728c47
+# ╠═98dc14ac-ca89-11f1-a669-a903c9e79c9b
+# ╟─98dc14ac-ca89-11f1-9c4b-a3b16684e521
+# ╟─98dc14b6-ca89-11f1-8563-3ff9c09d876d
+# ╟─98dc14c0-ca89-11f1-b9c6-07e790ede947
+# ╠═98dc14ca-ca89-11f1-9c36-658da7941268
+# ╠═98dc14ca-ca89-11f1-ad24-9d5ef34c5fb7
+# ╠═98dc14d4-ca89-11f1-ac8f-054fb7193df5
+# ╠═98dc14d4-ca89-11f1-b367-0b518bfedfe2
+# ╠═98dc14de-ca89-11f1-8d39-d1f74aabf339
+# ╠═98dc14de-ca89-11f1-acf0-8b9be542f299
+# ╠═98dc14e8-ca89-11f1-abaa-75369adf06cb
+# ╠═98dc14f2-ca89-11f1-9178-eb7a94f2b7f2
+# ╠═98dc14f2-ca89-11f1-ac10-afd08f732b61
+# ╠═98dc14fe-ca89-11f1-936c-c787b3672691
+# ╠═98dc14fe-ca89-11f1-af72-630b0ebb138d
+# ╠═98dc1506-ca89-11f1-adf3-5f265f2087e6
+# ╠═98dc1506-ca89-11f1-b6b1-9f64a78866a4
+# ╠═98dc1506-ca89-11f1-9b97-09c7fb182929
+# ╠═98dc1510-ca89-11f1-98b7-2f5fee45b956
+# ╠═98dc1510-ca89-11f1-a83f-77ba413fa847

@@ -437,27 +437,21 @@ md"""
 
 3. ¿Por qué, sin intercambio, la riqueza acaba concentrada en un solo
    agente aunque todos tengan las mismas oportunidades?
-4. En el modelo, ¿qué representa ``J`` en una economía real? Da dos ejemplos
-   de cosas que lo aumentarían.
-5. Explica con tus palabras por qué la condensación aparece en la red y no
+4. Explica con tus palabras por qué la condensación aparece en la red y no
    en campo medio.
-6. Si ``Y_2 = 0.05``, ¿cuántos agentes "efectivos" tienen la riqueza?
-7. Según el modelo, ¿qué es más eficaz contra la condensación: más
+5. Según el modelo, ¿qué es más eficaz contra la condensación: más
    intercambio entre socios o un impuesto pequeño redistribuido a todos?
    ¿Qué supuestos del modelo podrían cambiar esta conclusión?
 
 ### Ruta avanzada
 
-8. Verifica que la densidad gamma inversa de la sección 1 está normalizada
+6. Verifica que la densidad gamma inversa de la sección 1 está normalizada
    y tiene media 1 (repaso C.A4).
-9. Demuestra que si ``W`` tiene cola de Pareto con ``\mu < 1``, la suma de ``N``
+7. Demuestra que si ``W`` tiene cola de Pareto con ``\mu < 1``, la suma de ``N``
    copias independientes está dominada por la más grande: compara
    ``\mathbb{E}[\max_i W_i]`` con ``\mathbb{E}[\sum_i W_i]`` para ``N`` grande.
-10. Repite el laboratorio de la sección 3 con redes de 2 y de 8 socios en
-    promedio. ¿Cómo cambia ``J_c``?
-11. Modifica la simulación para que el impuesto se cobre pero **no** se
-    redistribuya (la riqueza recaudada desaparece). ¿Cambia la distribución
-    de la riqueza **relativa**? Explica por qué.
+8. Repite el laboratorio de la sección 3 con redes de 2 y de 8 socios en
+   promedio. ¿Cómo cambia ``J_c``?
 
 ## Para la próxima sesión
 
