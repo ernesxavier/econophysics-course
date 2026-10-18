@@ -23,6 +23,10 @@ estocásticos, caminata aleatoria y promediar simulaciones), P.B2 (varianza de
 una suma). Para las notas formales: E.I3 (cadenas de Markov), L.I1
 (eigenvalores), S.I4 (datos dependientes). Ruta avanzada: E.A1 (movimiento
 browniano), E.A3 (ecuación maestra), C.A3 (difusión), L.A5 (Perron-Frobenius).
+
+**Conceptos transversales.** Hoy se presentan la **caminata aleatoria**, las
+**cadenas de Markov** y la idea de **promediar simulaciones sobre varias
+corridas**; las tres vuelven en el Módulo III.
 """
 
 #%% hide

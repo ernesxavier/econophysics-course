@@ -33,6 +33,10 @@ Cada área termina con un **autodiagnóstico** con respuestas.
 Si vas por la ruta básica, basta con las claves B. Para leer las notas
 formales, añade las I. Para la ruta avanzada, añade las A.
 
+Si no sabes por dónde empezar, resuelve el [diagnóstico de
+matemáticas](diagnostico_inicial.md) de la sesión 1: diez preguntas que dicen
+qué claves B te conviene repasar.
+
 | Sesión | Tema | Básico | Intermedio | Avanzado |
 |---|---|---|---|---|
 | 1 | Retornos y colas | [P.B1–B5](probabilidad.md#pb1), [E.B1](procesos_estocasticos.md#eb1), [C.B1](calculo.md#cb1), [C.B6](calculo.md#cb6), [F.B1](fisica_estadistica.md#fb1), [S.B1–B3](estadistica.md#sb1) | [P.I1–I2](probabilidad.md#pi1), [E.I1–I2](procesos_estocasticos.md#ei1), [C.I1–I2](calculo.md#ci1), [S.I2](estadistica.md#si2) | [P.A5](probabilidad.md#pa5) |

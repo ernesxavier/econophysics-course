@@ -24,6 +24,9 @@ opcionales.
 
 **Repaso recomendado** (en `Class_notes/repaso/`): L.B4 (matriz de adyacencia y
 grado) y C.B4 (función logística).
+
+**Conceptos transversales.** Se retoma el **logit** (sesión 13), en la regla
+de imitación de Fermi.
 """
 
 #%% hide
@@ -322,6 +325,16 @@ md"""
    (``k = 2``), en una cuadrícula (``k = 4``) o en una red aleatoria densa con
    ``k = 20``? Explica intuitivamente por qué tener demasiados vecinos dificulta
    la reciprocidad local.
+
+
+### Conceptos que vuelven
+
+Preguntas cortas para repasar ideas de sesiones anteriores; se responden con
+lo que ya sabes y con el laboratorio de hoy.
+
+- **R1.** La regla de Fermi ``\sigma(\beta(\Pi_j - \Pi_i))`` es la misma
+  función logística del modelo logit. ¿Qué papel juega ``\beta`` en cada caso
+  y qué pasa cuando ``\beta \to \infty``? (Sesión 13.)
 
 ### Ruta avanzada
 

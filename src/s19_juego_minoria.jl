@@ -31,6 +31,9 @@ opcionales.
 suma), E.B3 (estacionariedad y promedios temporales), F.B4 (transiciones de
 fase), S.I4 (datos dependientes y promedios sobre realizaciones). Ruta
 avanzada: F.A2 (exponentes críticos), F.A4 (vidrios de espín y frustración).
+
+**Conceptos transversales.** Se retoman la **media y la varianza** (sesiones
+1, 2 y 4) y la idea de **promediar simulaciones** (sesión 4).
 """
 
 #%% hide
@@ -439,6 +442,17 @@ md"""
    construir la curva de la sección 3 es indispensable promediar sobre varias
    realizaciones del sorteo de estrategias y no basta con una sola corrida larga
    (repaso S.I4)?
+
+
+### Conceptos que vuelven
+
+Preguntas cortas para repasar ideas de sesiones anteriores; se responden con
+lo que ya sabes y con el laboratorio de hoy.
+
+- **R1.** ``\sigma^2/N`` es la varianza de ``A`` dividida entre ``N``. Usa la
+  varianza de una suma de variables independientes para explicar por qué vale
+  1 (en promedio) si todos eligen al azar. (Sesiones 2 y 4.) La pregunta 5
+  retoma, además, la idea de promediar simulaciones (sesión 4).
 
 ### Ruta avanzada
 

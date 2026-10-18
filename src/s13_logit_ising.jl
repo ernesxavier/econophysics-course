@@ -24,6 +24,10 @@ opcionales.
 F.B3 (temperatura), F.B4 (transiciones de fase), F.I1 (Boltzmann), F.I2
 (logit = Boltzmann), F.I3 (Ising), F.I5 (Metropolis). Ruta avanzada: E.A3
 (ecuación maestra).
+
+**Conceptos transversales.** Hoy se presenta el **logit** (elección discreta),
+que vuelve en las sesiones 18 y 20. Se retoman las **cadenas de Markov**
+(sesión 4).
 """
 
 #%% hide
@@ -349,6 +353,17 @@ md"""
 5. En la sección 0, dos ciudades con las mismas reglas terminan en consensos
    opuestos. ¿Qué implica esto para un estudio empírico que compara
    ciudades?
+
+
+### Conceptos que vuelven
+
+Preguntas cortas para repasar ideas de sesiones anteriores; se responden con
+lo que ya sabes y con el laboratorio de hoy.
+
+- **R1.** El algoritmo de Metropolis es una cadena de Markov sobre las
+  configuraciones de la red. ¿Qué significa que llegue a una distribución
+  estacionaria? ¿Por qué, en el barrido de temperatura, promediamos sólo los
+  últimos 1500 de los 3000 barridos? (Sesión 4.)
 
 ### Ruta avanzada
 

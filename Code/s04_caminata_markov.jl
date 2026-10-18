@@ -16,7 +16,7 @@ macro bind(def, element)
     #! format: on
 end
 
-# ╔═╡ f36fadf8-ca79-11f1-9a33-eda1611a8cef
+# ╔═╡ 850b88a0-ca92-11f1-8e92-c309121e8db0
 begin
     # Usa el entorno del curso (Code/Project.toml) en lugar del gestor de
     # paquetes propio de Pluto: un solo entorno para todo el repositorio.
@@ -32,7 +32,7 @@ begin
             background_color_legend = nothing, margin = 3Plots.mm)
 end
 
-# ╔═╡ f36fad12-ca79-11f1-9f66-cb7b4e1cda68
+# ╔═╡ 850b87ec-ca92-11f1-9bcd-976702442c1f
 md"""
 # Sesión 4: Caminata aleatoria y cadenas de Markov
 
@@ -57,15 +57,19 @@ estocásticos, caminata aleatoria y promediar simulaciones), P.B2 (varianza de
 una suma). Para las notas formales: E.I3 (cadenas de Markov), L.I1
 (eigenvalores), S.I4 (datos dependientes). Ruta avanzada: E.A1 (movimiento
 browniano), E.A3 (ecuación maestra), C.A3 (difusión), L.A5 (Perron-Frobenius).
+
+**Conceptos transversales.** Hoy se presentan la **caminata aleatoria**, las
+**cadenas de Markov** y la idea de **promediar simulaciones sobre varias
+corridas**; las tres vuelven en el Módulo III.
 """
 
-# ╔═╡ f36fad4c-ca79-11f1-831d-edcd1973fec5
+# ╔═╡ 850b881e-ca92-11f1-8ded-219b05f50bc4
 TableOfContents(title = "Contenido")
 
-# ╔═╡ f36fad62-ca79-11f1-a8bd-f33bd95b70a2
+# ╔═╡ 850b8828-ca92-11f1-b432-0d053be87dd4
 datos = CSV.read(joinpath(@__DIR__, "..", "Data", "precios.csv"), DataFrame);
 
-# ╔═╡ f36fad58-ca79-11f1-9b1d-2d4004eba53f
+# ╔═╡ 850b881e-ca92-11f1-995f-b313d91ea6c2
 md"""
 ## 0. El fenómeno: ¿qué proceso genera estas series?
 
@@ -82,14 +86,14 @@ de calma y periodos de turbulencia: un mercado que alterna entre calma y crisis.
 **Activo:** $(@bind activo Select(unique(datos.activo)))
 """
 
-# ╔═╡ f36fad62-ca79-11f1-b4b7-8fcbedd3fad5
+# ╔═╡ 850b8834-ca92-11f1-830d-e1836f99fc74
 begin
     serie = sort(filter(:activo => ==(activo), datos), :fecha)
     r = diff(log.(serie.cierre))           # retornos logarítmicos diarios
     σ_r = std(r)
 end;
 
-# ╔═╡ f36fad7e-ca79-11f1-a1a3-19f15914136c
+# ╔═╡ 850b883c-ca92-11f1-90fe-a3bd1c0b7623
 md"""
 La estrategia de estas dos sesiones es la de un físico: proponer el modelo más
 simple, simularlo, compararlo con los datos y, cuando falla, agregar sólo lo
@@ -109,7 +113,7 @@ falta independencia (o al menos incorrelación). Con esta regla se entienden
 la caminata aleatoria y, en la sección 4, el error de una simulación.
 """
 
-# ╔═╡ f36fad7e-ca79-11f1-a924-4dbf60a0979a
+# ╔═╡ 850b8846-ca92-11f1-a6c0-75f245ffaf8b
 md"""
 ## 2. La caminata aleatoria
 
@@ -130,13 +134,13 @@ Pasos: $(@bind n_pasos Slider(100:100:5000, default = 1000, show_value = true))
   Probabilidad de subir ``p``: $(@bind p_subir Slider(0.40:0.01:0.60, default = 0.50, show_value = true))
 """
 
-# ╔═╡ f36fad94-ca79-11f1-9faa-29d4b523ace5
+# ╔═╡ 850b8850-ca92-11f1-b21b-e17835d373ec
 var_caminata = let rng = Xoshiro(4)
     finales = [sum(2 .* (rand(rng, n_pasos) .< p_subir) .- 1) for _ in 1:200]
     (simulada = var(finales), teorica = 4n_pasos * p_subir * (1 - p_subir))
 end;
 
-# ╔═╡ f36fad94-ca79-11f1-bc58-a1c3ab34096f
+# ╔═╡ 850b8850-ca92-11f1-9e7e-a78d2b27e4d5
 md"""
 En el paso final, la varianza simulada de las 200 caminatas es
 $(round(var_caminata.simulada, digits = 0)) y la teórica es
@@ -144,7 +148,7 @@ $(round(var_caminata.teorica, digits = 0)). Duplica el número de pasos: la
 dispersión no se duplica, crece en un factor ``\sqrt{2} \approx 1.41``.
 """
 
-# ╔═╡ f36fad9e-ca79-11f1-a3c9-67802fd7b237
+# ╔═╡ 850b885a-ca92-11f1-a3f2-a108ea205731
 md"""
 ## 3. Cadenas de Markov: un mercado con dos estados
 
@@ -165,7 +169,7 @@ Probabilidad de entrar en turbulencia ``p``: $(@bind p_markov Slider(0.002:0.002
   de volver a la calma ``q``: $(@bind q_markov Slider(0.01:0.01:0.2, default = 0.05, show_value = true))
 """
 
-# ╔═╡ f36fadb0-ca79-11f1-a0f6-11c0934039ae
+# ╔═╡ 850b886e-ca92-11f1-9ad6-cde91a0eb0bd
 md"""
 ## 4. Promediar simulaciones: una corrida no basta
 
@@ -175,7 +179,7 @@ fracción medida? Repetimos la simulación de 3000 días 300 veces, con los
 mismos ``p`` y ``q`` de la sección 3, y miramos cuánto varía el resultado.
 """
 
-# ╔═╡ f36fadc6-ca79-11f1-8007-f5a28d236162
+# ╔═╡ 850b8878-ca92-11f1-b013-094e4a71ad72
 md"""
 ## Resumen
 
@@ -188,7 +192,7 @@ md"""
 que promediar muchas corridas.
 """
 
-# ╔═╡ f36fadc6-ca79-11f1-b906-4bc46e7e2fc5
+# ╔═╡ 850b8882-ca92-11f1-8a8a-ed5bbb71ad42
 md"""
 ## Ejercicios
 
@@ -198,24 +202,24 @@ md"""
 caminata aleatoria después de `n` pasos con probabilidad `p` de subir.
 """
 
-# ╔═╡ f36fadd0-ca79-11f1-84da-e73a0f79c279
+# ╔═╡ 850b8882-ca92-11f1-acfe-a71508c49d4a
 function var_caminata_teo(n, p)
     missing  # reemplaza esta línea
 end
 
-# ╔═╡ f36fadda-ca79-11f1-a6f5-ff638356c1a4
+# ╔═╡ 850b888c-ca92-11f1-89e2-09f104c3988c
 md"""
 **2.** Escribe `estacionaria_dos_estados(p, q)`, que devuelva el vector
 ``(\pi_C, \pi_T)`` con la fracción de días en calma y en turbulencia a la
 larga.
 """
 
-# ╔═╡ f36fadda-ca79-11f1-9554-b131270117e5
+# ╔═╡ 850b8898-ca92-11f1-be55-493c8a7470e2
 function estacionaria_dos_estados(p, q)
     missing  # reemplaza esta línea
 end
 
-# ╔═╡ f36fade4-ca79-11f1-8e30-65cc6da7e602
+# ╔═╡ 850b8898-ca92-11f1-ae86-03177eda243c
 md"""
 ### Ruta básica: interpretación
 
@@ -249,7 +253,7 @@ md"""
   tiene memoria.
 """
 
-# ╔═╡ f36fadee-ca79-11f1-a6ad-353ff9cee68c
+# ╔═╡ 850b88a0-ca92-11f1-99cf-df3e6d017cfc
 md"""
 ---
 ## Apéndice: paquetes y funciones auxiliares
@@ -258,14 +262,14 @@ Estas celdas definen herramientas que usa el cuaderno. No es necesario
 leerlas para seguir la sesión.
 """
 
-# ╔═╡ f36fadf8-ca79-11f1-908b-07feb7e53ea8
+# ╔═╡ 850b88aa-ca92-11f1-b8df-f77e55485d86
 begin
     const AZUL    = "#2a78d6"   # serie principal
     const NARANJA = "#eb6834"   # segunda serie o modelo
     const GRIS    = "#52514e"   # referencias
 end;
 
-# ╔═╡ f36fad76-ca79-11f1-9845-cb449be8418e
+# ╔═╡ 850b883c-ca92-11f1-aa01-57b66bf40722
 let
     n = min(length(r), 2000)
     real = 100 .* r[end-n+1:end]
@@ -278,7 +282,7 @@ let
     plot(p1, p2; layout = (2, 1), size = (720, 460))
 end
 
-# ╔═╡ f36fad8a-ca79-11f1-84cc-43f1d64519fe
+# ╔═╡ 850b8846-ca92-11f1-8df4-ddbf5c970bbf
 let
     rng = Xoshiro(4)
     S = [cumsum(rand(rng, n_pasos) .< p_subir) .* 2 .- (1:n_pasos) for _ in 1:200]
@@ -294,7 +298,7 @@ let
     plot!(p, t, μ .- 2σ; color = NARANJA, lw = 1.5, ls = :dash, label = "")
 end
 
-# ╔═╡ f36fae02-ca79-11f1-81e0-0786cfb62b91
+# ╔═╡ 850b88aa-ca92-11f1-87eb-43aeed003e2e
 "Mercado con dos regímenes de volatilidad que siguen una cadena de Markov."
 function simular_regimenes(p, q; n = 3000, σ_calma = 0.008, factor = 3, rng = Xoshiro(8))
     estado = ones(Int, n)
@@ -306,10 +310,10 @@ function simular_regimenes(p, q; n = 3000, σ_calma = 0.008, factor = 3, rng = X
     (estado = estado, r = σ .* randn(rng, n))
 end
 
-# ╔═╡ f36fad9e-ca79-11f1-b0e2-1b93f7ebceb3
+# ╔═╡ 850b885a-ca92-11f1-b155-fd075513ec80
 mercado = simular_regimenes(p_markov, q_markov; n = 3000, σ_calma = 0.008, factor = 3);
 
-# ╔═╡ f36fada8-ca79-11f1-99d0-b5c9660a285f
+# ╔═╡ 850b8866-ca92-11f1-9775-192149d4b266
 md"""
 Fracción de días en turbulencia: $(round(100 * mean(mercado.estado .== 2), digits = 1))%
 en la simulación contra $(round(100p_markov / (p_markov + q_markov), digits = 1))% de la
@@ -323,14 +327,14 @@ $(round(kurtosis(mercado.r), digits = 1))). Pero la autocorrelación de ``|r|``
 decae como ``(1 - p - q)^\tau``: exponencialmente, más rápido que en los datos.
 """
 
-# ╔═╡ f36fadb0-ca79-11f1-861c-cdf2cb362127
+# ╔═╡ 850b886e-ca92-11f1-8bb8-17b299490871
 corridas = let
     fr = [mean(simular_regimenes(p_markov, q_markov; n = 3000, σ_calma = 0.008, factor = 3,
                                  rng = Xoshiro(1000 + k)).estado .== 2) for k in 1:300]
     (fracciones = fr, teoria = p_markov / (p_markov + q_markov))
 end;
 
-# ╔═╡ f36fadbc-ca79-11f1-b9d4-350e74469178
+# ╔═╡ 850b886e-ca92-11f1-b241-253448df02ed
 let c = corridas
     p = histogram(100 .* c.fracciones; bins = 30, color = AZUL, alpha = 0.6, lw = 0,
                   xlabel = "días en turbulencia (%) en una corrida de 3000 días",
@@ -340,7 +344,7 @@ let c = corridas
     vline!(p, [100mean(c.fracciones)]; color = GRIS, lw = 2, ls = :dash, label = "Promedio de las 300")
 end
 
-# ╔═╡ f36fadbc-ca79-11f1-a4e9-1bfe9e9187fe
+# ╔═╡ 850b8878-ca92-11f1-8707-f7642da0bb08
 md"""
 Una corrida cualquiera puede quedar lejos de la teoría: en estas 300, la
 fracción de días turbulentos va de
@@ -356,7 +360,7 @@ en todo el curso, cuando un resultado salga de una simulación, lo
 **promediaremos sobre muchas corridas** y reportaremos cuánto varía.
 """
 
-# ╔═╡ f36fae02-ca79-11f1-825c-b3ff8809f0f2
+# ╔═╡ 850b88b4-ca92-11f1-9092-ad05f13ce5cb
 "Agrupa índices consecutivos en pares (inicio, fin) para sombrear intervalos."
 function rangos(idx)
     out = Float64[]
@@ -369,7 +373,7 @@ function rangos(idx)
     append!(out, [inicio - 0.5, idx[end] + 0.5])
 end
 
-# ╔═╡ f36fada8-ca79-11f1-b0b8-cbc0c04c78de
+# ╔═╡ 850b8866-ca92-11f1-923e-fdc769549460
 let
     m = mercado
     p1 = plot(100 .* m.r; color = AZUL, lw = 0.6, ylabel = "r (%)",
@@ -384,7 +388,7 @@ let
     plot(p1, p2; layout = (2, 1), size = (720, 480))
 end
 
-# ╔═╡ f36fae0c-ca79-11f1-8434-e7cf3bbe014d
+# ╔═╡ 850b88b4-ca92-11f1-8def-a5c3d5448fcd
 "Muestra si la respuesta de un ejercicio es correcta."
 function verificar(f, esperado; rtol = 1e-8, pista = md"")
     caja(tipo, titulo, texto) = Markdown.MD(Markdown.Admonition(tipo, titulo, [texto]))
@@ -405,45 +409,45 @@ function verificar(f, esperado; rtol = 1e-8, pista = md"")
     end
 end
 
-# ╔═╡ f36fadd0-ca79-11f1-aece-4b27575f96c9
+# ╔═╡ 850b888c-ca92-11f1-85ab-63f80f8587e5
 verificar(() -> [var_caminata_teo(100, 0.5), var_caminata_teo(1000, 0.6)], [100.0, 960.0];
           pista = md"Cada paso tiene varianza ``4p(1-p)`` y los pasos son independientes.")
 
-# ╔═╡ f36fade4-ca79-11f1-8708-d58e22d50319
+# ╔═╡ 850b8898-ca92-11f1-af8c-cd3fa66a700d
 verificar(() -> estacionaria_dos_estados(0.01, 0.05), [5 / 6, 1 / 6];
           pista = md"En el estado estacionario entra a la turbulencia tanta probabilidad como sale: ``\pi_C p = \pi_T q``, con ``\pi_C + \pi_T = 1``.")
 
 # ╔═╡ Cell order:
-# ╟─f36fad12-ca79-11f1-9f66-cb7b4e1cda68
-# ╟─f36fad4c-ca79-11f1-831d-edcd1973fec5
-# ╟─f36fad58-ca79-11f1-9b1d-2d4004eba53f
-# ╠═f36fad62-ca79-11f1-a8bd-f33bd95b70a2
-# ╠═f36fad62-ca79-11f1-b4b7-8fcbedd3fad5
-# ╟─f36fad76-ca79-11f1-9845-cb449be8418e
-# ╟─f36fad7e-ca79-11f1-a1a3-19f15914136c
-# ╟─f36fad7e-ca79-11f1-a924-4dbf60a0979a
-# ╟─f36fad8a-ca79-11f1-84cc-43f1d64519fe
-# ╟─f36fad94-ca79-11f1-bc58-a1c3ab34096f
-# ╟─f36fad94-ca79-11f1-9faa-29d4b523ace5
-# ╟─f36fad9e-ca79-11f1-a3c9-67802fd7b237
-# ╟─f36fad9e-ca79-11f1-b0e2-1b93f7ebceb3
-# ╟─f36fada8-ca79-11f1-b0b8-cbc0c04c78de
-# ╟─f36fada8-ca79-11f1-99d0-b5c9660a285f
-# ╟─f36fadb0-ca79-11f1-a0f6-11c0934039ae
-# ╟─f36fadb0-ca79-11f1-861c-cdf2cb362127
-# ╟─f36fadbc-ca79-11f1-b9d4-350e74469178
-# ╟─f36fadbc-ca79-11f1-a4e9-1bfe9e9187fe
-# ╟─f36fadc6-ca79-11f1-8007-f5a28d236162
-# ╟─f36fadc6-ca79-11f1-b906-4bc46e7e2fc5
-# ╠═f36fadd0-ca79-11f1-84da-e73a0f79c279
-# ╟─f36fadd0-ca79-11f1-aece-4b27575f96c9
-# ╟─f36fadda-ca79-11f1-a6f5-ff638356c1a4
-# ╠═f36fadda-ca79-11f1-9554-b131270117e5
-# ╟─f36fade4-ca79-11f1-8708-d58e22d50319
-# ╟─f36fade4-ca79-11f1-8e30-65cc6da7e602
-# ╟─f36fadee-ca79-11f1-a6ad-353ff9cee68c
-# ╠═f36fadf8-ca79-11f1-9a33-eda1611a8cef
-# ╠═f36fadf8-ca79-11f1-908b-07feb7e53ea8
-# ╠═f36fae02-ca79-11f1-81e0-0786cfb62b91
-# ╠═f36fae02-ca79-11f1-825c-b3ff8809f0f2
-# ╠═f36fae0c-ca79-11f1-8434-e7cf3bbe014d
+# ╟─850b87ec-ca92-11f1-9bcd-976702442c1f
+# ╟─850b881e-ca92-11f1-8ded-219b05f50bc4
+# ╟─850b881e-ca92-11f1-995f-b313d91ea6c2
+# ╠═850b8828-ca92-11f1-b432-0d053be87dd4
+# ╠═850b8834-ca92-11f1-830d-e1836f99fc74
+# ╟─850b883c-ca92-11f1-aa01-57b66bf40722
+# ╟─850b883c-ca92-11f1-90fe-a3bd1c0b7623
+# ╟─850b8846-ca92-11f1-a6c0-75f245ffaf8b
+# ╟─850b8846-ca92-11f1-8df4-ddbf5c970bbf
+# ╟─850b8850-ca92-11f1-9e7e-a78d2b27e4d5
+# ╟─850b8850-ca92-11f1-b21b-e17835d373ec
+# ╟─850b885a-ca92-11f1-a3f2-a108ea205731
+# ╟─850b885a-ca92-11f1-b155-fd075513ec80
+# ╟─850b8866-ca92-11f1-923e-fdc769549460
+# ╟─850b8866-ca92-11f1-9775-192149d4b266
+# ╟─850b886e-ca92-11f1-9ad6-cde91a0eb0bd
+# ╟─850b886e-ca92-11f1-8bb8-17b299490871
+# ╟─850b886e-ca92-11f1-b241-253448df02ed
+# ╟─850b8878-ca92-11f1-8707-f7642da0bb08
+# ╟─850b8878-ca92-11f1-b013-094e4a71ad72
+# ╟─850b8882-ca92-11f1-8a8a-ed5bbb71ad42
+# ╠═850b8882-ca92-11f1-acfe-a71508c49d4a
+# ╟─850b888c-ca92-11f1-85ab-63f80f8587e5
+# ╟─850b888c-ca92-11f1-89e2-09f104c3988c
+# ╠═850b8898-ca92-11f1-be55-493c8a7470e2
+# ╟─850b8898-ca92-11f1-af8c-cd3fa66a700d
+# ╟─850b8898-ca92-11f1-ae86-03177eda243c
+# ╟─850b88a0-ca92-11f1-99cf-df3e6d017cfc
+# ╠═850b88a0-ca92-11f1-8e92-c309121e8db0
+# ╠═850b88aa-ca92-11f1-b8df-f77e55485d86
+# ╠═850b88aa-ca92-11f1-87eb-43aeed003e2e
+# ╠═850b88b4-ca92-11f1-9092-ad05f13ce5cb
+# ╠═850b88b4-ca92-11f1-8def-a5c3d5448fcd

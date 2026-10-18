@@ -24,6 +24,9 @@ recalcula. Las secciones marcadas **[Avanzado]** son opcionales.
 **Repaso recomendado** (en `Class_notes/repaso/`): P.I5 (leyes de potencias),
 C.B2 (escalas logarítmicas), S.B4 (mínimos cuadrados) y, para la ruta
 avanzada, P.A2–P.A4.
+
+**Conceptos transversales.** Se completan las **distribuciones, la CCDF y las
+escalas logarítmicas**, que reaparecen en las sesiones 6, 8, 9 y 10.
 """
 
 #%% hide

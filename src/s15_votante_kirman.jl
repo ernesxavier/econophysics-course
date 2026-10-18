@@ -29,6 +29,9 @@ y promedios), L.B4 (matriz de adyacencia), C.B4 (función logística), F.B3–B4
 Markov), F.I3–I4 (Ising y campo medio). Ruta avanzada:
 E.A3 (ecuación maestra), E.A4 (Fokker-Planck), E.A6 (tiempos de primer paso y
 absorción).
+
+**Conceptos transversales.** Se retoman la **caminata aleatoria**, las
+**cadenas de Markov** y la idea de **promediar simulaciones** (sesión 4).
 """
 
 #%% hide
@@ -450,6 +453,23 @@ md"""
    un extremo y de pronto cambia al otro. ¿Qué implicación tiene esto para
    alguien que busca una noticia económica detrás de cada cambio brusco del
    mercado?
+
+
+### Conceptos que vuelven
+
+Preguntas cortas para repasar ideas de sesiones anteriores; se responden con
+lo que ya sabes y con el laboratorio de hoy.
+
+- **R1.** En la red completa, el número de agentes con opinión 1 hace una
+  caminata aleatoria sin tendencia. ¿En qué se parece a la caminata de la
+  sesión 4 y en qué se distingue? (Pista: ¿qué pasa en los bordes?)
+- **R2.** El modelo de Kirman es una cadena de Markov con ``N + 1`` estados.
+  ¿Por qué visita una y otra vez todos los estados, mientras que el votante
+  queda atrapado para siempre en un consenso? (Pista: estados absorbentes,
+  sesión 4.)
+- **R3.** La probabilidad de que gane la opinión 1 se estimó con 200
+  simulaciones. ¿Cuánto podría variar ese porcentaje si sólo hiciéramos 20?
+  (Sesión 4.)
 
 ### Ruta avanzada
 

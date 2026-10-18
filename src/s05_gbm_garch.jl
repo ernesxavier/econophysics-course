@@ -25,6 +25,9 @@ tasa de cambio). Para las notas formales: C.I4 (ecuaciones diferenciales),
 E.I1 (autocorrelación), E.I4–I6 (GARCH, Langevin y crecimiento
 multiplicativo). Ruta avanzada: E.A1–A4 (browniano, Itô, ecuación maestra y
 Fokker-Planck), S.A1 (máxima verosimilitud).
+
+**Conceptos transversales.** Se retoman los **retornos logarítmicos** (sesión
+1) y la **caminata aleatoria** (sesión 4).
 """
 
 #%% hide
@@ -423,6 +426,18 @@ md"""
    no, citando las gráficas de la sección 4.2.
 6. En Ornstein-Uhlenbeck, ¿qué pasa con las fluctuaciones si duplicas la
    fuerza de regreso ``\theta``? ¿Y si duplicas el ruido ``\sigma``?
+
+
+### Conceptos que vuelven
+
+Preguntas cortas para repasar ideas de sesiones anteriores; se responden con
+lo que ya sabes y con el laboratorio de hoy.
+
+- **R1.** En el browniano geométrico los retornos logarítmicos son normales.
+  ¿Por qué el precio nunca se vuelve negativo, aunque un retorno logarítmico
+  sí pueda serlo? (Sesión 1.)
+- **R2.** El ruido de Euler-Maruyama crece con ``\sqrt{\Delta t}``. ¿Qué tiene
+  que ver con la dispersión ``\sqrt{n}`` de la caminata aleatoria? (Sesión 4.)
 
 ### Ruta avanzada
 

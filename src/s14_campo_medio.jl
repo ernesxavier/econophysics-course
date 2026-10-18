@@ -23,6 +23,10 @@ opcionales.
 normal), C.I1 (Taylor), C.I5 (puntos fijos), F.I4 (campo medio). Ruta
 avanzada: C.A4 (Stirling), F.A1 (Landau), F.A2 (exponentes críticos), F.A3
 (campo aleatorio y avalanchas).
+
+**Conceptos transversales.** Se completan los **puntos fijos y su
+estabilidad** (solución gráfica del campo medio), que vuelven en las sesiones
+17 y 20.
 """
 
 #%% hide

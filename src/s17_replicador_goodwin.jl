@@ -25,6 +25,9 @@ de cambio), C.I1 (desarrollo de Taylor), C.I3 (funciones de varias variables),
 C.I4 (EDO en una dimensión y retrato de fase), L.I1 (eigenvalores). Ruta
 avanzada: C.A2 (sistemas de EDO en dos dimensiones), L.A3 (jacobiano y
 estabilidad lineal).
+
+**Conceptos transversales.** Se retoman los **puntos fijos y su estabilidad**
+(sesiones 12 y 14).
 """
 
 #%% hide
@@ -428,6 +431,16 @@ md"""
 5. En el ciclo de Goodwin, explica con intuición económica por qué el máximo de
    la tasa de empleo ``v(t)`` ocurre **antes** que el máximo de la participación
    salarial ``u(t)``, y no al mismo tiempo.
+
+
+### Conceptos que vuelven
+
+Preguntas cortas para repasar ideas de sesiones anteriores; se responden con
+lo que ya sabes y con el laboratorio de hoy.
+
+- **R1.** En Halcón-Paloma, ``x^\ast = V/C`` es un punto fijo estable. ¿Cómo
+  se ve en la gráfica de ``\dot{x}`` contra ``x`` que un punto fijo es
+  estable? Compáralo con los puntos fijos del campo medio. (Sesión 14.)
 
 ### Ruta avanzada
 

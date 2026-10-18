@@ -16,7 +16,7 @@ macro bind(def, element)
     #! format: on
 end
 
-# ╔═╡ 0a674080-ca79-11f1-bf2f-33810e6de079
+# ╔═╡ 5c27066c-ca92-11f1-b8a1-f7014b533d85
 begin
     # Usa el entorno del curso (Code/Project.toml) en lugar del gestor de
     # paquetes propio de Pluto: un solo entorno para todo el repositorio.
@@ -32,7 +32,7 @@ begin
             background_color_legend = nothing, margin = 3Plots.mm)
 end
 
-# ╔═╡ 0a673f86-ca79-11f1-8585-55c5bf1b92a4
+# ╔═╡ 5c27057c-ca92-11f1-ac41-1d45ed46beac
 md"""
 # Sesión 1: Retornos y colas pesadas
 
@@ -58,12 +58,21 @@ del curso.
 estocásticos), S.B1–B3 (estimación y pruebas). Para las notas formales:
 P.I1–I2, E.I1–I2 (autocorrelación y martingalas), C.I1–I2 y S.I2. Ruta
 avanzada: P.A5.
+
+**Diagnóstico.** Antes del laboratorio, resuelve las diez preguntas de
+`Class_notes/repaso/diagnostico_inicial.md` (25 minutos, no cuenta para la
+calificación). Al final te dice qué claves de repaso te conviene leer.
+
+**Conceptos transversales.** Hoy se presentan los **retornos logarítmicos**,
+las **distribuciones** (histograma y escala logarítmica; la CCDF llega en la
+sesión 3) y la **media, la varianza y la correlación** (que se completan en la
+sesión 2).
 """
 
-# ╔═╡ 0a673fb8-ca79-11f1-bb71-393e5854bf7b
+# ╔═╡ 5c2705a4-ca92-11f1-8ec0-e1340af79203
 TableOfContents(title = "Contenido")
 
-# ╔═╡ 0a673fb8-ca79-11f1-ba9a-bb55c46fb4ee
+# ╔═╡ 5c2705b0-ca92-11f1-bb7d-c3c171fe80c7
 md"""
 ## 0. El fenómeno: ¿el mercado es un volado?
 
@@ -73,7 +82,7 @@ días con caídas enormes serían rarísimos. Veamos el peor día del S&P 500 en
 los datos del curso:
 """
 
-# ╔═╡ 0a673fd6-ca79-11f1-948a-013823daed4a
+# ╔═╡ 5c2705cc-ca92-11f1-861c-01b564f4c0f1
 md"""
 **¿Qué es la econofísica?** La economía tradicional suele partir de un agente
 representativo que optimiza. La econofísica parte de otra pregunta: **¿qué
@@ -90,7 +99,7 @@ otros dos. Durante el curso construiremos modelos que intenten explicarlos, y
 en la sesión 20 volveremos a estas mediciones para ver cuáles reproducen.
 """
 
-# ╔═╡ 0a673fe0-ca79-11f1-a76a-4bddd006e308
+# ╔═╡ 5c2705cc-ca92-11f1-9515-752c4bcba805
 md"""
 ## 1. Repaso: retornos
 
@@ -106,12 +115,12 @@ Para cambios pequeños son casi iguales, porque ``\ln(1+x) \approx x``. Mueve el
 deslizador para ver cuándo dejan de parecerse.
 """
 
-# ╔═╡ 0a673fe0-ca79-11f1-9c95-9b3456ce2aec
+# ╔═╡ 5c2705d6-ca92-11f1-a03e-6bd3ab7c7af8
 md"""
 Retorno simple ``R``: $(@bind R_simple Slider(-0.5:0.01:0.5, default = 0.1, show_value = true))
 """
 
-# ╔═╡ 0a673ff4-ca79-11f1-9830-153ec35fb8b1
+# ╔═╡ 5c2705e2-ca92-11f1-9a75-9dbee15bd055
 md"""
 Con ``R = `` $(round(100R_simple, digits = 1))%, el retorno logarítmico es
 ``r = `` $(round(100log1p(R_simple), digits = 2))%. La diferencia es
@@ -136,7 +145,7 @@ como el teorema del límite central.
 | Curtosis en exceso | ``\kappa = \frac{1}{N}\sum \left(\frac{r_t-\mu}{\sigma}\right)^4 - 3`` | Peso de las colas: la normal tiene ``\kappa = 0`` |
 """
 
-# ╔═╡ 0a673ff4-ca79-11f1-b30f-a57bbf50264e
+# ╔═╡ 5c2705e2-ca92-11f1-9003-d5c34654de92
 md"""
 ## 2. Los datos
 
@@ -145,15 +154,15 @@ estadounidense y una criptomoneda. Los datos se descargaron de Yahoo Finance
 con `Code/descargar_datos.jl` y están en `Data/precios.csv`.
 """
 
-# ╔═╡ 0a673ffc-ca79-11f1-9781-6b7b0af061c6
+# ╔═╡ 5c2705ea-ca92-11f1-8a0f-9b6239542270
 datos = CSV.read(joinpath(@__DIR__, "..", "Data", "precios.csv"), DataFrame)
 
-# ╔═╡ 0a673ffc-ca79-11f1-a940-f92d1a820ce0
+# ╔═╡ 5c2705ea-ca92-11f1-9651-3b9586606eb9
 md"""
 **Activo:** $(@bind activo Select(unique(datos.activo)))
 """
 
-# ╔═╡ 0a674008-ca79-11f1-8004-b1f088541fa5
+# ╔═╡ 5c2705f4-ca92-11f1-bd2f-55511de8a0a6
 begin
     serie = sort(filter(:activo => ==(activo), datos), :fecha)
     fechas = serie.fecha
@@ -163,12 +172,12 @@ begin
     μ, σ = mean(r), std(r)
 end;
 
-# ╔═╡ 0a674008-ca79-11f1-a37e-673c4de834a3
+# ╔═╡ 5c2705f4-ca92-11f1-b5cc-6190bddb1971
 md"""
 $(@bind escala_log CheckBox(default = true)) Precio en escala logarítmica
 """
 
-# ╔═╡ 0a674012-ca79-11f1-b769-cde83b876b09
+# ╔═╡ 5c2705fe-ca92-11f1-ba41-e1cfe06c2810
 md"""
 Las líneas punteadas marcan tres episodios: la **crisis financiera** (octubre
 de 2008), la **elección presidencial en EE. UU.** (9 de noviembre de 2016) y el
@@ -180,7 +189,7 @@ turbulencia. Esa observación visual es el punto de partida de todo lo que
 sigue.
 """
 
-# ╔═╡ 0a67401c-ca79-11f1-9bab-c1b68ba9112d
+# ╔═╡ 5c270608-ca92-11f1-be55-a181a1eff8e3
 md"""
 ## 3. Hecho 1: colas pesadas
 
@@ -194,15 +203,15 @@ La gráfica compara la densidad empírica de ``z`` con la normal estándar.
 invisibles; en escala logarítmica saltan a la vista.
 """
 
-# ╔═╡ 0a674026-ca79-11f1-bec2-21a83bf18dbc
+# ╔═╡ 5c270614-ca92-11f1-abd1-99c6e4c25a38
 z = (r .- μ) ./ σ;
 
-# ╔═╡ 0a674026-ca79-11f1-907f-2d5acfd4ba5f
+# ╔═╡ 5c270614-ca92-11f1-8920-63527588838a
 md"""
 $(@bind colas_log CheckBox(default = false)) Eje vertical logarítmico
 """
 
-# ╔═╡ 0a67402e-ca79-11f1-92b0-0b73f43084b2
+# ╔═╡ 5c27061c-ca92-11f1-934d-31c806ef768f
 md"""
 **Curtosis en exceso de $activo:** $(round(kurtosis(r), digits = 1)) (la normal tiene 0).
 
@@ -210,7 +219,7 @@ md"""
 ``|z| > k`` hubo en los datos contra cuántos predice la normal.
 """
 
-# ╔═╡ 0a674044-ca79-11f1-9e82-551585e4e496
+# ╔═╡ 5c270630-ca92-11f1-94a1-97a20aa902d6
 md"""
 ## 4. Hecho 2: ausencia de autocorrelación lineal
 
@@ -226,12 +235,12 @@ Si ``\rho(\tau)`` fuera claramente positiva, podríamos predecir el mercado:
 ``\pm 1.96/\sqrt{N}``: las barras dentro de ella son indistinguibles de cero.
 """
 
-# ╔═╡ 0a674044-ca79-11f1-a344-8db23704da87
+# ╔═╡ 5c270630-ca92-11f1-acf1-9105dba75bcb
 md"""
 Rezagos: $(@bind L Slider(5:5:100, default = 30, show_value = true))
 """
 
-# ╔═╡ 0a67404e-ca79-11f1-8954-133f14274ab6
+# ╔═╡ 5c27063a-ca92-11f1-a125-0f03d417ac62
 md"""
 Después del primer rezago, casi todas las barras quedan dentro de la franja.
 Esto es consistente con la **hipótesis de mercado eficiente**: si los retornos
@@ -249,7 +258,7 @@ Pero cuidado: *ausencia de correlación lineal no significa independencia*.
 En la sesión 2 veremos que el **tamaño** de los movimientos sí tiene memoria.
 """
 
-# ╔═╡ 0a674058-ca79-11f1-bc34-539706d5e516
+# ╔═╡ 5c270642-ca92-11f1-9418-099053f88683
 md"""
 ## Resumen
 
@@ -259,7 +268,7 @@ md"""
 | Sin autocorrelación lineal | ACF de ``r`` | Pequeña en el rezago 1 e indistinguible de cero después |
 """
 
-# ╔═╡ 0a674058-ca79-11f1-b8ba-05f82855cd04
+# ╔═╡ 5c270642-ca92-11f1-a669-0163a14e6219
 md"""
 ## Ejercicios
 
@@ -269,22 +278,22 @@ md"""
 devuelva el vector de retornos logarítmicos. Reemplaza `missing` por tu código.
 """
 
-# ╔═╡ 0a674062-ca79-11f1-a50a-63244cc6ca49
+# ╔═╡ 5c27064e-ca92-11f1-8709-c599751aacae
 function mis_retornos(p)
     missing  # reemplaza esta línea
 end
 
-# ╔═╡ 0a67406c-ca79-11f1-9e10-93bf2fd25fa4
+# ╔═╡ 5c27064e-ca92-11f1-be9c-076a076f3a17
 md"""
 **2.** Escribe la función `curtosis_exceso(x)` usando la fórmula de la sección 1.
 """
 
-# ╔═╡ 0a67406c-ca79-11f1-9306-294b29247450
+# ╔═╡ 5c270658-ca92-11f1-9a43-fba29ab635f1
 function curtosis_exceso(x)
     missing  # reemplaza esta línea
 end
 
-# ╔═╡ 0a674076-ca79-11f1-8612-b9b4246fcaad
+# ╔═╡ 5c270662-ca92-11f1-89a4-cd0b5a485563
 md"""
 ### Ruta básica: interpretación
 
@@ -317,7 +326,7 @@ md"""
   anuncia otro? Y aprenderemos a comparar los datos contra **modelos nulos**.
 """
 
-# ╔═╡ 0a674080-ca79-11f1-82a8-153dce2cff8a
+# ╔═╡ 5c27066c-ca92-11f1-bae4-d1fe25583445
 md"""
 ---
 ## Apéndice: paquetes y funciones auxiliares
@@ -326,14 +335,14 @@ Estas celdas definen herramientas que usa el cuaderno. No es necesario
 leerlas para seguir la sesión.
 """
 
-# ╔═╡ 0a67408a-ca79-11f1-9076-59537bd2c441
+# ╔═╡ 5c270674-ca92-11f1-9bcc-2536a770240e
 begin
     const AZUL    = "#2a78d6"   # serie principal
     const NARANJA = "#eb6834"   # segunda serie
     const GRIS    = "#52514e"   # referencias (normal, bandas, eventos)
 end;
 
-# ╔═╡ 0a673fea-ca79-11f1-bbd8-2140bdb6381f
+# ╔═╡ 5c2705d6-ca92-11f1-9b75-a5b99207b5a4
 let
     x = -0.5:0.01:0.5
     p = plot(x, x, color = GRIS, ls = :dash, lw = 1.5,
@@ -346,17 +355,17 @@ let
     p
 end
 
-# ╔═╡ 0a67408a-ca79-11f1-bce9-ab9ba19c4a18
+# ╔═╡ 5c270674-ca92-11f1-a637-05b607e11d11
 const EVENTOS = [Date(2008, 10, 10), Date(2016, 11, 9), Date(2020, 3, 16)];
 
-# ╔═╡ 0a674094-ca79-11f1-8f26-a910241cd676
+# ╔═╡ 5c270680-ca92-11f1-bb14-c5033fabf7cb
 "Dibuja líneas verticales en los eventos que caen dentro del rango de `fechas`."
 function marcar_eventos!(p, fechas)
     dentro = filter(e -> first(fechas) <= e <= last(fechas), EVENTOS)
     vline!(p, dentro, color = GRIS, ls = :dot, lw = 1, label = "")
 end
 
-# ╔═╡ 0a674094-ca79-11f1-8aab-b51ebb9e8a39
+# ╔═╡ 5c270680-ca92-11f1-af61-1f5c9df7b5f5
 "Densidad empírica en bins de ancho `ancho`; descarta bins vacíos (para escala log)."
 function densidad_empirica(z; ancho = 0.25)
     h = fit(Histogram, z, -16:ancho:16)
@@ -366,14 +375,14 @@ function densidad_empirica(z; ancho = 0.25)
     centros[keep], dens[keep]
 end
 
-# ╔═╡ 0a67409e-ca79-11f1-8379-f39bf2509e9c
+# ╔═╡ 5c270680-ca92-11f1-b13e-35a72351a63c
 dias_por_año(activo) = activo == "Bitcoin" ? 365 : 252
 
-# ╔═╡ 0a67409e-ca79-11f1-af4d-8fd495659d32
+# ╔═╡ 5c27068a-ca92-11f1-b1e8-8b03f59a0c3c
 "Límite simétrico del eje z: al menos ±8 y siempre mayor que el dato más extremo."
 rango_z(z) = max(8, ceil(Int, maximum(abs, z)) + 1)
 
-# ╔═╡ 0a674026-ca79-11f1-b443-5db137e30692
+# ╔═╡ 5c270614-ca92-11f1-ab67-35fedfdac8fd
 let
     x, dens = densidad_empirica(z)
     zmax = rango_z(z)
@@ -389,7 +398,7 @@ let
     p
 end
 
-# ╔═╡ 0a67409e-ca79-11f1-86af-55d0f433b0a9
+# ╔═╡ 5c27068a-ca92-11f1-ba2e-c5d693c455fd
 "Marcas del eje x: un año de cada `paso`, etiquetado sólo con el año."
 function ticks_años(fechas; paso = 4)
     años = year(first(fechas)):paso:year(last(fechas))
@@ -397,7 +406,7 @@ function ticks_años(fechas; paso = 4)
     (Dates.value.(marcas), string.(años))
 end
 
-# ╔═╡ 0a6740a8-ca79-11f1-add6-39cd91d3b142
+# ╔═╡ 5c270694-ca92-11f1-8e34-7d7851886bb8
 "Marcas del eje de precios en escala log: 1, 2 y 5 por cada potencia de 10, con separador de miles."
 function ticks_precio(precios)
     lo, hi = extrema(precios)
@@ -408,7 +417,7 @@ function ticks_precio(precios)
     (marcas, etiqueta.(marcas))
 end
 
-# ╔═╡ 0a674012-ca79-11f1-b501-0d17ac6c948f
+# ╔═╡ 5c2705fe-ca92-11f1-b67d-9d86bb77da16
 let
     p1 = plot(fechas, precios, color = AZUL, lw = 1.2,
               yscale = escala_log ? :log10 : :identity,
@@ -424,7 +433,7 @@ let
     plot(p1, p2, layout = (2, 1), size = (720, 520))
 end
 
-# ╔═╡ 0a6740a8-ca79-11f1-be03-3f12d18b9f82
+# ╔═╡ 5c270694-ca92-11f1-b530-c3a355976e8b
 "Frecuencia de un evento de `k` desviaciones estándar si los retornos fueran normales."
 function frecuencia_normal(k, dpa)
     p = 2ccdf(Normal(), k)          # probabilidad diaria
@@ -439,7 +448,7 @@ function frecuencia_normal(k, dpa)
     "menos de una vez en toda la edad del universo"
 end
 
-# ╔═╡ 0a673fc2-ca79-11f1-96e0-25ff772fb353
+# ╔═╡ 5c2705b8-ca92-11f1-9ef4-e1905175cd72
 peor_sp = let
     sp = sort(filter(:activo => ==("S&P 500"), datos), :fecha)
     r_sp = diff(log.(sp.cierre))
@@ -450,14 +459,14 @@ peor_sp = let
      frec = frecuencia_normal(abs(z_sp[i]), 252))
 end;
 
-# ╔═╡ 0a673fce-ca79-11f1-bf29-4f71d715bf8d
+# ╔═╡ 5c2705b8-ca92-11f1-8a55-73837b625ee8
 let s = peor_sp
     p = plot(s.fechas[2:end], 100s.r, color = AZUL, lw = 0.6, ylabel = "r (%)",
              title = "S&P 500: retornos diarios", xticks = ticks_años(s.fechas))
     scatter!(p, [s.fechas[s.i + 1]], [100s.r[s.i]], color = NARANJA, ms = 6, msw = 0)
 end
 
-# ╔═╡ 0a673fd6-ca79-11f1-989a-c703aefd7905
+# ╔═╡ 5c2705c2-ca92-11f1-8772-3dde7d247402
 md"""
 El día $(peor_sp.fecha) el S&P 500 cayó **un $(peor_sp.caida)%** en una sola
 sesión (punto naranja): un movimiento de $(peor_sp.z) desviaciones estándar.
@@ -465,14 +474,14 @@ Si los retornos fueran normales, un día así ocurriría $(peor_sp.frec). Y sin
 embargo ocurrió, junto con muchos otros días casi igual de extremos.
 """
 
-# ╔═╡ 0a67403a-ca79-11f1-9d21-7791867590d6
+# ╔═╡ 5c270626-ca92-11f1-bdd1-8b8ab2b098df
 extremo = let i = argmax(abs.(z))
     (fecha = fechas_r[i], r = round(100r[i], digits = 1),
      z = round(z[i], digits = 1),
      frecuencia = frecuencia_normal(abs(z[i]), dias_por_año(activo)))
 end;
 
-# ╔═╡ 0a67403a-ca79-11f1-ad13-33c0da92d5da
+# ╔═╡ 5c270626-ca92-11f1-b76d-d992af0ae9f8
 md"""
 El movimiento más extremo de $activo fue el **día $(extremo.fecha)**:
 ``r = `` $(extremo.r)%, es decir, ``z = `` $(extremo.z).
@@ -480,7 +489,7 @@ Según la distribución normal, **un movimiento así ocurriría
 $(extremo.frecuencia)**.
 """
 
-# ╔═╡ 0a6740b2-ca79-11f1-8b1c-37d21d289891
+# ╔═╡ 5c27069e-ca92-11f1-9fe4-7b26d095223e
 function tabla_extremos(z, activo)
     N = length(z)
     dpa = dias_por_año(activo)
@@ -492,10 +501,10 @@ function tabla_extremos(z, activo)
     )
 end
 
-# ╔═╡ 0a67402e-ca79-11f1-8057-6fcb9ca5d59a
+# ╔═╡ 5c27061c-ca92-11f1-b0bb-2d35c3c78901
 tabla_extremos(z, activo)
 
-# ╔═╡ 0a6740b2-ca79-11f1-8d4f-975c3badcf79
+# ╔═╡ 5c27069e-ca92-11f1-b741-3b8d87e42afa
 function grafica_acf(x, L; titulo = "", color = AZUL)
     banda = 1.96 / sqrt(length(x))
     p = plot(1:L, fill(banda, L), fillrange = fill(-banda, L), color = GRIS,
@@ -505,10 +514,10 @@ function grafica_acf(x, L; titulo = "", color = AZUL)
     hline!(p, [0], color = :black, lw = 0.5)
 end
 
-# ╔═╡ 0a67404e-ca79-11f1-8179-d969e9bd1a2d
+# ╔═╡ 5c27063a-ca92-11f1-bab5-bf53d531654c
 grafica_acf(r, L; titulo = "$activo: autocorrelación de los retornos")
 
-# ╔═╡ 0a6740bc-ca79-11f1-b95d-552c4c9a7fc1
+# ╔═╡ 5c2706a6-ca92-11f1-8257-6359fd5b9dc8
 "Muestra si la respuesta de un ejercicio es correcta."
 function verificar(f, esperado; rtol = 1e-8, pista = md"")
     caja(tipo, titulo, texto) = Markdown.MD(Markdown.Admonition(tipo, titulo, [texto]))
@@ -529,69 +538,69 @@ function verificar(f, esperado; rtol = 1e-8, pista = md"")
     end
 end
 
-# ╔═╡ 0a674062-ca79-11f1-83e9-ffa6e6d857a2
+# ╔═╡ 5c27064e-ca92-11f1-a619-7dbf3ebdfce0
 verificar(() -> mis_retornos([100.0, 110.0, 99.0, 99.0]),
           [log(1.1), log(0.9), 0.0];
           pista = md"Usa `diff` y `log.`. Recuerda que ``r_t = \ln P_t - \ln P_{t-1}``.")
 
-# ╔═╡ 0a6740bc-ca79-11f1-a23c-979ce7010dfb
+# ╔═╡ 5c2706b2-ca92-11f1-8151-63ee24de2a45
 const VECTOR_PRUEBA = rand(Xoshiro(2026), TDist(5), 100_000);
 
-# ╔═╡ 0a67406c-ca79-11f1-a2d7-6b98d4f2e481
+# ╔═╡ 5c270658-ca92-11f1-bf2f-d770430f0f3a
 verificar(() -> curtosis_exceso(VECTOR_PRUEBA), kurtosis(VECTOR_PRUEBA); rtol = 1e-2,
           pista = md"Estandariza con `(x .- mean(x)) ./ std(x)`, eleva a la cuarta potencia con `.^4`, promedia con `mean` y resta 3.")
 
 # ╔═╡ Cell order:
-# ╟─0a673f86-ca79-11f1-8585-55c5bf1b92a4
-# ╟─0a673fb8-ca79-11f1-bb71-393e5854bf7b
-# ╟─0a673fb8-ca79-11f1-ba9a-bb55c46fb4ee
-# ╟─0a673fc2-ca79-11f1-96e0-25ff772fb353
-# ╟─0a673fce-ca79-11f1-bf29-4f71d715bf8d
-# ╟─0a673fd6-ca79-11f1-989a-c703aefd7905
-# ╟─0a673fd6-ca79-11f1-948a-013823daed4a
-# ╟─0a673fe0-ca79-11f1-a76a-4bddd006e308
-# ╟─0a673fe0-ca79-11f1-9c95-9b3456ce2aec
-# ╟─0a673fea-ca79-11f1-bbd8-2140bdb6381f
-# ╟─0a673ff4-ca79-11f1-9830-153ec35fb8b1
-# ╟─0a673ff4-ca79-11f1-b30f-a57bbf50264e
-# ╠═0a673ffc-ca79-11f1-9781-6b7b0af061c6
-# ╟─0a673ffc-ca79-11f1-a940-f92d1a820ce0
-# ╠═0a674008-ca79-11f1-8004-b1f088541fa5
-# ╟─0a674008-ca79-11f1-a37e-673c4de834a3
-# ╟─0a674012-ca79-11f1-b501-0d17ac6c948f
-# ╟─0a674012-ca79-11f1-b769-cde83b876b09
-# ╟─0a67401c-ca79-11f1-9bab-c1b68ba9112d
-# ╠═0a674026-ca79-11f1-bec2-21a83bf18dbc
-# ╟─0a674026-ca79-11f1-907f-2d5acfd4ba5f
-# ╟─0a674026-ca79-11f1-b443-5db137e30692
-# ╟─0a67402e-ca79-11f1-92b0-0b73f43084b2
-# ╟─0a67402e-ca79-11f1-8057-6fcb9ca5d59a
-# ╟─0a67403a-ca79-11f1-9d21-7791867590d6
-# ╟─0a67403a-ca79-11f1-ad13-33c0da92d5da
-# ╟─0a674044-ca79-11f1-9e82-551585e4e496
-# ╟─0a674044-ca79-11f1-a344-8db23704da87
-# ╟─0a67404e-ca79-11f1-8179-d969e9bd1a2d
-# ╟─0a67404e-ca79-11f1-8954-133f14274ab6
-# ╟─0a674058-ca79-11f1-bc34-539706d5e516
-# ╟─0a674058-ca79-11f1-b8ba-05f82855cd04
-# ╠═0a674062-ca79-11f1-a50a-63244cc6ca49
-# ╟─0a674062-ca79-11f1-83e9-ffa6e6d857a2
-# ╟─0a67406c-ca79-11f1-9e10-93bf2fd25fa4
-# ╠═0a67406c-ca79-11f1-9306-294b29247450
-# ╟─0a67406c-ca79-11f1-a2d7-6b98d4f2e481
-# ╟─0a674076-ca79-11f1-8612-b9b4246fcaad
-# ╟─0a674080-ca79-11f1-82a8-153dce2cff8a
-# ╠═0a674080-ca79-11f1-bf2f-33810e6de079
-# ╠═0a67408a-ca79-11f1-9076-59537bd2c441
-# ╠═0a67408a-ca79-11f1-bce9-ab9ba19c4a18
-# ╠═0a674094-ca79-11f1-8f26-a910241cd676
-# ╠═0a674094-ca79-11f1-8aab-b51ebb9e8a39
-# ╠═0a67409e-ca79-11f1-8379-f39bf2509e9c
-# ╠═0a67409e-ca79-11f1-af4d-8fd495659d32
-# ╠═0a67409e-ca79-11f1-86af-55d0f433b0a9
-# ╠═0a6740a8-ca79-11f1-add6-39cd91d3b142
-# ╠═0a6740a8-ca79-11f1-be03-3f12d18b9f82
-# ╠═0a6740b2-ca79-11f1-8b1c-37d21d289891
-# ╠═0a6740b2-ca79-11f1-8d4f-975c3badcf79
-# ╠═0a6740bc-ca79-11f1-b95d-552c4c9a7fc1
-# ╠═0a6740bc-ca79-11f1-a23c-979ce7010dfb
+# ╟─5c27057c-ca92-11f1-ac41-1d45ed46beac
+# ╟─5c2705a4-ca92-11f1-8ec0-e1340af79203
+# ╟─5c2705b0-ca92-11f1-bb7d-c3c171fe80c7
+# ╟─5c2705b8-ca92-11f1-9ef4-e1905175cd72
+# ╟─5c2705b8-ca92-11f1-8a55-73837b625ee8
+# ╟─5c2705c2-ca92-11f1-8772-3dde7d247402
+# ╟─5c2705cc-ca92-11f1-861c-01b564f4c0f1
+# ╟─5c2705cc-ca92-11f1-9515-752c4bcba805
+# ╟─5c2705d6-ca92-11f1-a03e-6bd3ab7c7af8
+# ╟─5c2705d6-ca92-11f1-9b75-a5b99207b5a4
+# ╟─5c2705e2-ca92-11f1-9a75-9dbee15bd055
+# ╟─5c2705e2-ca92-11f1-9003-d5c34654de92
+# ╠═5c2705ea-ca92-11f1-8a0f-9b6239542270
+# ╟─5c2705ea-ca92-11f1-9651-3b9586606eb9
+# ╠═5c2705f4-ca92-11f1-bd2f-55511de8a0a6
+# ╟─5c2705f4-ca92-11f1-b5cc-6190bddb1971
+# ╟─5c2705fe-ca92-11f1-b67d-9d86bb77da16
+# ╟─5c2705fe-ca92-11f1-ba41-e1cfe06c2810
+# ╟─5c270608-ca92-11f1-be55-a181a1eff8e3
+# ╠═5c270614-ca92-11f1-abd1-99c6e4c25a38
+# ╟─5c270614-ca92-11f1-8920-63527588838a
+# ╟─5c270614-ca92-11f1-ab67-35fedfdac8fd
+# ╟─5c27061c-ca92-11f1-934d-31c806ef768f
+# ╟─5c27061c-ca92-11f1-b0bb-2d35c3c78901
+# ╟─5c270626-ca92-11f1-bdd1-8b8ab2b098df
+# ╟─5c270626-ca92-11f1-b76d-d992af0ae9f8
+# ╟─5c270630-ca92-11f1-94a1-97a20aa902d6
+# ╟─5c270630-ca92-11f1-acf1-9105dba75bcb
+# ╟─5c27063a-ca92-11f1-bab5-bf53d531654c
+# ╟─5c27063a-ca92-11f1-a125-0f03d417ac62
+# ╟─5c270642-ca92-11f1-9418-099053f88683
+# ╟─5c270642-ca92-11f1-a669-0163a14e6219
+# ╠═5c27064e-ca92-11f1-8709-c599751aacae
+# ╟─5c27064e-ca92-11f1-a619-7dbf3ebdfce0
+# ╟─5c27064e-ca92-11f1-be9c-076a076f3a17
+# ╠═5c270658-ca92-11f1-9a43-fba29ab635f1
+# ╟─5c270658-ca92-11f1-bf2f-d770430f0f3a
+# ╟─5c270662-ca92-11f1-89a4-cd0b5a485563
+# ╟─5c27066c-ca92-11f1-bae4-d1fe25583445
+# ╠═5c27066c-ca92-11f1-b8a1-f7014b533d85
+# ╠═5c270674-ca92-11f1-9bcc-2536a770240e
+# ╠═5c270674-ca92-11f1-a637-05b607e11d11
+# ╠═5c270680-ca92-11f1-bb14-c5033fabf7cb
+# ╠═5c270680-ca92-11f1-af61-1f5c9df7b5f5
+# ╠═5c270680-ca92-11f1-b13e-35a72351a63c
+# ╠═5c27068a-ca92-11f1-b1e8-8b03f59a0c3c
+# ╠═5c27068a-ca92-11f1-ba2e-c5d693c455fd
+# ╠═5c270694-ca92-11f1-8e34-7d7851886bb8
+# ╠═5c270694-ca92-11f1-b530-c3a355976e8b
+# ╠═5c27069e-ca92-11f1-9fe4-7b26d095223e
+# ╠═5c27069e-ca92-11f1-b741-3b8d87e42afa
+# ╠═5c2706a6-ca92-11f1-8257-6359fd5b9dc8
+# ╠═5c2706b2-ca92-11f1-8151-63ee24de2a45

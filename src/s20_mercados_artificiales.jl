@@ -32,6 +32,10 @@ E.I4 (ARCH y GARCH), C.I5 (puntos fijos y estabilidad en 1D), S.I2 (Ljung-Box),
 S.I4 (datos dependientes). Ruta avanzada: L.A3 (jacobiano y estabilidad),
 C.A5 (mapas discretos, bifurcaciones y caos), S.A3 (calibración por momentos
 simulados), S.A4 (memoria larga).
+
+**Conceptos transversales.** Se retoman los **retornos logarítmicos** (sesión
+1), el **logit** (sesión 13) y los **puntos fijos y su estabilidad** (sesiones
+12 y 14).
 """
 
 #%% hide
@@ -461,6 +465,22 @@ md"""
 
 #%% hide
 md"""
+
+### Conceptos que vuelven
+
+Preguntas cortas para repasar ideas de sesiones anteriores; se responden con
+lo que ya sabes y con el laboratorio de hoy.
+
+- **R1.** En la sección 3 comparamos retornos logarítmicos estandarizados de
+  las tres series. ¿Por qué comparamos retornos y no precios? (Sesión 1.)
+- **R2.** La fracción de chartistas de Brock-Hommes es una probabilidad logit.
+  ¿Qué representa ``\beta`` en el mercado y qué pasa si es muy grande? (Sesión
+  13.)
+- **R3.** En el diagnóstico de la sección 1, el equilibrio fundamental pierde
+  estabilidad cuando el multiplicador ``g\,n_2^\ast/R`` supera 1. ¿Qué tiene
+  en común con la estabilidad de los puntos fijos que vimos antes? (Sesiones
+  12 y 14.)
+
 ### Ruta avanzada: completa el código
 
 Los ejercicios 6 a 8 son opcionales.

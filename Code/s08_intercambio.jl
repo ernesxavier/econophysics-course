@@ -16,7 +16,7 @@ macro bind(def, element)
     #! format: on
 end
 
-# ╔═╡ bc7fe636-ca89-11f1-9628-293280733092
+# ╔═╡ bb4677f4-ca92-11f1-92f7-6911629eb229
 begin
     # Usa el entorno del curso (Code/Project.toml) en lugar del gestor de
     # paquetes propio de Pluto: un solo entorno para todo el repositorio.
@@ -31,7 +31,7 @@ begin
             background_color_legend = nothing, margin = 3Plots.mm)
 end
 
-# ╔═╡ bc7fe514-ca89-11f1-8331-a91d350b8f9c
+# ╔═╡ bb467696-ca92-11f1-8683-d943e5aa14ec
 md"""
 # Sesión 8: Desigualdad y modelos de intercambio
 
@@ -57,12 +57,15 @@ opcionales.
 macro, entropía, temperatura), F.I1 (distribución de Boltzmann), F.I6
 (modelos de intercambio). Ruta avanzada: C.A1 (multiplicadores de Lagrange),
 C.A4 (función gamma).
+
+**Conceptos transversales.** Se retoman las **distribuciones, la CCDF y las
+escalas logarítmicas** (sesiones 1 y 3).
 """
 
-# ╔═╡ bc7fe546-ca89-11f1-b966-3110875ac9e7
+# ╔═╡ bb4676dc-ca92-11f1-bc48-11e123ee30ca
 TableOfContents(title = "Contenido")
 
-# ╔═╡ bc7fe550-ca89-11f1-b3a5-1506830bce49
+# ╔═╡ bb4676e8-ca92-11f1-857b-bf3d27d5247c
 md"""
 ## 0. El fenómeno: ¿cómo se reparte el ingreso en México?
 
@@ -78,10 +81,10 @@ transferencias y el valor estimado de vivir en casa propia, en pesos de 2024.
 Unidad de análisis: $(@bind unidad Select(["Hogar", "Persona (ingreso per cápita)"]))
 """
 
-# ╔═╡ bc7fe55a-ca89-11f1-a938-3dac6d42de30
+# ╔═╡ bb4676f0-ca92-11f1-8281-85e4839bce42
 enigh = CSV.read(joinpath(@__DIR__, "..", "Data", "enigh2024_hogares.csv"), DataFrame)
 
-# ╔═╡ bc7fe55a-ca89-11f1-8e53-0f1647e89a7e
+# ╔═╡ bb4676f0-ca92-11f1-94f5-2764f2d1b659
 ingreso, peso = if unidad == "Hogar"
     enigh.ingreso, Float64.(enigh.factor)
 else
@@ -89,7 +92,7 @@ else
     enigh.ingreso ./ enigh.integrantes, Float64.(enigh.factor .* enigh.integrantes)
 end;
 
-# ╔═╡ bc7fe578-ca89-11f1-991a-79585cf52cda
+# ╔═╡ bb46771a-ca92-11f1-af8e-8b073d1a8b73
 md"""
 ## 1. Curva de Lorenz e índice de Gini
 
@@ -108,7 +111,7 @@ G = 1 - 2\int_0^1 L(p)\, dp .
 Vale 0 con igualdad perfecta y se acerca a 1 si una sola unidad recibe todo.
 """
 
-# ╔═╡ bc7fe582-ca89-11f1-b06e-89e4fe716c67
+# ╔═╡ bb467722-ca92-11f1-b4cf-1b64cde4898d
 md"""
 Con hogares como unidad, el Gini de México es de alrededor de 0.40; con
 personas, un poco mayor, porque los hogares pobres tienen más integrantes.
@@ -116,7 +119,7 @@ Para comparar con los modelos usaremos ingresos divididos entre su media:
 el Gini no cambia si se multiplica a todos por la misma cantidad.
 """
 
-# ╔═╡ bc7fe58c-ca89-11f1-85a4-3569efda41c4
+# ╔═╡ bb46772c-ca92-11f1-9c98-5d0792fb3542
 md"""
 ## 2. Dinero conservado: la distribución exponencial
 
@@ -144,7 +147,7 @@ Regla de intercambio: $(@bind regla Select(["Reparto aleatorio", "Monto fijo"]))
   Transacciones por agente: $(@bind t_dy Select([0, 1, 2, 5, 20, 100, 500], default = 100))
 """
 
-# ╔═╡ bc7fe5a0-ca89-11f1-ac80-0f07639dedbd
+# ╔═╡ bb467740-ca92-11f1-8ad3-a5037d90e95f
 md"""
 ## 3. Ahorro uniforme: la distribución gamma
 
@@ -166,7 +169,7 @@ conservando. Con ``\lambda = 0`` se recupera el modelo de la sección 2.
 Fracción ahorrada ``\lambda``: $(@bind λ_cc Slider(0:0.05:0.9, default = 0.5, show_value = true))
 """
 
-# ╔═╡ bc7fe5b4-ca89-11f1-aa5c-b59b2a18d8f7
+# ╔═╡ bb46775e-ca92-11f1-bd6e-f7666d30201d
 md"""
 ## 4. Ahorro heterogéneo: la cola de Pareto
 
@@ -184,13 +187,13 @@ cerca de 1.
 Parámetro ``a``: $(@bind a_het Slider([1.0, 1.5, 2.0, 2.5, 3.0], default = 1.0, show_value = true))
 """
 
-# ╔═╡ bc7fe5dc-ca89-11f1-a82b-dfd01c521b8d
+# ╔═╡ bb467790-ca92-11f1-91f0-cd384a2ed288
 md"""
 **Resumen numérico.** Cada columna se compara con la de la ENIGH (todas con
 media 1):
 """
 
-# ╔═╡ bc7fe5f0-ca89-11f1-8135-65123a716278
+# ╔═╡ bb4677a4-ca92-11f1-8a56-635b4cf1f73d
 md"""
 ## 6. [Avanzado] Máxima entropía
 
@@ -224,7 +227,7 @@ mismo) y se acerca a la máxima posible, ``S = 1``: es la **segunda ley** en
 versión económica.
 """
 
-# ╔═╡ bc7fe5f8-ca89-11f1-b923-cf02780c2a2f
+# ╔═╡ bb4677b8-ca92-11f1-8cf5-05507f1e0f03
 md"""
 **[Avanzado] La aproximación gamma.** La fórmula ``n = 1 + 3\lambda/(1-\lambda)``
 de la sección 3 sale de igualar la **varianza** de la distribución simulada
@@ -232,7 +235,7 @@ con la de una gamma. Para comprobarla, ajustamos una gamma por máxima
 verosimilitud a simulaciones con varios ``\lambda``:
 """
 
-# ╔═╡ bc7fe60e-ca89-11f1-a9a3-07769fc8862c
+# ╔═╡ bb4677cc-ca92-11f1-982d-3fb1c3f4dc7b
 md"""
 ## Ejercicios
 
@@ -246,24 +249,24 @@ G = \frac{\sum_{i=1}^{n}\sum_{j=1}^{n} \lvert x_i - x_j\rvert}{2 n^2 \bar x} .
 ```
 """
 
-# ╔═╡ bc7fe60e-ca89-11f1-b0a1-e54ca0b9f9e6
+# ╔═╡ bb4677cc-ca92-11f1-966c-d76caf51e546
 function gini_simple(x)
     missing  # reemplaza esta línea
 end
 
-# ╔═╡ bc7fe618-ca89-11f1-8145-5bb32c3e18a6
+# ╔═╡ bb4677d6-ca92-11f1-bad9-2d58708083bf
 md"""
 **2.** Escribe `intercambio(mi, mj, λ, ε)`, que devuelva el dinero de los dos
 agentes después de una transacción con ahorro ``\lambda`` (sección 3), como
 un vector `[mi_nuevo, mj_nuevo]`.
 """
 
-# ╔═╡ bc7fe622-ca89-11f1-9642-dfb707cb7c0a
+# ╔═╡ bb4677e0-ca92-11f1-9779-e139ee1b4028
 function intercambio(mi, mj, λ, ε)
     missing  # reemplaza esta línea
 end
 
-# ╔═╡ bc7fe62c-ca89-11f1-af8e-f141c3c80625
+# ╔═╡ bb4677ea-ca92-11f1-a585-6980e252bdd8
 md"""
 ### Ruta básica: interpretación
 
@@ -273,6 +276,16 @@ md"""
    modelo de la sección 3.
 5. ¿Por qué las encuestas de hogares como la ENIGH subestiman la cola de la
    distribución? ¿Qué otra fuente de datos usarías para medirla?
+
+
+### Conceptos que vuelven
+
+Preguntas cortas para repasar ideas de sesiones anteriores; se responden con
+lo que ya sabes y con el laboratorio de hoy.
+
+- **R1.** En la CCDF del ingreso de la sección 5, ¿cómo distingues una cola
+  exponencial de una cola de Pareto? ¿En qué escala se ve recta cada una?
+  (Sesiones 1 y 3.)
 
 ### Ruta avanzada
 
@@ -297,7 +310,7 @@ md"""
   pocos agentes, y probaremos impuestos y redistribución.
 """
 
-# ╔═╡ bc7fe62c-ca89-11f1-a562-53af254b3af1
+# ╔═╡ bb4677f4-ca92-11f1-b6c6-f148f1458e57
 md"""
 ---
 ## Apéndice: paquetes y funciones auxiliares
@@ -306,7 +319,7 @@ Estas celdas definen herramientas que usa el cuaderno. No es necesario
 leerlas para seguir la sesión.
 """
 
-# ╔═╡ bc7fe636-ca89-11f1-8d0c-875adf946797
+# ╔═╡ bb4677fe-ca92-11f1-91e9-3b4dc8897e8c
 begin
     const AZUL    = "#2a78d6"   # serie principal
     const NARANJA = "#eb6834"   # segunda serie o teoría
@@ -315,11 +328,11 @@ begin
     const GRIS_CLARO = "#c9c7c0"   # datos de fondo
 end;
 
-# ╔═╡ bc7fe640-ca89-11f1-afb6-874f953a2fb9
+# ╔═╡ bb467808-ca92-11f1-933e-0f634c54bc95
 "Número entero con comas como separador de miles."
 miles(x) = replace(string(round(Int, x)), r"(?<=\d)(?=(\d{3})+$)" => ",")
 
-# ╔═╡ bc7fe56e-ca89-11f1-8c01-7d4d86504d35
+# ╔═╡ bb467704-ca92-11f1-9c4f-57c88d0d9a1f
 let
     m = mean(ingreso, Weights(peso))
     q = quantile(ingreso, Weights(peso), [0.5, 0.9, 0.99])
@@ -336,7 +349,7 @@ let
     vline!(p, [m]; color = NARANJA, lw = 2, label = "Media: $(miles(m))")
 end
 
-# ╔═╡ bc7fe56e-ca89-11f1-bee9-756ca7d69824
+# ╔═╡ bb46770e-ca92-11f1-a95b-e93110c00b28
 md"""
 La distribución es muy asimétrica: la media queda a la derecha de la mediana
 porque unos pocos ingresos muy altos la jalan. El 10% de mayores ingresos
@@ -345,7 +358,7 @@ empieza en $(miles(quantile(ingreso, Weights(peso), 0.9))) pesos al mes y el
 buscamos un mecanismo que explique esta forma.
 """
 
-# ╔═╡ bc7fe640-ca89-11f1-83e6-83d4f2cf04c2
+# ╔═╡ bb467808-ca92-11f1-929e-45b9f436fb30
 "Curva de Lorenz ponderada: fracción acumulada de la población y del ingreso."
 function lorenz(x, w)
     o = sortperm(x)
@@ -353,14 +366,14 @@ function lorenz(x, w)
     [0; W ./ W[end]], [0; S ./ S[end]]
 end
 
-# ╔═╡ bc7fe64a-ca89-11f1-86b8-4d5de09fed20
+# ╔═╡ bb467808-ca92-11f1-9cb1-19a1bff46546
 "Índice de Gini con pesos (por defecto, todos iguales): 1 menos el doble del área bajo la curva de Lorenz."
 function gini(x, w = ones(length(x)))
     p, L = lorenz(x, w)
     1 - sum(diff(p) .* (L[2:end] .+ L[1:end-1]))
 end
 
-# ╔═╡ bc7fe578-ca89-11f1-9891-858ac9f4bc7d
+# ╔═╡ bb46771a-ca92-11f1-84f2-cd2a708351d7
 let
     p, L = lorenz(ingreso, peso)
     G = gini(ingreso, peso)
@@ -377,26 +390,26 @@ let
               text("el 50% más pobre recibe\nel $(round(Int, 100L[i]))% del ingreso", 8, :left, GRIS))
 end
 
-# ╔═╡ bc7fe64a-ca89-11f1-a71a-e3808f1a8878
+# ╔═╡ bb467812-ca92-11f1-92b1-6b062133d363
 "Gini de una gamma con forma n."
 gini_gamma(n) = exp(Distributions.SpecialFunctions.loggamma(n + 0.5) -
                     Distributions.SpecialFunctions.loggamma(n)) / (n * sqrt(π))
 
-# ╔═╡ bc7fe654-ca89-11f1-9966-556864b30440
+# ╔═╡ bb46781e-ca92-11f1-bcae-77d2e4c8be32
 "Datos ordenados de mayor a menor y su CCDF empírica, P(X ≥ x)."
 function ccdf_empirica(x)
     s = sort(x; rev = true)
     s, (1:length(s)) ./ length(s)
 end
 
-# ╔═╡ bc7fe654-ca89-11f1-92ab-c5ea03f70e4e
+# ╔═╡ bb46781e-ca92-11f1-aaa5-9dcecf67f626
 "CCDF con pesos: P(X ≥ x) usando el factor de expansión."
 function ccdf_ponderada(x, w)
     o = sortperm(x; rev = true)
     x[o], cumsum(w[o]) ./ sum(w)
 end
 
-# ╔═╡ bc7fe65e-ca89-11f1-b4df-db75522f9bc3
+# ╔═╡ bb467826-ca92-11f1-ba5c-6b8b85a0b295
 "Estimador de Hill del exponente de la cola, con la fracción `q` de datos más grandes."
 function hill_cola(x, q)
     s = sort(x; rev = true)
@@ -404,7 +417,7 @@ function hill_cola(x, q)
     n / sum(log.(s[1:n] ./ s[n]))
 end
 
-# ╔═╡ bc7fe65e-ca89-11f1-b15a-2d14c2b06605
+# ╔═╡ bb467826-ca92-11f1-9ece-23a228f16f2d
 """
 Modelo de Dragulescu-Yakovenko sin ahorro: `t` transacciones por agente.
 "Reparto aleatorio": los dos juntan su dinero y lo reparten con proporción
@@ -427,10 +440,10 @@ function simular_dy(regla, t; N = 5_000, rng = Xoshiro(1))
     m
 end
 
-# ╔═╡ bc7fe58c-ca89-11f1-b2b2-a54726e1ac34
+# ╔═╡ bb467736-ca92-11f1-ab0b-edb805ba317f
 dinero_dy = simular_dy(regla, t_dy; N = 5_000);
 
-# ╔═╡ bc7fe594-ca89-11f1-8d65-aba43ac4e1f7
+# ╔═╡ bb467736-ca92-11f1-a840-67f771eb6d17
 let
     m = dinero_dy
     bordes = 0:0.1:6
@@ -452,7 +465,7 @@ let
     plot(p1, p2; layout = (1, 2), size = (900, 340))
 end
 
-# ╔═╡ bc7fe594-ca89-11f1-9960-3b2cbd7b223b
+# ╔═╡ bb467740-ca92-11f1-9236-0357511d771c
 md"""
 Al principio todos tienen 1 peso (Gini = 0). Después de unas pocas
 transacciones por agente la distribución ya es exponencial, con
@@ -466,7 +479,7 @@ Ojo con la interpretación: nadie en el modelo es más hábil ni trabaja más.
 La desigualdad aparece **sólo por azar**, y es considerable.
 """
 
-# ╔═╡ bc7fe66a-ca89-11f1-8d95-0f5e56ff05c6
+# ╔═╡ bb467830-ca92-11f1-afb2-b9ec1b88696f
 "Modelo con ahorro: el agente i guarda la fracción λ[i] de su dinero. `pasos` transacciones por agente."
 function simular_ahorro(λ; pasos = 500, rng = Xoshiro(2))
     N = length(λ)
@@ -481,10 +494,10 @@ function simular_ahorro(λ; pasos = 500, rng = Xoshiro(2))
     m
 end
 
-# ╔═╡ bc7fe5a0-ca89-11f1-ba81-f548e8f2c317
+# ╔═╡ bb467748-ca92-11f1-926c-7dabaeb29911
 dinero_cc = simular_ahorro(fill(λ_cc, 5_000); pasos = 500);
 
-# ╔═╡ bc7fe5aa-ca89-11f1-8e0e-fbd6c0565a2d
+# ╔═╡ bb467754-ca92-11f1-a352-a5d84930e0c0
 let
     n = 1 + 3λ_cc / (1 - λ_cc)
     x = range(0.001, 4, length = 300)
@@ -501,7 +514,7 @@ let
     plot(p1, p2; layout = (1, 2), size = (900, 340))
 end
 
-# ╔═╡ bc7fe5b4-ca89-11f1-9d61-75ffa93431db
+# ╔═╡ bb467754-ca92-11f1-b4f8-d71db90c4419
 md"""
 Con ahorro, casi nadie se queda con muy poco: la densidad se anula en
 ``m = 0`` y tiene un máximo en un valor positivo. Patriarca, Chakraborti y
@@ -518,14 +531,14 @@ Una interpretación física: ``n`` es como el número de "grados de libertad"
 entre los que cada agente reparte su dinero.
 """
 
-# ╔═╡ bc7fe66a-ca89-11f1-8890-612c1f8f33db
+# ╔═╡ bb46783a-ca92-11f1-ae92-e3bfbda89f9c
 "Ahorros heterogéneos λᵢ = 1 - Uᵢ^(1/a), con Uᵢ uniforme."
 ahorros_heterogeneos(a; N = 5_000, rng = Xoshiro(3)) = 1 .- rand(rng, N) .^ (1 / a)
 
-# ╔═╡ bc7fe5be-ca89-11f1-90e1-bfb5224a4108
+# ╔═╡ bb467768-ca92-11f1-8f60-a3e97e934a28
 dinero_het = simular_ahorro(ahorros_heterogeneos(a_het; N = 5_000); pasos = 5_000);
 
-# ╔═╡ bc7fe5be-ca89-11f1-87d0-a7d35d6701ae
+# ╔═╡ bb467768-ca92-11f1-96f7-8fc37d61185e
 let
     s, P = ccdf_empirica(dinero_het)
     p = plot(s, P; xscale = :log10, yscale = :log10, color = AZUL, lw = 2,
@@ -541,7 +554,7 @@ let
           label = "Pareto con α = $(round(α, digits = 2)) (5% más rico)")
 end
 
-# ╔═╡ bc7fe5c6-ca89-11f1-8c25-019e389ad5e5
+# ╔═╡ bb467772-ca92-11f1-911f-6b73490de096
 md"""
 La cola es casi una recta en log-log: una ley de potencias. Con ``a = 1`` su
 exponente es cercano a 1, la ley de Zipf. Al aumentar ``a`` la cola se vuelve
@@ -550,7 +563,7 @@ simulación. Fíjate en el rango del eje horizontal: con ``a = 1`` el agente
 más rico tiene cientos de veces el dinero promedio.
 """
 
-# ╔═╡ bc7fe672-ca89-11f1-9695-b9a1b9f71f3c
+# ╔═╡ bb46783a-ca92-11f1-b2ec-9fa6fdbb7d28
 "Ajustes a la ENIGH (ingreso / media): gamma por máxima verosimilitud y distancias KS."
 ajuste_enigh = let
     k = ingreso .> 0
@@ -566,7 +579,7 @@ ajuste_enigh = let
      ks_exp = ks(Exponential(1)), ks_lognormal = ks(ln))
 end
 
-# ╔═╡ bc7fe5c6-ca89-11f1-b141-5fea00edf168
+# ╔═╡ bb46777a-ca92-11f1-af21-4b0501fcb4c9
 md"""
 ## 5. Laboratorio: los modelos frente a la ENIGH
 
@@ -579,7 +592,7 @@ a ``\lambda = (n-1)/(n+2) = `` $(round(ajuste_enigh.λ, digits = 2)).
 Parámetro ``a`` del ahorro heterogéneo: $(@bind a_lab Slider([1.0, 1.5, 2.0, 2.5, 3.0], default = 2.5, show_value = true))
 """
 
-# ╔═╡ bc7fe5d2-ca89-11f1-9254-6f2394ae9ef0
+# ╔═╡ bb46777a-ca92-11f1-8a25-f39b9bacdfcc
 modelos = let
     λ = ajuste_enigh.λ
     (dy = simular_dy("Reparto aleatorio", 500; N = 5_000),
@@ -587,7 +600,7 @@ modelos = let
      het = simular_ahorro(ahorros_heterogeneos(a_lab; N = 5_000); pasos = 5_000))
 end;
 
-# ╔═╡ bc7fe5d2-ca89-11f1-9eb2-5b1eba5c2035
+# ╔═╡ bb467786-ca92-11f1-a92c-69c23328eee8
 let
     x = ingreso ./ mean(ingreso, Weights(peso))
     series = [(modelos.dy, "Sin ahorro (exponencial)", AZUL),
@@ -616,7 +629,7 @@ let
     plot(p1, p2; layout = (1, 2), size = (920, 380))
 end
 
-# ╔═╡ bc7fe5e6-ca89-11f1-8a2d-332fe0303aad
+# ╔═╡ bb46779a-ca92-11f1-9f66-bd7c6f7e6b91
 md"""
 Lo que dicen los datos:
 
@@ -646,7 +659,7 @@ $(round(ajuste_enigh.ks_exp, digits = 3)) de la exponencial (repaso S.I3). Que
 un modelo ajuste no prueba que su mecanismo sea el correcto.
 """
 
-# ╔═╡ bc7fe604-ca89-11f1-9899-5dfa54a9ac5b
+# ╔═╡ bb4677c2-ca92-11f1-966b-63191c8c5ae4
 md"""
 ## Resumen
 
@@ -658,7 +671,7 @@ md"""
 | **ENIGH 2024** | | Cuerpo cercano a una gamma con ``\lambda \approx`` $(round(ajuste_enigh.λ, digits = 2)), cola más pesada | $(round(gini(enigh.ingreso, Float64.(enigh.factor)), digits = 2)) (hogares) |
 """
 
-# ╔═╡ bc7fe67c-ca89-11f1-9c2e-61005338f553
+# ╔═╡ bb467844-ca92-11f1-a478-a5998847542d
 "Tabla con estadísticas de la ENIGH y de los tres modelos, todos con media 1."
 function tabla_comparacion(ingreso, peso, modelos, λ, a)
     W = Weights(peso)
@@ -679,10 +692,10 @@ function tabla_comparacion(ingreso, peso, modelos, λ, a)
     """)
 end
 
-# ╔═╡ bc7fe5dc-ca89-11f1-a432-cfde445e9bac
+# ╔═╡ bb467790-ca92-11f1-9d8f-fb9c5c235eb6
 tabla_comparacion(ingreso, peso, modelos, ajuste_enigh.λ, a_lab)
 
-# ╔═╡ bc7fe67c-ca89-11f1-bfaa-ad1f32cc9910
+# ╔═╡ bb467850-ca92-11f1-8a1d-57e947932f33
 "Entropía diferencial estimada con un histograma, en varios momentos del modelo sin ahorro."
 function entropia_en_el_tiempo(; N = 5_000, tiempos = [1, 10, 100], rng = Xoshiro(4))
     m = ones(N)
@@ -704,7 +717,7 @@ function entropia_en_el_tiempo(; N = 5_000, tiempos = [1, 10, 100], rng = Xoshir
     (t = tiempos, S = S)
 end
 
-# ╔═╡ bc7fe5f0-ca89-11f1-8ac2-2dddc734976d
+# ╔═╡ bb4677ac-ca92-11f1-99e2-973f73dead30
 let
     e = entropia_en_el_tiempo(; N = 5_000, tiempos = [0.25, 0.5, 1, 2, 3, 5, 10, 20, 50])
     plot(e.t, e.S; xscale = :log10, color = AZUL, lw = 2, marker = :circle, ms = 5, msw = 0,
@@ -714,14 +727,14 @@ let
     hline!([1]; color = NARANJA, lw = 2, ls = :dash, label = "Máximo: exponencial, S = 1")
 end
 
-# ╔═╡ bc7fe686-ca89-11f1-9879-19d3cfa155d3
+# ╔═╡ bb467858-ca92-11f1-9f32-7508b2229db7
 "Forma de la gamma ajustada por máxima verosimilitud para varios valores de λ."
 function barrido_forma_gamma()
     λs = [0.0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9]
     (λ = λs, n = [shape(fit_mle(Gamma, simular_ahorro(fill(λ, 5_000); pasos = 500))) for λ in λs])
 end
 
-# ╔═╡ bc7fe604-ca89-11f1-ba84-9dbffc78c34f
+# ╔═╡ bb4677b8-ca92-11f1-be9d-0b771bc1eef4
 let
     b = barrido_forma_gamma()
     λs = range(0, 0.9, length = 200)
@@ -731,7 +744,7 @@ let
     scatter!(p, b.λ, b.n; color = AZUL, ms = 6, msw = 0, label = "Ajuste por máxima verosimilitud")
 end
 
-# ╔═╡ bc7fe686-ca89-11f1-8a7c-03c9f4ace54c
+# ╔═╡ bb467862-ca92-11f1-ad6a-6bc15f3710b4
 "Muestra si la respuesta de un ejercicio es correcta."
 function verificar(f, esperado; rtol = 1e-8, pista = md"")
     caja(tipo, titulo, texto) = Markdown.MD(Markdown.Admonition(tipo, titulo, [texto]))
@@ -752,70 +765,70 @@ function verificar(f, esperado; rtol = 1e-8, pista = md"")
     end
 end
 
-# ╔═╡ bc7fe618-ca89-11f1-8ed9-f937d8f924ac
+# ╔═╡ bb4677d6-ca92-11f1-af6d-61f4809f1072
 verificar(() -> gini_simple([1.0, 2.0, 3.0, 4.0, 10.0]), 0.4;
           pista = md"Puedes usar una comprensión doble: `sum(abs(a - b) for a in x, b in x)`, y dividir entre `2 * length(x)^2 * mean(x)`.")
 
-# ╔═╡ bc7fe622-ca89-11f1-95b4-a1640c991f61
+# ╔═╡ bb4677e0-ca92-11f1-a428-716f601978f4
 verificar(() -> intercambio(3.0, 1.0, 0.5, 0.1), [1.7, 2.3];
           pista = md"Calcula primero lo que se pone en juego, `s = (1 - λ) * (mi + mj)`; luego cada agente recibe lo que guardó (`λ * mi`) más su parte de `s`.")
 
 # ╔═╡ Cell order:
-# ╟─bc7fe514-ca89-11f1-8331-a91d350b8f9c
-# ╟─bc7fe546-ca89-11f1-b966-3110875ac9e7
-# ╟─bc7fe550-ca89-11f1-b3a5-1506830bce49
-# ╠═bc7fe55a-ca89-11f1-a938-3dac6d42de30
-# ╠═bc7fe55a-ca89-11f1-8e53-0f1647e89a7e
-# ╟─bc7fe56e-ca89-11f1-8c01-7d4d86504d35
-# ╟─bc7fe56e-ca89-11f1-bee9-756ca7d69824
-# ╟─bc7fe578-ca89-11f1-991a-79585cf52cda
-# ╟─bc7fe578-ca89-11f1-9891-858ac9f4bc7d
-# ╟─bc7fe582-ca89-11f1-b06e-89e4fe716c67
-# ╟─bc7fe58c-ca89-11f1-85a4-3569efda41c4
-# ╠═bc7fe58c-ca89-11f1-b2b2-a54726e1ac34
-# ╟─bc7fe594-ca89-11f1-8d65-aba43ac4e1f7
-# ╟─bc7fe594-ca89-11f1-9960-3b2cbd7b223b
-# ╟─bc7fe5a0-ca89-11f1-ac80-0f07639dedbd
-# ╠═bc7fe5a0-ca89-11f1-ba81-f548e8f2c317
-# ╟─bc7fe5aa-ca89-11f1-8e0e-fbd6c0565a2d
-# ╟─bc7fe5b4-ca89-11f1-9d61-75ffa93431db
-# ╟─bc7fe5b4-ca89-11f1-aa5c-b59b2a18d8f7
-# ╠═bc7fe5be-ca89-11f1-90e1-bfb5224a4108
-# ╟─bc7fe5be-ca89-11f1-87d0-a7d35d6701ae
-# ╟─bc7fe5c6-ca89-11f1-8c25-019e389ad5e5
-# ╟─bc7fe5c6-ca89-11f1-b141-5fea00edf168
-# ╠═bc7fe5d2-ca89-11f1-9254-6f2394ae9ef0
-# ╟─bc7fe5d2-ca89-11f1-9eb2-5b1eba5c2035
-# ╟─bc7fe5dc-ca89-11f1-a82b-dfd01c521b8d
-# ╟─bc7fe5dc-ca89-11f1-a432-cfde445e9bac
-# ╟─bc7fe5e6-ca89-11f1-8a2d-332fe0303aad
-# ╟─bc7fe5f0-ca89-11f1-8135-65123a716278
-# ╟─bc7fe5f0-ca89-11f1-8ac2-2dddc734976d
-# ╟─bc7fe5f8-ca89-11f1-b923-cf02780c2a2f
-# ╟─bc7fe604-ca89-11f1-ba84-9dbffc78c34f
-# ╟─bc7fe604-ca89-11f1-9899-5dfa54a9ac5b
-# ╟─bc7fe60e-ca89-11f1-a9a3-07769fc8862c
-# ╠═bc7fe60e-ca89-11f1-b0a1-e54ca0b9f9e6
-# ╟─bc7fe618-ca89-11f1-8ed9-f937d8f924ac
-# ╟─bc7fe618-ca89-11f1-8145-5bb32c3e18a6
-# ╠═bc7fe622-ca89-11f1-9642-dfb707cb7c0a
-# ╟─bc7fe622-ca89-11f1-95b4-a1640c991f61
-# ╟─bc7fe62c-ca89-11f1-af8e-f141c3c80625
-# ╟─bc7fe62c-ca89-11f1-a562-53af254b3af1
-# ╠═bc7fe636-ca89-11f1-9628-293280733092
-# ╠═bc7fe636-ca89-11f1-8d0c-875adf946797
-# ╠═bc7fe640-ca89-11f1-afb6-874f953a2fb9
-# ╠═bc7fe640-ca89-11f1-83e6-83d4f2cf04c2
-# ╠═bc7fe64a-ca89-11f1-86b8-4d5de09fed20
-# ╠═bc7fe64a-ca89-11f1-a71a-e3808f1a8878
-# ╠═bc7fe654-ca89-11f1-9966-556864b30440
-# ╠═bc7fe654-ca89-11f1-92ab-c5ea03f70e4e
-# ╠═bc7fe65e-ca89-11f1-b4df-db75522f9bc3
-# ╠═bc7fe65e-ca89-11f1-b15a-2d14c2b06605
-# ╠═bc7fe66a-ca89-11f1-8d95-0f5e56ff05c6
-# ╠═bc7fe66a-ca89-11f1-8890-612c1f8f33db
-# ╠═bc7fe672-ca89-11f1-9695-b9a1b9f71f3c
-# ╠═bc7fe67c-ca89-11f1-9c2e-61005338f553
-# ╠═bc7fe67c-ca89-11f1-bfaa-ad1f32cc9910
-# ╠═bc7fe686-ca89-11f1-9879-19d3cfa155d3
-# ╠═bc7fe686-ca89-11f1-8a7c-03c9f4ace54c
+# ╟─bb467696-ca92-11f1-8683-d943e5aa14ec
+# ╟─bb4676dc-ca92-11f1-bc48-11e123ee30ca
+# ╟─bb4676e8-ca92-11f1-857b-bf3d27d5247c
+# ╠═bb4676f0-ca92-11f1-8281-85e4839bce42
+# ╠═bb4676f0-ca92-11f1-94f5-2764f2d1b659
+# ╟─bb467704-ca92-11f1-9c4f-57c88d0d9a1f
+# ╟─bb46770e-ca92-11f1-a95b-e93110c00b28
+# ╟─bb46771a-ca92-11f1-af8e-8b073d1a8b73
+# ╟─bb46771a-ca92-11f1-84f2-cd2a708351d7
+# ╟─bb467722-ca92-11f1-b4cf-1b64cde4898d
+# ╟─bb46772c-ca92-11f1-9c98-5d0792fb3542
+# ╠═bb467736-ca92-11f1-ab0b-edb805ba317f
+# ╟─bb467736-ca92-11f1-a840-67f771eb6d17
+# ╟─bb467740-ca92-11f1-9236-0357511d771c
+# ╟─bb467740-ca92-11f1-8ad3-a5037d90e95f
+# ╠═bb467748-ca92-11f1-926c-7dabaeb29911
+# ╟─bb467754-ca92-11f1-a352-a5d84930e0c0
+# ╟─bb467754-ca92-11f1-b4f8-d71db90c4419
+# ╟─bb46775e-ca92-11f1-bd6e-f7666d30201d
+# ╠═bb467768-ca92-11f1-8f60-a3e97e934a28
+# ╟─bb467768-ca92-11f1-96f7-8fc37d61185e
+# ╟─bb467772-ca92-11f1-911f-6b73490de096
+# ╟─bb46777a-ca92-11f1-af21-4b0501fcb4c9
+# ╠═bb46777a-ca92-11f1-8a25-f39b9bacdfcc
+# ╟─bb467786-ca92-11f1-a92c-69c23328eee8
+# ╟─bb467790-ca92-11f1-91f0-cd384a2ed288
+# ╟─bb467790-ca92-11f1-9d8f-fb9c5c235eb6
+# ╟─bb46779a-ca92-11f1-9f66-bd7c6f7e6b91
+# ╟─bb4677a4-ca92-11f1-8a56-635b4cf1f73d
+# ╟─bb4677ac-ca92-11f1-99e2-973f73dead30
+# ╟─bb4677b8-ca92-11f1-8cf5-05507f1e0f03
+# ╟─bb4677b8-ca92-11f1-be9d-0b771bc1eef4
+# ╟─bb4677c2-ca92-11f1-966b-63191c8c5ae4
+# ╟─bb4677cc-ca92-11f1-982d-3fb1c3f4dc7b
+# ╠═bb4677cc-ca92-11f1-966c-d76caf51e546
+# ╟─bb4677d6-ca92-11f1-af6d-61f4809f1072
+# ╟─bb4677d6-ca92-11f1-bad9-2d58708083bf
+# ╠═bb4677e0-ca92-11f1-9779-e139ee1b4028
+# ╟─bb4677e0-ca92-11f1-a428-716f601978f4
+# ╟─bb4677ea-ca92-11f1-a585-6980e252bdd8
+# ╟─bb4677f4-ca92-11f1-b6c6-f148f1458e57
+# ╠═bb4677f4-ca92-11f1-92f7-6911629eb229
+# ╠═bb4677fe-ca92-11f1-91e9-3b4dc8897e8c
+# ╠═bb467808-ca92-11f1-933e-0f634c54bc95
+# ╠═bb467808-ca92-11f1-929e-45b9f436fb30
+# ╠═bb467808-ca92-11f1-9cb1-19a1bff46546
+# ╠═bb467812-ca92-11f1-92b1-6b062133d363
+# ╠═bb46781e-ca92-11f1-bcae-77d2e4c8be32
+# ╠═bb46781e-ca92-11f1-aaa5-9dcecf67f626
+# ╠═bb467826-ca92-11f1-ba5c-6b8b85a0b295
+# ╠═bb467826-ca92-11f1-9ece-23a228f16f2d
+# ╠═bb467830-ca92-11f1-afb2-b9ec1b88696f
+# ╠═bb46783a-ca92-11f1-ae92-e3bfbda89f9c
+# ╠═bb46783a-ca92-11f1-b2ec-9fa6fdbb7d28
+# ╠═bb467844-ca92-11f1-a478-a5998847542d
+# ╠═bb467850-ca92-11f1-8a1d-57e947932f33
+# ╠═bb467858-ca92-11f1-9f32-7508b2229db7
+# ╠═bb467862-ca92-11f1-ad6a-6bc15f3710b4

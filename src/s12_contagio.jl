@@ -26,6 +26,10 @@ opcionales. Algunas celdas simulan miles de cascadas y tardan unos segundos.
 adyacencia), C.B5 (serie geométrica), L.I4 (potencias de matrices), C.I5
 (puntos fijos). Ruta avanzada: L.A4 (series de matrices y puntos fijos),
 F.A5 (percolación).
+
+**Conceptos transversales.** Hoy se presentan los **puntos fijos y su
+estabilidad** (un choque que se repite atenuándose); se completan en la sesión
+14.
 """
 
 #%% hide

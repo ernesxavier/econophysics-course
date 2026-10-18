@@ -23,6 +23,9 @@ opcionales.
 **Repaso recomendado** (en `Class_notes/repaso/`): C.B1 (logaritmos), P.I3
 (teorema del límite central), P.I6 (la lognormal), E.I6 (Gibrat y Kesten),
 P.I5 (leyes de potencias). Ruta avanzada: E.A4 y E.A5.
+
+**Conceptos transversales.** Se retoman las **distribuciones, la CCDF y las
+escalas logarítmicas** (sesiones 1 y 3).
 """
 
 #%% hide
@@ -400,6 +403,16 @@ md"""
    produce una lognormal cuya varianza crece sin límite, y por qué basta un
    piso inferior o un término aditivo (Kesten) para estabilizar una cola de
    ley de potencias.
+
+
+### Conceptos que vuelven
+
+Preguntas cortas para repasar ideas de sesiones anteriores; se responden con
+lo que ya sabes y con el laboratorio de hoy.
+
+- **R1.** En la gráfica de Gibrat puro, ¿por qué usamos la CCDF en escala
+  log-log y no el histograma? ¿Cómo se vería ahí una ley de potencias?
+  (Sesiones 1 y 3.)
 
 ### Ruta avanzada
 

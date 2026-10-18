@@ -24,6 +24,9 @@ normal), S.B5 (permutaciones). Para las notas formales: P.I1 (independencia y
 correlación), P.I3 (teorema del límite central), E.I1 (autocorrelación), S.I4
 (datos dependientes). Ruta avanzada: P.A1 (cumulantes), F.A2
 (universalidad), S.A4 (memoria larga).
+
+**Conceptos transversales.** Se completan la **media, la varianza y la
+correlación**. Se retoman los **retornos logarítmicos** (sesión 1).
 """
 
 #%% hide
@@ -350,6 +353,16 @@ md"""
 6. Bitcoin y el tipo de cambio USD/MXN son mercados muy distintos. ¿Qué tienen
    en común según la tabla de universalidad? ¿Por qué eso sugiere que el
    mecanismo no depende de los detalles de cada mercado?
+
+
+### Conceptos que vuelven
+
+Preguntas cortas para repasar ideas de sesiones anteriores; se responden con
+lo que ya sabes y con el laboratorio de hoy.
+
+- **R1.** En la sección 4 sumamos retornos diarios para obtener los de
+  ``\Delta t`` días. ¿Por qué esa suma es correcta con retornos logarítmicos y
+  no con retornos simples? (Sesión 1.)
 
 ### Ruta avanzada
 

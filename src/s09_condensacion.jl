@@ -23,6 +23,9 @@ opcionales. Algunas celdas simulan miles de agentes y tardan unos segundos.
 **Repaso recomendado** (en `Class_notes/repaso/`): E.B3 (promediar
 simulaciones), F.B4 (transiciones de fase), E.I6 (Gibrat y Kesten), F.I6
 (modelos de intercambio). Ruta avanzada: E.A4 (Fokker-Planck).
+
+**Conceptos transversales.** Se retoman la **CCDF** (sesiones 1 y 3) y la idea
+de **promediar simulaciones** (sesión 4).
 """
 
 #%% hide
@@ -442,6 +445,19 @@ md"""
 5. Según el modelo, ¿qué es más eficaz contra la condensación: más
    intercambio entre socios o un impuesto pequeño redistribuido a todos?
    ¿Qué supuestos del modelo podrían cambiar esta conclusión?
+
+
+### Conceptos que vuelven
+
+Preguntas cortas para repasar ideas de sesiones anteriores; se responden con
+lo que ya sabes y con el laboratorio de hoy.
+
+- **R1.** La riqueza del modelo tiene una cola de Pareto con exponente
+  ``\mu``. ¿Qué pendiente tiene su CCDF en log-log si ``\mu = 1.5``? (Sesión
+  3.)
+- **R2.** Las curvas de la sección 3 usan la mediana de 4 simulaciones por
+  punto. ¿Por qué no basta una sola simulación, sobre todo cerca de la
+  transición? (Sesión 4.)
 
 ### Ruta avanzada
 

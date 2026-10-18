@@ -16,7 +16,7 @@ macro bind(def, element)
     #! format: on
 end
 
-# ╔═╡ 59b01436-ca89-11f1-9322-b70c482624a5
+# ╔═╡ 76345140-ca92-11f1-920d-09ea8533e420
 begin
     # Usa el entorno del curso (Code/Project.toml) en lugar del gestor de
     # paquetes propio de Pluto: un solo entorno para todo el repositorio.
@@ -32,7 +32,7 @@ begin
             background_color_legend = nothing, margin = 3Plots.mm)
 end
 
-# ╔═╡ 59b01274-ca89-11f1-994e-d9ee84b4301d
+# ╔═╡ 76344ff6-ca92-11f1-a45e-07935e3e3590
 md"""
 # Sesión 3: Colas pesadas y leyes de potencias
 
@@ -58,12 +58,15 @@ recalcula. Las secciones marcadas **[Avanzado]** son opcionales.
 **Repaso recomendado** (en `Class_notes/repaso/`): P.I5 (leyes de potencias),
 C.B2 (escalas logarítmicas), S.B4 (mínimos cuadrados) y, para la ruta
 avanzada, P.A2–P.A4.
+
+**Conceptos transversales.** Se completan las **distribuciones, la CCDF y las
+escalas logarítmicas**, que reaparecen en las sesiones 6, 8, 9 y 10.
 """
 
-# ╔═╡ 59b012a6-ca89-11f1-aec8-5fe89705559c
+# ╔═╡ 7634502a-ca92-11f1-a8d4-57b0220dbc2a
 TableOfContents(title = "Contenido")
 
-# ╔═╡ 59b012b0-ca89-11f1-ad49-2fce12ea5d3c
+# ╔═╡ 76345032-ca92-11f1-94a4-f738e4f94c34
 md"""
 ## 0. El fenómeno: un mundo sin tamaño típico
 
@@ -77,19 +80,19 @@ Población y Vivienda 2020 (INEGI). Los datos están en
 `Data/localidades_2020.csv` y se regeneran con `Code/descargar_inegi.jl`.
 """
 
-# ╔═╡ 59b012b0-ca89-11f1-bc64-9b064987d2a4
+# ╔═╡ 76345032-ca92-11f1-8043-5ba190907dd5
 localidades = CSV.read(joinpath(@__DIR__, "..", "Data", "localidades_2020.csv"), DataFrame)
 
-# ╔═╡ 59b012ba-ca89-11f1-9531-ffc8a3ea2527
+# ╔═╡ 7634503c-ca92-11f1-91fa-c3ecb13dedbd
 pob = Float64.(localidades.poblacion);    # habitantes por localidad (al menos 100)
 
-# ╔═╡ 59b012ce-ca89-11f1-b612-17739b57eb32
+# ╔═╡ 76345046-ca92-11f1-b85e-034fb8247066
 md"""
 Las diez localidades más pobladas. Ojo: en la Ciudad de México cada alcaldía
 cuenta como una localidad distinta, así que la capital aparece partida.
 """
 
-# ╔═╡ 59b012d8-ca89-11f1-a1a6-3fe834a14d56
+# ╔═╡ 76345050-ca92-11f1-ae71-73097f4e539a
 md"""
 ## 1. Repaso: por qué una ley de potencias es una recta en log-log
 
@@ -118,7 +121,7 @@ Exponente ``\alpha``: $(@bind α_demo Slider(0.5:0.1:3.0, default = 1.5, show_va
   Escala: $(@bind escala_demo Select(["log-log", "semilog", "lineal"]))
 """
 
-# ╔═╡ 59b012ec-ca89-11f1-9f15-593d3c9f36b4
+# ╔═╡ 76345064-ca92-11f1-980a-eb9cf4bb3778
 md"""
 ## 2. Ley de Zipf: las localidades de México
 
@@ -138,7 +141,7 @@ o bien ``x \propto R^{-1/\alpha}``. La **ley de Zipf** es el caso
 primera, la tercera un tercio, y así sucesivamente.
 """
 
-# ╔═╡ 59b0130c-ca89-11f1-90ef-fb199a81bf3a
+# ╔═╡ 76345082-ca92-11f1-a0aa-09ac83e16860
 md"""
 ## 3. ¿Ley de potencias o lognormal?
 
@@ -156,13 +159,13 @@ Dispersión ``\sigma``: $(@bind σ_ln Slider(0.5:0.25:3.0, default = 2.0, show_v
   Semilla: $(@bind semilla_ln NumberField(1:1000, default = 1))
 """
 
-# ╔═╡ 59b0133e-ca89-11f1-a5ce-c11c888ea9b7
+# ╔═╡ 7634508e-ca92-11f1-b3ed-b58ed15f9d34
 muestra_lognormal = rand(Xoshiro(semilla_ln), LogNormal(0, σ_ln), 10_000);
 
-# ╔═╡ 59b01382-ca89-11f1-9398-9b5518c88966
+# ╔═╡ 763450a0-ca92-11f1-afbf-53ab6428bc65
 datos = CSV.read(joinpath(@__DIR__, "..", "Data", "precios.csv"), DataFrame);
 
-# ╔═╡ 59b01350-ca89-11f1-892e-d7529c3d0f8d
+# ╔═╡ 76345096-ca92-11f1-936d-53b6f8e07494
 md"""
 ## 4. La ley cúbica inversa de los retornos
 
@@ -181,14 +184,14 @@ inversa**. Veamos si se cumple en nuestros cuatro activos.
   $(@bind separar CheckBox(default = false)) Separar caídas y subidas
 """
 
-# ╔═╡ 59b01382-ca89-11f1-ae5c-95951096378c
+# ╔═╡ 763450a0-ca92-11f1-bcd5-b767cbada7a8
 begin
     serie = sort(filter(:activo => ==(activo), datos), :fecha)
     r = diff(log.(serie.cierre))           # retornos logarítmicos diarios
     z = (r .- mean(r)) ./ std(r)           # retornos estandarizados
 end;
 
-# ╔═╡ 59b01396-ca89-11f1-87d5-554e292bc89d
+# ╔═╡ 763450aa-ca92-11f1-84c2-53e9b0d7c5ba
 md"""
 Lejos del centro, los datos caen paralelos a la línea de pendiente ``-3`` y
 muy por encima de la normal. Que ``\alpha \approx 3`` significa que al
@@ -199,7 +202,7 @@ Marca la casilla para separar caídas y subidas. ¿Son simétricas las colas en
 los cuatro activos?
 """
 
-# ╔═╡ 59b01396-ca89-11f1-a681-ada2b9b29de0
+# ╔═╡ 763450b4-ca92-11f1-bb43-5350b6cb2bac
 md"""
 ## 5. ¿Cómo se mide α?
 
@@ -216,7 +219,7 @@ promedia los logaritmos de los datos respecto al umbral ``x_{\min}``:
 ```
 """
 
-# ╔═╡ 59b013b4-ca89-11f1-8af0-25622dbb0fa1
+# ╔═╡ 763450d2-ca92-11f1-af0f-f12f95d4597e
 md"""
 ### 5.2 El estimador de Hill en la cola
 
@@ -235,7 +238,7 @@ menor. El problema es elegir ``k``. La **gráfica de Hill** muestra
 Fracción de datos en la cola: $(@bind frac_k Slider(0.005:0.005:0.20, default = 0.05, show_value = true))
 """
 
-# ╔═╡ 59b013c8-ca89-11f1-b134-4ba722681707
+# ╔═╡ 763450e6-ca92-11f1-9670-9ff9b4b0d9de
 md"""
 ### 5.3 [Avanzado] Elegir ``x_{\min}`` con el método de Clauset, Shalizi y Newman
 
@@ -250,7 +253,7 @@ proponen:
 3. Quedarse con el ``x_{\min}`` de menor distancia.
 """
 
-# ╔═╡ 59b013dc-ca89-11f1-8a30-1d3e624f0570
+# ╔═╡ 763450ee-ca92-11f1-abb5-177e37336108
 md"""
 ## 6. Universalidad de las colas
 
@@ -258,7 +261,7 @@ La tabla resume los exponentes estimados para los cuatro activos (por separado
 para caídas, subidas y valor absoluto) y para las localidades de México:
 """
 
-# ╔═╡ 59b013e6-ca89-11f1-ad54-55d86d9bbaf1
+# ╔═╡ 763450fa-ca92-11f1-8081-33245d0ba927
 md"""
 Los exponentes de los índices y del tipo de cambio rondan 3, como predice la
 ley cúbica inversa, aunque con intervalos amplios: hay pocos días en la cola.
@@ -273,7 +276,7 @@ exponentes es una pista de mecanismos comunes, que buscaremos a lo largo del
 curso.
 """
 
-# ╔═╡ 59b013f0-ca89-11f1-9e39-211b84996360
+# ╔═╡ 76345104-ca92-11f1-a88a-799c2bfb0f85
 md"""
 ## 7. [Avanzado] Cuando el teorema del límite central no aplica
 
@@ -290,7 +293,7 @@ La gráfica suma ``n`` variables de Pareto simétricas y normaliza: con
 Exponente de cada sumando: $(@bind α_est Slider(1.1:0.1:3.5, default = 1.5, show_value = true))
 """
 
-# ╔═╡ 59b013fa-ca89-11f1-929a-cf3ba4d9ffda
+# ╔═╡ 7634510e-ca92-11f1-ba90-a3809feaf26f
 md"""
 Con ``\alpha < 2``, las tres curvas casi coinciden: sumar no cambia la forma,
 sólo la escala (``n^{1/\alpha}``). Es la propiedad que define a una
@@ -300,7 +303,7 @@ Los retornos, con ``\alpha \approx 3``, están en el segundo caso: por eso la
 normalidad agregacional de la sesión 2 llega, pero lentamente.
 """
 
-# ╔═╡ 59b013fa-ca89-11f1-bd6c-f1fdcc8ee5d4
+# ╔═╡ 76345118-ca92-11f1-9cce-3d90dc3e5338
 md"""
 ## Resumen
 
@@ -313,7 +316,7 @@ md"""
 | Estimación | Receta de Hill en la cola; elección de ``x_{\min}`` por KS [Avanzado] | La recta por mínimos cuadrados es menos precisa |
 """
 
-# ╔═╡ 59b01402-ca89-11f1-a1a6-1561614df305
+# ╔═╡ 76345118-ca92-11f1-966d-0d862228a8a7
 md"""
 ## Ejercicios
 
@@ -324,24 +327,24 @@ con los ``k`` datos más grandes de `x`, usando la fórmula de la sección 5.2.
 Reemplaza `missing` por tu código.
 """
 
-# ╔═╡ 59b0140e-ca89-11f1-8747-237fbec2a313
+# ╔═╡ 76345120-ca92-11f1-af05-4123b2a59636
 function alpha_hill(x, k)
     missing  # reemplaza esta línea
 end
 
-# ╔═╡ 59b01418-ca89-11f1-bd08-2dfa377125b5
+# ╔═╡ 7634512c-ca92-11f1-b79f-9d78ddc934fa
 md"""
 **2.** Escribe la función `pendiente_loglog(x, y)` que devuelva la pendiente
 de la recta de mínimos cuadrados de ``\ln y`` contra ``\ln x``
 (repaso S.B4).
 """
 
-# ╔═╡ 59b01418-ca89-11f1-920f-1542147f249a
+# ╔═╡ 7634512c-ca92-11f1-8c69-576e4dab8e0a
 function pendiente_loglog(x, y)
     missing  # reemplaza esta línea
 end
 
-# ╔═╡ 59b01422-ca89-11f1-847c-1dd32d582d7f
+# ╔═╡ 76345136-ca92-11f1-ba29-cb7e975a61b1
 md"""
 ### Ruta básica: interpretación
 
@@ -379,7 +382,7 @@ md"""
   en el tiempo**: la caminata aleatoria y las cadenas de Markov.
 """
 
-# ╔═╡ 59b0142c-ca89-11f1-9313-c5a2108cbcf3
+# ╔═╡ 76345140-ca92-11f1-a717-d1fde816066c
 md"""
 ---
 ## Apéndice: paquetes y funciones auxiliares
@@ -388,7 +391,7 @@ Estas celdas definen herramientas que usa el cuaderno. No es necesario
 leerlas para seguir la sesión.
 """
 
-# ╔═╡ 59b01436-ca89-11f1-a3e4-0733b87a79a6
+# ╔═╡ 7634514a-ca92-11f1-8ebd-f18e9573468e
 begin
     const AZUL    = "#2a78d6"   # serie principal
     const NARANJA = "#eb6834"   # segunda serie
@@ -396,7 +399,7 @@ begin
     const RAMPA   = ["#86b6ef", "#3987e5", "#1c5cab", "#0d366b"]   # azul secuencial
 end;
 
-# ╔═╡ 59b012e2-ca89-11f1-b354-a3151071d4d9
+# ╔═╡ 7634505c-ca92-11f1-b631-b98f440718ae
 let
     x = exp10.(range(0, 3, length = 400))
     pareto = x .^ (-α_demo)
@@ -414,11 +417,11 @@ let
     plot!(p, x, expo; color = NARANJA, lw = 2, label = "Exponencial")
 end
 
-# ╔═╡ 59b01440-ca89-11f1-a70d-1f4c7b6aef5f
+# ╔═╡ 7634514a-ca92-11f1-808d-d97052afa054
 "Número entero con comas como separador de miles."
 miles(x) = replace(string(round(Int, x)), r"(?<=\d)(?=(\d{3})+$)" => ",")
 
-# ╔═╡ 59b01440-ca89-11f1-adaa-a152d3165608
+# ╔═╡ 7634514a-ca92-11f1-87d2-794c67be8ec8
 "Frase sobre qué momentos son finitos para una cola con exponente α."
 function momentos(α)
     α <= 1 && return "la media, la varianza y la curtosis son infinitas"
@@ -427,7 +430,7 @@ function momentos(α)
     "la media, la varianza y la curtosis son finitas"
 end
 
-# ╔═╡ 59b012ec-ca89-11f1-b3ca-612c40d717df
+# ╔═╡ 76345064-ca92-11f1-a016-03d6aaed8412
 md"""
 Con ``\alpha = `` $(α_demo), $(momentos(α_demo)). La razón: el momento
 ``\mathbb{E}[X^n]`` es finito sólo si ``n < \alpha``.
@@ -444,14 +447,14 @@ la curtosis de los retornos **no existe**, y por eso su estimación cambia
 tanto de una muestra a otra.
 """
 
-# ╔═╡ 59b0144a-ca89-11f1-aad6-d95b7b02f2a9
+# ╔═╡ 76345154-ca92-11f1-9535-4da6fc71626e
 "Datos ordenados de mayor a menor y su CCDF empírica, P(X ≥ x)."
 function ccdf_empirica(x)
     s = sort(x; rev = true)
     s, (1:length(s)) ./ length(s)
 end
 
-# ╔═╡ 59b0138c-ca89-11f1-aa7e-cd7e258e9c64
+# ╔═╡ 763450aa-ca92-11f1-ab3e-1dead9ae70bc
 let
     p = plot(xscale = :log10, yscale = :log10, xlims = (0.5, 30), ylims = (1e-4, 1.2),
              xticks = ([0.5, 1, 2, 5, 10, 20], ["0.5", "1", "2", "5", "10", "20"]),
@@ -475,7 +478,7 @@ let
           label = "Pendiente −3 (ley cúbica)")
 end
 
-# ╔═╡ 59b013f0-ca89-11f1-9afe-d32f6ded246b
+# ╔═╡ 76345104-ca92-11f1-8326-0d148cd4172f
 let
     rng = Xoshiro(2026)
     M = 20_000
@@ -495,18 +498,18 @@ let
     p
 end
 
-# ╔═╡ 59b0144a-ca89-11f1-9ded-a32b8a08503f
+# ╔═╡ 76345154-ca92-11f1-9496-0fe193f793d5
 "Pendiente de la recta de mínimos cuadrados de v contra u."
 pendiente(u, v) = cov(u, v) / var(u)
 
-# ╔═╡ 59b01346-ca89-11f1-b5f7-cb8ae949b05f
+# ╔═╡ 7634508e-ca92-11f1-9a72-037f6353b27a
 pendiente_lognormal = let
     s, P = ccdf_empirica(muestra_lognormal)
     cola = s .>= quantile(muestra_lognormal, 0.95)
     pendiente(log.(s[cola]), log.(P[cola]))
 end;
 
-# ╔═╡ 59b01332-ca89-11f1-a64b-ebaacbc294a4
+# ╔═╡ 76345082-ca92-11f1-b16a-cfdd66b28bdb
 let
     x = muestra_lognormal
     s, P = ccdf_empirica(x)
@@ -523,7 +526,7 @@ let
           label = "Recta ajustada al 5% superior: pendiente $(round(b, digits = 2))")
 end
 
-# ╔═╡ 59b01346-ca89-11f1-aced-81ac4c588be2
+# ╔═╡ 76345096-ca92-11f1-909b-2ddf89fd4019
 md"""
 Con ``\sigma`` pequeña, toda la caída ocurre en menos de un orden de magnitud:
 nadie la confundiría con una ley de potencias. Con ``\sigma \ge 2``, los datos
@@ -541,14 +544,14 @@ Clauset, Shalizi y Newman (2009) revisaron muchas "leyes de potencias"
 publicadas y encontraron que varias no resisten estas pruebas.
 """
 
-# ╔═╡ 59b01454-ca89-11f1-9317-f3ce28a7afa0
+# ╔═╡ 7634515e-ca92-11f1-aa30-3d4401305c32
 "Máxima verosimilitud del exponente α de la CCDF, con los datos ≥ xmin."
 function alpha_mle(x, xmin)
     cola = filter(>=(xmin), x)
     length(cola) / sum(log.(cola ./ xmin))
 end
 
-# ╔═╡ 59b01454-ca89-11f1-b4bd-09e613a829d1
+# ╔═╡ 7634515e-ca92-11f1-8b37-4589605f8179
 "Estimador de Hill con los k datos más grandes, y su error estándar."
 function hill(x, k)
     s = sort(x; rev = true)
@@ -556,10 +559,10 @@ function hill(x, k)
     (α = α, se = α / sqrt(k))
 end
 
-# ╔═╡ 59b013c8-ca89-11f1-9cb4-6926644feee8
+# ╔═╡ 763450dc-ca92-11f1-8e97-25092c91b175
 hill_actual = (k = round(Int, frac_k * length(z)), hill(abs.(z), round(Int, frac_k * length(z)))...);
 
-# ╔═╡ 59b013be-ca89-11f1-8649-67bdd67b94c4
+# ╔═╡ 763450dc-ca92-11f1-92da-4f87ba585da3
 md"""
 Con los $(miles(hill_actual.k)) datos más grandes (``k/N = `` $(frac_k)),
 el estimador de Hill da ``\hat\alpha = `` $(round(hill_actual.α, digits = 2)) ± $(round(1.96hill_actual.se, digits = 2)).
@@ -569,7 +572,7 @@ incluye el centro de la distribución, que no es ley de potencias, y el
 estimador se sesga.
 """
 
-# ╔═╡ 59b01454-ca89-11f1-8000-ef611c6e7bbf
+# ╔═╡ 76345168-ca92-11f1-a303-4bffde54f400
 "Estimador de Hill para cada k en `ks`, ordenando los datos una sola vez."
 function curva_hill(x, ks)
     s = sort(x; rev = true)
@@ -577,7 +580,7 @@ function curva_hill(x, ks)
     [k / (L[k] - k * log(s[k+1])) for k in ks]
 end
 
-# ╔═╡ 59b013be-ca89-11f1-9f1a-53742851b600
+# ╔═╡ 763450d2-ca92-11f1-85da-c176444fe982
 let
     a = abs.(z)
     N = length(a)
@@ -593,7 +596,7 @@ let
     vline!(p, [k / N]; color = NARANJA, lw = 1.5, label = "k elegido")
 end
 
-# ╔═╡ 59b0145e-ca89-11f1-b7a5-513f7c29576e
+# ╔═╡ 76345168-ca92-11f1-88aa-31c98b536685
 """
 Método de Clauset, Shalizi y Newman (2009). Para cada candidato a `xmin` estima
 α por máxima verosimilitud y calcula la distancia de Kolmogorov-Smirnov entre
@@ -617,10 +620,10 @@ function clauset(x; candidatos = quantile(x, 0.5:0.005:0.995), nmin = 50)
                         se = res.α[i] / sqrt(res.n[i])))
 end
 
-# ╔═╡ 59b012f6-ca89-11f1-8df8-2d060d5671af
+# ╔═╡ 7634506e-ca92-11f1-9b99-9195d39f1ec9
 ajuste_loc = clauset(pob; candidatos = quantile(pob, 0.5:0.0025:0.999)).mejor;
 
-# ╔═╡ 59b012f6-ca89-11f1-80f0-dfbf3c76a377
+# ╔═╡ 7634506e-ca92-11f1-92e3-4be9682a92a8
 let
     s = sort(pob; rev = true)
     R = 1:length(s)
@@ -638,7 +641,7 @@ let
           label = "Zipf exacta (α = 1)")
 end
 
-# ╔═╡ 59b01300-ca89-11f1-b915-17af3a39dffc
+# ╔═╡ 76345078-ca92-11f1-bba7-c702dcf8ecf5
 md"""
 Por encima de ``x_{\min} \approx`` $(miles(round(Int, ajuste_loc.xmin))) habitantes
 (el método para elegirlo está en la sección 5), el exponente estimado es
@@ -655,10 +658,10 @@ Dos cuidados:
   (Gibrat y Kesten).
 """
 
-# ╔═╡ 59b013d0-ca89-11f1-89ee-e36c90052268
+# ╔═╡ 763450e6-ca92-11f1-b42a-fdbe6aab74f8
 ajuste_activo = clauset(abs.(z));
 
-# ╔═╡ 59b013d0-ca89-11f1-92b3-f360b31b90ff
+# ╔═╡ 763450e6-ca92-11f1-87ec-51c079380f5c
 let
     m = ajuste_activo.mejor
     p1 = plot(ajuste_activo.xmin, ajuste_activo.D; color = AZUL, lw = 2,
@@ -672,14 +675,14 @@ let
     plot(p1, p2; layout = (2, 1), size = (720, 480))
 end
 
-# ╔═╡ 59b013dc-ca89-11f1-af2e-450c56112d37
+# ╔═╡ 763450ee-ca92-11f1-86cf-916b4a072df9
 md"""
 La distancia es mínima en ``x_{\min} = `` $(round(ajuste_activo.mejor.xmin, digits = 2))
 desviaciones estándar. Ahí, ``\hat\alpha = `` $(round(ajuste_activo.mejor.α, digits = 2)) ± $(round(1.96ajuste_activo.mejor.se, digits = 2)),
 con $(ajuste_activo.mejor.n) días en la cola.
 """
 
-# ╔═╡ 59b01468-ca89-11f1-94c3-4314ee03aeda
+# ╔═╡ 76345172-ca92-11f1-8bb9-15f15c256caa
 "Resumen del tamaño de las localidades para el texto de la sección 0."
 resumen_loc = let s = sort(pob; rev = true), i = argmax(localidades.poblacion)
     (n = length(s), mediana = median(s), maximo = s[1],
@@ -688,7 +691,7 @@ resumen_loc = let s = sort(pob; rev = true), i = argmax(localidades.poblacion)
      top1 = round(100 * sum(s[1:ceil(Int, 0.01length(s))]) / sum(s), digits = 1))
 end;
 
-# ╔═╡ 59b012c4-ca89-11f1-97aa-9585c9df119e
+# ╔═╡ 76345046-ca92-11f1-834e-e954e652d852
 md"""
 - Hay $(miles(resumen_loc.n)) localidades con al menos 100 habitantes.
 - La mediana tiene $(miles(resumen_loc.mediana)) habitantes. La más grande,
@@ -703,17 +706,17 @@ sello de una **cola pesada**. En la sesión 1 vimos que los retornos
 financieros también la tienen. Hoy vamos a medir **qué tan pesada** es.
 """
 
-# ╔═╡ 59b01468-ca89-11f1-aef5-0bac86aeda98
+# ╔═╡ 76345172-ca92-11f1-9df6-5d0c6e90a7d1
 function tabla_mayores(loc; n = 10)
     t = first(sort(loc, :poblacion; rev = true), n)
     DataFrame("Rango" => 1:n, "Localidad" => t.nombre_localidad,
               "Estado" => t.nombre_entidad, "Habitantes" => miles.(t.poblacion))
 end
 
-# ╔═╡ 59b012d8-ca89-11f1-9aac-eb8e0dbf7ceb
+# ╔═╡ 76345050-ca92-11f1-94b1-0d61e3f53c47
 tabla_mayores(localidades)
 
-# ╔═╡ 59b01474-ca89-11f1-8aa5-1b6d89b0fd25
+# ╔═╡ 76345172-ca92-11f1-a876-61ef528d8e58
 "Compara la recta por mínimos cuadrados y la máxima verosimilitud en muestras de Pareto."
 function experimento_estimadores(; α = 2.0, n = 200, M = 1000, rng = Xoshiro(7))
     ols, mle = Float64[], Float64[]
@@ -726,10 +729,10 @@ function experimento_estimadores(; α = 2.0, n = 200, M = 1000, rng = Xoshiro(7)
     (; ols, mle)
 end
 
-# ╔═╡ 59b0139e-ca89-11f1-8171-05936c86bf94
+# ╔═╡ 763450bc-ca92-11f1-8544-e743c64b8f30
 experimento = experimento_estimadores(α = 2.0, n = 200, M = 1000);
 
-# ╔═╡ 59b013aa-ca89-11f1-914b-e9052acdbc9b
+# ╔═╡ 763450bc-ca92-11f1-9206-bb07d4f07ce0
 let
     bordes = range(1.0, 3.2, length = 45)
     p = histogram(experimento.ols; bins = bordes, color = NARANJA, alpha = 0.55, lw = 0,
@@ -741,7 +744,7 @@ let
     vline!(p, [2.0]; color = GRIS, lw = 1.5, ls = :dash, label = "Valor verdadero")
 end
 
-# ╔═╡ 59b013aa-ca89-11f1-ab2c-45ac5d848ad4
+# ╔═╡ 763450c8-ca92-11f1-9749-71b280f16d8f
 md"""
 | Método | Promedio de ``\hat\alpha`` | Desviación estándar |
 |---|---|---|
@@ -755,7 +758,7 @@ avanzada se obtiene por máxima verosimilitud, repaso P.A3) es más precisa y su
 error estándar es ``\hat\alpha/\sqrt{n}``.
 """
 
-# ╔═╡ 59b01474-ca89-11f1-83f1-cfd9731423e2
+# ╔═╡ 7634517c-ca92-11f1-bd6a-2de581945e90
 function tabla_colas(datos)
     filas = map(collect(groupby(datos, :activo))) do g
         r = diff(log.(sort(g, :fecha).cierre))
@@ -770,10 +773,10 @@ function tabla_colas(datos)
                "x_min (σ)", "Días en la cola"])
 end
 
-# ╔═╡ 59b013e6-ca89-11f1-ad6c-79af186c2eb3
+# ╔═╡ 763450fa-ca92-11f1-b6db-9161f01da4db
 tabla_colas(datos)
 
-# ╔═╡ 59b0147c-ca89-11f1-a6fe-5f67a1000eb4
+# ╔═╡ 7634517c-ca92-11f1-a4b5-03ace847a396
 "Muestra si la respuesta de un ejercicio es correcta."
 function verificar(f, esperado; rtol = 1e-8, pista = md"")
     caja(tipo, titulo, texto) = Markdown.MD(Markdown.Admonition(tipo, titulo, [texto]))
@@ -794,83 +797,83 @@ function verificar(f, esperado; rtol = 1e-8, pista = md"")
     end
 end
 
-# ╔═╡ 59b01422-ca89-11f1-85d4-e9083157a025
+# ╔═╡ 76345136-ca92-11f1-9338-11b663a0df6c
 verificar(() -> pendiente_loglog(collect(1.0:100.0), 3 .* collect(1.0:100.0) .^ (-1.5)), -1.5;
           pista = md"La pendiente de mínimos cuadrados es `cov(u, v) / var(u)`, con `u = log.(x)` y `v = log.(y)`.")
 
-# ╔═╡ 59b0147c-ca89-11f1-9000-27ab41c802f9
+# ╔═╡ 76345186-ca92-11f1-89a1-8bcdfec7bb0e
 const VECTOR_PARETO = rand(Xoshiro(2026), Pareto(2.5, 1.0), 10_000);
 
-# ╔═╡ 59b0140e-ca89-11f1-b471-ede2f71bf48f
+# ╔═╡ 76345120-ca92-11f1-8a77-7bfad20ed01f
 verificar(() -> alpha_hill(VECTOR_PARETO, 500), hill(VECTOR_PARETO, 500).α;
           pista = md"Ordena con `sort(x; rev = true)`. Los ``k`` mayores son `s[1:k]` y ``x_{(k+1)}`` es `s[k+1]`. Después aplica la fórmula con `sum` y `log.`.")
 
 # ╔═╡ Cell order:
-# ╟─59b01274-ca89-11f1-994e-d9ee84b4301d
-# ╟─59b012a6-ca89-11f1-aec8-5fe89705559c
-# ╟─59b012b0-ca89-11f1-ad49-2fce12ea5d3c
-# ╠═59b012b0-ca89-11f1-bc64-9b064987d2a4
-# ╠═59b012ba-ca89-11f1-9531-ffc8a3ea2527
-# ╟─59b012c4-ca89-11f1-97aa-9585c9df119e
-# ╟─59b012ce-ca89-11f1-b612-17739b57eb32
-# ╟─59b012d8-ca89-11f1-9aac-eb8e0dbf7ceb
-# ╟─59b012d8-ca89-11f1-a1a6-3fe834a14d56
-# ╟─59b012e2-ca89-11f1-b354-a3151071d4d9
-# ╟─59b012ec-ca89-11f1-b3ca-612c40d717df
-# ╟─59b012ec-ca89-11f1-9f15-593d3c9f36b4
-# ╟─59b012f6-ca89-11f1-8df8-2d060d5671af
-# ╟─59b012f6-ca89-11f1-80f0-dfbf3c76a377
-# ╟─59b01300-ca89-11f1-b915-17af3a39dffc
-# ╟─59b0130c-ca89-11f1-90ef-fb199a81bf3a
-# ╟─59b01332-ca89-11f1-a64b-ebaacbc294a4
-# ╟─59b0133e-ca89-11f1-a5ce-c11c888ea9b7
-# ╟─59b01346-ca89-11f1-b5f7-cb8ae949b05f
-# ╟─59b01346-ca89-11f1-aced-81ac4c588be2
-# ╟─59b01350-ca89-11f1-892e-d7529c3d0f8d
-# ╠═59b01382-ca89-11f1-9398-9b5518c88966
-# ╠═59b01382-ca89-11f1-ae5c-95951096378c
-# ╟─59b0138c-ca89-11f1-aa7e-cd7e258e9c64
-# ╟─59b01396-ca89-11f1-87d5-554e292bc89d
-# ╟─59b01396-ca89-11f1-a681-ada2b9b29de0
-# ╟─59b0139e-ca89-11f1-8171-05936c86bf94
-# ╟─59b013aa-ca89-11f1-914b-e9052acdbc9b
-# ╟─59b013aa-ca89-11f1-ab2c-45ac5d848ad4
-# ╟─59b013b4-ca89-11f1-8af0-25622dbb0fa1
-# ╟─59b013be-ca89-11f1-9f1a-53742851b600
-# ╟─59b013be-ca89-11f1-8649-67bdd67b94c4
-# ╟─59b013c8-ca89-11f1-9cb4-6926644feee8
-# ╟─59b013c8-ca89-11f1-b134-4ba722681707
-# ╟─59b013d0-ca89-11f1-89ee-e36c90052268
-# ╟─59b013d0-ca89-11f1-92b3-f360b31b90ff
-# ╟─59b013dc-ca89-11f1-af2e-450c56112d37
-# ╟─59b013dc-ca89-11f1-8a30-1d3e624f0570
-# ╟─59b013e6-ca89-11f1-ad6c-79af186c2eb3
-# ╟─59b013e6-ca89-11f1-ad54-55d86d9bbaf1
-# ╟─59b013f0-ca89-11f1-9e39-211b84996360
-# ╟─59b013f0-ca89-11f1-9afe-d32f6ded246b
-# ╟─59b013fa-ca89-11f1-929a-cf3ba4d9ffda
-# ╟─59b013fa-ca89-11f1-bd6c-f1fdcc8ee5d4
-# ╟─59b01402-ca89-11f1-a1a6-1561614df305
-# ╠═59b0140e-ca89-11f1-8747-237fbec2a313
-# ╟─59b0140e-ca89-11f1-b471-ede2f71bf48f
-# ╟─59b01418-ca89-11f1-bd08-2dfa377125b5
-# ╠═59b01418-ca89-11f1-920f-1542147f249a
-# ╟─59b01422-ca89-11f1-85d4-e9083157a025
-# ╟─59b01422-ca89-11f1-847c-1dd32d582d7f
-# ╟─59b0142c-ca89-11f1-9313-c5a2108cbcf3
-# ╠═59b01436-ca89-11f1-9322-b70c482624a5
-# ╠═59b01436-ca89-11f1-a3e4-0733b87a79a6
-# ╠═59b01440-ca89-11f1-a70d-1f4c7b6aef5f
-# ╠═59b01440-ca89-11f1-adaa-a152d3165608
-# ╠═59b0144a-ca89-11f1-aad6-d95b7b02f2a9
-# ╠═59b0144a-ca89-11f1-9ded-a32b8a08503f
-# ╠═59b01454-ca89-11f1-9317-f3ce28a7afa0
-# ╠═59b01454-ca89-11f1-b4bd-09e613a829d1
-# ╠═59b01454-ca89-11f1-8000-ef611c6e7bbf
-# ╠═59b0145e-ca89-11f1-b7a5-513f7c29576e
-# ╠═59b01468-ca89-11f1-94c3-4314ee03aeda
-# ╠═59b01468-ca89-11f1-aef5-0bac86aeda98
-# ╠═59b01474-ca89-11f1-8aa5-1b6d89b0fd25
-# ╠═59b01474-ca89-11f1-83f1-cfd9731423e2
-# ╠═59b0147c-ca89-11f1-a6fe-5f67a1000eb4
-# ╠═59b0147c-ca89-11f1-9000-27ab41c802f9
+# ╟─76344ff6-ca92-11f1-a45e-07935e3e3590
+# ╟─7634502a-ca92-11f1-a8d4-57b0220dbc2a
+# ╟─76345032-ca92-11f1-94a4-f738e4f94c34
+# ╠═76345032-ca92-11f1-8043-5ba190907dd5
+# ╠═7634503c-ca92-11f1-91fa-c3ecb13dedbd
+# ╟─76345046-ca92-11f1-834e-e954e652d852
+# ╟─76345046-ca92-11f1-b85e-034fb8247066
+# ╟─76345050-ca92-11f1-94b1-0d61e3f53c47
+# ╟─76345050-ca92-11f1-ae71-73097f4e539a
+# ╟─7634505c-ca92-11f1-b631-b98f440718ae
+# ╟─76345064-ca92-11f1-a016-03d6aaed8412
+# ╟─76345064-ca92-11f1-980a-eb9cf4bb3778
+# ╟─7634506e-ca92-11f1-9b99-9195d39f1ec9
+# ╟─7634506e-ca92-11f1-92e3-4be9682a92a8
+# ╟─76345078-ca92-11f1-bba7-c702dcf8ecf5
+# ╟─76345082-ca92-11f1-a0aa-09ac83e16860
+# ╟─76345082-ca92-11f1-b16a-cfdd66b28bdb
+# ╟─7634508e-ca92-11f1-b3ed-b58ed15f9d34
+# ╟─7634508e-ca92-11f1-9a72-037f6353b27a
+# ╟─76345096-ca92-11f1-909b-2ddf89fd4019
+# ╟─76345096-ca92-11f1-936d-53b6f8e07494
+# ╠═763450a0-ca92-11f1-afbf-53ab6428bc65
+# ╠═763450a0-ca92-11f1-bcd5-b767cbada7a8
+# ╟─763450aa-ca92-11f1-ab3e-1dead9ae70bc
+# ╟─763450aa-ca92-11f1-84c2-53e9b0d7c5ba
+# ╟─763450b4-ca92-11f1-bb43-5350b6cb2bac
+# ╟─763450bc-ca92-11f1-8544-e743c64b8f30
+# ╟─763450bc-ca92-11f1-9206-bb07d4f07ce0
+# ╟─763450c8-ca92-11f1-9749-71b280f16d8f
+# ╟─763450d2-ca92-11f1-af0f-f12f95d4597e
+# ╟─763450d2-ca92-11f1-85da-c176444fe982
+# ╟─763450dc-ca92-11f1-92da-4f87ba585da3
+# ╟─763450dc-ca92-11f1-8e97-25092c91b175
+# ╟─763450e6-ca92-11f1-9670-9ff9b4b0d9de
+# ╟─763450e6-ca92-11f1-b42a-fdbe6aab74f8
+# ╟─763450e6-ca92-11f1-87ec-51c079380f5c
+# ╟─763450ee-ca92-11f1-86cf-916b4a072df9
+# ╟─763450ee-ca92-11f1-abb5-177e37336108
+# ╟─763450fa-ca92-11f1-b6db-9161f01da4db
+# ╟─763450fa-ca92-11f1-8081-33245d0ba927
+# ╟─76345104-ca92-11f1-a88a-799c2bfb0f85
+# ╟─76345104-ca92-11f1-8326-0d148cd4172f
+# ╟─7634510e-ca92-11f1-ba90-a3809feaf26f
+# ╟─76345118-ca92-11f1-9cce-3d90dc3e5338
+# ╟─76345118-ca92-11f1-966d-0d862228a8a7
+# ╠═76345120-ca92-11f1-af05-4123b2a59636
+# ╟─76345120-ca92-11f1-8a77-7bfad20ed01f
+# ╟─7634512c-ca92-11f1-b79f-9d78ddc934fa
+# ╠═7634512c-ca92-11f1-8c69-576e4dab8e0a
+# ╟─76345136-ca92-11f1-9338-11b663a0df6c
+# ╟─76345136-ca92-11f1-ba29-cb7e975a61b1
+# ╟─76345140-ca92-11f1-a717-d1fde816066c
+# ╠═76345140-ca92-11f1-920d-09ea8533e420
+# ╠═7634514a-ca92-11f1-8ebd-f18e9573468e
+# ╠═7634514a-ca92-11f1-808d-d97052afa054
+# ╠═7634514a-ca92-11f1-87d2-794c67be8ec8
+# ╠═76345154-ca92-11f1-9535-4da6fc71626e
+# ╠═76345154-ca92-11f1-9496-0fe193f793d5
+# ╠═7634515e-ca92-11f1-aa30-3d4401305c32
+# ╠═7634515e-ca92-11f1-8b37-4589605f8179
+# ╠═76345168-ca92-11f1-a303-4bffde54f400
+# ╠═76345168-ca92-11f1-88aa-31c98b536685
+# ╠═76345172-ca92-11f1-8bb9-15f15c256caa
+# ╠═76345172-ca92-11f1-9df6-5d0c6e90a7d1
+# ╠═76345172-ca92-11f1-a876-61ef528d8e58
+# ╠═7634517c-ca92-11f1-bd6a-2de581945e90
+# ╠═7634517c-ca92-11f1-a4b5-03ace847a396
+# ╠═76345186-ca92-11f1-89a1-8bcdfec7bb0e

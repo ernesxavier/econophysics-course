@@ -23,6 +23,9 @@ opcionales.
 correlación), L.B1–B3 (vectores y matrices), S.B5 (pruebas por permutación),
 L.I1–I3 (eigenvalores, matrices simétricas, componentes principales), L.I5
 (distancia entre activos). Ruta avanzada: L.A2 (Marchenko-Pastur).
+
+**Conceptos transversales.** Se retoman la **media, la varianza y la
+correlación** (sesiones 1 y 2).
 """
 
 #%% hide
@@ -532,6 +535,16 @@ md"""
 5. Elige una rama del árbol de expansión mínima de la sección 5 y explica qué
    tienen en común sus empresas y por qué una empresa como Berkshire Hathaway
    (BRK-B) queda cerca del centro.
+
+
+### Conceptos que vuelven
+
+Preguntas cortas para repasar ideas de sesiones anteriores; se responden con
+lo que ya sabes y con el laboratorio de hoy.
+
+- **R1.** La matriz de correlación generaliza la correlación entre dos series.
+  Si dos acciones tienen correlación 0.6, ¿qué fracción de la varianza de una
+  explica la otra? ¿Quiere decir que una causa a la otra? (Sesión 2.)
 
 ### Ruta avanzada
 

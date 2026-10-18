@@ -24,6 +24,9 @@ L.B4 (matriz de adyacencia), C.B2 (escalas log-log), F.B4 (transiciones de
 fase). Para las notas formales: P.I5 (leyes de potencias), L.I4 (potencias
 de matrices y centralidad), S.I3 (comparar datos con una distribución). Ruta
 avanzada: L.A5 (Perron-Frobenius), F.A5 (percolación).
+
+**Conceptos transversales.** Se retoman las **distribuciones, la CCDF y las
+escalas logarítmicas** (sesiones 1 y 3), ahora para los grados de una red.
 """
 
 #%% hide
@@ -414,6 +417,16 @@ md"""
    ¿Qué propiedad de las redes sociales viola ese modelo?
 5. ¿Qué ingrediente adicional convierte una red de enlaces aleatorios en una
    red con concentradores (*hubs*) como la de Barabási-Albert?
+
+
+### Conceptos que vuelven
+
+Preguntas cortas para repasar ideas de sesiones anteriores; se responden con
+lo que ya sabes y con el laboratorio de hoy.
+
+- **R1.** La CCDF de los grados de Barabási-Albert es casi una recta en
+  log-log y la de Erdős-Rényi no. ¿Qué te dice eso sobre si existe un grado
+  típico en cada red? (Sesiones 1 y 3.)
 
 ### Ruta avanzada
 

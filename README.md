@@ -31,6 +31,7 @@ Matemáticas), con simulaciones en Julia.
 │   ├── s19_juego_minoria.md       → Notas formales, sesión 19
 │   ├── s20_mercados_artificiales.md → Notas formales, sesión 20
 │   └── repaso/                → Repaso de matemáticas por niveles (índice por sesión)
+│       ├── diagnostico_inicial.md → Diagnóstico de matemáticas de la sesión 1
 │       └── figuras/           → Figuras de las notas (generadas con Code/figuras_repaso.jl)
 ├── docs/
 │   ├── diagnostico.md         → Revisión del curso anterior
@@ -156,9 +157,9 @@ Plan completo en [docs/plan_reestructuracion.md](docs/plan_reestructuracion.md).
 - [x] Fase 1: programa de 20 sesiones.
 - [x] Fase 2: renumeración de archivos y referencias.
 - [x] Fase 3: dividir las sesiones 1, 4, 10, 13, 15 y 17 (cada una en dos).
-- [ ] Fases 4 a 6: aligerar sesiones, notas en dos capas, conceptos transversales.
+- [x] Fases 4 a 6: aligerar sesiones, notas en dos capas, conceptos transversales.
 - [ ] Fase 7: talleres para casa de los tres módulos y guía del proyecto final.
-- [ ] Diagnóstico de matemáticas para la sesión 1.
+- [x] Diagnóstico de matemáticas para la sesión 1.
 - [ ] Lista de artículos para presentaciones.
 - [ ] Módulo compartido con funciones comunes (`gini`, `ccdf`, `hill`, ...), por ejemplo `Code/comun.jl`.
 - [ ] Notebooks anteriores: en `sesion_1` la celda 31 grafica `Normal(...)`

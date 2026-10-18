@@ -16,7 +16,7 @@ macro bind(def, element)
     #! format: on
 end
 
-# ╔═╡ 0031e786-ca7a-11f1-a5cb-b1478e1fbf40
+# ╔═╡ 90df82a8-ca92-11f1-ac22-e72b2d6b8979
 begin
     # Usa el entorno del curso (Code/Project.toml) en lugar del gestor de
     # paquetes propio de Pluto: un solo entorno para todo el repositorio.
@@ -32,7 +32,7 @@ begin
             background_color_legend = nothing, margin = 3Plots.mm)
 end
 
-# ╔═╡ 0031e682-ca7a-11f1-ad46-353bc1936f78
+# ╔═╡ 90df819a-ca92-11f1-a354-539eb71fd460
 md"""
 # Sesión 5: Langevin, GBM y GARCH
 
@@ -59,15 +59,18 @@ tasa de cambio). Para las notas formales: C.I4 (ecuaciones diferenciales),
 E.I1 (autocorrelación), E.I4–I6 (GARCH, Langevin y crecimiento
 multiplicativo). Ruta avanzada: E.A1–A4 (browniano, Itô, ecuación maestra y
 Fokker-Planck), S.A1 (máxima verosimilitud).
+
+**Conceptos transversales.** Se retoman los **retornos logarítmicos** (sesión
+1) y la **caminata aleatoria** (sesión 4).
 """
 
-# ╔═╡ 0031e6b4-ca7a-11f1-b082-0debe218e2cb
+# ╔═╡ 90df81e0-ca92-11f1-a1c9-43b48028308b
 TableOfContents(title = "Contenido")
 
-# ╔═╡ 0031e6c8-ca7a-11f1-92fd-351372ef8608
+# ╔═╡ 90df81ea-ca92-11f1-bfa5-972d4a8bd47f
 datos = CSV.read(joinpath(@__DIR__, "..", "Data", "precios.csv"), DataFrame);
 
-# ╔═╡ 0031e6be-ca7a-11f1-b0ca-816e0f4d2d08
+# ╔═╡ 90df81ea-ca92-11f1-9cbd-2b6d0d3bf814
 md"""
 ## 0. El fenómeno: ¿qué proceso genera estas series?
 
@@ -80,14 +83,14 @@ independientes de la misma volatilidad:
 **Activo:** $(@bind activo Select(unique(datos.activo)))
 """
 
-# ╔═╡ 0031e6c8-ca7a-11f1-9b3d-23de061ce85f
+# ╔═╡ 90df81f6-ca92-11f1-8b9f-895b28d88c18
 begin
     serie = sort(filter(:activo => ==(activo), datos), :fecha)
     r = diff(log.(serie.cierre))           # retornos logarítmicos diarios
     σ_r = std(r)
 end;
 
-# ╔═╡ 0031e6dc-ca7a-11f1-adaf-774ca486e529
+# ╔═╡ 90df8208-ca92-11f1-ad0e-8ba0266c4747
 md"""
 ## 1. Repaso: la derivada como regla de actualización
 
@@ -102,7 +105,7 @@ Así se simula una ecuación diferencial: aplicando la regla paso a paso. En la
 sección 2 le agregaremos ruido.
 """
 
-# ╔═╡ 0031e6e6-ca7a-11f1-a479-b5fd94b63bd2
+# ╔═╡ 90df8208-ca92-11f1-a392-6b18b71222ed
 md"""
 ## 2. Tendencia + ruido: la ecuación de Langevin
 
@@ -132,7 +135,7 @@ Fuerza de regreso ``\theta``: $(@bind θ_ou Slider(0.1:0.1:3.0, default = 1.0, s
   Ruido ``\sigma``: $(@bind σ_ou Slider(0.1:0.1:2.0, default = 0.5, show_value = true))
 """
 
-# ╔═╡ 0031e6f0-ca7a-11f1-8e38-79a151e5d46f
+# ╔═╡ 90df8212-ca92-11f1-a91c-5f0e9d85b984
 md"""
 El proceso olvida su punto de partida en un tiempo del orden de ``1/\theta``
 y después fluctúa con varianza ``\sigma^2/(2\theta)`` =
@@ -140,7 +143,7 @@ $(round(σ_ou^2 / (2θ_ou), digits = 3)). Más fuerza de regreso significa
 fluctuaciones más pequeñas; más ruido, más grandes.
 """
 
-# ╔═╡ 0031e6fa-ca7a-11f1-aa0d-e5618275fb31
+# ╔═╡ 90df821c-ca92-11f1-8ae0-4d0d5acd7cc8
 md"""
 ## 3. El movimiento browniano geométrico
 
@@ -159,7 +162,7 @@ Tendencia anual ``\mu``: $(@bind μ_gbm Slider(-0.1:0.02:0.3, default = 0.08, sh
   Volatilidad anual ``\sigma``: $(@bind σ_gbm Slider(0.05:0.05:0.8, default = 0.3, show_value = true))
 """
 
-# ╔═╡ 0031e70e-ca7a-11f1-ba31-57391a4030ef
+# ╔═╡ 90df8230-ca92-11f1-a7c2-31ff846b85e4
 md"""
 El precio **promedio** crece a la tasa ``\mu``, pero el precio **típico** (la
 mediana) crece a ``\mu - \sigma^2/2`` = $(round(μ_gbm - σ_gbm^2 / 2, digits = 3)) por año.
@@ -174,7 +177,7 @@ agrupamiento de volatilidad. Hace falta que la volatilidad **cambie en el
 tiempo**.
 """
 
-# ╔═╡ 0031e70e-ca7a-11f1-ac4f-91afdbcd7679
+# ╔═╡ 90df8230-ca92-11f1-9e64-95a7e60d8222
 md"""
 ## 4. GARCH: volatilidad con memoria
 
@@ -197,7 +200,7 @@ Reacción a las noticias ``a``: $(@bind a_garch Slider(0.0:0.01:0.3, default = 0
   Memoria ``b``: $(@bind b_garch Slider(0.0:0.01:0.99, default = 0.90, show_value = true))
 """
 
-# ╔═╡ 0031e722-ca7a-11f1-8a3f-8d3662de8c78
+# ╔═╡ 90df823a-ca92-11f1-9ff2-c543b6f5b1af
 md"""
 ### 4.2 Laboratorio: ¿reproduce GARCH los hechos estilizados?
 
@@ -208,7 +211,7 @@ simulamos 20 series del modelo ajustado, del mismo largo que los datos, y las
 comparamos con la serie real.
 """
 
-# ╔═╡ 0031e740-ca7a-11f1-9f4a-0dc24812cc45
+# ╔═╡ 90df8262-ca92-11f1-9561-31afc62cda98
 md"""
 ## 5. [Avanzado] De las trayectorias a las distribuciones: Fokker-Planck
 
@@ -229,7 +232,7 @@ esa solución (usa ``\theta`` y ``\sigma`` de la sección 2).
 Tiempo ``t``: $(@bind t_fp Slider(0.05:0.05:4.0, default = 0.5, show_value = true))
 """
 
-# ╔═╡ 0031e74a-ca7a-11f1-b2bf-83b63443ab59
+# ╔═╡ 90df826c-ca92-11f1-ac97-61a51bfaf7ee
 md"""
 **Black-Scholes es una ecuación de difusión.** El precio ``V(S, t)`` de una
 opción sobre una acción que sigue un movimiento browniano geométrico cumple
@@ -246,7 +249,7 @@ la difusión de la caminata aleatoria. Las notas formales de la sesión
 desarrollan el argumento.
 """
 
-# ╔═╡ 0031e754-ca7a-11f1-ac49-4b4b89fc1bbe
+# ╔═╡ 90df826c-ca92-11f1-a64b-5f585630212e
 md"""
 ## Resumen
 
@@ -257,7 +260,7 @@ md"""
 | GARCH(1,1) | ``\sigma_t^2 = \omega + a r_{t-1}^2 + b \sigma_{t-1}^2`` | Agrupamiento de corto plazo | Memoria larga, colas tan pesadas como las reales |
 """
 
-# ╔═╡ 0031e75e-ca7a-11f1-8e71-8753b7e41e5a
+# ╔═╡ 90df8276-ca92-11f1-b1a0-076b217fe70c
 md"""
 ## Ejercicios
 
@@ -268,12 +271,12 @@ con ``X_0, X_1, \dots, X_n`` simulados con la regla de la sección 2. `A` y `B`
 son funciones. Usa `randn(rng)` una vez por paso, en orden.
 """
 
-# ╔═╡ 0031e75e-ca7a-11f1-821e-f99cf3b7e351
+# ╔═╡ 90df8280-ca92-11f1-92f1-133db216af9c
 function euler_maruyama(A, B, x0, Δt, n, rng)
     missing  # reemplaza esta línea
 end
 
-# ╔═╡ 0031e766-ca7a-11f1-8a90-09983b61d25a
+# ╔═╡ 90df8288-ca92-11f1-b9d6-2fbf306babaf
 md"""
 **2.** Escribe `garch_varianza(r, ω, a, b)`, que reciba una serie de retornos
 y devuelva el vector de varianzas condicionales ``\sigma_1^2, \dots, \sigma_n^2``
@@ -281,12 +284,12 @@ del GARCH(1,1). Empieza con la varianza de largo plazo,
 ``\sigma_1^2 = \omega/(1 - a - b)``.
 """
 
-# ╔═╡ 0031e772-ca7a-11f1-bdc2-df344315fea0
+# ╔═╡ 90df8288-ca92-11f1-b6b3-a31118ce7d81
 function garch_varianza(r, ω, a, b)
     missing  # reemplaza esta línea
 end
 
-# ╔═╡ 0031e77c-ca7a-11f1-aec0-e1addb3b4ccf
+# ╔═╡ 90df8294-ca92-11f1-b0d9-3fa490699d0e
 md"""
 ### Ruta básica: interpretación
 
@@ -299,6 +302,18 @@ md"""
    no, citando las gráficas de la sección 4.2.
 6. En Ornstein-Uhlenbeck, ¿qué pasa con las fluctuaciones si duplicas la
    fuerza de regreso ``\theta``? ¿Y si duplicas el ruido ``\sigma``?
+
+
+### Conceptos que vuelven
+
+Preguntas cortas para repasar ideas de sesiones anteriores; se responden con
+lo que ya sabes y con el laboratorio de hoy.
+
+- **R1.** En el browniano geométrico los retornos logarítmicos son normales.
+  ¿Por qué el precio nunca se vuelve negativo, aunque un retorno logarítmico
+  sí pueda serlo? (Sesión 1.)
+- **R2.** El ruido de Euler-Maruyama crece con ``\sqrt{\Delta t}``. ¿Qué tiene
+  que ver con la dispersión ``\sqrt{n}`` de la caminata aleatoria? (Sesión 4.)
 
 ### Ruta avanzada
 
@@ -327,7 +342,7 @@ md"""
   potencias.
 """
 
-# ╔═╡ 0031e786-ca7a-11f1-8cff-3bc2728296bf
+# ╔═╡ 90df82a8-ca92-11f1-bf2a-896a2168e93f
 md"""
 ---
 ## Apéndice: paquetes y funciones auxiliares
@@ -336,14 +351,14 @@ Estas celdas definen herramientas que usa el cuaderno. No es necesario
 leerlas para seguir la sesión.
 """
 
-# ╔═╡ 0031e790-ca7a-11f1-8e12-650bfe51fb51
+# ╔═╡ 90df82b2-ca92-11f1-8348-59b585311a3b
 begin
     const AZUL    = "#2a78d6"   # serie principal
     const NARANJA = "#eb6834"   # segunda serie o modelo
     const GRIS    = "#52514e"   # referencias
 end;
 
-# ╔═╡ 0031e6dc-ca7a-11f1-b650-756acdc7a27f
+# ╔═╡ 90df81fe-ca92-11f1-8934-47f54093c315
 let
     n = min(length(r), 2000)
     real = 100 .* r[end-n+1:end]
@@ -356,14 +371,14 @@ let
     plot(p1, p2; layout = (2, 1), size = (720, 460))
 end
 
-# ╔═╡ 0031e790-ca7a-11f1-99d9-c72b2620a1ca
+# ╔═╡ 90df82b2-ca92-11f1-94ce-0739c0ed5f6f
 "Datos ordenados de mayor a menor y su CCDF empírica, P(X ≥ x)."
 function ccdf_empirica(x)
     s = sort(x; rev = true)
     s, (1:length(s)) ./ length(s)
 end
 
-# ╔═╡ 0031e798-ca7a-11f1-9d8f-fdf1c4878d81
+# ╔═╡ 90df82ba-ca92-11f1-99b2-cfa82bd4f4e2
 "Simulación de Euler-Maruyama de dX = A(X) dt + B(X) dW; devuelve X₀, …, Xₙ."
 function euler_maruyama_ref(A, B, x0, Δt, n, rng)
     X = zeros(n + 1)
@@ -374,7 +389,7 @@ function euler_maruyama_ref(A, B, x0, Δt, n, rng)
     X
 end
 
-# ╔═╡ 0031e6f0-ca7a-11f1-9b1c-8b3702232f15
+# ╔═╡ 90df8212-ca92-11f1-8375-253c86367a00
 let
     T, Δt, x0 = 6.0, 0.01, 3.0
     t = 0:Δt:T
@@ -392,7 +407,7 @@ let
     plot!(p, t, m .- 2s; color = NARANJA, lw = 1.5, ls = :dash, label = "")
 end
 
-# ╔═╡ 0031e74a-ca7a-11f1-a4e0-1fa2ac4e7ff2
+# ╔═╡ 90df8262-ca92-11f1-a7a4-8f8ea441a3a1
 let
     x0, Δt = 3.0, 0.01
     n = round(Int, t_fp / Δt)
@@ -409,7 +424,7 @@ let
           label = "Solución de Fokker-Planck")
 end
 
-# ╔═╡ 0031e798-ca7a-11f1-9cbd-5b513281f410
+# ╔═╡ 90df82ba-ca92-11f1-bbdb-5fd09dcfed51
 "Trayectorias diarias de un browniano geométrico (solución exacta paso a paso)."
 function simular_gbm(μ, σ; P0 = 100.0, años = 10, M = 2000, rng = Xoshiro(9))
     Δt = 1 / 252
@@ -419,10 +434,10 @@ function simular_gbm(μ, σ; P0 = 100.0, años = 10, M = 2000, rng = Xoshiro(9))
     (t = (0:n) .* Δt, P = P)
 end
 
-# ╔═╡ 0031e6fa-ca7a-11f1-bd4f-ff4589df3413
+# ╔═╡ 90df821c-ca92-11f1-a01a-6b6370221867
 gbm_trayectorias = simular_gbm(μ_gbm, σ_gbm; P0 = 100.0, años = 10, M = 500);
 
-# ╔═╡ 0031e706-ca7a-11f1-adc2-11d7daf34db5
+# ╔═╡ 90df8228-ca92-11f1-93ee-0745d8ff5bbc
 let
     g = gbm_trayectorias
     p = plot(yscale = :log10, xlabel = "años", ylabel = "precio (escala log)", legend = :topleft,
@@ -435,7 +450,7 @@ let
           label = "Mediana simulada: crece a tasa μ − σ²/2")
 end
 
-# ╔═╡ 0031e7a4-ca7a-11f1-8e64-8fcc4ff76b42
+# ╔═╡ 90df82ba-ca92-11f1-8b7c-c1eb5a2a4a3f
 """
 Simula un GARCH(1,1) con varianza de largo plazo `s2`, es decir,
 ω = s2 (1 − a − b). Descarta 500 pasos iniciales.
@@ -455,7 +470,7 @@ function simular_garch(n, a, b, s2; rng = Xoshiro(10))
     (r = r, σ2 = v)
 end
 
-# ╔═╡ 0031e718-ca7a-11f1-b909-4fd61090d1fc
+# ╔═╡ 90df823a-ca92-11f1-aea4-41708f6275f0
 if a_garch + b_garch >= 1
     md"""
     !!! warning "Proceso no estacionario"
@@ -473,7 +488,7 @@ else
     end
 end
 
-# ╔═╡ 0031e7a4-ca7a-11f1-8d16-999b0a1beabe
+# ╔═╡ 90df82c6-ca92-11f1-82b8-1f8a3bcbdedb
 "Varianzas condicionales de un GARCH(1,1) dada una serie de retornos."
 function garch_varianza_ref(r, ω, a, b)
     σ2 = zeros(length(r))
@@ -484,7 +499,7 @@ function garch_varianza_ref(r, ω, a, b)
     σ2
 end
 
-# ╔═╡ 0031e7ae-ca7a-11f1-8a82-f341a9f96255
+# ╔═╡ 90df82c6-ca92-11f1-a675-17c5542aba2a
 "Log-verosimilitud normal del GARCH(1,1) con varianza de largo plazo s2."
 function garch_loglik(x, a, b, s2)
     ω = s2 * (1 - a - b)
@@ -497,7 +512,7 @@ function garch_loglik(x, a, b, s2)
     ℓ
 end
 
-# ╔═╡ 0031e7ae-ca7a-11f1-bab2-d9ebc7bd7f02
+# ╔═╡ 90df82d0-ca92-11f1-bb3b-8baecaf61c07
 """
 Ajuste del GARCH(1,1) por máxima verosimilitud en una cuadrícula de (a, b),
 con la varianza de largo plazo fijada en la varianza muestral.
@@ -514,21 +529,21 @@ function ajustar_garch(r; as = 0.005:0.005:0.4, bs = 0.5:0.0025:0.9975)
     mejor
 end
 
-# ╔═╡ 0031e722-ca7a-11f1-a45a-f96569d51ebf
+# ╔═╡ 90df823a-ca92-11f1-b4e1-8dc5eefac586
 ajuste_garch = ajustar_garch(r);
 
-# ╔═╡ 0031e72c-ca7a-11f1-86e8-cb6f2e40825a
+# ╔═╡ 90df8244-ca92-11f1-80fd-2daccf1ec11b
 md"""
 Parámetros estimados: ``a = `` $(ajuste_garch.a), ``b = `` $(ajuste_garch.b),
 persistencia ``a + b = `` $(round(ajuste_garch.a + ajuste_garch.b, digits = 4)),
 vida media de un choque ≈ $(round(Int, log(0.5) / log(ajuste_garch.a + ajuste_garch.b))) días.
 """
 
-# ╔═╡ 0031e72c-ca7a-11f1-9c33-5f42d7dcc5c8
+# ╔═╡ 90df8244-ca92-11f1-bff6-490d20c5d138
 simulaciones_garch = [simular_garch(length(r), ajuste_garch.a, ajuste_garch.b, ajuste_garch.s2;
                                     rng = Xoshiro(100 + i)).r for i in 1:20];
 
-# ╔═╡ 0031e72c-ca7a-11f1-92df-d364b177ebbd
+# ╔═╡ 90df824e-ca92-11f1-8cd9-13bb093ca155
 let
     L = 250
     acf_real = autocor(abs.(r), 1:L)
@@ -554,11 +569,11 @@ let
     plot(p1, p2; layout = (2, 1), size = (720, 620))
 end
 
-# ╔═╡ 0031e740-ca7a-11f1-8507-a7a8017d6de8
+# ╔═╡ 90df8256-ca92-11f1-836d-15639a1f5c9f
 comparacion_garch = (acf100_real = autocor(abs.(r), [100])[1],
                      acf100_garch = mean(autocor(abs.(s), [100])[1] for s in simulaciones_garch));
 
-# ╔═╡ 0031e738-ca7a-11f1-917b-5fb3146221d5
+# ╔═╡ 90df8256-ca92-11f1-87ba-e9fa4258c98f
 md"""
 **Lo que GARCH sí reproduce.** Los retornos no tienen autocorrelación (por
 construcción) y la autocorrelación de ``|r|`` en los primeros días es muy
@@ -580,7 +595,7 @@ Modelos con memoria larga, innovaciones con colas pesadas o, en la sesión 20,
 agentes que interactúan, intentan cerrar esa brecha.
 """
 
-# ╔═╡ 0031e7b8-ca7a-11f1-a3f4-3f93a5e1c80d
+# ╔═╡ 90df82d0-ca92-11f1-818d-91bf69216087
 "Muestra si la respuesta de un ejercicio es correcta."
 function verificar(f, esperado; rtol = 1e-8, pista = md"")
     caja(tipo, titulo, texto) = Markdown.MD(Markdown.Admonition(tipo, titulo, [texto]))
@@ -601,63 +616,63 @@ function verificar(f, esperado; rtol = 1e-8, pista = md"")
     end
 end
 
-# ╔═╡ 0031e766-ca7a-11f1-9636-01e444b943d6
+# ╔═╡ 90df8288-ca92-11f1-b1d7-3de1c00884b0
 verificar(() -> euler_maruyama(x -> -2x, x -> 0.5, 1.0, 0.01, 100, Xoshiro(1)),
           euler_maruyama_ref(x -> -2x, x -> 0.5, 1.0, 0.01, 100, Xoshiro(1));
           pista = md"Crea `X = zeros(n + 1)` con `X[1] = x0`. En un ciclo `for k in 1:n`, calcula `X[k+1] = X[k] + A(X[k]) * Δt + B(X[k]) * sqrt(Δt) * randn(rng)`.")
 
-# ╔═╡ 0031e7b8-ca7a-11f1-b461-f79efd50520e
+# ╔═╡ 90df82da-ca92-11f1-b0d9-7f79cb835da9
 const RETORNOS_PRUEBA = 0.01 .* randn(Xoshiro(2026), 500);
 
-# ╔═╡ 0031e772-ca7a-11f1-903d-d752a2544610
+# ╔═╡ 90df8294-ca92-11f1-92e6-6378342def41
 verificar(() -> garch_varianza(RETORNOS_PRUEBA, 1e-6, 0.1, 0.85),
           garch_varianza_ref(RETORNOS_PRUEBA, 1e-6, 0.1, 0.85);
           pista = md"Crea `σ2 = zeros(length(r))` con `σ2[1] = ω / (1 - a - b)`. Para `t` desde 2, usa `σ2[t] = ω + a * r[t-1]^2 + b * σ2[t-1]`.")
 
 # ╔═╡ Cell order:
-# ╟─0031e682-ca7a-11f1-ad46-353bc1936f78
-# ╟─0031e6b4-ca7a-11f1-b082-0debe218e2cb
-# ╟─0031e6be-ca7a-11f1-b0ca-816e0f4d2d08
-# ╠═0031e6c8-ca7a-11f1-92fd-351372ef8608
-# ╠═0031e6c8-ca7a-11f1-9b3d-23de061ce85f
-# ╟─0031e6dc-ca7a-11f1-b650-756acdc7a27f
-# ╟─0031e6dc-ca7a-11f1-adaf-774ca486e529
-# ╟─0031e6e6-ca7a-11f1-a479-b5fd94b63bd2
-# ╟─0031e6f0-ca7a-11f1-9b1c-8b3702232f15
-# ╟─0031e6f0-ca7a-11f1-8e38-79a151e5d46f
-# ╟─0031e6fa-ca7a-11f1-aa0d-e5618275fb31
-# ╟─0031e6fa-ca7a-11f1-bd4f-ff4589df3413
-# ╟─0031e706-ca7a-11f1-adc2-11d7daf34db5
-# ╟─0031e70e-ca7a-11f1-ba31-57391a4030ef
-# ╟─0031e70e-ca7a-11f1-ac4f-91afdbcd7679
-# ╟─0031e718-ca7a-11f1-b909-4fd61090d1fc
-# ╟─0031e722-ca7a-11f1-8a3f-8d3662de8c78
-# ╟─0031e722-ca7a-11f1-a45a-f96569d51ebf
-# ╟─0031e72c-ca7a-11f1-86e8-cb6f2e40825a
-# ╟─0031e72c-ca7a-11f1-9c33-5f42d7dcc5c8
-# ╟─0031e72c-ca7a-11f1-92df-d364b177ebbd
-# ╟─0031e738-ca7a-11f1-917b-5fb3146221d5
-# ╟─0031e740-ca7a-11f1-8507-a7a8017d6de8
-# ╟─0031e740-ca7a-11f1-9f4a-0dc24812cc45
-# ╟─0031e74a-ca7a-11f1-a4e0-1fa2ac4e7ff2
-# ╟─0031e74a-ca7a-11f1-b2bf-83b63443ab59
-# ╟─0031e754-ca7a-11f1-ac49-4b4b89fc1bbe
-# ╟─0031e75e-ca7a-11f1-8e71-8753b7e41e5a
-# ╠═0031e75e-ca7a-11f1-821e-f99cf3b7e351
-# ╟─0031e766-ca7a-11f1-9636-01e444b943d6
-# ╟─0031e766-ca7a-11f1-8a90-09983b61d25a
-# ╠═0031e772-ca7a-11f1-bdc2-df344315fea0
-# ╟─0031e772-ca7a-11f1-903d-d752a2544610
-# ╟─0031e77c-ca7a-11f1-aec0-e1addb3b4ccf
-# ╟─0031e786-ca7a-11f1-8cff-3bc2728296bf
-# ╠═0031e786-ca7a-11f1-a5cb-b1478e1fbf40
-# ╠═0031e790-ca7a-11f1-8e12-650bfe51fb51
-# ╠═0031e790-ca7a-11f1-99d9-c72b2620a1ca
-# ╠═0031e798-ca7a-11f1-9d8f-fdf1c4878d81
-# ╠═0031e798-ca7a-11f1-9cbd-5b513281f410
-# ╠═0031e7a4-ca7a-11f1-8e64-8fcc4ff76b42
-# ╠═0031e7a4-ca7a-11f1-8d16-999b0a1beabe
-# ╠═0031e7ae-ca7a-11f1-8a82-f341a9f96255
-# ╠═0031e7ae-ca7a-11f1-bab2-d9ebc7bd7f02
-# ╠═0031e7b8-ca7a-11f1-a3f4-3f93a5e1c80d
-# ╠═0031e7b8-ca7a-11f1-b461-f79efd50520e
+# ╟─90df819a-ca92-11f1-a354-539eb71fd460
+# ╟─90df81e0-ca92-11f1-a1c9-43b48028308b
+# ╟─90df81ea-ca92-11f1-9cbd-2b6d0d3bf814
+# ╠═90df81ea-ca92-11f1-bfa5-972d4a8bd47f
+# ╠═90df81f6-ca92-11f1-8b9f-895b28d88c18
+# ╟─90df81fe-ca92-11f1-8934-47f54093c315
+# ╟─90df8208-ca92-11f1-ad0e-8ba0266c4747
+# ╟─90df8208-ca92-11f1-a392-6b18b71222ed
+# ╟─90df8212-ca92-11f1-8375-253c86367a00
+# ╟─90df8212-ca92-11f1-a91c-5f0e9d85b984
+# ╟─90df821c-ca92-11f1-8ae0-4d0d5acd7cc8
+# ╟─90df821c-ca92-11f1-a01a-6b6370221867
+# ╟─90df8228-ca92-11f1-93ee-0745d8ff5bbc
+# ╟─90df8230-ca92-11f1-a7c2-31ff846b85e4
+# ╟─90df8230-ca92-11f1-9e64-95a7e60d8222
+# ╟─90df823a-ca92-11f1-aea4-41708f6275f0
+# ╟─90df823a-ca92-11f1-9ff2-c543b6f5b1af
+# ╟─90df823a-ca92-11f1-b4e1-8dc5eefac586
+# ╟─90df8244-ca92-11f1-80fd-2daccf1ec11b
+# ╟─90df8244-ca92-11f1-bff6-490d20c5d138
+# ╟─90df824e-ca92-11f1-8cd9-13bb093ca155
+# ╟─90df8256-ca92-11f1-87ba-e9fa4258c98f
+# ╟─90df8256-ca92-11f1-836d-15639a1f5c9f
+# ╟─90df8262-ca92-11f1-9561-31afc62cda98
+# ╟─90df8262-ca92-11f1-a7a4-8f8ea441a3a1
+# ╟─90df826c-ca92-11f1-ac97-61a51bfaf7ee
+# ╟─90df826c-ca92-11f1-a64b-5f585630212e
+# ╟─90df8276-ca92-11f1-b1a0-076b217fe70c
+# ╠═90df8280-ca92-11f1-92f1-133db216af9c
+# ╟─90df8288-ca92-11f1-b1d7-3de1c00884b0
+# ╟─90df8288-ca92-11f1-b9d6-2fbf306babaf
+# ╠═90df8288-ca92-11f1-b6b3-a31118ce7d81
+# ╟─90df8294-ca92-11f1-92e6-6378342def41
+# ╟─90df8294-ca92-11f1-b0d9-3fa490699d0e
+# ╟─90df82a8-ca92-11f1-bf2a-896a2168e93f
+# ╠═90df82a8-ca92-11f1-ac22-e72b2d6b8979
+# ╠═90df82b2-ca92-11f1-8348-59b585311a3b
+# ╠═90df82b2-ca92-11f1-94ce-0739c0ed5f6f
+# ╠═90df82ba-ca92-11f1-99b2-cfa82bd4f4e2
+# ╠═90df82ba-ca92-11f1-bbdb-5fd09dcfed51
+# ╠═90df82ba-ca92-11f1-8b7c-c1eb5a2a4a3f
+# ╠═90df82c6-ca92-11f1-82b8-1f8a3bcbdedb
+# ╠═90df82c6-ca92-11f1-a675-17c5542aba2a
+# ╠═90df82d0-ca92-11f1-bb3b-8baecaf61c07
+# ╠═90df82d0-ca92-11f1-818d-91bf69216087
+# ╠═90df82da-ca92-11f1-b0d9-7f79cb835da9

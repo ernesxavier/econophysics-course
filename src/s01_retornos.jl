@@ -24,6 +24,15 @@ del curso.
 estocásticos), S.B1–B3 (estimación y pruebas). Para las notas formales:
 P.I1–I2, E.I1–I2 (autocorrelación y martingalas), C.I1–I2 y S.I2. Ruta
 avanzada: P.A5.
+
+**Diagnóstico.** Antes del laboratorio, resuelve las diez preguntas de
+`Class_notes/repaso/diagnostico_inicial.md` (25 minutos, no cuenta para la
+calificación). Al final te dice qué claves de repaso te conviene leer.
+
+**Conceptos transversales.** Hoy se presentan los **retornos logarítmicos**,
+las **distribuciones** (histograma y escala logarítmica; la CCDF llega en la
+sesión 3) y la **media, la varianza y la correlación** (que se completan en la
+sesión 2).
 """
 
 #%% hide

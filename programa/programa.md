@@ -86,7 +86,8 @@ económicas y financieras, y entender qué procesos estocásticos las generan.
 - **Sesión 1: Retornos y colas pesadas**
 	- *Fenómeno*: ¿el mercado es un volado? Días de caída que "no deberían"
 	  ocurrir.
-	- *Diagnóstico* de matemáticas (10 preguntas, no cuenta para la calificación).
+	- *Diagnóstico* de matemáticas (10 preguntas, no cuenta para la calificación;
+	  [`Class_notes/repaso/diagnostico_inicial.md`](../Class_notes/repaso/diagnostico_inicial.md)).
 	- *Repaso*: logaritmos, media, varianza, histogramas.
 	- Qué es la econofísica: de la interacción local a los patrones globales.
 	- Hipótesis de mercado eficiente. Retornos logarítmicos y escalas de tiempo.

@@ -24,6 +24,9 @@ opcionales.
 macro, entropía, temperatura), F.I1 (distribución de Boltzmann), F.I6
 (modelos de intercambio). Ruta avanzada: C.A1 (multiplicadores de Lagrange),
 C.A4 (función gamma).
+
+**Conceptos transversales.** Se retoman las **distribuciones, la CCDF y las
+escalas logarítmicas** (sesiones 1 y 3).
 """
 
 #%% hide
@@ -510,6 +513,16 @@ md"""
    modelo de la sección 3.
 5. ¿Por qué las encuestas de hogares como la ENIGH subestiman la cola de la
    distribución? ¿Qué otra fuente de datos usarías para medirla?
+
+
+### Conceptos que vuelven
+
+Preguntas cortas para repasar ideas de sesiones anteriores; se responden con
+lo que ya sabes y con el laboratorio de hoy.
+
+- **R1.** En la CCDF del ingreso de la sección 5, ¿cómo distingues una cola
+  exponencial de una cola de Pareto? ¿En qué escala se ve recta cada una?
+  (Sesiones 1 y 3.)
 
 ### Ruta avanzada
 
