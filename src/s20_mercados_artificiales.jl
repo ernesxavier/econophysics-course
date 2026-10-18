@@ -249,7 +249,8 @@ Cuando el desalineamiento acumulado hace atractivo el fundamentalismo
 md"""
 ## 3. Cierre del ciclo: el análisis de las sesiones 1 y 2 en series simuladas y reales
 
-Esta sección es el punto de partida del **taller para casa del Módulo III**.
+Esta sección es el punto de partida del **taller para casa del Módulo III**
+(`Code/taller3_cierre_ciclo.jl`).
 En clase basta con leer la tabla; en el taller se repite el análisis con otros
 modelos y parámetros.
 
@@ -533,10 +534,10 @@ md"""
   Marchesi (1999). Para la ruta avanzada, Hommes (2013), capítulos 2 y 6; Slanina (2014),
   sección 3.2; Giardina y Bouchaud (2003); Brock y Hommes (1998).
 - **Entrega**: taller para casa del Módulo III (cierre del ciclo con los modelos
-  de agentes frente a los datos).
+  de agentes frente a los datos), en `Code/taller3_cierre_ciclo.jl`.
 - Presentación de los proyectos finales: réplica y extensión de un artículo de
   econofísica usando las herramientas de simulación y diagnóstico estadístico
-  del curso.
+  del curso (etapas y rúbrica en `programa/proyecto_final.md`).
 - Repaso recomendado para el proyecto: S.B4 (transformación logarítmica), S.I1
   (bootstrap y bootstrap por bloques), S.I5 (supuestos de regresión) y S.A3
   (calibración de modelos de agentes por momentos simulados).

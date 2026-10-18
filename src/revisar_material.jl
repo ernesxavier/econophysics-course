@@ -2,7 +2,8 @@
 #   julia src/revisar_material.jl
 # Comprueba que:
 #   1. cada clave del índice del repaso exista y su etiqueta incluya esa sesión;
-#   2. cada clave citada en una sesión aparezca en su fila del índice;
+#   2. cada clave citada en una sesión (o en un taller) aparezca en las filas
+#      del índice de esa sesión (o de las sesiones del módulo);
 #   3. los enlaces relativos de las notas lleven a archivos y anclas existentes;
 #   4. no queden menciones a sesiones inexistentes ni a "semanas" del curso.
 # Termina con código 1 si encuentra algún problema.
@@ -80,9 +81,13 @@ function sesiones_del_archivo(ruta)
     Set(parse(Int, x.match) for x in eachmatch(r"\d+", split(titulo, ':')[1]))
 end
 
+# Cada taller puede citar las claves de las sesiones de su módulo
+const MODULOS = Dict(1 => Set(1:7), 2 => Set(8:14), 3 => Set(15:20))
+
 for ruta in [readdir("src"; join = true); readdir("Class_notes"; join = true)]
-    occursin(r"/s\d\d_[a-z_]+\.(jl|md)$", ruta) || continue
-    cubre = sesiones_del_archivo(ruta)
+    taller = match(r"/taller(\d)_[a-z_]+\.jl$", ruta)
+    (taller !== nothing || occursin(r"/s\d\d_[a-z_]+\.(jl|md)$", ruta)) || continue
+    cubre = taller === nothing ? sesiones_del_archivo(ruta) : MODULOS[parse(Int, taller[1])]
     # La última sesión también apunta al proyecto final (fila 0 del índice)
     alcance = NSESIONES in cubre ? union(cubre, Set([0])) : cubre
     permitidas = union((get(indice, s, Set{String}()) for s in alcance)...)

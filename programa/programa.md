@@ -363,20 +363,30 @@ Ejemplos de preguntas:
   simulación."
 - "¿Qué hecho estilizado reproduce este modelo y cuál no?"
 
-**Talleres para casa**:
-- **Módulo I** (después de la sesión 7): hechos estilizados y colas de un
-  activo que no se vio en clase.
-- **Módulo II** (después de la sesión 14): por definir.
-- **Módulo III** (después de la sesión 20): cierre del ciclo, con los modelos
-  de agentes frente a los datos.
+**Talleres para casa** (cuadernos de Pluto en `Code/`, con su rúbrica de 100
+puntos; cada estudiante trabaja con un caso distinto que asigna el profesor):
+- **Módulo I** (después de la sesión 7, `Code/taller1_hechos_estilizados.jl`):
+  hechos estilizados, colas, modelos y correlación con el mercado de una
+  acción del S&P 100 que no se vio en clase.
+- **Módulo II** (después de la sesión 14, `Code/taller2_desigualdad_contagio.jl`):
+  la desigualdad del ingreso en una entidad federativa con la ENIGH 2024,
+  comparada con un modelo de intercambio con ahorro, y el contagio de umbral
+  en redes simuladas (¿importa quién cae primero? ¿a quién conviene
+  proteger?).
+- **Módulo III** (después de la sesión 20, `Code/taller3_cierre_ciclo.jl`):
+  cierre del ciclo. El diagnóstico de las sesiones 1 y 2 aplicado a modelos
+  simulados, qué mecanismo del modelo de Franke-Westerhoff produce cada hecho
+  estilizado y una calibración a mano.
 
 Cada taller incluye una sección opcional de ruta avanzada que cuenta como
-extra.
+extra. En el semestre, la sesión de taller en clase sirve para resolver dudas
+del módulo y avanzar en parejas en las primeras partes.
 
-**Ideas para proyecto final**: modelo de Axelrod; problema del restaurante de
-Kolkata; modelos de libro de órdenes (Maslov); procesos de Hawkes; DebtRank con
-datos reales; ajuste de la distribución de ingreso de la ENIGH; Zipf de
-ciudades y empresas mexicanas; Brock-Durlauf con datos de adopción
+**Proyecto final**: etapas, entregables, rúbrica e ideas con su artículo base
+en la [guía del proyecto final](proyecto_final.md). Ideas: modelo de Axelrod;
+problema del restaurante de Kolkata; modelos de libro de órdenes (Maslov);
+procesos de Hawkes; DebtRank; ajuste de la distribución de ingreso de la
+ENIGH; Zipf de ciudades mexicanas; Brock-Durlauf con datos de adopción
 tecnológica.
 
 ---

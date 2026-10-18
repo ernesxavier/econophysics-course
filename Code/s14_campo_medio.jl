@@ -16,7 +16,7 @@ macro bind(def, element)
     #! format: on
 end
 
-# ╔═╡ 09e60adc-ca93-11f1-81e9-7d464d28ea5e
+# ╔═╡ a0ae055c-ca96-11f1-b49d-9d9cd4871b62
 begin
     # Usa el entorno del curso (Code/Project.toml) en lugar del gestor de
     # paquetes propio de Pluto: un solo entorno para todo el repositorio.
@@ -31,7 +31,7 @@ begin
             background_color_legend = nothing, margin = 3Plots.mm)
 end
 
-# ╔═╡ 09e60a0a-ca93-11f1-9437-2952dc267ad0
+# ╔═╡ a0ae0494-ca96-11f1-901b-91aadc6917fd
 md"""
 # Sesión 14: Campo medio, histéresis y crisis
 
@@ -62,10 +62,10 @@ estabilidad** (solución gráfica del campo medio), que vuelven en las sesiones
 17 y 20.
 """
 
-# ╔═╡ 09e60a3c-ca93-11f1-bdd3-fb63944a802d
+# ╔═╡ a0ae04bc-ca96-11f1-a48c-ff7d11dcf2c0
 TableOfContents(title = "Contenido")
 
-# ╔═╡ 09e60a46-ca93-11f1-93b1-7b2a0de8b04e
+# ╔═╡ a0ae04c6-ca96-11f1-963e-6de3918f9527
 md"""
 ## 0. El fenómeno: cambios abruptos que no se revierten al deshacer la causa
 
@@ -78,7 +78,7 @@ poblaciones de 2,000 agentes: en la de la izquierda la imitación es débil
 (``\beta J = 0.7``); en la de la derecha es fuerte (``\beta J = 1.5``).
 """
 
-# ╔═╡ 09e60a50-ca93-11f1-ba9b-2180e0953aff
+# ╔═╡ a0ae04d0-ca96-11f1-a84a-e3849679e203
 md"""
 Con imitación débil, la adopción sube suavemente y regresa por el mismo
 camino cuando se retira el subsidio. Con imitación fuerte, al principio casi
@@ -87,7 +87,7 @@ la adopción masiva, y cuando el subsidio vuelve a ``h = 0`` la adopción **se
 queda arriba**. Hoy veremos de dónde salen ese salto y esa memoria.
 """
 
-# ╔═╡ 09e60a5c-ca93-11f1-8279-49629f8f0947
+# ╔═╡ a0ae04e4-ca96-11f1-b1a7-754a005f0387
 md"""
 ## 1. Campo medio: la solución gráfica
 
@@ -120,7 +120,7 @@ Intensidad de la interacción ``J``: $(@bind J_cm Slider([0.5, 0.8, 1.0, 1.2, 1.
 Incentivo común ``h``: $(@bind h_cm Slider([-0.4, -0.2, -0.1, 0.0, 0.1, 0.2, 0.4], default = 0.0, show_value = true))
 """
 
-# ╔═╡ 09e60a6e-ca93-11f1-80fd-11339e86bf13
+# ╔═╡ a0ae04ee-ca96-11f1-8e1f-41a9ea86585b
 md"""
 - Con ``J < 1`` y ``h = 0`` hay una sola solución, ``m = 0``: la población se
   divide a la mitad. La conformidad es demasiado débil frente al ruido.
@@ -140,7 +140,7 @@ md"""
 todos (con ``h = 0``) y los comparamos con la solución gráfica.
 """
 
-# ╔═╡ 09e60a78-ca93-11f1-9ff6-e158dd131086
+# ╔═╡ a0ae0502-ca96-11f1-bd7b-ad1f020d396f
 md"""
 Aquí la simulación sigue a la teoría en todo el rango: cuando todos
 interactúan con todos, el campo medio es **exacto** para ``N`` grande. En la
@@ -150,7 +150,7 @@ medio ignora las fluctuaciones locales y **sobreestima** el orden (repaso
 F.I4).
 """
 
-# ╔═╡ 09e60a82-ca93-11f1-9057-938fd0627c75
+# ╔═╡ a0ae0502-ca96-11f1-95a6-f34adcdee36b
 md"""
 ## 2. Laboratorio: histéresis
 
@@ -162,7 +162,7 @@ barridos y medimos ``m``.
 Interacción ``\beta J``: $(@bind J_hist Slider([0.8, 1.2, 1.5, 2.0], default = 1.5, show_value = true))
 """
 
-# ╔═╡ 09e60a96-ca93-11f1-bef4-0b7ab7e38fd7
+# ╔═╡ a0ae0516-ca96-11f1-afa3-b3194c904a02
 md"""
 Con ``\beta J > 1``:
 
@@ -190,7 +190,7 @@ despacio (en física se llama *frenado crítico*), y 20 barridos por valor de
 incentivo, los saltos se acercan a los teóricos.
 """
 
-# ╔═╡ 09e60a96-ca93-11f1-847f-d5347c9f268a
+# ╔═╡ a0ae0516-ca96-11f1-9e38-418662d25330
 md"""
 ## 3. [Avanzado] Campo aleatorio, avalanchas y crisis
 
@@ -212,7 +212,7 @@ a su umbral; eso sube ``m``, lo que puede convencer al siguiente, y así: una
 Heterogeneidad ``R``: $(@bind R_rfim Slider([0.4, 0.6, 0.8, 1.0, 1.5], default = 0.6, show_value = true))
 """
 
-# ╔═╡ 09e60aaa-ca93-11f1-bb40-2592831a8be9
+# ╔═╡ a0ae052a-ca96-11f1-b4ca-15a90008de24
 md"""
 - Con **poca heterogeneidad** (``R = 0.4`` o ``0.6``), hay una avalancha
   gigante: una fracción grande de la población cambia de golpe. Es una
@@ -228,7 +228,7 @@ saltos colectivos, y cuando la diversidad baja, el sistema se vuelve frágil.
 La derivación de ``R_c`` está en las notas formales.
 """
 
-# ╔═╡ 09e60aaa-ca93-11f1-b60f-37d43657c3bd
+# ╔═╡ a0ae0534-ca96-11f1-8392-61709f37e156
 md"""
 ## Resumen
 
@@ -240,7 +240,7 @@ md"""
 | Campo aleatorio [Avanzado] | Poca heterogeneidad (``R < J\sqrt{2/\pi}``) → crisis; mucha → cambio suave |
 """
 
-# ╔═╡ 09e60ab4-ca93-11f1-9615-73165f430336
+# ╔═╡ a0ae0534-ca96-11f1-bdaf-a11fe5829f35
 md"""
 ## Ejercicios
 
@@ -251,24 +251,24 @@ ecuación de campo medio ``m = \tanh(h + J m)`` iterando `m = tanh(h + J * m)`
 durante `pasos` iteraciones a partir de `m0`.
 """
 
-# ╔═╡ 09e60ab4-ca93-11f1-ab60-ab8aca45f096
+# ╔═╡ a0ae0540-ca96-11f1-a217-552ee30ad7d1
 function punto_fijo_cm(J, h; m0 = 1.0, pasos = 200)
     missing  # reemplaza esta línea
 end
 
-# ╔═╡ 09e60abc-ca93-11f1-869c-95dfa8db1809
+# ╔═╡ a0ae0540-ca96-11f1-b91d-4bdc201bb6bd
 md"""
 **2.** Escribe `multiplicador_social(J, m)`, el factor ``1 / (1 - J(1 - m^2))``
 por el que la interacción social ``J`` (con ``\beta = 1``) amplifica el efecto
 de un cambio pequeño en el incentivo ``h`` alrededor de un equilibrio `m`.
 """
 
-# ╔═╡ 09e60ac8-ca93-11f1-b391-5d35598f41ff
+# ╔═╡ a0ae0548-ca96-11f1-8ae8-51fbeeb1fb5a
 function multiplicador_social(J, m)
     missing  # reemplaza esta línea
 end
 
-# ╔═╡ 09e60ad2-ca93-11f1-854e-857712589490
+# ╔═╡ a0ae0552-ca96-11f1-bf30-1178715d741e
 md"""
 ### Ruta básica: interpretación
 
@@ -294,12 +294,13 @@ md"""
 
 - Lectura: Requião da Cunha (2021), capítulo 6. Para la ruta avanzada,
   Brock y Durlauf (2001) y Bouchaud, Marsili y Nadal (2023).
-- **Entrega**: taller para casa del Módulo II.
+- **Entrega**: taller para casa del Módulo II (desigualdad con la ENIGH y
+  contagio en redes), en `Code/taller2_desigualdad_contagio.jl`.
 - En la sesión 15 empieza el Módulo III (Agentes, estrategias y mercados
   artificiales): modelos de opinión (votante, Kirman) y herding en mercados.
 """
 
-# ╔═╡ 09e60ad2-ca93-11f1-a864-b9cda845f864
+# ╔═╡ a0ae0552-ca96-11f1-b41c-0d5799972d81
 md"""
 ---
 ## Apéndice: paquetes y funciones auxiliares
@@ -308,7 +309,7 @@ Estas celdas definen herramientas que usa el cuaderno. No es necesario
 leerlas para seguir la sesión.
 """
 
-# ╔═╡ 09e60adc-ca93-11f1-aedc-0d40adb28aac
+# ╔═╡ a0ae0566-ca96-11f1-bfa4-8536c0885095
 begin
     const AZUL       = "#2a78d6"   # serie principal, opción +1
     const NARANJA    = "#eb6834"   # segunda serie o teoría, opción -1
@@ -318,15 +319,15 @@ begin
     const RAMPA      = ["#86b6ef", "#3987e5", "#1c5cab", "#0d366b"]   # azul secuencial
 end;
 
-# ╔═╡ 09e60ae6-ca93-11f1-8e48-8792c60b73fd
+# ╔═╡ a0ae0566-ca96-11f1-8a82-c7d8bd9f103b
 "Función logística."
 σ(x) = 1 / (1 + exp(-x))
 
-# ╔═╡ 09e60ae6-ca93-11f1-b16e-2f0383098839
+# ╔═╡ a0ae0572-ca96-11f1-81de-b9f7934c5f9f
 "Número entero con comas como separador de miles."
 miles(x) = replace(string(round(Int, x)), r"(?<=\d)(?=(\d{3})+$)" => ",")
 
-# ╔═╡ 09e60aee-ca93-11f1-ab8d-e16dfc847faa
+# ╔═╡ a0ae0572-ca96-11f1-8e10-f98a5ed70aa8
 """
 Modelo de campo medio con N agentes y β = 1: cada revisión elige un agente
 al azar y le asigna +1 con probabilidad logística σ(2(h + J m)), donde m es
@@ -350,14 +351,14 @@ function campo_medio(N, J, h; barridos = 400, rng = Xoshiro(1), s = rand(rng, [-
     (s = s, m = m)
 end
 
-# ╔═╡ 09e60a6e-ca93-11f1-b073-8d7465036e9b
+# ╔═╡ a0ae04f8-ca96-11f1-9de2-2762f90910d2
 barrido_cm = let
     Js = 0.4:0.1:2.0
     (J = Js, m = [mean(abs.(campo_medio(2_000, J, 0.0; barridos = 400, rng = Xoshiro(round(Int, 10J))).m[201:end]))
                   for J in Js])
 end;
 
-# ╔═╡ 09e60aee-ca93-11f1-bd4f-4fe6b435854b
+# ╔═╡ a0ae057a-ca96-11f1-b720-dd060c1465e8
 "Soluciones de m = tanh(h + J m) en [-1, 1], encontradas por cambio de signo y bisección."
 function soluciones_cm(J, h)
     f(m) = tanh(h + J * m) - m
@@ -377,7 +378,7 @@ function soluciones_cm(J, h)
     raices
 end
 
-# ╔═╡ 09e60a64-ca93-11f1-ba8b-7f427e736e6c
+# ╔═╡ a0ae04e4-ca96-11f1-b009-63d50a1ec14a
 let
     x = range(-1.2, 1.2, length = 400)
     sol = soluciones_cm(J_cm, h_cm)
@@ -395,7 +396,7 @@ let
     scatter!(p, [NaN], [NaN]; ms = 7, color = BLANCO, msc = NARANJA, msw = 2, label = "Equilibrio inestable")
 end
 
-# ╔═╡ 09e60a78-ca93-11f1-b448-6dd5f6fc202b
+# ╔═╡ a0ae04f8-ca96-11f1-8071-958c02895877
 let
     x = range(0.4, 2.0, length = 300)
     p = plot(x, [maximum(abs.(soluciones_cm(J, 0.0))) for J in x]; color = NARANJA, lw = 2.5,
@@ -406,7 +407,7 @@ let
     vline!(p, [1]; color = GRIS, ls = :dash, label = "βJ = 1")
 end
 
-# ╔═╡ 09e60afa-ca93-11f1-be65-316164a5c386
+# ╔═╡ a0ae0584-ca96-11f1-8fc8-7564f5118975
 "Rama de campo medio que se sigue al mover h lentamente: se itera m = tanh(h + J m) desde la solución anterior."
 function rama_cm(J, hs, m0)
     m = m0
@@ -419,14 +420,14 @@ function rama_cm(J, hs, m0)
     (h = collect(hs), m = ms)
 end
 
-# ╔═╡ 09e60afa-ca93-11f1-9c2c-d3bf2198f2ec
+# ╔═╡ a0ae0584-ca96-11f1-afbc-f5d21654c87e
 "Valor de h donde desaparece una rama en el campo medio (J > 1)."
 function salto_cm(J)
     m = sqrt(1 - 1 / J)       # donde la pendiente de tanh(h + J m) es 1
     J * m - atanh(m)
 end
 
-# ╔═╡ 09e60b04-ca93-11f1-9b66-eb026d79fb28
+# ╔═╡ a0ae0584-ca96-11f1-8d72-a7cecd055e40
 "Ciclo de histéresis simulado: h sube y luego baja, con 20 barridos en cada valor."
 function histeresis(N, J; hs = -0.6:0.02:0.6, barridos = 20, rng = Xoshiro(4))
     s = fill(-1, N)
@@ -444,7 +445,7 @@ function histeresis(N, J; hs = -0.6:0.02:0.6, barridos = 20, rng = Xoshiro(4))
     (h_sube = collect(hs), m_sube = m_sube, h_baja = collect(reverse(hs)), m_baja = m_baja)
 end
 
-# ╔═╡ 09e60a50-ca93-11f1-b5bb-d101c4aaaaa7
+# ╔═╡ a0ae04d0-ca96-11f1-b7cf-13cd8efd3c02
 let
     ps = map(((0.7, "Imitación débil (βJ = 0.7): reversible"),
               (1.5, "Imitación fuerte (βJ = 1.5): irreversible"))) do (J, titulo)
@@ -459,10 +460,10 @@ let
     plot(ps...; layout = (1, 2), size = (880, 360), bottom_margin = 4Plots.mm)
 end
 
-# ╔═╡ 09e60a82-ca93-11f1-b6c8-41a43f7738b2
+# ╔═╡ a0ae050e-ca96-11f1-b5f3-13d1519c36cd
 ciclo = histeresis(2_000, J_hist; hs = -0.6:0.02:0.6);
 
-# ╔═╡ 09e60a8a-ca93-11f1-a2e7-5d3bbab2e2bc
+# ╔═╡ a0ae050e-ca96-11f1-8dc5-3302f81ff884
 let
     p = plot(ciclo.h_sube, ciclo.m_sube; color = AZUL, lw = 2, marker = :circle, ms = 2.5, msw = 0,
              label = "Simulación: h sube", xlabel = "incentivo común h", ylabel = "adopción neta m",
@@ -480,7 +481,7 @@ let
     p
 end
 
-# ╔═╡ 09e60b04-ca93-11f1-9288-754a5cea352e
+# ╔═╡ a0ae058e-ca96-11f1-b598-9df9979f48bd
 """
 Ising con campo aleatorio a temperatura cero en campo medio. Los incentivos
 privados h_i son normales con desviación R. Se sube h desde -∞: los agentes
@@ -507,10 +508,10 @@ function campo_aleatorio(N, J, R; rng = Xoshiro(5))
     (h = [-5.0; hs], m = [-1.0; ms], tamaños = tamaños)
 end
 
-# ╔═╡ 09e60aa0-ca93-11f1-af98-87b34657d384
+# ╔═╡ a0ae0520-ca96-11f1-bc61-cbe45369768a
 avalanchas = campo_aleatorio(10_000, 1.0, R_rfim);
 
-# ╔═╡ 09e60aa0-ca93-11f1-a4d5-2947d3ee5ab3
+# ╔═╡ a0ae0520-ca96-11f1-8488-8bdc4d64c5dd
 let
     d = avalanchas
     p1 = plot(d.h, d.m; color = AZUL, lw = 2, seriestype = :steppost, ylims = (-1.05, 1.05),
@@ -524,7 +525,7 @@ let
     plot(p1, p2; layout = (1, 2), size = (920, 360), bottom_margin = 5Plots.mm)
 end
 
-# ╔═╡ 09e60b0e-ca93-11f1-a21f-132340b32dba
+# ╔═╡ a0ae058e-ca96-11f1-afa8-d3930fda57a1
 "Muestra si la respuesta de un ejercicio es correcta."
 function verificar(f, esperado; rtol = 1e-8, pista = md"")
     caja(tipo, titulo, texto) = Markdown.MD(Markdown.Admonition(tipo, titulo, [texto]))
@@ -545,54 +546,54 @@ function verificar(f, esperado; rtol = 1e-8, pista = md"")
     end
 end
 
-# ╔═╡ 09e60abc-ca93-11f1-8493-cbfd8a12c08b
+# ╔═╡ a0ae0540-ca96-11f1-b3fa-5d8fd091f1c3
 verificar(() -> [punto_fijo_cm(0.5, 0.0), punto_fijo_cm(1.5, 0.0; m0 = 1.0), punto_fijo_cm(1.5, 0.0; m0 = -1.0)],
           [0.0, rama_cm(1.5, [0.0], 1.0).m[1], -rama_cm(1.5, [0.0], 1.0).m[1]];
           rtol = 1e-5,
           pista = md"Empieza con `m = m0`, repite `m = tanh(h + J * m)` en un ciclo `for _ in 1:pasos` y devuelve `m`.")
 
-# ╔═╡ 09e60ac8-ca93-11f1-868d-cb6ad39289b6
+# ╔═╡ a0ae0548-ca96-11f1-b13e-c783e1611243
 verificar(() -> [multiplicador_social(0.0, 0.0), multiplicador_social(0.8, 0.0), multiplicador_social(1.5, 0.9)],
           [1.0, 5.0, 1 / (1 - 1.5 * (1 - 0.9^2))];
           pista = md"La fórmula es `1 / (1 - J * (1 - m^2))`.")
 
 # ╔═╡ Cell order:
-# ╟─09e60a0a-ca93-11f1-9437-2952dc267ad0
-# ╟─09e60a3c-ca93-11f1-bdd3-fb63944a802d
-# ╟─09e60a46-ca93-11f1-93b1-7b2a0de8b04e
-# ╟─09e60a50-ca93-11f1-b5bb-d101c4aaaaa7
-# ╟─09e60a50-ca93-11f1-ba9b-2180e0953aff
-# ╟─09e60a5c-ca93-11f1-8279-49629f8f0947
-# ╟─09e60a64-ca93-11f1-ba8b-7f427e736e6c
-# ╟─09e60a6e-ca93-11f1-80fd-11339e86bf13
-# ╠═09e60a6e-ca93-11f1-b073-8d7465036e9b
-# ╟─09e60a78-ca93-11f1-b448-6dd5f6fc202b
-# ╟─09e60a78-ca93-11f1-9ff6-e158dd131086
-# ╟─09e60a82-ca93-11f1-9057-938fd0627c75
-# ╠═09e60a82-ca93-11f1-b6c8-41a43f7738b2
-# ╟─09e60a8a-ca93-11f1-a2e7-5d3bbab2e2bc
-# ╟─09e60a96-ca93-11f1-bef4-0b7ab7e38fd7
-# ╟─09e60a96-ca93-11f1-847f-d5347c9f268a
-# ╠═09e60aa0-ca93-11f1-af98-87b34657d384
-# ╟─09e60aa0-ca93-11f1-a4d5-2947d3ee5ab3
-# ╟─09e60aaa-ca93-11f1-bb40-2592831a8be9
-# ╟─09e60aaa-ca93-11f1-b60f-37d43657c3bd
-# ╟─09e60ab4-ca93-11f1-9615-73165f430336
-# ╠═09e60ab4-ca93-11f1-ab60-ab8aca45f096
-# ╟─09e60abc-ca93-11f1-8493-cbfd8a12c08b
-# ╟─09e60abc-ca93-11f1-869c-95dfa8db1809
-# ╠═09e60ac8-ca93-11f1-b391-5d35598f41ff
-# ╟─09e60ac8-ca93-11f1-868d-cb6ad39289b6
-# ╟─09e60ad2-ca93-11f1-854e-857712589490
-# ╟─09e60ad2-ca93-11f1-a864-b9cda845f864
-# ╠═09e60adc-ca93-11f1-81e9-7d464d28ea5e
-# ╠═09e60adc-ca93-11f1-aedc-0d40adb28aac
-# ╠═09e60ae6-ca93-11f1-8e48-8792c60b73fd
-# ╠═09e60ae6-ca93-11f1-b16e-2f0383098839
-# ╠═09e60aee-ca93-11f1-ab8d-e16dfc847faa
-# ╠═09e60aee-ca93-11f1-bd4f-4fe6b435854b
-# ╠═09e60afa-ca93-11f1-be65-316164a5c386
-# ╠═09e60afa-ca93-11f1-9c2c-d3bf2198f2ec
-# ╠═09e60b04-ca93-11f1-9b66-eb026d79fb28
-# ╠═09e60b04-ca93-11f1-9288-754a5cea352e
-# ╠═09e60b0e-ca93-11f1-a21f-132340b32dba
+# ╟─a0ae0494-ca96-11f1-901b-91aadc6917fd
+# ╟─a0ae04bc-ca96-11f1-a48c-ff7d11dcf2c0
+# ╟─a0ae04c6-ca96-11f1-963e-6de3918f9527
+# ╟─a0ae04d0-ca96-11f1-b7cf-13cd8efd3c02
+# ╟─a0ae04d0-ca96-11f1-a84a-e3849679e203
+# ╟─a0ae04e4-ca96-11f1-b1a7-754a005f0387
+# ╟─a0ae04e4-ca96-11f1-b009-63d50a1ec14a
+# ╟─a0ae04ee-ca96-11f1-8e1f-41a9ea86585b
+# ╠═a0ae04f8-ca96-11f1-9de2-2762f90910d2
+# ╟─a0ae04f8-ca96-11f1-8071-958c02895877
+# ╟─a0ae0502-ca96-11f1-bd7b-ad1f020d396f
+# ╟─a0ae0502-ca96-11f1-95a6-f34adcdee36b
+# ╠═a0ae050e-ca96-11f1-b5f3-13d1519c36cd
+# ╟─a0ae050e-ca96-11f1-8dc5-3302f81ff884
+# ╟─a0ae0516-ca96-11f1-afa3-b3194c904a02
+# ╟─a0ae0516-ca96-11f1-9e38-418662d25330
+# ╠═a0ae0520-ca96-11f1-bc61-cbe45369768a
+# ╟─a0ae0520-ca96-11f1-8488-8bdc4d64c5dd
+# ╟─a0ae052a-ca96-11f1-b4ca-15a90008de24
+# ╟─a0ae0534-ca96-11f1-8392-61709f37e156
+# ╟─a0ae0534-ca96-11f1-bdaf-a11fe5829f35
+# ╠═a0ae0540-ca96-11f1-a217-552ee30ad7d1
+# ╟─a0ae0540-ca96-11f1-b3fa-5d8fd091f1c3
+# ╟─a0ae0540-ca96-11f1-b91d-4bdc201bb6bd
+# ╠═a0ae0548-ca96-11f1-8ae8-51fbeeb1fb5a
+# ╟─a0ae0548-ca96-11f1-b13e-c783e1611243
+# ╟─a0ae0552-ca96-11f1-bf30-1178715d741e
+# ╟─a0ae0552-ca96-11f1-b41c-0d5799972d81
+# ╠═a0ae055c-ca96-11f1-b49d-9d9cd4871b62
+# ╠═a0ae0566-ca96-11f1-bfa4-8536c0885095
+# ╠═a0ae0566-ca96-11f1-8a82-c7d8bd9f103b
+# ╠═a0ae0572-ca96-11f1-81de-b9f7934c5f9f
+# ╠═a0ae0572-ca96-11f1-8e10-f98a5ed70aa8
+# ╠═a0ae057a-ca96-11f1-b720-dd060c1465e8
+# ╠═a0ae0584-ca96-11f1-8fc8-7564f5118975
+# ╠═a0ae0584-ca96-11f1-afbc-f5d21654c87e
+# ╠═a0ae0584-ca96-11f1-8d72-a7cecd055e40
+# ╠═a0ae058e-ca96-11f1-b598-9df9979f48bd
+# ╠═a0ae058e-ca96-11f1-afa8-d3930fda57a1

@@ -567,7 +567,7 @@ lo que ya sabes y con el laboratorio de hoy.
   Requião da Cunha (2021), sección 5.2; Laloux et al. (1999).
 - **Cierre del Módulo I**: con esta sesión se entrega el taller para casa del
   Módulo I (hechos estilizados y colas de un activo distinto a los vistos en
-  clase).
+  clase), en `Code/taller1_hechos_estilizados.jl`.
 - En la sesión 8 empieza el Módulo II: la **distribución del dinero** como
   un problema de física estadística (curva de Lorenz, Gini y modelos de
   intercambio).

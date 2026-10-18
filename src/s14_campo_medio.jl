@@ -361,7 +361,8 @@ md"""
 
 - Lectura: Requião da Cunha (2021), capítulo 6. Para la ruta avanzada,
   Brock y Durlauf (2001) y Bouchaud, Marsili y Nadal (2023).
-- **Entrega**: taller para casa del Módulo II.
+- **Entrega**: taller para casa del Módulo II (desigualdad con la ENIGH y
+  contagio en redes), en `Code/taller2_desigualdad_contagio.jl`.
 - En la sesión 15 empieza el Módulo III (Agentes, estrategias y mercados
   artificiales): modelos de opinión (votante, Kirman) y herding en mercados.
 """

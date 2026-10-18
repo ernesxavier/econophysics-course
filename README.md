@@ -8,6 +8,7 @@ Matemáticas), con simulaciones en Julia.
 ```
 ├── programa/
 │   ├── programa.md            → Programa rediseñado (20 sesiones; semestre o trimestre)
+│   ├── proyecto_final.md      → Guía y rúbrica del proyecto final
 │   └── programa-anterior.md   → Programa del semestre anterior
 ├── Class_notes/
 │   ├── s01_retornos.md            → Notas formales, sesión 1
@@ -67,6 +68,9 @@ Matemáticas), con simulaciones en Julia.
 │   ├── s18_cooperacion_redes.jl   → Cuaderno de Pluto, sesión 18
 │   ├── s19_juego_minoria.jl       → Cuaderno de Pluto, sesión 19
 │   ├── s20_mercados_artificiales.jl → Cuaderno de Pluto, sesión 20
+│   ├── taller1_hechos_estilizados.jl → Taller para casa del Módulo I
+│   ├── taller2_desigualdad_contagio.jl → Taller para casa del Módulo II
+│   ├── taller3_cierre_ciclo.jl    → Taller para casa del Módulo III
 │   ├── descargar_datos.jl     → Regenera Data/precios.csv desde Yahoo Finance
 │   ├── descargar_sp100.jl     → Regenera los datos del S&P 100 (Yahoo Finance)
 │   ├── descargar_enigh.jl     → Regenera los datos de la ENIGH 2024 (INEGI)
@@ -87,7 +91,8 @@ Matemáticas), con simulaciones en Julia.
 ├── src/                       → Fuentes de los cuadernos de Pluto (formato #%%)
 │   ├── construir_cuaderno.jl  → Genera y ejecuta un cuaderno a partir de su fuente
 │   ├── revisar_material.jl    → Revisa claves de repaso, enlaces y referencias a sesiones
-│   └── sNN_tema.jl            → Fuente de Code/sNN_tema.jl (20 fuentes, sesiones 1 a 20)
+│   ├── sNN_tema.jl            → Fuente de Code/sNN_tema.jl (20 fuentes, sesiones 1 a 20)
+│   └── tallerN_tema.jl        → Fuente de Code/tallerN_tema.jl (talleres de los tres módulos)
 └── README.md
 ```
 
@@ -158,7 +163,7 @@ Plan completo en [docs/plan_reestructuracion.md](docs/plan_reestructuracion.md).
 - [x] Fase 2: renumeración de archivos y referencias.
 - [x] Fase 3: dividir las sesiones 1, 4, 10, 13, 15 y 17 (cada una en dos).
 - [x] Fases 4 a 6: aligerar sesiones, notas en dos capas, conceptos transversales.
-- [ ] Fase 7: talleres para casa de los tres módulos y guía del proyecto final.
+- [x] Fase 7: talleres para casa de los tres módulos y guía del proyecto final.
 - [x] Diagnóstico de matemáticas para la sesión 1.
 - [ ] Lista de artículos para presentaciones.
 - [ ] Módulo compartido con funciones comunes (`gini`, `ccdf`, `hill`, ...), por ejemplo `Code/comun.jl`.
