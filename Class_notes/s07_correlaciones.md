@@ -1,9 +1,10 @@
 # Sesión 7: Correlaciones y matrices aleatorias. Notas formales
 
 > **Cómo leer estas notas.** Siguen el orden del programa: primero se observa
-> en el cuaderno (`Code/s07_correlaciones.jl`), después se formaliza aquí. Lo
-> que no tiene marca es **ruta básica**. Las secciones y demostraciones
-> marcadas **[Avanzado]** son opcionales.
+> en el cuaderno (`Code/s07_correlaciones.jl`), después se formaliza aquí. El
+> cuerpo de las notas es la **ruta básica**. Las demostraciones y los temas de
+> la ruta avanzada, opcionales, están al final, en **Para profundizar**; donde
+> estaban queda una línea que los enlaza.
 >
 > Repaso recomendado: [P.B2](repaso/probabilidad.md#pb2) (covarianza y
 > correlación), [L.B1–B3](repaso/algebra_lineal.md#lb1) (vectores y matrices),
@@ -250,47 +251,8 @@ igual a $1/Q$.
 
 ### 3.3 [Avanzado] La ley de Marchenko-Pastur
 
-**Teorema (Marchenko y Pastur, 1967).** Sean $z_{ti}$ variables i.i.d. de
-media 0 y varianza 1, y $C = Z^\top Z / T$. Si $N, T \to \infty$ con
-$Q = T/N \ge 1$ fijo, la distribución de los eigenvalores de $C$ converge a la
-densidad
+El desarrollo de esta subsección está en [Para profundizar, P.1](#pp1).
 
-$$
-\rho(\lambda) = \frac{Q}{2\pi}\thinspace\frac{\sqrt{(\lambda_+ - \lambda)(\lambda - \lambda_-)}}{\lambda},
-\qquad
-\lambda_\pm = \left(1 \pm \frac{1}{\sqrt{Q}}\right)^2,
-$$
-
-para $\lambda_- \le \lambda \le \lambda_+$, y a cero fuera de ese intervalo.
-
-No damos la demostración (ver Requião da Cunha, sec. 5.2). Es consistente con
-la sección 3.2: esta densidad tiene media 1 y varianza $1/Q$.
-
-**Uso (Laloux et al., 1999; Plerou et al., 1999).** Los eigenvalores
-empíricos dentro de $[\lambda_-, \lambda_+]$ son indistinguibles del ruido.
-Para el S&P 100, $\lambda_+ = 1.39$ y 7 eigenvalores quedan por encima; el
-octavo, 1.38, queda en el borde. Los artículos originales, con cientos de
-acciones, encontraron lo mismo: sólo unos cuantos eigenvalores (alrededor del
-6%) llevan información, y el resto de la matriz es ruido de estimación.
-
-**Tres cuidados.**
-
-1. El teorema supone varianza finita e independencia en el tiempo. Los
-   rendimientos tienen colas pesadas y volatilidad agrupada; la prueba por
-   permutación (sección 3.1) conserva las colas y por eso es la comparación
-   más directa.
-2. Los eigenvalores grandes se llevan parte de la traza $N$, así que el
-   grueso del espectro real queda a la izquierda del de ruido. Una corrección
-   habitual compara con Marchenko-Pastur con varianza $1 - \lambda_1/N$ en
-   lugar de 1.
-3. Es un resultado asintótico: con $N = 95$ los bordes no son exactos, y unos
-   pocos eigenvalores de ruido pueden asomarse fuera del intervalo.
-
-**Por qué importa.** Una cartera de mínima varianza usa $C^{-1}$, y los
-eigenvalores pequeños del ruido se vuelven enormes al invertirlos: la cartera
-apuesta en direcciones que son puro ruido. "Limpiar" $C$ reemplazando los
-eigenvalores dentro del intervalo de ruido por su promedio da carteras con
-riesgo realizado menor (Laloux et al., 1999).
 
 ---
 
@@ -329,35 +291,9 @@ pesos.
    distintas; descártalo si cerraría un ciclo.
 3. Termina al tener $N-1$ enlaces.
 
-**Proposición [Avanzado].** El algoritmo de Kruskal produce un árbol de
-expansión mínima. Si todas las distancias son distintas, ese árbol es único.
+**[Avanzado]** Proposición: en [Para profundizar, P.2](#pp2).
 
-*Demostración (propiedad del corte).* Supongamos que las distancias son
-distintas; con empates el argumento se adapta. Sea $S$ un conjunto de nodos y $e$ el
-enlace más corto entre $S$ y su complemento. Todo MST contiene a $e$: si un
-árbol $A$ no lo contuviera, agregarle $e$ formaría un ciclo, ese ciclo cruza
-de $S$ a su complemento por otro enlace $e'$ con $d(e') > d(e)$, y cambiar
-$e'$ por $e$ daría un árbol más corto. Cada enlace que Kruskal agrega es el
-más corto entre la componente de uno de sus extremos y el resto: cualquier
-enlace más corto que saliera de esa componente ya se habría examinado y, al
-no cerrar ciclo, agregado. Así, todos los enlaces que agrega pertenecen a
-todo MST; como son $N-1$, el MST es único y es el que construye Kruskal. $\square$
-
-**Proposición [Avanzado] (ultramétrica subdominante).** Para dos activos
-$i$ y $j$, sea $u_{ij}$ la mayor distancia entre los enlaces del camino que
-los une en el MST. Entonces
-
-$$
-u_{ij} \le \max\left(u_{ik},\ u_{kj}\right) \quad \text{para todo } k,
-$$
-
-una desigualdad más fuerte que la del triángulo (es una **ultramétrica**).
-Mantegna (1999) la usó para ordenar las acciones en una **jerarquía**: es el
-mismo árbol que produce el agrupamiento jerárquico de enlace simple.
-
-*Idea de la demostración.* El camino de $i$ a $j$ en el árbol está contenido
-en la unión de los caminos de $i$ a $k$ y de $k$ a $j$, así que su enlace más
-largo no puede superar al más largo de esos dos caminos. $\square$
+**[Avanzado]** Proposición (ultramétrica subdominante): en [Para profundizar, P.3](#pp3).
 
 ### 4.3 ¿Respeta el árbol los sectores?
 
@@ -426,6 +362,98 @@ de los datos.
   enlaces.
 - **F8.** Demuestra que la ultramétrica subdominante cumple
   $u_{ij} \le d_{ij}$, y que es la mayor ultramétrica con esa propiedad.
+
+---
+
+## Para profundizar
+
+Material opcional de la ruta avanzada: demostraciones y temas que no se ven
+en clase. Cada apartado indica de qué sección de las notas viene.
+
+<a id="pp1"></a>
+
+### P.1 La ley de Marchenko-Pastur (sección 3.3)
+
+
+**Teorema (Marchenko y Pastur, 1967).** Sean $z_{ti}$ variables i.i.d. de
+media 0 y varianza 1, y $C = Z^\top Z / T$. Si $N, T \to \infty$ con
+$Q = T/N \ge 1$ fijo, la distribución de los eigenvalores de $C$ converge a la
+densidad
+
+$$
+\rho(\lambda) = \frac{Q}{2\pi}\thinspace\frac{\sqrt{(\lambda_+ - \lambda)(\lambda - \lambda_-)}}{\lambda},
+\qquad
+\lambda_\pm = \left(1 \pm \frac{1}{\sqrt{Q}}\right)^2,
+$$
+
+para $\lambda_- \le \lambda \le \lambda_+$, y a cero fuera de ese intervalo.
+
+No damos la demostración (ver Requião da Cunha, sec. 5.2). Es consistente con
+la sección 3.2: esta densidad tiene media 1 y varianza $1/Q$.
+
+**Uso (Laloux et al., 1999; Plerou et al., 1999).** Los eigenvalores
+empíricos dentro de $[\lambda_-, \lambda_+]$ son indistinguibles del ruido.
+Para el S&P 100, $\lambda_+ = 1.39$ y 7 eigenvalores quedan por encima; el
+octavo, 1.38, queda en el borde. Los artículos originales, con cientos de
+acciones, encontraron lo mismo: sólo unos cuantos eigenvalores (alrededor del
+6%) llevan información, y el resto de la matriz es ruido de estimación.
+
+**Tres cuidados.**
+
+1. El teorema supone varianza finita e independencia en el tiempo. Los
+   rendimientos tienen colas pesadas y volatilidad agrupada; la prueba por
+   permutación (sección 3.1) conserva las colas y por eso es la comparación
+   más directa.
+2. Los eigenvalores grandes se llevan parte de la traza $N$, así que el
+   grueso del espectro real queda a la izquierda del de ruido. Una corrección
+   habitual compara con Marchenko-Pastur con varianza $1 - \lambda_1/N$ en
+   lugar de 1.
+3. Es un resultado asintótico: con $N = 95$ los bordes no son exactos, y unos
+   pocos eigenvalores de ruido pueden asomarse fuera del intervalo.
+
+**Por qué importa.** Una cartera de mínima varianza usa $C^{-1}$, y los
+eigenvalores pequeños del ruido se vuelven enormes al invertirlos: la cartera
+apuesta en direcciones que son puro ruido. "Limpiar" $C$ reemplazando los
+eigenvalores dentro del intervalo de ruido por su promedio da carteras con
+riesgo realizado menor (Laloux et al., 1999).
+
+<a id="pp2"></a>
+
+### P.2 Proposición (sección 4.2)
+
+**Proposición.** El algoritmo de Kruskal produce un árbol de
+expansión mínima. Si todas las distancias son distintas, ese árbol es único.
+
+*Demostración (propiedad del corte).* Supongamos que las distancias son
+distintas; con empates el argumento se adapta. Sea $S$ un conjunto de nodos y $e$ el
+enlace más corto entre $S$ y su complemento. Todo MST contiene a $e$: si un
+árbol $A$ no lo contuviera, agregarle $e$ formaría un ciclo, ese ciclo cruza
+de $S$ a su complemento por otro enlace $e'$ con $d(e') > d(e)$, y cambiar
+$e'$ por $e$ daría un árbol más corto. Cada enlace que Kruskal agrega es el
+más corto entre la componente de uno de sus extremos y el resto: cualquier
+enlace más corto que saliera de esa componente ya se habría examinado y, al
+no cerrar ciclo, agregado. Así, todos los enlaces que agrega pertenecen a
+todo MST; como son $N-1$, el MST es único y es el que construye Kruskal. $\square$
+
+<a id="pp3"></a>
+
+### P.3 Proposición (ultramétrica subdominante) (sección 4.2)
+
+**Proposición (ultramétrica subdominante).** Para dos activos
+$i$ y $j$, sea $u_{ij}$ la mayor distancia entre los enlaces del camino que
+los une en el MST. Entonces
+
+$$
+u_{ij} \le \max\left(u_{ik},\ u_{kj}\right) \quad \text{para todo } k,
+$$
+
+una desigualdad más fuerte que la del triángulo (es una **ultramétrica**).
+Mantegna (1999) la usó para ordenar las acciones en una **jerarquía**: es el
+mismo árbol que produce el agrupamiento jerárquico de enlace simple.
+
+*Idea de la demostración.* El camino de $i$ a $j$ en el árbol está contenido
+en la unión de los caminos de $i$ a $k$ y de $k$ a $j$, así que su enlace más
+largo no puede superar al más largo de esos dos caminos. $\square$
 
 ---
 

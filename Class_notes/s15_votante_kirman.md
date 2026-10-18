@@ -1,9 +1,10 @@
 # Sesión 15: Votante y Kirman: imitación y herding. Notas formales
 
 > **Cómo leer estas notas.** Siguen el orden del programa: primero se observa
-> en el cuaderno (`Code/s15_votante_kirman.jl`), después se formaliza aquí. Lo que no
-> tiene marca es **ruta básica**. Las secciones y demostraciones marcadas
-> **[Avanzado]** son opcionales.
+> en el cuaderno (`Code/s15_votante_kirman.jl`), después se formaliza aquí. El
+> cuerpo de las notas es la **ruta básica**. Las demostraciones y los temas de
+> la ruta avanzada, opcionales, están al final, en **Para profundizar**; donde
+> estaban queda una línea que los enlaza.
 >
 > Repaso recomendado: [E.B2](repaso/procesos_estocasticos.md#eb2) (caminata
 > aleatoria), [E.B3](repaso/procesos_estocasticos.md#eb3) (promedios),
@@ -15,8 +16,7 @@
 > [E.I3](repaso/procesos_estocasticos.md#ei3) (cadenas de Markov y estados
 > absorbentes), [F.I3](repaso/fisica_estadistica.md#fi3) (Ising) y
 > [F.I4](repaso/fisica_estadistica.md#fi4) (campo medio); para la ruta
-> avanzada, [E.A2](repaso/procesos_estocasticos.md#ea2) (lema de Itô),
-> [E.A3](repaso/procesos_estocasticos.md#ea3) (ecuación maestra),
+> avanzada, [E.A3](repaso/procesos_estocasticos.md#ea3) (ecuación maestra),
 > [E.A4](repaso/procesos_estocasticos.md#ea4) (Fokker-Planck) y
 > [E.A6](repaso/procesos_estocasticos.md#ea6) (ruina del jugador y tiempos de
 > salida).
@@ -99,63 +99,8 @@ $\mathbb E[x_T] = 1\cdot v_{k_0} + 0\cdot(1 - v_{k_0}) = x_0$. $\square$
 
 ### 1.3 Tiempo esperado hasta el consenso en la red completa [Avanzado]
 
-Sea $\tau_k$ el número esperado de **barridos** (donde $1$ barrido $= N$ pasos
-elementales) hasta alcanzar cualquiera de los dos consensos ($k = 0$ o
-$k = N$), partiendo de $k$ agentes en $1$.
+El desarrollo de esta subsección está en [Para profundizar, P.1](#pp1).
 
-**Proposición.** Para $N$ grande y $x = k/N \in (0, 1)$, el tiempo esperado
-hasta el consenso (en barridos) es
-
-$$
-\tau(x) = -(N - 1)\bigl[x\ln x + (1 - x)\ln(1 - x)\bigr] .
-$$
-
-En particular, partiendo de una población dividida en partes iguales ($x_0 =
-1/2$), $\tau(1/2) = (N - 1)\ln 2 \approx 0.693\thinspace(N - 1)$ barridos.
-
-*Demostración.* En un paso elemental ($\Delta t = 1/N$ de barrido), condicionando
-en el resultado del paso:
-
-$$
-\tau_k = \frac{1}{N} + p_k \tau_{k+1} + q_k \tau_{k-1} + (1 - 2p_k)\tau_k ,
-$$
-
-con $\tau_0 = \tau_N = 0$. Reordenando y sustituyendo $p_k =
-\frac{k(N-k)}{N(N-1)}$:
-
-$$
-\tau_{k+1} - 2\tau_k + \tau_{k-1} = -\frac{1}{N p_k}
-= -\frac{N - 1}{k(N - k)} .
-$$
-
-Escribiendo $\tau_k = \tau(x)$ con $x = k/N$ y aproximando la segunda diferencia
-por $\tau_{k+1} - 2\tau_k + \tau_{k-1} \approx \frac{1}{N^2}\tau''(x)$ para $N$
-grande, obtenemos la ecuación diferencial ordinaria
-
-$$
-\frac{1}{N^2}\tau''(x) = -\frac{N - 1}{N^2 x(1 - x)}
-\quad\Longrightarrow\quad
-\tau''(x) = -(N - 1)\left(\frac{1}{x} + \frac{1}{1 - x}\right) .
-$$
-
-Integrando dos veces se obtiene $\tau(x) = -(N - 1)[x\ln x + (1-x)\ln(1-x)] +
-C_1 x + C_2$. Las condiciones de frontera $\tau(0) = \tau(1) = 0$ implican
-$C_1 = C_2 = 0$. $\square$
-
-**Fórmula exacta.** La ecuación de diferencias se resuelve sin aproximar,
-sumando dos veces y usando $\frac{1}{j(N-j)} = \frac{1}{N}\left(\frac{1}{j} + \frac{1}{N-j}\right)$:
-
-$$
-\tau_k = \frac{N-1}{N}\left[(N-k)\sum_{j=1}^{k-1}\frac{1}{N-j} + k\sum_{j=k}^{N-1}\frac{1}{j}\right] .
-$$
-
-Con $\sum_{j \le n} 1/j \approx \ln n + \gamma_E$ se recupera la fórmula
-continua. La diferencia es pequeña: con $N = 80$ y $k = 24$, la exacta da
-47.8 barridos y la continua 48.3. El cuaderno usa la exacta.
-
-Nótese que $S(x) = -x\ln x - (1-x)\ln(1-x)$ es la entropía de Shannon de una
-variable binaria: el tiempo esperado hasta el consenso es proporcional a la
-incertidumbre inicial sobre qué opinión ganará.
 
 ### 1.4 Efecto de la topología de la red y leyes de escala
 
@@ -243,117 +188,13 @@ completa.
 
 ### 2.2 Ecuación maestra y distribución Beta-binomial exacta [Avanzado]
 
-Como el proceso es un proceso de nacimiento y muerte irreducible en el espacio
-finito $\lbrace 0, 1, \dots, N\rbrace$, su distribución estacionaria $P_k$ es
-única y satisface la condición de **balance detallado**
-([E.A3](repaso/procesos_estocasticos.md#ea3)):
+El desarrollo de esta subsección está en [Para profundizar, P.2](#pp2).
 
-$$
-P_k W(k \to k+1) = P_{k+1} W(k+1 \to k), \qquad k = 0, 1, \dots, N-1 .
-$$
-
-**Proposición.** La distribución estacionaria exacta del modelo de Kirman para
-cualquier $N \ge 2$ y $a > 0$ es la distribución **Beta-binomial** simétrica:
-
-$$
-P_k = \binom{N}{k}\frac{\mathrm{B}(k + a,\ N - k + a)}{\mathrm{B}(a, a)},
-\qquad k = 0, 1, \dots, N ,
-$$
-
-donde $\mathrm{B}(u, v) = \frac{\Gamma(u)\Gamma(v)}{\Gamma(u+v)}$ es la función
-Beta.
-
-*Demostración.* Del balance detallado, el cociente entre probabilidades
-consecutivas es
-
-$$
-\frac{P_{k+1}}{P_k} = \frac{W(k \to k+1)}{W(k+1 \to k)}
-= \frac{N - k}{k + 1}\thinspace\frac{a + k}{a + N - 1 - k} .
-$$
-
-Iterando desde $k = 0$ y usando $\Gamma(z+1) = z\Gamma(z)$,
-
-$$
-P_k = P_0 \prod_{j=0}^{k-1} \frac{N - j}{j + 1}
-\prod_{j=0}^{k-1} \frac{a + j}{a + N - 1 - j}
-= P_0 \binom{N}{k} \frac{\Gamma(k+a)/\Gamma(a)}{\Gamma(N+a)/\Gamma(N-k+a)} .
-$$
-
-Normalizando con la identidad de Pólya $\sum_{k=0}^N \binom{N}{k}
-\mathrm{B}(k+a, N-k+a) = \mathrm{B}(a, a)$, se obtiene la fórmula enunciada.
-$\square$
-
-**Caso crítico $a = 1$.** Cuando $a = 1$, el factor $(a + k)/(a + N - 1 - k)$
-en el cociente $P_{k+1}/P_k$ se cancela con $(N - k)/(k + 1)$ al escribirlo en
-términos de factoriales, o bien observando que $\binom{N}{k}\mathrm{B}(k+1,
-N-k+1) = \frac{N!}{k!(N-k)!}\frac{k!(N-k)!}{(N+1)!} = \frac{1}{N+1}$. Así, en
-$a = 1$ la distribución estacionaria es **exactamente uniforme** para todo $N$:
-
-$$
-P_k = \frac{1}{N + 1}, \qquad k = 0, 1, \dots, N \quad (a = 1) .
-$$
 
 ### 2.3 Límite continuo: Fokker-Planck y distribución $\mathrm{Beta}(a,a)$ [Avanzado]
 
-Sea $x = k/N \in [0, 1]$ la fracción de agentes en el estado $1$, y midamos el
-tiempo en unidades de $N(N - 1 + 2a)/2 \approx N^2/2$ pasos elementales. En un
-paso elemental, el cambio $\Delta x = \pm 1/N$ tiene momentos condicionales
+El desarrollo de esta subsección está en [Para profundizar, P.3](#pp3).
 
-$$
-\mathbb E[\Delta x \mid x] = \frac{W(k \to k+1) - W(k \to k-1)}{N}
-= \frac{2a(1/2 - x)}{N(N - 1 + 2a)} ,
-$$
-
-$$
-\mathbb E\left[(\Delta x)^2 \mid x\right] = \frac{W(k \to k+1) + W(k \to k-1)}{N^2}
-= \frac{a + 2N x(1 - x)}{N^2(N - 1 + 2a)} .
-$$
-
-En el límite $N \to \infty$ con $a > 0$ fijo (desarrollando hasta orden
-$1/N^2$, expansión de Kramers-Moyal,
-[E.A3](repaso/procesos_estocasticos.md#ea3)), la densidad $p(x, t)$ obedece la
-**ecuación de Fokker-Planck** de la difusión $dx = A(x)\thinspace dt +
-B(x)\thinspace dW_t$ ([E.A4](repaso/procesos_estocasticos.md#ea4); difusión de
-Wright-Fisher / Jacobi):
-
-$$
-\frac{\partial p(x,t)}{\partial t}
-= -\frac{\partial}{\partial x}\bigl[A(x)p(x,t)\bigr] +
-\frac12\frac{\partial^2}{\partial x^2}\bigl[B(x)^2 p(x,t)\bigr],
-$$
-
-con deriva e intensidad de ruido
-
-$$
-A(x) = a\left(\frac12 - x\right), \qquad B(x)^2 = x(1 - x) .
-$$
-
-**Proposición.** La densidad estacionaria de la ecuación de Fokker-Planck en
-$(0, 1)$ es la distribución $\mathrm{Beta}(a, a)$:
-
-$$
-p_{\text{est}}(x) = \frac{1}{\mathrm{B}(a, a)}\thinspace x^{a - 1}(1 - x)^{a - 1},
-\qquad x \in (0, 1) .
-$$
-
-*Demostración.* Con flujo nulo en las fronteras ($J(x) = A(x)p(x) -
-\frac12\frac{d}{dx}[B(x)^2 p(x)] = 0$),
-
-$$
-\frac{d}{dx}\bigl[x(1-x)p(x)\bigr] = 2a\left(\frac12 - x\right)p(x)
-= a(1 - 2x)p(x) .
-$$
-
-Expandiendo la derivada izquierda: $(1 - 2x)p(x) + x(1-x)p'(x) = a(1-2x)p(x)$,
-de donde
-
-$$
-\frac{p'(x)}{p(x)} = \frac{(a - 1)(1 - 2x)}{x(1 - x)}
-= \frac{a - 1}{x} - \frac{a - 1}{1 - x} .
-$$
-
-Integrando: $\ln p(x) = (a-1)\ln x + (a-1)\ln(1-x) + \text{cte}$, es decir,
-$p(x) \propto x^{a-1}(1-x)^{a-1}$. $\square$
 
 ### 2.4 Transición entre unimodalidad y bimodalidad: Kirman frente a Ising
 
@@ -433,12 +274,196 @@ atrapado temporalmente cerca de la frontera.
   $\operatorname{Var}(x) = \frac{1}{4(2a + 1)}$. Usa la identidad
   $\mathrm{B}(u+1, v) = \frac{u}{u+v}\mathrm{B}(u, v)$ y verifica los límites
   $a \to 0$, $a = 1$ y $a \to \infty$.
-- **F6.** Aplica la fórmula de Itô ([E.A2](repaso/procesos_estocasticos.md#ea2))
-  con el cambio de variable $y = \arcsin(2x - 1) \in [-\pi/2, \pi/2]$ a la EDE
-  del modelo de Kirman $dx = a(1/2 - x)\thinspace dt + \sqrt{x(1-x)}\thinspace dW_t$ y encuentra
-  la difusión con ruido aditivo constante que satisface $y_t$. ¿Cómo se
-  interpreta el signo de la deriva efectiva de $y_t$ cerca de las fronteras
-  $y = \pm\pi/2$ según sea $a < 1$ o $a > 1$?
+
+---
+
+## Para profundizar
+
+Material opcional de la ruta avanzada: demostraciones y temas que no se ven
+en clase. Cada apartado indica de qué sección de las notas viene.
+
+<a id="pp1"></a>
+
+### P.1 Tiempo esperado hasta el consenso en la red completa (sección 1.3)
+
+
+Sea $\tau_k$ el número esperado de **barridos** (donde $1$ barrido $= N$ pasos
+elementales) hasta alcanzar cualquiera de los dos consensos ($k = 0$ o
+$k = N$), partiendo de $k$ agentes en $1$.
+
+**Proposición.** Para $N$ grande y $x = k/N \in (0, 1)$, el tiempo esperado
+hasta el consenso (en barridos) es
+
+$$
+\tau(x) = -(N - 1)\bigl[x\ln x + (1 - x)\ln(1 - x)\bigr] .
+$$
+
+En particular, partiendo de una población dividida en partes iguales ($x_0 =
+1/2$), $\tau(1/2) = (N - 1)\ln 2 \approx 0.693\thinspace(N - 1)$ barridos.
+
+*Demostración.* En un paso elemental ($\Delta t = 1/N$ de barrido), condicionando
+en el resultado del paso:
+
+$$
+\tau_k = \frac{1}{N} + p_k \tau_{k+1} + q_k \tau_{k-1} + (1 - 2p_k)\tau_k ,
+$$
+
+con $\tau_0 = \tau_N = 0$. Reordenando y sustituyendo $p_k =
+\frac{k(N-k)}{N(N-1)}$:
+
+$$
+\tau_{k+1} - 2\tau_k + \tau_{k-1} = -\frac{1}{N p_k}
+= -\frac{N - 1}{k(N - k)} .
+$$
+
+Escribiendo $\tau_k = \tau(x)$ con $x = k/N$ y aproximando la segunda diferencia
+por $\tau_{k+1} - 2\tau_k + \tau_{k-1} \approx \frac{1}{N^2}\tau''(x)$ para $N$
+grande, obtenemos la ecuación diferencial ordinaria
+
+$$
+\frac{1}{N^2}\tau''(x) = -\frac{N - 1}{N^2 x(1 - x)}
+\quad\Longrightarrow\quad
+\tau''(x) = -(N - 1)\left(\frac{1}{x} + \frac{1}{1 - x}\right) .
+$$
+
+Integrando dos veces se obtiene $\tau(x) = -(N - 1)[x\ln x + (1-x)\ln(1-x)] +
+C_1 x + C_2$. Las condiciones de frontera $\tau(0) = \tau(1) = 0$ implican
+$C_1 = C_2 = 0$. $\square$
+
+**Fórmula exacta.** La ecuación de diferencias se resuelve sin aproximar,
+sumando dos veces y usando $\frac{1}{j(N-j)} = \frac{1}{N}\left(\frac{1}{j} + \frac{1}{N-j}\right)$:
+
+$$
+\tau_k = \frac{N-1}{N}\left[(N-k)\sum_{j=1}^{k-1}\frac{1}{N-j} + k\sum_{j=k}^{N-1}\frac{1}{j}\right] .
+$$
+
+Con $\sum_{j \le n} 1/j \approx \ln n + \gamma_E$ se recupera la fórmula
+continua. La diferencia es pequeña: con $N = 80$ y $k = 24$, la exacta da
+47.8 barridos y la continua 48.3. El cuaderno usa la exacta.
+
+Nótese que $S(x) = -x\ln x - (1-x)\ln(1-x)$ es la entropía de Shannon de una
+variable binaria: el tiempo esperado hasta el consenso es proporcional a la
+incertidumbre inicial sobre qué opinión ganará.
+
+<a id="pp2"></a>
+
+### P.2 Ecuación maestra y distribución Beta-binomial exacta (sección 2.2)
+
+
+Como el proceso es un proceso de nacimiento y muerte irreducible en el espacio
+finito $\lbrace 0, 1, \dots, N\rbrace$, su distribución estacionaria $P_k$ es
+única y satisface la condición de **balance detallado**
+([E.A3](repaso/procesos_estocasticos.md#ea3)):
+
+$$
+P_k W(k \to k+1) = P_{k+1} W(k+1 \to k), \qquad k = 0, 1, \dots, N-1 .
+$$
+
+**Proposición.** La distribución estacionaria exacta del modelo de Kirman para
+cualquier $N \ge 2$ y $a > 0$ es la distribución **Beta-binomial** simétrica:
+
+$$
+P_k = \binom{N}{k}\frac{\mathrm{B}(k + a,\ N - k + a)}{\mathrm{B}(a, a)},
+\qquad k = 0, 1, \dots, N ,
+$$
+
+donde $\mathrm{B}(u, v) = \frac{\Gamma(u)\Gamma(v)}{\Gamma(u+v)}$ es la función
+Beta.
+
+*Demostración.* Del balance detallado, el cociente entre probabilidades
+consecutivas es
+
+$$
+\frac{P_{k+1}}{P_k} = \frac{W(k \to k+1)}{W(k+1 \to k)}
+= \frac{N - k}{k + 1}\thinspace\frac{a + k}{a + N - 1 - k} .
+$$
+
+Iterando desde $k = 0$ y usando $\Gamma(z+1) = z\Gamma(z)$,
+
+$$
+P_k = P_0 \prod_{j=0}^{k-1} \frac{N - j}{j + 1}
+\prod_{j=0}^{k-1} \frac{a + j}{a + N - 1 - j}
+= P_0 \binom{N}{k} \frac{\Gamma(k+a)/\Gamma(a)}{\Gamma(N+a)/\Gamma(N-k+a)} .
+$$
+
+Normalizando con la identidad de Pólya $\sum_{k=0}^N \binom{N}{k}
+\mathrm{B}(k+a, N-k+a) = \mathrm{B}(a, a)$, se obtiene la fórmula enunciada.
+$\square$
+
+**Caso crítico $a = 1$.** Cuando $a = 1$, el factor $(a + k)/(a + N - 1 - k)$
+en el cociente $P_{k+1}/P_k$ se cancela con $(N - k)/(k + 1)$ al escribirlo en
+términos de factoriales, o bien observando que $\binom{N}{k}\mathrm{B}(k+1,
+N-k+1) = \frac{N!}{k!(N-k)!}\frac{k!(N-k)!}{(N+1)!} = \frac{1}{N+1}$. Así, en
+$a = 1$ la distribución estacionaria es **exactamente uniforme** para todo $N$:
+
+$$
+P_k = \frac{1}{N + 1}, \qquad k = 0, 1, \dots, N \quad (a = 1) .
+$$
+
+<a id="pp3"></a>
+
+### P.3 Límite continuo: Fokker-Planck y distribución $\mathrm{Beta}(a,a)$ (sección 2.3)
+
+
+Sea $x = k/N \in [0, 1]$ la fracción de agentes en el estado $1$, y midamos el
+tiempo en unidades de $N(N - 1 + 2a)/2 \approx N^2/2$ pasos elementales. En un
+paso elemental, el cambio $\Delta x = \pm 1/N$ tiene momentos condicionales
+
+$$
+\mathbb E[\Delta x \mid x] = \frac{W(k \to k+1) - W(k \to k-1)}{N}
+= \frac{2a(1/2 - x)}{N(N - 1 + 2a)} ,
+$$
+
+$$
+\mathbb E\left[(\Delta x)^2 \mid x\right] = \frac{W(k \to k+1) + W(k \to k-1)}{N^2}
+= \frac{a + 2N x(1 - x)}{N^2(N - 1 + 2a)} .
+$$
+
+En el límite $N \to \infty$ con $a > 0$ fijo (desarrollando hasta orden
+$1/N^2$, expansión de Kramers-Moyal,
+[E.A3](repaso/procesos_estocasticos.md#ea3)), la densidad $p(x, t)$ obedece la
+**ecuación de Fokker-Planck** de la difusión $dx = A(x)\thinspace dt +
+B(x)\thinspace dW_t$ ([E.A4](repaso/procesos_estocasticos.md#ea4); difusión de
+Wright-Fisher / Jacobi):
+
+$$
+\frac{\partial p(x,t)}{\partial t}
+= -\frac{\partial}{\partial x}\bigl[A(x)p(x,t)\bigr] +
+\frac12\frac{\partial^2}{\partial x^2}\bigl[B(x)^2 p(x,t)\bigr],
+$$
+
+con deriva e intensidad de ruido
+
+$$
+A(x) = a\left(\frac12 - x\right), \qquad B(x)^2 = x(1 - x) .
+$$
+
+**Proposición.** La densidad estacionaria de la ecuación de Fokker-Planck en
+$(0, 1)$ es la distribución $\mathrm{Beta}(a, a)$:
+
+$$
+p_{\text{est}}(x) = \frac{1}{\mathrm{B}(a, a)}\thinspace x^{a - 1}(1 - x)^{a - 1},
+\qquad x \in (0, 1) .
+$$
+
+*Demostración.* Con flujo nulo en las fronteras ($J(x) = A(x)p(x) -
+\frac12\frac{d}{dx}[B(x)^2 p(x)] = 0$),
+
+$$
+\frac{d}{dx}\bigl[x(1-x)p(x)\bigr] = 2a\left(\frac12 - x\right)p(x)
+= a(1 - 2x)p(x) .
+$$
+
+Expandiendo la derivada izquierda: $(1 - 2x)p(x) + x(1-x)p'(x) = a(1-2x)p(x)$,
+de donde
+
+$$
+\frac{p'(x)}{p(x)} = \frac{(a - 1)(1 - 2x)}{x(1 - x)}
+= \frac{a - 1}{x} - \frac{a - 1}{1 - x} .
+$$
+
+Integrando: $\ln p(x) = (a-1)\ln x + (a-1)\ln(1-x) + \text{cte}$, es decir,
+$p(x) \propto x^{a-1}(1-x)^{a-1}$. $\square$
 
 ---
 

@@ -1,9 +1,10 @@
 # Sesión 13: Logit, Boltzmann e Ising. Notas formales
 
 > **Cómo leer estas notas.** Siguen el orden del programa: primero se observa
-> en el cuaderno (`Code/s13_logit_ising.jl`), después se formaliza aquí. Lo que no
-> tiene marca es **ruta básica**. Las secciones y demostraciones marcadas
-> **[Avanzado]** son opcionales.
+> en el cuaderno (`Code/s13_logit_ising.jl`), después se formaliza aquí. El
+> cuerpo de las notas es la **ruta básica**. Esta sesión no tiene desarrollos
+> avanzados aparte: la ruta avanzada son los ejercicios F4 a F6, y el campo
+> medio formal está en las notas de la [sesión 14](s14_campo_medio.md).
 >
 > Repaso recomendado: [C.B4](repaso/calculo.md#cb4) (función logística),
 > [F.B3](repaso/fisica_estadistica.md#fb3) (temperatura),

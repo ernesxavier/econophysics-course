@@ -1,9 +1,10 @@
 # Sesión 10: Redes: medidas y modelos. Notas formales
 
 > **Cómo leer estas notas.** Siguen el orden del programa: primero se observa
-> en el cuaderno (`Code/s10_redes_modelos.jl`), después se formaliza aquí. Lo
-> que no tiene marca es **ruta básica**. Las secciones y demostraciones
-> marcadas **[Avanzado]** son opcionales.
+> en el cuaderno (`Code/s10_redes_modelos.jl`), después se formaliza aquí. El
+> cuerpo de las notas es la **ruta básica**. Las demostraciones y los temas de
+> la ruta avanzada, opcionales, están al final, en **Para profundizar**; donde
+> estaban queda una línea que los enlaza.
 >
 > Repaso recomendado: [L.B4](repaso/algebra_lineal.md#lb4) (matriz de
 > adyacencia), [P.B1](repaso/probabilidad.md#pb1) (distribuciones),
@@ -101,16 +102,7 @@ vecinos lo son" se escribe $x_i = \lambda^{-1}\sum_j A_{ij}x_j$, es decir,
 $Ax = \lambda x$. Hace falta que $x$ tenga todas sus componentes positivas
 para interpretarlo como importancia.
 
-**[Avanzado] Proposición.** Si la red es conexa, el eigenvector del mayor
-eigenvalor $\lambda_1$ de $A$ tiene todas sus componentes del mismo signo
-(y se puede tomar positivo), y es el único con esa propiedad.
-
-*Demostración.* Una red conexa tiene $A$ no negativa e irreducible; el
-teorema de Perron-Frobenius ([L.A5](repaso/algebra_lineal.md#la5)) da un
-eigenvalor real simple $\lambda_1 = r(A)$ con eigenvector positivo. Como
-$A$ es simétrica, los eigenvectores de eigenvalores distintos son
-ortogonales: ninguno puede ser ortogonal a un vector positivo y tener
-todas sus componentes positivas. $\square$
+**[Avanzado]** Proposición: en [Para profundizar, P.1](#pp1).
 
 Si la red no es conexa, la centralidad de eigenvector es cero fuera de la
 componente con mayor $\lambda_1$: conviene calcularla por componente.
@@ -235,19 +227,7 @@ $$
 
 Con $u = 1 - S$ queda $S = 1 - e^{-cS}$. $\square$
 
-**[Avanzado] El umbral.** Sea $g(S) = 1 - e^{-cS}$. Siempre $g(0) = 0$, y $g$
-es creciente y cóncava con $g(1) < 1$. Una segunda intersección con la recta
-$S$ existe si y sólo si la pendiente en el origen es mayor que 1:
-$g'(0) = c > 1$. Cerca del umbral, desarrollando
-$e^{-cS} \approx 1 - cS + c^2S^2/2$,
-
-$$
-S \approx \frac{2(c - 1)}{c^2} \approx 2(c - 1),
-$$
-
-así que el parámetro de orden se anula linealmente: es una transición de
-fase continua ([F.B4](repaso/fisica_estadistica.md#fb4)), la transición de
-**percolación** ([F.A5](repaso/fisica_estadistica.md#fa5)).
+**[Avanzado]** El umbral: en [Para profundizar, P.2](#pp2).
 
 ---
 
@@ -267,15 +247,7 @@ $$
 que tiende a $3/4$ para $K$ grande. Con $K = 10$ da $2/3$, como en el
 cuaderno.
 
-**[Avanzado]** Para $p > 0$, un triángulo del anillo sobrevive si sus tres
-enlaces sobreviven, con probabilidad $(1-p)^3$. Despreciando los triángulos
-nuevos que crean los atajos (Barrat y Weigt, 2000):
-
-$$
-C(p) \approx C(0)\thinspace(1 - p)^3 .
-$$
-
-Con $p = 0.1$ da $0.486$, y la simulación da $0.476$.
+**[Avanzado]** El agrupamiento para p > 0: en [Para profundizar, P.3](#pp3).
 
 **Distancias.** En el anillo, $\ell \approx n/(2K)$: crece linealmente con
 $n$. Con atajos, la distancia pasa a crecer como $\ln n$ en cuanto hay del
@@ -402,6 +374,60 @@ inferior en Gibrat con barrera. Es el proceso de Yule y Simon.
 - **F7.** Generaliza la sección 5.2 a una conexión preferencial con
   "atractivo inicial": $\Pi(i) \propto k_i + a$. ¿Qué exponente tiene la
   cola?
+
+---
+
+## Para profundizar
+
+Material opcional de la ruta avanzada: demostraciones y temas que no se ven
+en clase. Cada apartado indica de qué sección de las notas viene.
+
+<a id="pp1"></a>
+
+### P.1 Proposición (sección 2.1)
+
+**Proposición.** Si la red es conexa, el eigenvector del mayor
+eigenvalor $\lambda_1$ de $A$ tiene todas sus componentes del mismo signo
+(y se puede tomar positivo), y es el único con esa propiedad.
+
+*Demostración.* Una red conexa tiene $A$ no negativa e irreducible; el
+teorema de Perron-Frobenius ([L.A5](repaso/algebra_lineal.md#la5)) da un
+eigenvalor real simple $\lambda_1 = r(A)$ con eigenvector positivo. Como
+$A$ es simétrica, los eigenvectores de eigenvalores distintos son
+ortogonales: ninguno puede ser ortogonal a un vector positivo y tener
+todas sus componentes positivas. $\square$
+
+<a id="pp2"></a>
+
+### P.2 El umbral (sección 3.3)
+
+**El umbral.** Sea $g(S) = 1 - e^{-cS}$. Siempre $g(0) = 0$, y $g$
+es creciente y cóncava con $g(1) < 1$. Una segunda intersección con la recta
+$S$ existe si y sólo si la pendiente en el origen es mayor que 1:
+$g'(0) = c > 1$. Cerca del umbral, desarrollando
+$e^{-cS} \approx 1 - cS + c^2S^2/2$,
+
+$$
+S \approx \frac{2(c - 1)}{c^2} \approx 2(c - 1),
+$$
+
+así que el parámetro de orden se anula linealmente: es una transición de
+fase continua ([F.B4](repaso/fisica_estadistica.md#fb4)), la transición de
+**percolación** ([F.A5](repaso/fisica_estadistica.md#fa5)).
+
+<a id="pp3"></a>
+
+### P.3 El agrupamiento para p > 0 (sección 4)
+
+Para $p > 0$, un triángulo del anillo sobrevive si sus tres
+enlaces sobreviven, con probabilidad $(1-p)^3$. Despreciando los triángulos
+nuevos que crean los atajos (Barrat y Weigt, 2000):
+
+$$
+C(p) \approx C(0)\thinspace(1 - p)^3 .
+$$
+
+Con $p = 0.1$ da $0.486$, y la simulación da $0.476$.
 
 ---
 

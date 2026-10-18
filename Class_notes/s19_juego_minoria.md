@@ -1,9 +1,10 @@
 # Sesión 19: Juego de la minoría. Notas formales
 
 > **Cómo leer estas notas.** Siguen el orden del programa: primero se observa
-> en el cuaderno (`Code/s19_juego_minoria.jl`), después se formaliza aquí. Lo
-> que no tiene marca es **ruta básica**. Las secciones y demostraciones
-> marcadas **[Avanzado]** son opcionales.
+> en el cuaderno (`Code/s19_juego_minoria.jl`), después se formaliza aquí. El
+> cuerpo de las notas es la **ruta básica**. Las demostraciones y los temas de
+> la ruta avanzada, opcionales, están al final, en **Para profundizar**; donde
+> estaban queda una línea que los enlaza.
 >
 > Repaso recomendado: [P.B2](repaso/probabilidad.md#pb2) (media y varianza de
 > una suma de variables independientes),
@@ -299,147 +300,8 @@ que separa dos fases con propiedades opuestas:
 
 ## 4. Teoría del punto crítico $\alpha_c$ y vidrios de espín [Avanzado]
 
-### 4.1 Predictibilidad $H$ como parámetro de orden
+El desarrollo de esta sección está en [Para profundizar, P.1](#pp1).
 
-¿Por qué el mínimo de volatilidad en $\alpha_c \approx 0.3374$ corresponde a
-una verdadera **transición de fase** en el sentido de la física estadística?
-Para verlo, examinamos si la serie de excesos de demanda $A(t)$ contiene
-información predecible condicionada en la historia $\mu$.
-
-Sea $\langle A \mid \mu\rangle$ el promedio estacionario de $A(t)$ en los pasos
-en que la historia observada es $\mu \in \lbrace 1, \dots, P\rbrace$. Definimos
-la **predictibilidad** (reescalada por $N$) como
-
-$$
-\frac{H}{N} = \frac{1}{P N}\sum_{\mu=1}^P \langle A \mid \mu\rangle^2 .
-$$
-
-- Si $\langle A \mid \mu\rangle = 0$ para toda historia $\mu$, entonces
-  $H/N = 0$: conociendo la historia de longitud $M$, un observador externo no
-  puede predecir el signo medio de $A(t)$. El mercado es **informacionalmente
-  eficiente (fase simétrica)**.
-- Si $\langle A \mid \mu\rangle \ne 0$ para algunas historias $\mu$, entonces
-  $H/N > 0$: después de ciertas historias el mercado tiende sistemáticamente a
-  comprar más que a vender (o viceversa), dejando **oportunidades de ganancia
-  sin explotar (fase asimétrica)**.
-
-El comportamiento numérico y analítico muestra que $H/N$ actúa como un
-**parámetro de orden** ([F.B4](repaso/fisica_estadistica.md#fb4),
-[F.A2](repaso/fisica_estadistica.md#fa2)):
-
-$$
-\frac{H}{N} = 0 \quad \text{para todo } \alpha \le \alpha_c,
-\qquad
-\frac{H}{N} \sim c_H\thinspace(\alpha - \alpha_c)^2 > 0 \quad \text{para } \alpha > \alpha_c .
-$$
-
-### 4.2 Descomposición de estrategias y agentes congelados
-
-Para $S = 2$, cada agente $i$ tiene dos estrategias $s_{i,1}(\mu), s_{i,2}(\mu)
-\in \lbrace -1, +1\rbrace$, que podemos reescribir separando su parte común y
-su semidiferencia:
-
-$$
-\bar s_i(\mu) = \frac{s_{i,1}(\mu) + s_{i,2}(\mu)}{2} \in \lbrace -1, 0, +1\rbrace,
-\qquad
-\xi_i(\mu) = \frac{s_{i,1}(\mu) - s_{i,2}(\mu)}{2} \in \lbrace -1, 0, +1\rbrace .
-$$
-
-Cuando las dos estrategias de $i$ coinciden ante la historia $\mu$,
-$\xi_i(\mu) = 0$ y el agente toma la acción fija $\bar s_i(\mu) = \pm 1$ sin
-importar cuál de sus dos estrategias tenga mayor puntaje. Cuando difieren,
-$\bar s_i(\mu) = 0$, $\xi_i(\mu) = \pm 1$ y la acción del agente es
-$a_i(t) = \xi_i(\mu(t))\thinspace \sigma_i(t)$, donde $\sigma_i(t) = +1$ si el
-agente usa su estrategia $1$ y $\sigma_i(t) = -1$ si usa la $2$.
-
-Sea $m_i = \langle \sigma_i(t)\rangle \in [-1, +1]$ la preferencia temporal
-media del agente $i$ entre sus dos estrategias. Promediando sobre el tiempo
-condicionado en $\mu$,
-
-$$
-\langle A \mid \mu\rangle = \Omega(\mu) + \sum_{i=1}^N \xi_i(\mu)\thinspace m_i,
-\qquad
-\text{donde } \Omega(\mu) = \sum_{i=1}^N \bar s_i(\mu) .
-$$
-
-La semidiferencia de puntajes $q_i(t) = \frac{1}{2}[U_{i,1}(t) - U_{i,2}(t)]$
-cambia en cada paso en $\Delta q_i(t) = -\xi_i(\mu(t)) A(t)/N$. Si todas las
-historias $\mu$ se visitan con frecuencia $\approx 1/P$, la deriva media de
-$q_i$ es
-
-$$
-\langle \Delta q_i\rangle \approx -\frac{1}{P N}\sum_{\mu=1}^P \xi_i(\mu)\thinspace\langle A \mid \mu\rangle .
-$$
-
-De aquí surgen dos tipos de agentes en el estado estacionario:
-
-1. **Agentes congelados (*frozen agents*, $\lvert m_i\rvert = 1$):** Si
-   $\langle \Delta q_i\rangle \ne 0$, la diferencia de puntajes $q_i(t)$ crece
-   linealmente con el tiempo hacia $+\infty$ o $-\infty$. Una de las dos
-   estrategias domina permanentemente a la otra y el agente deja de alternar:
-   queda "congelado" en $\sigma_i(t) = +1$ ($m_i = +1$) o en $\sigma_i(t) = -1$
-   ($m_i = -1$).
-2. **Agentes volátiles o libres ($\lvert m_i\rvert < 1$):** Si
-   $\langle \Delta q_i\rangle = 0$, la diferencia de puntajes $q_i(t)$ fluctúa
-   alrededor de cero y el agente sigue alternando entre sus dos estrategias.
-
-### 4.3 Función de energía de vidrio de espín y conteo de grados de libertad
-
-Sustituyendo $\langle A \mid \mu\rangle = \Omega(\mu) + \sum_i \xi_i(\mu) m_i$
-en la predictibilidad $H$, Challet, Marsili & Zecchina (2000) observaron que
-
-$$
-H(m_1, \dots, m_N) = \frac{1}{P}\sum_{\mu=1}^P \left(\Omega(\mu) + \sum_{i=1}^N \xi_i(\mu) m_i\right)^2
-= H_0 + 2\sum_{i=1}^N h_i m_i + \sum_{i,j=1}^N J_{ij} m_i m_j ,
-$$
-
-con acoplamientos aleatorios $J_{ij} = \frac{1}{P}\sum_{\mu=1}^P
-\xi_i(\mu)\xi_j(\mu)$ y campos locales $h_i = \frac{1}{P}\sum_{\mu=1}^P
-\Omega(\mu)\xi_i(\mu)$. Para los agentes libres, la condición de
-estacionariedad es $\langle \Delta q_i\rangle = -\frac{1}{2N}\frac{\partial H}{\partial m_i} = 0$;
-para los congelados, el signo de $m_i$ es el opuesto al de
-$\partial H / \partial m_i$. Ambas condiciones implican que **la dinámica
-colectiva del juego de la minoría minimiza la función cuadrática** $H(m_1,
-\dots, m_N)$ **sobre el hipercubo** $[-1, +1]^N$. Es un hamiltoniano de **vidrio de espín** con interacciones de
-largo alcance frustradas ([F.A4](repaso/fisica_estadistica.md#fa4)).
-
-**Teorema heurístico de conteo de restricciones** (Challet & Marsili, 1999;
-Challet, Marsili & Zecchina, 2000). Sea $\phi(\alpha) \in [0, 1]$ la fracción
-de agentes congelados ($\lvert m_i\rvert = 1$). El punto crítico $\alpha_c$
-ocurre exactamente cuando la fracción de agentes libres $1 - \phi(\alpha)$
-iguala al parámetro $\alpha = P/N$:
-
-$$
-1 - \phi(\alpha_c) = \alpha_c \qquad (\alpha_c \approx 0.3374 \text{ para } S = 2) .
-$$
-
-*Argumento.* Hacer $H = 0$ equivale a satisfacer las $P$ ecuaciones lineales
-
-$$
-\sum_{i=1}^N \xi_i(\mu) m_i = -\Omega(\mu), \qquad \mu = 1, \dots, P ,
-$$
-
-sujetas a la restricción de caja $-1 \le m_i \le +1$. Las variables que están
-clavadas en la frontera $m_i = \pm 1$ (los $\phi N$ agentes congelados) no
-pueden ajustarse libremente; las verdaderas incógnitas continuas son las
-preferencias $m_i \in (-1, +1)$ de los $(1 - \phi)N$ agentes libres:
-
-- Cuando $\alpha > \alpha_c$, el número de ecuaciones $P = \alpha N$ es mayor
-  que el número de variables libres $(1 - \phi)N$: el sistema lineal está
-  **sobredeterminado** y no existe solución con $H = 0$, por lo que el mínimo
-  global tiene $H > 0$. Al disminuir $\alpha$ hacia $\alpha_c$, más agentes
-  tocan la frontera $m_i = \pm 1$ y la fracción de congelados $\phi(\alpha)$
-  aumenta.
-- En el instante en que $P = (1 - \phi(\alpha_c))N$, es decir,
-  $\alpha_c = 1 - \phi(\alpha_c)$, el número de ecuaciones iguala al número de
-  variables libres y el mínimo alcanza $H = 0$.
-- Para $\alpha < \alpha_c$, como $H = 0$ implica $\langle A \mid \mu\rangle = 0$
-  para todo $\mu$, la deriva $\langle \Delta q_i\rangle$ se anula para todos los
-  agentes, la fracción de congelados cae a $\phi = 0$ y el sistema queda
-  **subdeterminado** ($P < N$), con un subespacio de dimensión $N - P$ de
-  soluciones que dan $H = 0$. Las fluctuaciones a lo largo de esas direcciones
-  no restringidas disparan la volatilidad $\sigma^2/N \sim \alpha^{-1}$.
-  $\square$
 
 ---
 
@@ -515,6 +377,157 @@ preferencias $m_i \in (-1, +1)$ de los $(1 - \phi)N$ agentes libres:
   puntaje diferencial $\langle \Delta q_i\rangle = -\frac{1}{PN}\sum_{\mu=1}^P
   \xi_i(\mu)\langle A \mid \mu\rangle$, demostrando que $H$ es una función de
   Lyapunov de la dinámica de aprendizaje.
+
+---
+
+## Para profundizar
+
+Material opcional de la ruta avanzada: demostraciones y temas que no se ven
+en clase. Cada apartado indica de qué sección de las notas viene.
+
+<a id="pp1"></a>
+
+### P.1 Teoría del punto crítico $\alpha_c$ y vidrios de espín (sección 4)
+
+
+#### 4.1 Predictibilidad $H$ como parámetro de orden
+
+¿Por qué el mínimo de volatilidad en $\alpha_c \approx 0.3374$ corresponde a
+una verdadera **transición de fase** en el sentido de la física estadística?
+Para verlo, examinamos si la serie de excesos de demanda $A(t)$ contiene
+información predecible condicionada en la historia $\mu$.
+
+Sea $\langle A \mid \mu\rangle$ el promedio estacionario de $A(t)$ en los pasos
+en que la historia observada es $\mu \in \lbrace 1, \dots, P\rbrace$. Definimos
+la **predictibilidad** (reescalada por $N$) como
+
+$$
+\frac{H}{N} = \frac{1}{P N}\sum_{\mu=1}^P \langle A \mid \mu\rangle^2 .
+$$
+
+- Si $\langle A \mid \mu\rangle = 0$ para toda historia $\mu$, entonces
+  $H/N = 0$: conociendo la historia de longitud $M$, un observador externo no
+  puede predecir el signo medio de $A(t)$. El mercado es **informacionalmente
+  eficiente (fase simétrica)**.
+- Si $\langle A \mid \mu\rangle \ne 0$ para algunas historias $\mu$, entonces
+  $H/N > 0$: después de ciertas historias el mercado tiende sistemáticamente a
+  comprar más que a vender (o viceversa), dejando **oportunidades de ganancia
+  sin explotar (fase asimétrica)**.
+
+El comportamiento numérico y analítico muestra que $H/N$ actúa como un
+**parámetro de orden** ([F.B4](repaso/fisica_estadistica.md#fb4),
+[F.A2](repaso/fisica_estadistica.md#fa2)):
+
+$$
+\frac{H}{N} = 0 \quad \text{para todo } \alpha \le \alpha_c,
+\qquad
+\frac{H}{N} \sim c_H\thinspace(\alpha - \alpha_c)^2 > 0 \quad \text{para } \alpha > \alpha_c .
+$$
+
+#### 4.2 Descomposición de estrategias y agentes congelados
+
+Para $S = 2$, cada agente $i$ tiene dos estrategias $s_{i,1}(\mu), s_{i,2}(\mu)
+\in \lbrace -1, +1\rbrace$, que podemos reescribir separando su parte común y
+su semidiferencia:
+
+$$
+\bar s_i(\mu) = \frac{s_{i,1}(\mu) + s_{i,2}(\mu)}{2} \in \lbrace -1, 0, +1\rbrace,
+\qquad
+\xi_i(\mu) = \frac{s_{i,1}(\mu) - s_{i,2}(\mu)}{2} \in \lbrace -1, 0, +1\rbrace .
+$$
+
+Cuando las dos estrategias de $i$ coinciden ante la historia $\mu$,
+$\xi_i(\mu) = 0$ y el agente toma la acción fija $\bar s_i(\mu) = \pm 1$ sin
+importar cuál de sus dos estrategias tenga mayor puntaje. Cuando difieren,
+$\bar s_i(\mu) = 0$, $\xi_i(\mu) = \pm 1$ y la acción del agente es
+$a_i(t) = \xi_i(\mu(t))\thinspace \sigma_i(t)$, donde $\sigma_i(t) = +1$ si el
+agente usa su estrategia $1$ y $\sigma_i(t) = -1$ si usa la $2$.
+
+Sea $m_i = \langle \sigma_i(t)\rangle \in [-1, +1]$ la preferencia temporal
+media del agente $i$ entre sus dos estrategias. Promediando sobre el tiempo
+condicionado en $\mu$,
+
+$$
+\langle A \mid \mu\rangle = \Omega(\mu) + \sum_{i=1}^N \xi_i(\mu)\thinspace m_i,
+\qquad
+\text{donde } \Omega(\mu) = \sum_{i=1}^N \bar s_i(\mu) .
+$$
+
+La semidiferencia de puntajes $q_i(t) = \frac{1}{2}[U_{i,1}(t) - U_{i,2}(t)]$
+cambia en cada paso en $\Delta q_i(t) = -\xi_i(\mu(t)) A(t)/N$. Si todas las
+historias $\mu$ se visitan con frecuencia $\approx 1/P$, la deriva media de
+$q_i$ es
+
+$$
+\langle \Delta q_i\rangle \approx -\frac{1}{P N}\sum_{\mu=1}^P \xi_i(\mu)\thinspace\langle A \mid \mu\rangle .
+$$
+
+De aquí surgen dos tipos de agentes en el estado estacionario:
+
+1. **Agentes congelados (*frozen agents*, $\lvert m_i\rvert = 1$):** Si
+   $\langle \Delta q_i\rangle \ne 0$, la diferencia de puntajes $q_i(t)$ crece
+   linealmente con el tiempo hacia $+\infty$ o $-\infty$. Una de las dos
+   estrategias domina permanentemente a la otra y el agente deja de alternar:
+   queda "congelado" en $\sigma_i(t) = +1$ ($m_i = +1$) o en $\sigma_i(t) = -1$
+   ($m_i = -1$).
+2. **Agentes volátiles o libres ($\lvert m_i\rvert < 1$):** Si
+   $\langle \Delta q_i\rangle = 0$, la diferencia de puntajes $q_i(t)$ fluctúa
+   alrededor de cero y el agente sigue alternando entre sus dos estrategias.
+
+#### 4.3 Conteo de grados de libertad
+
+Challet, Marsili & Zecchina (2000) mostraron que el estado estacionario del
+juego minimiza la predictibilidad
+
+$$
+H(m_1, \dots, m_N) = \frac{1}{P}\sum_{\mu=1}^P \left(\Omega(\mu) + \sum_{i=1}^N \xi_i(\mu) m_i\right)^2
+$$
+
+sobre el hipercubo $[-1, +1]^N$: los agentes libres anulan su deriva
+$\langle \Delta q_i\rangle = -\frac{1}{2N}\frac{\partial H}{\partial m_i}$ y los
+congelados quedan en la frontera. Como $H$ es cuadrática en las $m_i$ con
+coeficientes aleatorios, es un hamiltoniano de **vidrio de espín**
+([F.A4](repaso/fisica_estadistica.md#fa4)); el análisis completo con esas
+herramientas está en Challet, Marsili & Zhang (2005). Aquí basta un argumento
+de conteo.
+
+**Resultado (conteo de restricciones)** (Challet & Marsili, 1999;
+Challet, Marsili & Zecchina, 2000). Sea $\phi(\alpha) \in [0, 1]$ la fracción
+de agentes congelados ($\lvert m_i\rvert = 1$). El punto crítico $\alpha_c$
+ocurre exactamente cuando la fracción de agentes libres $1 - \phi(\alpha)$
+iguala al parámetro $\alpha = P/N$:
+
+$$
+1 - \phi(\alpha_c) = \alpha_c \qquad (\alpha_c \approx 0.3374 \text{ para } S = 2) .
+$$
+
+*Argumento.* Hacer $H = 0$ equivale a satisfacer las $P$ ecuaciones lineales
+
+$$
+\sum_{i=1}^N \xi_i(\mu) m_i = -\Omega(\mu), \qquad \mu = 1, \dots, P ,
+$$
+
+sujetas a la restricción de caja $-1 \le m_i \le +1$. Las variables que están
+clavadas en la frontera $m_i = \pm 1$ (los $\phi N$ agentes congelados) no
+pueden ajustarse libremente; las verdaderas incógnitas continuas son las
+preferencias $m_i \in (-1, +1)$ de los $(1 - \phi)N$ agentes libres:
+
+- Cuando $\alpha > \alpha_c$, el número de ecuaciones $P = \alpha N$ es mayor
+  que el número de variables libres $(1 - \phi)N$: el sistema lineal está
+  **sobredeterminado** y no existe solución con $H = 0$, por lo que el mínimo
+  global tiene $H > 0$. Al disminuir $\alpha$ hacia $\alpha_c$, más agentes
+  tocan la frontera $m_i = \pm 1$ y la fracción de congelados $\phi(\alpha)$
+  aumenta.
+- En el instante en que $P = (1 - \phi(\alpha_c))N$, es decir,
+  $\alpha_c = 1 - \phi(\alpha_c)$, el número de ecuaciones iguala al número de
+  variables libres y el mínimo alcanza $H = 0$.
+- Para $\alpha < \alpha_c$, como $H = 0$ implica $\langle A \mid \mu\rangle = 0$
+  para todo $\mu$, la deriva $\langle \Delta q_i\rangle$ se anula para todos los
+  agentes, la fracción de congelados cae a $\phi = 0$ y el sistema queda
+  **subdeterminado** ($P < N$), con un subespacio de dimensión $N - P$ de
+  soluciones que dan $H = 0$. Las fluctuaciones a lo largo de esas direcciones
+  no restringidas disparan la volatilidad $\sigma^2/N \sim \alpha^{-1}$.
+  $\square$
 
 ---
 

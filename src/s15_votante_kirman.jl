@@ -26,7 +26,7 @@ opcionales.
 **Repaso recomendado** (en `Class_notes/repaso/`): E.B2–B3 (caminata aleatoria
 y promedios), L.B4 (matriz de adyacencia), C.B4 (función logística), F.B3–B4
 (temperatura y transiciones de fase), E.I2 (martingalas), E.I3 (cadenas de
-Markov), F.I3–I4 (Ising y campo medio). Ruta avanzada: E.A2 (lema de Itô),
+Markov), F.I3–I4 (Ising y campo medio). Ruta avanzada:
 E.A3 (ecuación maestra), E.A4 (Fokker-Planck), E.A6 (tiempos de primer paso y
 absorción).
 """
@@ -356,7 +356,7 @@ P_k = \binom{N}{k}\frac{\mathrm{B}(k + a,\, N - k + a)}{\mathrm{B}(a, a)}.
 Cuando ``N \to \infty`` con ``a`` fijo, y midiendo el tiempo en unidades de
 ``N(N - 1 + 2a)/2 \approx N^2/2`` pasos (unos ``N/2`` barridos), la variable
 continua ``x = k / N \in (0, 1)`` cumple la ecuación de Fokker-Planck de
-``dx = A(x)\,dt + B(x)\,dW`` (repaso E.A2 y E.A4) con deriva
+``dx = A(x)\,dt + B(x)\,dW`` (repaso E.A4) con deriva
 ``A(x) = a(1/2 - x)`` e intensidad de ruido ``B(x)^2 = x(1-x)``. Su densidad
 estacionaria es la **distribución Beta** simétrica:
 

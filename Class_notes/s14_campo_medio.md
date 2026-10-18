@@ -1,9 +1,10 @@
 # Sesión 14: Campo medio, histéresis y crisis. Notas formales
 
 > **Cómo leer estas notas.** Siguen el orden del programa: primero se observa
-> en el cuaderno (`Code/s14_campo_medio.jl`), después se formaliza aquí. Lo que no
-> tiene marca es **ruta básica**. Las secciones y demostraciones marcadas
-> **[Avanzado]** son opcionales.
+> en el cuaderno (`Code/s14_campo_medio.jl`), después se formaliza aquí. El
+> cuerpo de las notas es la **ruta básica**. Las demostraciones y los temas de
+> la ruta avanzada, opcionales, están al final, en **Para profundizar**; donde
+> estaban queda una línea que los enlaza.
 >
 > Repaso recomendado: [P.B4](repaso/probabilidad.md#pb4) (distribución normal),
 > [C.I1](repaso/calculo.md#ci1) (Taylor),
@@ -49,36 +50,8 @@ Es una ecuación de punto fijo ([C.I5](repaso/calculo.md#ci5)).
 
 ### 1.2 [Avanzado] Derivación con la energía libre
 
-El número de configuraciones con $N_+ = N(1+m)/2$ agentes en $+1$ es
-$\binom{N}{N_+}$. Con Stirling ([C.A4](repaso/calculo.md#ca4)),
-$\ln\binom{N}{N_+} \approx N\thinspace\mathcal S(m)$ con
+El desarrollo de esta subsección está en [Para profundizar, P.1](#pp1).
 
-$$
-\mathcal S(m) = -\frac{1+m}{2}\ln\frac{1+m}{2} - \frac{1-m}{2}\ln\frac{1-m}{2} .
-$$
-
-La probabilidad de que la adopción neta valga $m$ es entonces
-
-$$
-\mathbb P(m) \propto \binom{N}{N_+}e^{-\beta H} \approx e^{-N\beta f(m)},
-\qquad
-f(m) = -\frac{J}{2}m^2 - hm - T\thinspace\mathcal S(m) .
-$$
-
-Para $N$ grande, $\mathbb P(m)$ se concentra en los mínimos de la **energía
-libre** por agente $f$ ([F.A1](repaso/fisica_estadistica.md#fa1)). Como
-$\mathcal S'(m) = -\operatorname{atanh}(m)$,
-
-$$
-f'(m) = -Jm - h + T\operatorname{atanh}(m) = 0
-\quad\Longleftrightarrow\quad
-m = \tanh\left(\beta(h + Jm)\right) .
-$$
-
-Además, $f''(m) = -J + T/(1 - m^2)$, así que una solución es un **mínimo**
-(equilibrio estable) si $\beta J(1 - m^2) < 1$, y un máximo si
-$\beta J(1 - m^2) > 1$. Es la condición gráfica: la curva
-$\tanh(\beta(h + Jm))$ cruza la recta $y = m$ con pendiente menor que 1.
 
 ### 1.3 Análisis de la ecuación
 
@@ -201,39 +174,8 @@ mucho en dejarla (frenado crítico).
 
 ## 4. [Avanzado] Campo aleatorio y avalanchas
 
-**Modelo.** A temperatura cero, el agente $i$ adopta si
-$h + h_i + Jm > 0$, con $h_i$ independientes con distribución normal
-$\mathcal N(0, R^2)$ ([P.B4](repaso/probabilidad.md#pb4),
-[F.A3](repaso/fisica_estadistica.md#fa3)). En campo medio y con $N$ grande, la fracción que
-adopta es $\mathbb P(h_i > -h - Jm)$, así que
+El desarrollo de esta sección está en [Para profundizar, P.2](#pp2).
 
-$$
-m = 2\Phi\left(\frac{h + Jm}{R}\right) - 1 ,
-$$
-
-con $\Phi$ la CDF normal estándar.
-
-**Proposición.** La curva $m(h)$ tiene un salto si y sólo si
-$R < R_c = J\sqrt{2/\pi} \approx 0.80\thinspace J$.
-
-*Demostración.* El lado derecho, como función de $m$, tiene pendiente
-$2J\varphi\left((h + Jm)/R\right)/R$, que es máxima en el argumento 0 y vale
-$2J/(R\sqrt{2\pi})$. Si es mayor que 1 para algún $h$, hay un rango de $h$ con
-tres soluciones y, al subir $h$, la rama inferior desaparece: salto. Si es
-menor o igual que 1, la solución es única y continua en $h$. La condición
-$2J/(R\sqrt{2\pi}) > 1$ es $R < J\sqrt{2/\pi}$. $\square$
-
-**Avalanchas.** Con $N$ finito, al subir $h$ cada adopción sube el campo de
-todos en $2J/N$ y puede provocar otras. En el punto crítico $R = R_c$, el
-tamaño de las avalanchas sigue una ley de potencias; en campo medio su
-densidad decae como $s^{-3/2}$ (Sethna et al., 1993). Lejos de $R_c$, las
-avalanchas tienen un tamaño típico, salvo la avalancha macroscópica del
-salto cuando $R < R_c$.
-
-**Lectura económica** (Bouchaud, 2013). $R$ mide la diversidad de
-opiniones o situaciones privadas. Una población diversa responde de forma
-suave a los cambios de incentivos; una homogénea puede cambiar de golpe:
-pánicos, cambios de normas, caídas del consumo.
 
 ---
 
@@ -271,6 +213,88 @@ pánicos, cambios de normas, caídas del consumo.
 - **F6.** Desarrolla la energía libre $f(m)$ de la sección 1.2 en serie de
   Taylor alrededor de $m = 0$ hasta orden $m^4$ (para $h = 0$) y verifica
   que tiene la forma de Landau ([F.A1](repaso/fisica_estadistica.md#fa1)).
+
+---
+
+## Para profundizar
+
+Material opcional de la ruta avanzada: demostraciones y temas que no se ven
+en clase. Cada apartado indica de qué sección de las notas viene.
+
+<a id="pp1"></a>
+
+### P.1 Derivación con la energía libre (sección 1.2)
+
+
+El número de configuraciones con $N_+ = N(1+m)/2$ agentes en $+1$ es
+$\binom{N}{N_+}$. Con Stirling ([C.A4](repaso/calculo.md#ca4)),
+$\ln\binom{N}{N_+} \approx N\thinspace\mathcal S(m)$ con
+
+$$
+\mathcal S(m) = -\frac{1+m}{2}\ln\frac{1+m}{2} - \frac{1-m}{2}\ln\frac{1-m}{2} .
+$$
+
+La probabilidad de que la adopción neta valga $m$ es entonces
+
+$$
+\mathbb P(m) \propto \binom{N}{N_+}e^{-\beta H} \approx e^{-N\beta f(m)},
+\qquad
+f(m) = -\frac{J}{2}m^2 - hm - T\thinspace\mathcal S(m) .
+$$
+
+Para $N$ grande, $\mathbb P(m)$ se concentra en los mínimos de la **energía
+libre** por agente $f$ ([F.A1](repaso/fisica_estadistica.md#fa1)). Como
+$\mathcal S'(m) = -\operatorname{atanh}(m)$,
+
+$$
+f'(m) = -Jm - h + T\operatorname{atanh}(m) = 0
+\quad\Longleftrightarrow\quad
+m = \tanh\left(\beta(h + Jm)\right) .
+$$
+
+Además, $f''(m) = -J + T/(1 - m^2)$, así que una solución es un **mínimo**
+(equilibrio estable) si $\beta J(1 - m^2) < 1$, y un máximo si
+$\beta J(1 - m^2) > 1$. Es la condición gráfica: la curva
+$\tanh(\beta(h + Jm))$ cruza la recta $y = m$ con pendiente menor que 1.
+
+<a id="pp2"></a>
+
+### P.2 Campo aleatorio y avalanchas (sección 4)
+
+
+**Modelo.** A temperatura cero, el agente $i$ adopta si
+$h + h_i + Jm > 0$, con $h_i$ independientes con distribución normal
+$\mathcal N(0, R^2)$ ([P.B4](repaso/probabilidad.md#pb4),
+[F.A3](repaso/fisica_estadistica.md#fa3)). En campo medio y con $N$ grande, la fracción que
+adopta es $\mathbb P(h_i > -h - Jm)$, así que
+
+$$
+m = 2\Phi\left(\frac{h + Jm}{R}\right) - 1 ,
+$$
+
+con $\Phi$ la CDF normal estándar.
+
+**Proposición.** La curva $m(h)$ tiene un salto si y sólo si
+$R < R_c = J\sqrt{2/\pi} \approx 0.80\thinspace J$.
+
+*Demostración.* El lado derecho, como función de $m$, tiene pendiente
+$2J\varphi\left((h + Jm)/R\right)/R$, que es máxima en el argumento 0 y vale
+$2J/(R\sqrt{2\pi})$. Si es mayor que 1 para algún $h$, hay un rango de $h$ con
+tres soluciones y, al subir $h$, la rama inferior desaparece: salto. Si es
+menor o igual que 1, la solución es única y continua en $h$. La condición
+$2J/(R\sqrt{2\pi}) > 1$ es $R < J\sqrt{2/\pi}$. $\square$
+
+**Avalanchas.** Con $N$ finito, al subir $h$ cada adopción sube el campo de
+todos en $2J/N$ y puede provocar otras. En el punto crítico $R = R_c$, el
+tamaño de las avalanchas sigue una ley de potencias; en campo medio su
+densidad decae como $s^{-3/2}$ (Sethna et al., 1993). Lejos de $R_c$, las
+avalanchas tienen un tamaño típico, salvo la avalancha macroscópica del
+salto cuando $R < R_c$.
+
+**Lectura económica** (Bouchaud, 2013). $R$ mide la diversidad de
+opiniones o situaciones privadas. Una población diversa responde de forma
+suave a los cambios de incentivos; una homogénea puede cambiar de golpe:
+pánicos, cambios de normas, caídas del consumo.
 
 ---
 

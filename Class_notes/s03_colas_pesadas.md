@@ -1,9 +1,10 @@
 # Sesión 3: Colas pesadas y leyes de potencias. Notas formales
 
 > **Cómo leer estas notas.** Siguen el orden del programa: primero se observa
-> en el cuaderno (`Code/s03_colas_pesadas.jl`), después se formaliza aquí. Lo
-> que no tiene marca es **ruta básica**. Las secciones y demostraciones
-> marcadas **[Avanzado]** son opcionales.
+> en el cuaderno (`Code/s03_colas_pesadas.jl`), después se formaliza aquí. El
+> cuerpo de las notas es la **ruta básica**. Las demostraciones y los temas de
+> la ruta avanzada, opcionales, están al final, en **Para profundizar**; donde
+> estaban queda una línea que los enlaza.
 >
 > Repaso recomendado: [P.I5](repaso/probabilidad.md#pi5) (leyes de potencias),
 > [C.B2](repaso/calculo.md#cb2) (escalas logarítmicas),
@@ -47,12 +48,7 @@ $\ln \bar F(x) = \alpha \ln x_{\min} - \alpha \ln x$: una recta de pendiente
 $-\alpha$. Una exponencial, $\ln \bar F(x) = -\lambda x$, es recta en escala
 semilog y en log-log se curva hacia abajo.
 
-**[Avanzado] La versión general.** En rigor, se pide
-$\bar F(x) = L(x)\thinspace x^{-\alpha}$ con $L$ de **variación lenta**:
-$L(tx)/L(x) \to 1$ cuando $x \to \infty$, para todo $t > 0$ (por ejemplo,
-una constante o $\ln x$). Se dice que $\bar F$ es de **variación regular**
-con índice $-\alpha$. Todas las propiedades de esta sección valen en esa
-generalidad.
+**[Avanzado]** La versión general: en [Para profundizar, P.1](#pp1).
 
 ### 1.2 Invariancia de escala
 
@@ -228,11 +224,7 @@ Igualar $\ell'(\alpha) = n/\alpha - \sum_i \ln(x_i/x_{\min})$ a cero da
 $\hat\alpha$. La curvatura es $\ell''(\alpha) = -n/\alpha^2$, de donde el error
 estándar ([S.A1](repaso/estadistica.md#sa1)). $\square$
 
-**[Avanzado] Sesgo.** Si $X$ es Pareto, $\ln(X/x_{\min})$ es exponencial con
-tasa $\alpha$ ([P.I6](repaso/probabilidad.md#pi6)), así que la suma del
-denominador es una gamma con forma $n$ y tasa $\alpha$. De ahí
-$\mathbb{E}[\hat\alpha] = \frac{n}{n-1}\thinspace\alpha$: el estimador sobreestima
-ligeramente, y $\frac{n-1}{n}\hat\alpha$ es insesgado.
+**[Avanzado]** Sesgo: en [Para profundizar, P.2](#pp2).
 
 ### 4.2 El estimador de Hill
 
@@ -254,10 +246,7 @@ datos más grandes, con $x_{\min} = x_{(k+1)}$.
 - $k$ grande: se incluye el cuerpo de la distribución, que no es ley de
   potencias, y el estimador se sesga (en los retornos, hacia abajo).
 
-**[Avanzado]** Para distribuciones con cola de variación regular,
-$\hat\alpha_k$ es consistente si $k \to \infty$ y $k/N \to 0$ cuando
-$N \to \infty$. La gráfica de Hill ($\hat\alpha_k$ contra $k$) ayuda a
-encontrar una zona estable.
+**[Avanzado]** Hill con cola de variación regular: en [Para profundizar, P.3](#pp3).
 
 ### 4.3 Por qué no ajustar una recta
 
@@ -291,30 +280,12 @@ $x_{\min}$ que minimiza $D$. Con $x_{\min}$ muy bajo, el cuerpo de la
 distribución aleja a los datos de la ley de potencias y $D$ es grande; con
 $x_{\min}$ muy alto, quedan pocos datos y $D$ vuelve a crecer por ruido.
 
-**[Avanzado] Bondad de ajuste.** El p-valor no puede tomarse de las tablas de
-Kolmogorov-Smirnov, porque $\hat\alpha$ y $x_{\min}$ se estimaron con los
-mismos datos. Clauset et al. proponen un bootstrap semiparamétrico: generar
-muchas muestras sintéticas del mismo tamaño (los datos reales por debajo de
-$x_{\min}$, una Pareto ajustada por encima), aplicar a cada una la receta
-completa y calcular la fracción con $D$ mayor que la observada. Si es menor
-que 0.1, se rechaza la ley de potencias.
+**[Avanzado]** Bondad de ajuste: en [Para profundizar, P.4](#pp4).
 
 ### 4.5 [Avanzado] Comparación con alternativas
 
-Que una ley de potencias no se rechace no significa que sea el mejor modelo.
-Para compararla con una alternativa no anidada, como la lognormal truncada
-en $x_{\min}$, se usa la razón de log-verosimilitudes
+El desarrollo de esta subsección está en [Para profundizar, P.5](#pp5).
 
-$$
-\mathcal{R} = \sum_{i=1}^{n}\left[\ln f_{\text{pot}}(x_i) - \ln f_{\text{ln}}(x_i)\right].
-$$
-
-Su signo indica qué modelo ajusta mejor y la prueba de Vuong (1989) dice si la
-diferencia es significativa: bajo la hipótesis de que ambos ajustan igual,
-$\mathcal{R}/(\hat s\sqrt{n})$ es aproximadamente normal estándar, con
-$\hat s$ la desviación estándar de los sumandos
-([S.A2](repaso/estadistica.md#sa2)). Con datos económicos es frecuente que la
-prueba no distinga entre las dos.
 
 ---
 
@@ -351,47 +322,8 @@ $$
 
 ## 6. [Avanzado] Distribuciones estables y TLC generalizado
 
-**Definición.** Una variable $X$ es **estable** si para $X_1, X_2$ copias
-independientes de $X$ y cualesquiera $a, b > 0$ existen $c > 0$ y $d$ tales
-que $aX_1 + bX_2$ tiene la misma distribución que $cX + d$.
+El desarrollo de esta sección está en [Para profundizar, P.6](#pp6).
 
-**Caso simétrico.** Las estables simétricas centradas tienen función
-característica
-
-$$
-\varphi(s) = \mathbb{E}[e^{isX}] = e^{-\gamma\lvert s\rvert^{\alpha}},
-\qquad 0 < \alpha \le 2,\ \gamma > 0.
-$$
-
-Con $\alpha = 2$ es la normal; con $\alpha = 1$, la de Cauchy. No hay fórmula
-cerrada de la densidad en general.
-
-**Proposición (escalamiento).** Si $X_1, \dots, X_n$ son i.i.d. estables
-simétricas de índice $\alpha$, entonces $S_n = X_1 + \dots + X_n$ tiene la
-misma distribución que $n^{1/\alpha} X_1$.
-
-*Demostración.* Por independencia,
-$\varphi_{S_n}(s) = \varphi(s)^n = e^{-n\gamma\lvert s\rvert^{\alpha}} = e^{-\gamma\lvert n^{1/\alpha}s\rvert^{\alpha}} = \varphi(n^{1/\alpha}s)$,
-que es la función característica de $n^{1/\alpha}X_1$. $\square$
-
-**Colas.** Para $\alpha < 2$, $\mathbb{P}(\lvert X\rvert > x) \sim C x^{-\alpha}$:
-las estables no gaussianas tienen colas de ley de potencias y varianza
-infinita.
-
-**Teorema (TLC generalizado, enunciado).** Sean $X_i$ i.i.d. simétricas con
-$\mathbb{P}(\lvert X\rvert > x) \sim C x^{-\alpha}$.
-
-- Si $0 < \alpha < 2$, entonces $S_n/n^{1/\alpha}$ converge en distribución a
-  una estable de índice $\alpha$.
-- Si $\alpha > 2$, la varianza es finita y $S_n/\sqrt{n}$ converge a una
-  normal (TLC clásico).
-
-En el caso $\alpha > 2$, la convergencia ocurre en el centro de la
-distribución; la cola de ley de potencias de $S_n$ persiste más allá de una
-región que crece con $n$. Es la razón formal de que la normalidad
-agregacional de los retornos llegue lentamente. Mandelbrot (1963) propuso
-estables con $\alpha \approx 1.7$ para los precios; las mediciones de la
-sección 5, con $\alpha \approx 3$, descartan esa hipótesis para los retornos.
 
 ---
 
@@ -437,6 +369,122 @@ sección 5, con $\alpha \approx 3$, descartan esa hipótesis para los retornos.
 - **F7.** Muestra que la Pareto con $\alpha > 2$ y la lognormal con el mismo
   promedio y la misma varianza pueden tener valores de curtosis muy
   distintos. ¿Cuál puede tener curtosis infinita?
+
+---
+
+## Para profundizar
+
+Material opcional de la ruta avanzada: demostraciones y temas que no se ven
+en clase. Cada apartado indica de qué sección de las notas viene.
+
+<a id="pp1"></a>
+
+### P.1 La versión general (sección 1.1)
+
+**La versión general.** En rigor, se pide
+$\bar F(x) = L(x)\thinspace x^{-\alpha}$ con $L$ de **variación lenta**:
+$L(tx)/L(x) \to 1$ cuando $x \to \infty$, para todo $t > 0$ (por ejemplo,
+una constante o $\ln x$). Se dice que $\bar F$ es de **variación regular**
+con índice $-\alpha$. Todas las propiedades de esta sección valen en esa
+generalidad.
+
+<a id="pp2"></a>
+
+### P.2 Sesgo (sección 4.1)
+
+**Sesgo.** Si $X$ es Pareto, $\ln(X/x_{\min})$ es exponencial con
+tasa $\alpha$ ([P.I6](repaso/probabilidad.md#pi6)), así que la suma del
+denominador es una gamma con forma $n$ y tasa $\alpha$. De ahí
+$\mathbb{E}[\hat\alpha] = \frac{n}{n-1}\thinspace\alpha$: el estimador sobreestima
+ligeramente, y $\frac{n-1}{n}\hat\alpha$ es insesgado.
+
+<a id="pp3"></a>
+
+### P.3 Hill con cola de variación regular (sección 4.2)
+
+Para distribuciones con cola de variación regular,
+$\hat\alpha_k$ es consistente si $k \to \infty$ y $k/N \to 0$ cuando
+$N \to \infty$. La gráfica de Hill ($\hat\alpha_k$ contra $k$) ayuda a
+encontrar una zona estable.
+
+<a id="pp4"></a>
+
+### P.4 Bondad de ajuste (sección 4.4)
+
+**Bondad de ajuste.** El p-valor no puede tomarse de las tablas de
+Kolmogorov-Smirnov, porque $\hat\alpha$ y $x_{\min}$ se estimaron con los
+mismos datos. Clauset et al. proponen un bootstrap semiparamétrico: generar
+muchas muestras sintéticas del mismo tamaño (los datos reales por debajo de
+$x_{\min}$, una Pareto ajustada por encima), aplicar a cada una la receta
+completa y calcular la fracción con $D$ mayor que la observada. Si es menor
+que 0.1, se rechaza la ley de potencias.
+
+<a id="pp5"></a>
+
+### P.5 Comparación con alternativas (sección 4.5)
+
+
+Que una ley de potencias no se rechace no significa que sea el mejor modelo.
+Para compararla con una alternativa no anidada, como la lognormal truncada
+en $x_{\min}$, se usa la razón de log-verosimilitudes
+
+$$
+\mathcal{R} = \sum_{i=1}^{n}\left[\ln f_{\text{pot}}(x_i) - \ln f_{\text{ln}}(x_i)\right].
+$$
+
+Su signo indica qué modelo ajusta mejor y la prueba de Vuong (1989) dice si la
+diferencia es significativa: bajo la hipótesis de que ambos ajustan igual,
+$\mathcal{R}/(\hat s\sqrt{n})$ es aproximadamente normal estándar, con
+$\hat s$ la desviación estándar de los sumandos
+([S.A2](repaso/estadistica.md#sa2)). Con datos económicos es frecuente que la
+prueba no distinga entre las dos.
+
+<a id="pp6"></a>
+
+### P.6 Distribuciones estables y TLC generalizado (sección 6)
+
+
+**Definición.** Una variable $X$ es **estable** si para $X_1, X_2$ copias
+independientes de $X$ y cualesquiera $a, b > 0$ existen $c > 0$ y $d$ tales
+que $aX_1 + bX_2$ tiene la misma distribución que $cX + d$.
+
+**Caso simétrico.** Las estables simétricas centradas tienen función
+característica
+
+$$
+\varphi(s) = \mathbb{E}[e^{isX}] = e^{-\gamma\lvert s\rvert^{\alpha}},
+\qquad 0 < \alpha \le 2,\ \gamma > 0.
+$$
+
+Con $\alpha = 2$ es la normal; con $\alpha = 1$, la de Cauchy. No hay fórmula
+cerrada de la densidad en general.
+
+**Proposición (escalamiento).** Si $X_1, \dots, X_n$ son i.i.d. estables
+simétricas de índice $\alpha$, entonces $S_n = X_1 + \dots + X_n$ tiene la
+misma distribución que $n^{1/\alpha} X_1$.
+
+*Demostración.* Por independencia,
+$\varphi_{S_n}(s) = \varphi(s)^n = e^{-n\gamma\lvert s\rvert^{\alpha}} = e^{-\gamma\lvert n^{1/\alpha}s\rvert^{\alpha}} = \varphi(n^{1/\alpha}s)$,
+que es la función característica de $n^{1/\alpha}X_1$. $\square$
+
+**Colas.** Para $\alpha < 2$, $\mathbb{P}(\lvert X\rvert > x) \sim C x^{-\alpha}$:
+las estables no gaussianas tienen colas de ley de potencias y varianza
+infinita.
+
+**Teorema (TLC generalizado, enunciado).** Sean $X_i$ i.i.d. simétricas con
+$\mathbb{P}(\lvert X\rvert > x) \sim C x^{-\alpha}$.
+
+- Si $0 < \alpha < 2$, entonces $S_n/n^{1/\alpha}$ converge en distribución a
+  una estable de índice $\alpha$.
+- Si $\alpha > 2$, la varianza es finita y $S_n/\sqrt{n}$ converge a una
+  normal (TLC clásico).
+
+En el caso $\alpha > 2$, la convergencia ocurre en el centro de la
+distribución; la cola de ley de potencias de $S_n$ persiste más allá de una
+región que crece con $n$. Es la razón formal de que la normalidad
+agregacional de los retornos llegue lentamente. Mandelbrot (1963) propuso
+estables con $\alpha \approx 1.7$ para los precios; las mediciones de la
+sección 5, con $\alpha \approx 3$, descartan esa hipótesis para los retornos.
 
 ---
 

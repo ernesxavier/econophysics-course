@@ -1,9 +1,10 @@
 # Sesión 16: Schelling: segregación. Notas formales
 
 > **Cómo leer estas notas.** Siguen el orden del programa: primero se observa
-> en el cuaderno (`Code/s16_schelling.jl`), después se formaliza aquí. Lo que no
-> tiene marca es **ruta básica**. Las secciones y demostraciones marcadas
-> **[Avanzado]** son opcionales.
+> en el cuaderno (`Code/s16_schelling.jl`), después se formaliza aquí. El
+> cuerpo de las notas es la **ruta básica**. Las demostraciones y los temas de
+> la ruta avanzada, opcionales, están al final, en **Para profundizar**; donde
+> estaban queda una línea que los enlaza.
 >
 > Repaso recomendado: [F.B4](repaso/fisica_estadistica.md#fb4) (transiciones de
 > fase) y [F.I3](repaso/fisica_estadistica.md#fi3) (modelo de Ising).
@@ -100,17 +101,8 @@ pues el número de agentes de cada grupo es fijo):
   grupos distintos (aunque una mudanza concreta puede aumentarlo), engrosando
   los dominios (*coarsening*) como un ferromagneto enfriado por debajo de su
   temperatura crítica ($T \to 0$).
-- **[Avanzado] Falta de función potencial exacta y modelo de bloques.** A
-  diferencia del modelo de Ising estándar ([sesión 13](s13_logit_ising.md)), la
-  utilidad individual de Schelling es una función escalón
-  $u_i = \mathbf 1(s_i \ge \tau)$, que depende del cociente $n_i^{=}/n_i$ y
-  cuya ganancia al mudarse no es exactamente igual al cambio de una energía
-  global. Grauwin et al. (2009) resuelven exactamente una variante de Schelling
-  (donde la utilidad depende de la composición del bloque donde vive el agente)
-  en la que un parámetro interpola entre dinámica individual y cooperativa. Con
-  una función de potencial que liga el nivel individual con el global muestran
-  que la dinámica egoísta lleva a una fase segregada de baja utilidad total, y
-  la cooperativa, a una fase mezclada de alta utilidad.
+- **[Avanzado]** Falta de función potencial exacta y modelo de bloques: en
+  [Para profundizar, P.1](#pp1).
 - **Óptimo individual frente a óptimo social.** Con $\tau = 3/8$, una
   configuración integrada en tablero de ajedrez ($s_i = 4/8$ para todos) o en
   franjas de dos celdas de ancho ($s_i = 5/8$) satisface al 100% de los
@@ -161,6 +153,29 @@ pues el número de agentes de cada grupo es fijo):
   con un ejemplo concreto de una vecindad que cuando un agente insatisfecho se muda a una
   celda vacía donde sí cumple su umbral $\tau = 1/2$, el número total de
   aristas entre grupos distintos $E_{\ne}$ puede *aumentar*.
+
+---
+
+## Para profundizar
+
+Material opcional de la ruta avanzada: demostraciones y temas que no se ven
+en clase. Cada apartado indica de qué sección de las notas viene.
+
+<a id="pp1"></a>
+
+### P.1 Falta de función potencial exacta y modelo de bloques (sección 3)
+
+**Falta de función potencial exacta y modelo de bloques.** A
+diferencia del modelo de Ising estándar ([sesión 13](s13_logit_ising.md)), la
+utilidad individual de Schelling es una función escalón
+$u_i = \mathbf 1(s_i \ge \tau)$, que depende del cociente $n_i^{=}/n_i$ y
+cuya ganancia al mudarse no es exactamente igual al cambio de una energía
+global. Grauwin et al. (2009) resuelven exactamente una variante de Schelling
+(donde la utilidad depende de la composición del bloque donde vive el agente)
+en la que un parámetro interpola entre dinámica individual y cooperativa. Con
+una función de potencial que liga el nivel individual con el global muestran
+que la dinámica egoísta lleva a una fase segregada de baja utilidad total, y
+la cooperativa, a una fase mezclada de alta utilidad.
 
 ---
 

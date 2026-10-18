@@ -1,9 +1,10 @@
 # Sesión 9: Condensación de riqueza y redistribución. Notas formales
 
 > **Cómo leer estas notas.** Siguen el orden del programa: primero se observa
-> en el cuaderno (`Code/s09_condensacion.jl`), después se formaliza aquí. Lo
-> que no tiene marca es **ruta básica**. Las secciones y demostraciones
-> marcadas **[Avanzado]** son opcionales.
+> en el cuaderno (`Code/s09_condensacion.jl`), después se formaliza aquí. El
+> cuerpo de las notas es la **ruta básica**. Las demostraciones y los temas de
+> la ruta avanzada, opcionales, están al final, en **Para profundizar**; donde
+> estaban queda una línea que los enlaza.
 >
 > Repaso recomendado: [E.B3](repaso/procesos_estocasticos.md#eb3)
 > (promediar simulaciones), [F.B4](repaso/fisica_estadistica.md#fb4)
@@ -89,22 +90,7 @@ $$
 Tiene media 1 y cola de Pareto, $\mathbb{P}(w > x) \sim C x^{-\mu}$, con
 exponente $\mu$.
 
-*Demostración* **[Avanzado]**. La difusión tiene deriva $A(w) = J(1-w)$ y
-coeficiente de ruido $B(w) = \sigma w$. Su solución estacionaria con flujo
-nulo es ([E.A4](repaso/procesos_estocasticos.md#ea4))
-
-$$
-p(w) \propto \frac{1}{B(w)^2}\exp\left(\int^w \frac{2A(y)}{B(y)^2}\thinspace dy\right)
-= \frac{1}{\sigma^2 w^2}\exp\left(\frac{2J}{\sigma^2}\int^w \left(\frac{1}{y^2} - \frac{1}{y}\right) dy\right).
-$$
-
-La integral vale $-1/w - \ln w$, así que
-$p(w) \propto w^{-2}\thinspace w^{-2J/\sigma^2}\thinspace e^{-(2J/\sigma^2)/w} = w^{-1-\mu} e^{-(\mu-1)/w}$.
-Con el cambio $u = (\mu-1)/w$, la normalización y la media se reducen a
-integrales de la función gamma ([C.A4](repaso/calculo.md#ca4)), que dan la
-constante y media 1. Para $w$ grande, $e^{-(\mu-1)/w} \to 1$ y queda
-$p(w) \sim w^{-1-\mu}$; integrando, la cola de la CCDF tiene exponente
-$\mu$. $\square$
+**[Avanzado]** Demostración: en [Para profundizar, P.1](#pp1).
 
 **Interpretación.**
 
@@ -115,26 +101,8 @@ $\mu$. $\square$
 
 ### 2.2 [Avanzado] Comprobación con Kesten
 
-La simulación del cuaderno avanza en pasos $dt$ con la regla
+El desarrollo de esta subsección está en [Para profundizar, P.2](#pp2).
 
-$$
-w_{t+dt} = a_t\thinspace w_t + J\thinspace dt,
-\qquad a_t = (1 - J\thinspace dt)\thinspace e^{\sigma\sqrt{dt}\thinspace\xi_t - \sigma^2 dt/2},
-$$
-
-con $\xi_t$ normal estándar (y una normalización final que no cambia la
-forma de la distribución). Es un proceso de Kesten (sesión 6), cuyo
-exponente resuelve $\mathbb{E}[a^\alpha] = 1$. Como
-$\mathbb{E}\left[e^{\alpha\sigma\sqrt{dt}\xi}\right] = e^{\alpha^2\sigma^2 dt/2}$,
-
-$$
-\mathbb{E}[a^\alpha] = (1 - J\thinspace dt)^\alpha\thinspace e^{\alpha(\alpha - 1)\sigma^2 dt/2} = 1
-\quad\Longrightarrow\quad
--\alpha J + \frac{\alpha(\alpha-1)\sigma^2}{2} = 0
-$$
-
-a primer orden en $dt$, de donde $\alpha = 1 + 2J/\sigma^2 = \mu$. Los dos
-caminos dan el mismo exponente.
 
 ### 2.3 El índice de Gini
 
@@ -145,28 +113,7 @@ $$
 G(\mu) = \frac{\Gamma(\mu - 1/2)}{(\mu - 1)\thinspace\Gamma(\mu - 1)\sqrt{\pi}} .
 $$
 
-*Demostración* **[Avanzado]**. El Gini no depende de la escala, así que
-basta tomar $X = 1/Y$ con $Y$ gamma de forma $\mu$ y escala 1. Sean $Y, Y'$
-independientes. Entonces
-
-$$
-\mathbb{E}\lvert X - X'\rvert = \mathbb{E}\left[\frac{\lvert Y - Y'\rvert}{Y Y'}\right].
-$$
-
-Multiplicar la densidad conjunta $y^{\mu-1}y'^{\mu-1}e^{-y-y'}/\Gamma(\mu)^2$
-por $1/(yy')$ da la densidad de dos gammas independientes de forma $\mu - 1$,
-multiplicada por $(\Gamma(\mu-1)/\Gamma(\mu))^2$. Así,
-$\mathbb{E}\lvert X - X'\rvert = \left(\Gamma(\mu-1)/\Gamma(\mu)\right)^2\mathbb{E}\lvert Z - Z'\rvert$,
-con $Z, Z'$ gammas de forma $\mu - 1$. Como $\mathbb{E}[X] = \Gamma(\mu-1)/\Gamma(\mu)$ y
-$\mathbb{E}[Z] = \mu - 1 = \Gamma(\mu)/\Gamma(\mu-1)$,
-
-$$
-G_X = \frac{\mathbb{E}\lvert X - X'\rvert}{2\thinspace\mathbb{E}[X]}
-= \frac{\Gamma(\mu-1)}{\Gamma(\mu)}\cdot\frac{\mathbb{E}\lvert Z - Z'\rvert}{2}
-= \frac{\mathbb{E}\lvert Z - Z'\rvert}{2\thinspace\mathbb{E}[Z]} = G_Z .
-$$
-
-El resultado sale de la fórmula de la sesión 8 para el Gini de la gamma. $\square$
+**[Avanzado]** Demostración: en [Para profundizar, P.3](#pp3).
 
 | $\mu$ | 1.2 | 1.5 | 2 | 3 | 5 |
 |---|---|---|---|---|---|
@@ -280,16 +227,8 @@ baja claramente al crecer $N$: la economía sale de la fase condensada.
 
 ### 4.2 [Avanzado] Cobrar no es lo mismo que redistribuir
 
-- Un impuesto a la riqueza que **no** se redistribuye, por sí solo, quita a
-  todos la misma fracción: la riqueza relativa no cambia, y la distribución
-  tampoco.
-- Bouchaud y Mézard (2000) analizan un caso más general, con impuesto al
-  ingreso $\varphi_I$ y al capital $\varphi_C$, de los que se redistribuyen las
-  fracciones $f_I$ y $f_C$. Encuentran que el impuesto al ingreso aumenta
-  $\mu$ (reduce la desigualdad), pero un impuesto al capital combinado con
-  uno al ingreso puede **reducir** $\mu$ si se redistribuye poco: sólo si
-  $f_C > f_I\varphi_I/(1 + \varphi_I)$ el impuesto al capital reduce la
-  desigualdad.
+El desarrollo de esta subsección está en [Para profundizar, P.4](#pp4).
+
 
 ---
 
@@ -333,6 +272,103 @@ baja claramente al crecer $N$: la economía sale de la fase condensada.
 - **F7.** Demuestra la afirmación de la sección 4.2: un impuesto
   proporcional no redistribuido no cambia la distribución de la riqueza
   relativa.
+
+---
+
+## Para profundizar
+
+Material opcional de la ruta avanzada: demostraciones y temas que no se ven
+en clase. Cada apartado indica de qué sección de las notas viene.
+
+<a id="pp1"></a>
+
+### P.1 Demostración (sección 2.1)
+
+*Demostración.* La difusión tiene deriva $A(w) = J(1-w)$ y
+coeficiente de ruido $B(w) = \sigma w$. Su solución estacionaria con flujo
+nulo es ([E.A4](repaso/procesos_estocasticos.md#ea4))
+
+$$
+p(w) \propto \frac{1}{B(w)^2}\exp\left(\int^w \frac{2A(y)}{B(y)^2}\thinspace dy\right)
+= \frac{1}{\sigma^2 w^2}\exp\left(\frac{2J}{\sigma^2}\int^w \left(\frac{1}{y^2} - \frac{1}{y}\right) dy\right).
+$$
+
+La integral vale $-1/w - \ln w$, así que
+$p(w) \propto w^{-2}\thinspace w^{-2J/\sigma^2}\thinspace e^{-(2J/\sigma^2)/w} = w^{-1-\mu} e^{-(\mu-1)/w}$.
+Con el cambio $u = (\mu-1)/w$, la normalización y la media se reducen a
+integrales de la función gamma ([C.A4](repaso/calculo.md#ca4)), que dan la
+constante y media 1. Para $w$ grande, $e^{-(\mu-1)/w} \to 1$ y queda
+$p(w) \sim w^{-1-\mu}$; integrando, la cola de la CCDF tiene exponente
+$\mu$. $\square$
+
+<a id="pp2"></a>
+
+### P.2 Comprobación con Kesten (sección 2.2)
+
+
+La simulación del cuaderno avanza en pasos $dt$ con la regla
+
+$$
+w_{t+dt} = a_t\thinspace w_t + J\thinspace dt,
+\qquad a_t = (1 - J\thinspace dt)\thinspace e^{\sigma\sqrt{dt}\thinspace\xi_t - \sigma^2 dt/2},
+$$
+
+con $\xi_t$ normal estándar (y una normalización final que no cambia la
+forma de la distribución). Es un proceso de Kesten (sesión 6), cuyo
+exponente resuelve $\mathbb{E}[a^\alpha] = 1$. Como
+$\mathbb{E}\left[e^{\alpha\sigma\sqrt{dt}\xi}\right] = e^{\alpha^2\sigma^2 dt/2}$,
+
+$$
+\mathbb{E}[a^\alpha] = (1 - J\thinspace dt)^\alpha\thinspace e^{\alpha(\alpha - 1)\sigma^2 dt/2} = 1
+\quad\Longrightarrow\quad
+-\alpha J + \frac{\alpha(\alpha-1)\sigma^2}{2} = 0
+$$
+
+a primer orden en $dt$, de donde $\alpha = 1 + 2J/\sigma^2 = \mu$. Los dos
+caminos dan el mismo exponente.
+
+<a id="pp3"></a>
+
+### P.3 Demostración (sección 2.3)
+
+*Demostración.* El Gini no depende de la escala, así que
+basta tomar $X = 1/Y$ con $Y$ gamma de forma $\mu$ y escala 1. Sean $Y, Y'$
+independientes. Entonces
+
+$$
+\mathbb{E}\lvert X - X'\rvert = \mathbb{E}\left[\frac{\lvert Y - Y'\rvert}{Y Y'}\right].
+$$
+
+Multiplicar la densidad conjunta $y^{\mu-1}y'^{\mu-1}e^{-y-y'}/\Gamma(\mu)^2$
+por $1/(yy')$ da la densidad de dos gammas independientes de forma $\mu - 1$,
+multiplicada por $(\Gamma(\mu-1)/\Gamma(\mu))^2$. Así,
+$\mathbb{E}\lvert X - X'\rvert = \left(\Gamma(\mu-1)/\Gamma(\mu)\right)^2\mathbb{E}\lvert Z - Z'\rvert$,
+con $Z, Z'$ gammas de forma $\mu - 1$. Como $\mathbb{E}[X] = \Gamma(\mu-1)/\Gamma(\mu)$ y
+$\mathbb{E}[Z] = \mu - 1 = \Gamma(\mu)/\Gamma(\mu-1)$,
+
+$$
+G_X = \frac{\mathbb{E}\lvert X - X'\rvert}{2\thinspace\mathbb{E}[X]}
+= \frac{\Gamma(\mu-1)}{\Gamma(\mu)}\cdot\frac{\mathbb{E}\lvert Z - Z'\rvert}{2}
+= \frac{\mathbb{E}\lvert Z - Z'\rvert}{2\thinspace\mathbb{E}[Z]} = G_Z .
+$$
+
+El resultado sale de la fórmula de la sesión 8 para el Gini de la gamma. $\square$
+
+<a id="pp4"></a>
+
+### P.4 Cobrar no es lo mismo que redistribuir (sección 4.2)
+
+
+- Un impuesto a la riqueza que **no** se redistribuye, por sí solo, quita a
+  todos la misma fracción: la riqueza relativa no cambia, y la distribución
+  tampoco.
+- Bouchaud y Mézard (2000) analizan un caso más general, con impuesto al
+  ingreso $\varphi_I$ y al capital $\varphi_C$, de los que se redistribuyen las
+  fracciones $f_I$ y $f_C$. Encuentran que el impuesto al ingreso aumenta
+  $\mu$ (reduce la desigualdad), pero un impuesto al capital combinado con
+  uno al ingreso puede **reducir** $\mu$ si se redistribuye poco: sólo si
+  $f_C > f_I\varphi_I/(1 + \varphi_I)$ el impuesto al capital reduce la
+  desigualdad.
 
 ---
 

@@ -2,8 +2,9 @@
 
 > **Cómo leer estas notas.** Siguen el orden del programa: primero se observa
 > en el cuaderno (`Code/s18_cooperacion_redes.jl`), después se formaliza aquí.
-> Lo que no tiene marca es **ruta básica**. Las secciones y demostraciones
-> marcadas **[Avanzado]** son opcionales.
+> El cuerpo de las notas es la **ruta básica**. Las demostraciones y los temas
+> de la ruta avanzada, opcionales, están al final, en **Para profundizar**;
+> donde estaban queda una línea que los enlaza.
 >
 > Repaso recomendado: [L.B4](repaso/algebra_lineal.md#lb4) (matriz de adyacencia
 > y grado) y [C.B4](repaso/calculo.md#cb4) (función logística).
@@ -128,6 +129,64 @@ Así, un *hub* traidor destruye la fuente de su propio pago, mientras que un
 
 ## 4. Selección débil y la regla $b/c > k$ de reciprocidad de red [Avanzado]
 
+El desarrollo de esta sección está en [Para profundizar, P.1](#pp1).
+
+
+---
+
+## 5. Resumen formal
+
+| Modelo / Concepto | Resultado clave |
+|---|---|
+| Dilema del prisionero bien mezclado | $\pi_C(x) < \pi_D(x)$ para todo $x$; la cooperación se extingue ($x^\ast = 0$) |
+| Juego espacial de Nowak y May | Pago $\Pi_i = [s_i + b(1-s_i)]k_i^C$; en retícula 2D sobreviven clústeres de cooperadores con escalones en $b = m/n$ |
+| Redes libres de escala (Barabási-Albert) | Los *hubs* cooperadores estabilizan su vecindario; los *hubs* traidores destruyen su propio pago |
+| Regla de reciprocidad de red | Bajo selección débil (muerte-nacimiento), la cooperación es favorecida si $b/c > k$ ($N$ grande); en un grafo regular finito, si $b/c > (N - 2)/(N/k - 2)$ |
+
+---
+
+## 6. Ejercicios formales
+
+**Ruta básica**
+
+- **F1.** En una cuadrícula 2D con vecindad de von Neumann ($k = 4$ vecinos:
+  arriba, abajo, izquierda, derecha) bajo el dilema del prisionero de Nowak y
+  May ($R = 1, T = b > 1, P = S = 0$, jugando sólo con los $4$ vecinos),
+  calcula el pago de un cooperador aislado rodeado de traidores y el de los
+  traidores vecinos, y explica por qué el cooperador aislado desaparece en una
+  ronda para todo $b > 1$.
+- **F2.** En la misma cuadrícula con $k = 4$ vecinos, considera un cuadrado de
+  $2 \times 2$ cooperadores rodeado de traidores. Calcula el pago de cada
+  cooperador del cuadrado y el pago de un traidor adyacente, y encuentra para
+  qué valores de $b > 1$ sobrevive el cuadrado bajo imitación del mejor vecino.
+- **F3.** En un grafo regular donde cada agente tiene $k = 4$ vecinos y juega el
+  juego de donación con costo $c = 1$, ¿cuál es el beneficio mínimo $b$ necesario
+  para que la reciprocidad de red favorezca la cooperación según la regla de
+  Ohtsuki et al. ($N$ grande)? ¿Y si la red es un anillo ($k = 2$)?
+
+**Ruta avanzada**
+
+- **F4.** En una cuadrícula con vecindad de Moore ($8$ vecinos), considera un
+  bloque de $3 \times 3$ cooperadores rodeado de traidores. Calcula los pagos
+  del cooperador central, de un cooperador en la cara plana, de un cooperador en
+  la esquina y de un traidor pegado a la cara plana, y deduce los umbrales de
+  $b$ donde el bloque se expande ($b < 5/3$) y donde resiste ($b < 8/3$).
+- **F5.** Compara el umbral de tamaño finito $(N-2)/(N/k - 2)$ con el límite
+  $k$ para $N = 36$ y $N = 360$ cuando $k = 4$. ¿A qué tamaño $N$ difiere el
+  umbral finito en menos de $5\%$ de $k = 4$?
+
+---
+
+## Para profundizar
+
+Material opcional de la ruta avanzada: demostraciones y temas que no se ven
+en clase. Cada apartado indica de qué sección de las notas viene.
+
+<a id="pp1"></a>
+
+### P.1 Selección débil y la regla $b/c > k$ de reciprocidad de red (sección 4)
+
+
 Consideremos el **juego de donación** (caso particular del dilema del
 prisionero): un cooperador paga un costo $c > 0$ por cada vecino para otorgarle
 un beneficio $b > c$, mientras que un traidor no paga nada ni otorga beneficios.
@@ -174,71 +233,17 @@ homogéneos; Chen, 2013, con una demostración rigurosa para grafos regulares).
 Con $N = 36$, como en el cuaderno, el umbral es $34/16 \approx 2.1$ en el anillo
 ($k = 2$) y $34/7 \approx 4.9$ con $k = 4$.
 
-*Idea del mecanismo (correlaciones locales).* Para que un cooperador tenga mayor
-aptitud esperada que un traidor se requiere que los cooperadores tengan, en
-promedio sobre la red, más vecinos cooperadores que los traidores:
-
-$$
-\mathbb E[\pi_C] - \mathbb E[\pi_D]
-= b\bigl(q_{C\mid C} - q_{C\mid D}\bigr) - c > 0 ,
-$$
-
-donde $q_{C\mid C}$ es la probabilidad condicional de que un vecino de un
-cooperador sea cooperador, y $q_{C\mid D}$ la de que un vecino de un traidor sea
-cooperador. En el límite de selección débil ($w \to 0$), las correlaciones
-espaciales están gobernadas por el modelo de votante neutro ([sesión 15](s15_votante_kirman.md)):
-en la aproximación de pares, $q_{C\mid C} - q_{C\mid D} = 1/(k - 1)$, y al
-tener en cuenta la competencia entre los vecinos de la vacante bajo la regla
-muerte-nacimiento se obtiene la condición $b/c > k$ (la demostración completa
-está en el suplemento de Ohtsuki et al., 2006).
+*De dónde sale.* La idea es que, en una red, los cooperadores tienden a
+tener más vecinos cooperadores que los traidores, y esa ventaja local puede
+compensar el costo $c$. La derivación usa la aproximación de pares y el
+modelo de votante neutro ([sesión 15](s15_votante_kirman.md)); está en el
+suplemento de Ohtsuki et al. (2006), y Chen (2013) la demuestra con rigor para
+grafos regulares.
 
 Cuanto más escasas son las conexiones locales ($k$ pequeño), más fuertes son los
 lazos de agrupamiento local y más fácil resulta que emerja la cooperación.
 Cuando $k \to \infty$ (población bien mezclada), el umbral $b/c > k$ se vuelve
 inalcanzable y la cooperación desaparece.
-
----
-
-## 5. Resumen formal
-
-| Modelo / Concepto | Resultado clave |
-|---|---|
-| Dilema del prisionero bien mezclado | $\pi_C(x) < \pi_D(x)$ para todo $x$; la cooperación se extingue ($x^\ast = 0$) |
-| Juego espacial de Nowak y May | Pago $\Pi_i = [s_i + b(1-s_i)]k_i^C$; en retícula 2D sobreviven clústeres de cooperadores con escalones en $b = m/n$ |
-| Redes libres de escala (Barabási-Albert) | Los *hubs* cooperadores estabilizan su vecindario; los *hubs* traidores destruyen su propio pago |
-| Regla de reciprocidad de red | Bajo selección débil (muerte-nacimiento), la cooperación es favorecida si $b/c > k$ ($N$ grande); en un grafo regular finito, si $b/c > (N - 2)/(N/k - 2)$ |
-
----
-
-## 6. Ejercicios formales
-
-**Ruta básica**
-
-- **F1.** En una cuadrícula 2D con vecindad de von Neumann ($k = 4$ vecinos:
-  arriba, abajo, izquierda, derecha) bajo el dilema del prisionero de Nowak y
-  May ($R = 1, T = b > 1, P = S = 0$, jugando sólo con los $4$ vecinos),
-  calcula el pago de un cooperador aislado rodeado de traidores y el de los
-  traidores vecinos, y explica por qué el cooperador aislado desaparece en una
-  ronda para todo $b > 1$.
-- **F2.** En la misma cuadrícula con $k = 4$ vecinos, considera un cuadrado de
-  $2 \times 2$ cooperadores rodeado de traidores. Calcula el pago de cada
-  cooperador del cuadrado y el pago de un traidor adyacente, y encuentra para
-  qué valores de $b > 1$ sobrevive el cuadrado bajo imitación del mejor vecino.
-- **F3.** En un grafo regular donde cada agente tiene $k = 4$ vecinos y juega el
-  juego de donación con costo $c = 1$, ¿cuál es el beneficio mínimo $b$ necesario
-  para que la reciprocidad de red favorezca la cooperación según la regla de
-  Ohtsuki et al. ($N$ grande)? ¿Y si la red es un anillo ($k = 2$)?
-
-**Ruta avanzada**
-
-- **F4.** En una cuadrícula con vecindad de Moore ($8$ vecinos), considera un
-  bloque de $3 \times 3$ cooperadores rodeado de traidores. Calcula los pagos
-  del cooperador central, de un cooperador en la cara plana, de un cooperador en
-  la esquina y de un traidor pegado a la cara plana, y deduce los umbrales de
-  $b$ donde el bloque se expande ($b < 5/3$) y donde resiste ($b < 8/3$).
-- **F5.** Compara el umbral de tamaño finito $(N-2)/(N/k - 2)$ con el límite
-  $k$ para $N = 36$ y $N = 360$ cuando $k = 4$. ¿A qué tamaño $N$ difiere el
-  umbral finito en menos de $5\%$ de $k = 4$?
 
 ---
 

@@ -2,8 +2,9 @@
 
 > **Cómo leer estas notas.** Siguen el orden del programa: primero se observa
 > en el cuaderno (`Code/s04_caminata_markov.jl`), después se formaliza aquí.
-> Lo que no tiene marca es **ruta básica**. Las secciones y demostraciones
-> marcadas **[Avanzado]** son opcionales.
+> El cuerpo de las notas es la **ruta básica**. Las demostraciones y los temas
+> de la ruta avanzada, opcionales, están al final, en **Para profundizar**;
+> donde estaban queda una línea que los enlaza.
 >
 > Repaso recomendado: [E.B2–B3](repaso/procesos_estocasticos.md#eb2)
 > (caminata aleatoria y promediar simulaciones),
@@ -44,11 +45,7 @@ Duplicar el horizonte multiplica la dispersión por $\sqrt{2}$, no por 2. Es el
 modelo de Bachelier (1900) para los precios y el origen de la regla
 $\sigma\sqrt{\Delta t}$ de la sesión 1.
 
-**[Avanzado] Límite continuo.** Si los pasos ocurren cada $\Delta t$ y miden
-$\sqrt{\Delta t}$, el proceso $W^{\Delta t}(t) = \sqrt{\Delta t}\thinspace S_{\lfloor t/\Delta t\rfloor}$
-converge, cuando $\Delta t \to 0$, al **movimiento browniano** $W_t$ (teorema de
-Donsker): un proceso continuo con incrementos independientes y
-$W_t - W_s \sim \mathcal{N}(0, t - s)$ ([E.A1](repaso/procesos_estocasticos.md#ea1)).
+**[Avanzado]** Límite continuo: en [Para profundizar, P.1](#pp1).
 
 ---
 
@@ -155,22 +152,8 @@ independientes divide la varianza entre $M$.
 
 ## 4. [Avanzado] De la ecuación maestra a la difusión
 
-Una caminata con pasos $\pm\delta$ cada $\tau$ unidades de tiempo y
-probabilidad $1/2$ cumple la **ecuación maestra**
+El desarrollo de esta sección está en [Para profundizar, P.2](#pp2).
 
-$$
-P(x, t + \tau) = \tfrac{1}{2}P(x - \delta, t) + \tfrac{1}{2}P(x + \delta, t).
-$$
-
-Desarrollando por Taylor a primer orden en $\tau$ y a segundo en $\delta$,
-$\tau\thinspace\partial_t P = \frac{\delta^2}{2}\partial_x^2 P$, es decir,
-
-$$
-\frac{\partial P}{\partial t} = D\frac{\partial^2 P}{\partial x^2}, \qquad D = \frac{\delta^2}{2\tau},
-$$
-
-la ecuación de difusión ([C.A3](repaso/calculo.md#ca3)), cuya solución desde
-un punto es una normal con varianza $2Dt$.
 
 ---
 
@@ -206,6 +189,45 @@ un punto es una normal con varianza $2Dt$.
   ¿Para qué $\pi_T$ es máxima?
 - **F5.** Demuestra que la ecuación de difusión de la sección 4 tiene como
   solución, desde un punto, una normal con varianza $2Dt$.
+
+---
+
+## Para profundizar
+
+Material opcional de la ruta avanzada: demostraciones y temas que no se ven
+en clase. Cada apartado indica de qué sección de las notas viene.
+
+<a id="pp1"></a>
+
+### P.1 Límite continuo (sección 1)
+
+**Límite continuo.** Si los pasos ocurren cada $\Delta t$ y miden
+$\sqrt{\Delta t}$, el proceso $W^{\Delta t}(t) = \sqrt{\Delta t}\thinspace S_{\lfloor t/\Delta t\rfloor}$
+converge, cuando $\Delta t \to 0$, al **movimiento browniano** $W_t$ (teorema de
+Donsker): un proceso continuo con incrementos independientes y
+$W_t - W_s \sim \mathcal{N}(0, t - s)$ ([E.A1](repaso/procesos_estocasticos.md#ea1)).
+
+<a id="pp2"></a>
+
+### P.2 De la ecuación maestra a la difusión (sección 4)
+
+
+Una caminata con pasos $\pm\delta$ cada $\tau$ unidades de tiempo y
+probabilidad $1/2$ cumple la **ecuación maestra**
+
+$$
+P(x, t + \tau) = \tfrac{1}{2}P(x - \delta, t) + \tfrac{1}{2}P(x + \delta, t).
+$$
+
+Desarrollando por Taylor a primer orden en $\tau$ y a segundo en $\delta$,
+$\tau\thinspace\partial_t P = \frac{\delta^2}{2}\partial_x^2 P$, es decir,
+
+$$
+\frac{\partial P}{\partial t} = D\frac{\partial^2 P}{\partial x^2}, \qquad D = \frac{\delta^2}{2\tau},
+$$
+
+la ecuación de difusión ([C.A3](repaso/calculo.md#ca3)), cuya solución desde
+un punto es una normal con varianza $2Dt$.
 
 ---
 

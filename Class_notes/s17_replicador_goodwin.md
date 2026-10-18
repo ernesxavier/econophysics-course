@@ -1,9 +1,10 @@
 # Sesión 17: Replicador y ciclo de Goodwin. Notas formales
 
 > **Cómo leer estas notas.** Siguen el orden del programa: primero se observa
-> en el cuaderno (`Code/s17_replicador_goodwin.jl`), después se formaliza aquí.
-> Lo que no tiene marca es **ruta básica**. Las secciones y demostraciones
-> marcadas **[Avanzado]** son opcionales.
+> en el cuaderno (`Code/s17_replicador_goodwin.jl`), después se formaliza
+> aquí. El cuerpo de las notas es la **ruta básica**. Las demostraciones y los
+> temas de la ruta avanzada, opcionales, están al final, en **Para
+> profundizar**; donde estaban queda una línea que los enlaza.
 >
 > Repaso recomendado: [C.B3](repaso/calculo.md#cb3) (la derivada como tasa de
 > cambio), [C.I1](repaso/calculo.md#ci1) (desarrollo de Taylor),
@@ -245,6 +246,82 @@ $$
 
 ### 2.3 Linealización con el jacobiano y periodo del ciclo [Avanzado]
 
+El desarrollo de esta subsección está en [Para profundizar, P.1](#pp1).
+
+
+### 2.4 Cantidad conservada y órbitas cerradas exactas [Avanzado]
+
+El desarrollo de esta subsección está en [Para profundizar, P.2](#pp2).
+
+
+---
+
+## 3. Resumen formal
+
+| Modelo / Concepto | Resultado clave |
+|---|---|
+| Ecuación del replicador ($2 \times 2$) | $\dot x = x(\pi_1 - \bar\pi) = x(1-x)(\pi_1(x) - \pi_2(x))$ |
+| Juego Halcón-Paloma ($C > V > 0$) | $\dot x = \frac12 x(1-x)(V - Cx)$; único punto fijo estable $x^\ast = V/C$ (coexistencia mixta) |
+| Ciclo de Goodwin – Lotka-Volterra | $\dot v = v(\alpha_G - \beta_G u)$, $\dot u = u(-\gamma_G + \delta_G v)$; punto fijo $(v^\ast, u^\ast) = (\gamma_G/\delta_G, \alpha_G/\beta_G)$ |
+| Estabilidad y periodo de Goodwin | $\operatorname{tr} J(v^\ast, u^\ast) = 0$, $\det J = \alpha_G\gamma_G > 0$; eigenvalores $\pm i\sqrt{\alpha_G\gamma_G}$, periodo $T = 2\pi/\sqrt{\alpha_G\gamma_G}$ |
+| Integral primera de Goodwin | $V(v, u) = (\delta_G v - \gamma_G \ln v) + (\beta_G u - \alpha_G \ln u)$ cumple $\dot V = 0$ (órbitas cerradas) |
+
+---
+
+## 4. Ejercicios formales
+
+**Ruta básica**
+
+- **F1.** En el juego Halcón-Paloma con recurso $V = 4$ y costo de pelea
+  $C = 10$, escribe la matriz de pagos $2 \times 2$, calcula la diferencia de
+  pagos $\pi_H(x) - \pi_P(x)$ y encuentra la fracción de equilibrio $x^\ast$ de
+  halcones. ¿Qué ocurre con $x(t)$ si la población empieza con $x_0 = 0.8$?
+- **F2.** Considera un juego de coordinación con matriz de pagos $a = 3$,
+  $b = 0$, $c = 0$, $d = 2$. Encuentra los tres puntos fijos de la ecuación del
+  replicador $\dot x = x(1-x)\bigl[\pi_1(x) - \pi_2(x)\bigr]$ y determina hacia
+  dónde converge la población si empieza en $x_0 = 0.35$ y si empieza en
+  $x_0 = 0.45$.
+- **F3.** En el modelo de Goodwin con parámetros $\alpha_G = 0.24$,
+  $\beta_G = 0.40$, $\gamma_G = 0.36$ y $\delta_G = 0.40$: (a) calcula la tasa
+  de empleo $v^\ast$ y la participación salarial $u^\ast$ de equilibrio; (b) si
+  en un instante dado $v = 0.90$ y $u = 0.50$, determina los signos de $\dot v$
+  y $\dot u$ e interpreta económicamente en qué fase del ciclo se encuentra la
+  economía.
+
+**Ruta avanzada**
+
+- **F4.** Demuestra que si se transforma la fracción $x \in (0, 1)$ de la
+  ecuación del replicador mediante el log-cociente de momios (*log-odds*)
+  $y = \ln\bigl(\frac{x}{1-x}\bigr)$, entonces $\dot y = \pi_1(x) - \pi_2(x)$.
+  Usa este resultado para resolver explícitamente $x(t)$ cuando la diferencia de
+  pagos es constante, $\pi_C(x) - \pi_D(x) = -c < 0$ (juego de donación en
+  población bien mezclada), y comprueba que $x(t)$ decae hacia $0$.
+- **F5.** Calcula la matriz jacobiana del sistema de Goodwin evaluada en el
+  equilibrio interior $(v^\ast, u^\ast)$ para los parámetros del ejercicio F3
+  ($\alpha_G = 0.24$, $\gamma_G = 0.36$). Obtén sus eigenvalores y calcula el
+  periodo aproximado $T_{\text{ciclo}}$ (en años) de las oscilaciones pequeñas.
+- **F6.** Demuestra que para oscilaciones pequeñas $(\delta v, \delta u) =
+  (v - v^\ast, u - u^\ast)$ alrededor del punto fijo de Goodwin, el desarrollo
+  de Taylor de segundo orden ([C.I1](repaso/calculo.md#ci1)) de la cantidad
+  conservada $V(v, u) - V(v^\ast, u^\ast)$ produce la elipse
+  $$
+  V(v, u) - V(v^\ast, u^\ast) \approx
+  \frac{\delta_G^2}{2\gamma_G}(\delta v)^2 +
+  \frac{\beta_G^2}{2\alpha_G}(\delta u)^2 .
+  $$
+
+---
+
+## Para profundizar
+
+Material opcional de la ruta avanzada: demostraciones y temas que no se ven
+en clase. Cada apartado indica de qué sección de las notas viene.
+
+<a id="pp1"></a>
+
+### P.1 Linealización con el jacobiano y periodo del ciclo (sección 2.3)
+
+
 Sea $F(v, u) = \bigl(v(\alpha_G - \beta_G u),\ u(-\gamma_G + \delta_G v)\bigr)$.
 La matriz jacobiana ([C.I3](repaso/calculo.md#ci3),
 [L.A3](repaso/algebra_lineal.md#la3)) en cualquier punto $(v, u)$ es
@@ -302,7 +379,10 @@ $$
 La tasa de empleo $v(t)$ adelanta en un cuarto de ciclo ($\pi/2$ radianes) a la
 participación salarial $u(t)$.
 
-### 2.4 Cantidad conservada y órbitas cerradas exactas [Avanzado]
+<a id="pp2"></a>
+
+### P.2 Cantidad conservada y órbitas cerradas exactas (sección 2.4)
+
 
 Como los eigenvalores lineales tienen parte real nula ($\operatorname{tr} J =
 0$), el análisis lineal por sí solo no descarta que los términos no lineales
@@ -359,62 +439,6 @@ acotadas que rodean al equilibrio. $\square$
 > Euler simpléctico** (actualizar primero $v_{n+1}$ y usar ese nuevo valor para
 > actualizar $u_{n+1}$) o el método de Runge-Kutta de cuarto orden mantienen
 > $V$ prácticamente constante y las órbitas cerradas durante cientos de ciclos.
-
----
-
-## 3. Resumen formal
-
-| Modelo / Concepto | Resultado clave |
-|---|---|
-| Ecuación del replicador ($2 \times 2$) | $\dot x = x(\pi_1 - \bar\pi) = x(1-x)(\pi_1(x) - \pi_2(x))$ |
-| Juego Halcón-Paloma ($C > V > 0$) | $\dot x = \frac12 x(1-x)(V - Cx)$; único punto fijo estable $x^\ast = V/C$ (coexistencia mixta) |
-| Ciclo de Goodwin – Lotka-Volterra | $\dot v = v(\alpha_G - \beta_G u)$, $\dot u = u(-\gamma_G + \delta_G v)$; punto fijo $(v^\ast, u^\ast) = (\gamma_G/\delta_G, \alpha_G/\beta_G)$ |
-| Estabilidad y periodo de Goodwin | $\operatorname{tr} J(v^\ast, u^\ast) = 0$, $\det J = \alpha_G\gamma_G > 0$; eigenvalores $\pm i\sqrt{\alpha_G\gamma_G}$, periodo $T = 2\pi/\sqrt{\alpha_G\gamma_G}$ |
-| Integral primera de Goodwin | $V(v, u) = (\delta_G v - \gamma_G \ln v) + (\beta_G u - \alpha_G \ln u)$ cumple $\dot V = 0$ (órbitas cerradas) |
-
----
-
-## 4. Ejercicios formales
-
-**Ruta básica**
-
-- **F1.** En el juego Halcón-Paloma con recurso $V = 4$ y costo de pelea
-  $C = 10$, escribe la matriz de pagos $2 \times 2$, calcula la diferencia de
-  pagos $\pi_H(x) - \pi_P(x)$ y encuentra la fracción de equilibrio $x^\ast$ de
-  halcones. ¿Qué ocurre con $x(t)$ si la población empieza con $x_0 = 0.8$?
-- **F2.** Considera un juego de coordinación con matriz de pagos $a = 3$,
-  $b = 0$, $c = 0$, $d = 2$. Encuentra los tres puntos fijos de la ecuación del
-  replicador $\dot x = x(1-x)\bigl[\pi_1(x) - \pi_2(x)\bigr]$ y determina hacia
-  dónde converge la población si empieza en $x_0 = 0.35$ y si empieza en
-  $x_0 = 0.45$.
-- **F3.** En el modelo de Goodwin con parámetros $\alpha_G = 0.24$,
-  $\beta_G = 0.40$, $\gamma_G = 0.36$ y $\delta_G = 0.40$: (a) calcula la tasa
-  de empleo $v^\ast$ y la participación salarial $u^\ast$ de equilibrio; (b) si
-  en un instante dado $v = 0.90$ y $u = 0.50$, determina los signos de $\dot v$
-  y $\dot u$ e interpreta económicamente en qué fase del ciclo se encuentra la
-  economía.
-
-**Ruta avanzada**
-
-- **F4.** Demuestra que si se transforma la fracción $x \in (0, 1)$ de la
-  ecuación del replicador mediante el log-cociente de momios (*log-odds*)
-  $y = \ln\bigl(\frac{x}{1-x}\bigr)$, entonces $\dot y = \pi_1(x) - \pi_2(x)$.
-  Usa este resultado para resolver explícitamente $x(t)$ cuando la diferencia de
-  pagos es constante, $\pi_C(x) - \pi_D(x) = -c < 0$ (juego de donación en
-  población bien mezclada), y comprueba que $x(t)$ decae hacia $0$.
-- **F5.** Calcula la matriz jacobiana del sistema de Goodwin evaluada en el
-  equilibrio interior $(v^\ast, u^\ast)$ para los parámetros del ejercicio F3
-  ($\alpha_G = 0.24$, $\gamma_G = 0.36$). Obtén sus eigenvalores y calcula el
-  periodo aproximado $T_{\text{ciclo}}$ (en años) de las oscilaciones pequeñas.
-- **F6.** Demuestra que para oscilaciones pequeñas $(\delta v, \delta u) =
-  (v - v^\ast, u - u^\ast)$ alrededor del punto fijo de Goodwin, el desarrollo
-  de Taylor de segundo orden ([C.I1](repaso/calculo.md#ci1)) de la cantidad
-  conservada $V(v, u) - V(v^\ast, u^\ast)$ produce la elipse
-  $$
-  V(v, u) - V(v^\ast, u^\ast) \approx
-  \frac{\delta_G^2}{2\gamma_G}(\delta v)^2 +
-  \frac{\beta_G^2}{2\alpha_G}(\delta u)^2 .
-  $$
 
 ---
 

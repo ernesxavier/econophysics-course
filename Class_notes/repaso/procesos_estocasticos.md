@@ -329,7 +329,7 @@ estocástico es $(dW_t)^2 = dt$.
 <a id="ea2"></a>
 
 ### E.A2 Lema de Itô
-*Sesiones 5, 15.*
+*Sesión 5.*
 
 Si $dX = A\thinspace dt + B\thinspace dW$ y $f(x)$ es dos veces derivable, entonces
 

@@ -1,9 +1,10 @@
 # Sesión 8: Desigualdad y modelos de intercambio. Notas formales
 
 > **Cómo leer estas notas.** Siguen el orden del programa: primero se observa
-> en el cuaderno (`Code/s08_intercambio.jl`), después se formaliza aquí. Lo
-> que no tiene marca es **ruta básica**. Las secciones y demostraciones
-> marcadas **[Avanzado]** son opcionales.
+> en el cuaderno (`Code/s08_intercambio.jl`), después se formaliza aquí. El
+> cuerpo de las notas es la **ruta básica**. Las demostraciones y los temas de
+> la ruta avanzada, opcionales, están al final, en **Para profundizar**; donde
+> estaban queda una línea que los enlaza.
 >
 > Repaso recomendado: [P.B3](repaso/probabilidad.md#pb3) (histogramas),
 > [C.B6](repaso/calculo.md#cb6) (la integral como área),
@@ -59,16 +60,7 @@ dividida entre el doble del ingreso promedio. De aquí se sigue que $G$ **no
 cambia si se multiplica a todos los ingresos por la misma constante**: no
 depende de las unidades ni del nivel general de ingreso.
 
-*Demostración* **[Avanzado]**. Usa
-$\lvert a - b\rvert = a + b - 2\min(a, b)$, así que
-$\mathbb{E}\lvert X - X'\rvert = 2\mu - 2\thinspace\mathbb{E}[\min(X, X')]$. Por otro
-lado, integrando por partes,
-$\int_0^1 L(p)\thinspace dp = \frac{1}{\mu}\mathbb{E}\left[X(1 - F(X))\right]$,
-porque cada $x$ cuenta para todas las $p$ entre $F(x)$ y 1. Para una
-distribución continua, $1 - F(X)$ es la probabilidad de que $X'$ sea mayor
-que $X$, así que $\mathbb{E}[X(1 - F(X))]$ es la mitad de
-$\mathbb{E}[\min(X, X')]$ (el mínimo es $X$ o $X'$, con la misma probabilidad).
-Sustituyendo en la definición de $G$ queda el resultado. $\square$
+**[Avanzado]** Demostración: en [Para profundizar, P.1](#pp1).
 
 **Ejemplo: la exponencial.** Si $X$ es exponencial con media $T$, la
 diferencia $X - X'$ tiene distribución de Laplace con
@@ -129,60 +121,13 @@ energía y $T = 1/\beta$ en el de la temperatura.
 
 ### 2.3 [Avanzado] Segundo argumento: máxima entropía continua
 
-**Problema.** Maximizar $S[p] = -\int_0^\infty p(m)\ln p(m)\thinspace dm$ sujeto a
-$\int_0^\infty p\thinspace dm = 1$ y $\int_0^\infty m\thinspace p\thinspace dm = T$.
+El desarrollo de esta subsección está en [Para profundizar, P.2](#pp2).
 
-**Solución con multiplicadores de Lagrange** ([C.A1](repaso/calculo.md#ca1)).
-Al variar $p$ en cada punto $m$,
-
-$$
-\frac{\delta}{\delta p(m)}\left[S - \alpha\int p - \beta\int m\thinspace p\right] = -\ln p(m) - 1 - \alpha - \beta m = 0 ,
-$$
-
-de donde $p(m) = e^{-1-\alpha} e^{-\beta m}$. La normalización da
-$e^{-1-\alpha} = \beta$ y la media da $\beta = 1/T$. La entropía máxima es
-$S = 1 + \ln T$.
-
-**Demostración de que es el máximo.** Sea $q(m) = e^{-m/T}/T$ y $p$
-cualquier densidad en $[0, \infty)$ con media $T$. Por la desigualdad de
-Gibbs, $\int p \ln(p/q) \ge 0$ (es consecuencia de la desigualdad de Jensen,
-[P.A5](repaso/probabilidad.md#pa5)), así que
-
-$$
-S[p] = -\int p\ln p \le -\int p \ln q = \int p\left(\ln T + \frac{m}{T}\right) dm = \ln T + 1 = S[q] ,
-$$
-
-con igualdad sólo si $p = q$. $\square$
-
-En el cuaderno, la entropía de la distribución simulada (con $T = 1$) sube
-desde valores negativos hasta acercarse a 1 en unas pocas transacciones por
-agente.
 
 ### 2.4 [Avanzado] Tercer argumento: la exponencial es estacionaria
 
-**Proposición.** Si $m_i$ y $m_j$ son independientes y exponenciales con
-media $T$, después de una transacción $m_i'$ y $m_j'$ también son
-independientes y exponenciales con media $T$.
+El desarrollo de esta subsección está en [Para profundizar, P.3](#pp3).
 
-*Demostración.* $s = m_i + m_j$ tiene densidad gamma $s\thinspace e^{-s/T}/T^2$.
-Como $m_i' = \varepsilon s$ con $\varepsilon$ uniforme e independiente de $s$,
-su densidad es
-
-$$
-f(x) = \int_x^\infty \frac{1}{s}\cdot\frac{s\thinspace e^{-s/T}}{T^2}\thinspace ds = \frac{1}{T}\thinspace e^{-x/T} .
-$$
-
-La independencia sale de calcular la densidad conjunta de
-$(\varepsilon s, (1-\varepsilon)s)$ con el cambio de variables
-$(s, \varepsilon) \mapsto (x, y) = (\varepsilon s, (1-\varepsilon)s)$, cuyo
-jacobiano vale $s$. Dividiendo la densidad de $(s, \varepsilon)$ entre él, la
-densidad conjunta resulta $e^{-(x+y)/T}/T^2$, un producto. $\square$
-
-**Universalidad.** Otras reglas que conservan el dinero, como transferir un
-monto fijo si el que paga lo tiene, llevan a la misma exponencial (en el
-cuaderno, más despacio). Lo esencial es la conservación y el azar, no el
-detalle de la regla. Lo que rompe la exponencial es permitir deudas, cobrar
-impuestos o, como veremos ahora, ahorrar.
 
 ---
 
@@ -251,14 +196,7 @@ energía de un gas ideal en $2n$ dimensiones: el ahorro actúa como si cada
 agente repartiera su dinero entre más "grados de libertad". Para $n > 1$ la
 densidad vale cero en $m = 0$: casi nadie queda en la ruina.
 
-**Gini de la gamma** **[Avanzado]**. Con la fórmula de la sección 1.2 y la
-función gamma ([C.A4](repaso/calculo.md#ca4)),
-
-$$
-G(n) = \frac{\Gamma(n + 1/2)}{n\thinspace\Gamma(n)\sqrt{\pi}} ,
-$$
-
-que vale $1/2$ para $n = 1$ y decrece hacia 0 cuando $n \to \infty$.
+**[Avanzado]** Gini de la gamma: en [Para profundizar, P.4](#pp4).
 
 ---
 
@@ -397,6 +335,104 @@ modelo. La cola, estimada con el estimador de Hill ponderado sobre el 10%,
 - **F8.** En el modelo heterogéneo con $\lambda_i$ uniforme en $[0, \lambda_{\max}]$
   y $\lambda_{\max} < 1$, ¿hay cola de Pareto? Usa la proposición de la
   sección 4.
+
+---
+
+## Para profundizar
+
+Material opcional de la ruta avanzada: demostraciones y temas que no se ven
+en clase. Cada apartado indica de qué sección de las notas viene.
+
+<a id="pp1"></a>
+
+### P.1 Demostración (sección 1.2)
+
+*Demostración.* Usa
+$\lvert a - b\rvert = a + b - 2\min(a, b)$, así que
+$\mathbb{E}\lvert X - X'\rvert = 2\mu - 2\thinspace\mathbb{E}[\min(X, X')]$. Por otro
+lado, integrando por partes,
+$\int_0^1 L(p)\thinspace dp = \frac{1}{\mu}\mathbb{E}\left[X(1 - F(X))\right]$,
+porque cada $x$ cuenta para todas las $p$ entre $F(x)$ y 1. Para una
+distribución continua, $1 - F(X)$ es la probabilidad de que $X'$ sea mayor
+que $X$, así que $\mathbb{E}[X(1 - F(X))]$ es la mitad de
+$\mathbb{E}[\min(X, X')]$ (el mínimo es $X$ o $X'$, con la misma probabilidad).
+Sustituyendo en la definición de $G$ queda el resultado. $\square$
+
+<a id="pp2"></a>
+
+### P.2 Segundo argumento: máxima entropía continua (sección 2.3)
+
+
+**Problema.** Maximizar $S[p] = -\int_0^\infty p(m)\ln p(m)\thinspace dm$ sujeto a
+$\int_0^\infty p\thinspace dm = 1$ y $\int_0^\infty m\thinspace p\thinspace dm = T$.
+
+**Solución con multiplicadores de Lagrange** ([C.A1](repaso/calculo.md#ca1)).
+Al variar $p$ en cada punto $m$,
+
+$$
+\frac{\delta}{\delta p(m)}\left[S - \alpha\int p - \beta\int m\thinspace p\right] = -\ln p(m) - 1 - \alpha - \beta m = 0 ,
+$$
+
+de donde $p(m) = e^{-1-\alpha} e^{-\beta m}$. La normalización da
+$e^{-1-\alpha} = \beta$ y la media da $\beta = 1/T$. La entropía máxima es
+$S = 1 + \ln T$.
+
+**Demostración de que es el máximo.** Sea $q(m) = e^{-m/T}/T$ y $p$
+cualquier densidad en $[0, \infty)$ con media $T$. Por la desigualdad de
+Gibbs, $\int p \ln(p/q) \ge 0$ (es consecuencia de la desigualdad de Jensen,
+[P.A5](repaso/probabilidad.md#pa5)), así que
+
+$$
+S[p] = -\int p\ln p \le -\int p \ln q = \int p\left(\ln T + \frac{m}{T}\right) dm = \ln T + 1 = S[q] ,
+$$
+
+con igualdad sólo si $p = q$. $\square$
+
+En el cuaderno, la entropía de la distribución simulada (con $T = 1$) sube
+desde valores negativos hasta acercarse a 1 en unas pocas transacciones por
+agente.
+
+<a id="pp3"></a>
+
+### P.3 Tercer argumento: la exponencial es estacionaria (sección 2.4)
+
+
+**Proposición.** Si $m_i$ y $m_j$ son independientes y exponenciales con
+media $T$, después de una transacción $m_i'$ y $m_j'$ también son
+independientes y exponenciales con media $T$.
+
+*Demostración.* $s = m_i + m_j$ tiene densidad gamma $s\thinspace e^{-s/T}/T^2$.
+Como $m_i' = \varepsilon s$ con $\varepsilon$ uniforme e independiente de $s$,
+su densidad es
+
+$$
+f(x) = \int_x^\infty \frac{1}{s}\cdot\frac{s\thinspace e^{-s/T}}{T^2}\thinspace ds = \frac{1}{T}\thinspace e^{-x/T} .
+$$
+
+La independencia sale de calcular la densidad conjunta de
+$(\varepsilon s, (1-\varepsilon)s)$ con el cambio de variables
+$(s, \varepsilon) \mapsto (x, y) = (\varepsilon s, (1-\varepsilon)s)$, cuyo
+jacobiano vale $s$. Dividiendo la densidad de $(s, \varepsilon)$ entre él, la
+densidad conjunta resulta $e^{-(x+y)/T}/T^2$, un producto. $\square$
+
+**Universalidad.** Otras reglas que conservan el dinero, como transferir un
+monto fijo si el que paga lo tiene, llevan a la misma exponencial (en el
+cuaderno, más despacio). Lo esencial es la conservación y el azar, no el
+detalle de la regla. Lo que rompe la exponencial es permitir deudas, cobrar
+impuestos o, como veremos ahora, ahorrar.
+
+<a id="pp4"></a>
+
+### P.4 Gini de la gamma (sección 3.3)
+
+**Gini de la gamma.** Con la fórmula de la sección 1.2 y la
+función gamma ([C.A4](repaso/calculo.md#ca4)),
+
+$$
+G(n) = \frac{\Gamma(n + 1/2)}{n\thinspace\Gamma(n)\sqrt{\pi}} ,
+$$
+
+que vale $1/2$ para $n = 1$ y decrece hacia 0 cuando $n \to \infty$.
 
 ---
 

@@ -1,11 +1,12 @@
 # Sesión 2: Volatilidad y modelos nulos. Notas formales
 
 > **Cómo leer estas notas.** Siguen el orden del programa: primero se observa
-> en el cuaderno (`Code/s02_volatilidad.jl`), después se formaliza aquí. Lo
-> que no tiene marca es **ruta básica**. Las secciones y demostraciones
-> marcadas **[Avanzado]** son opcionales. La función de autocorrelación y la
-> hipótesis de mercado eficiente están en las
-> [notas de la sesión 1](s01_retornos.md).
+> en el cuaderno (`Code/s02_volatilidad.jl`), después se formaliza aquí. El
+> cuerpo de las notas es la **ruta básica**. Las demostraciones y los temas de
+> la ruta avanzada, opcionales, están al final, en **Para profundizar**; donde
+> estaban queda una línea que los enlaza. La función de autocorrelación y la
+> hipótesis de mercado eficiente están en las [notas de la sesión
+> 1](s01_retornos.md).
 >
 > Repaso recomendado: [P.B3–B4](repaso/probabilidad.md#pb3) (histogramas y la
 > normal), [S.B5](repaso/estadistica.md#sb5) (permutaciones),
@@ -84,18 +85,7 @@ independencia. Los modelos GARCH (sesión 5) son una forma concreta de
 especificar $\sigma_t$, con la diferencia de que $\sigma_t$ depende de los
 retornos pasados.
 
-**Proposición [Avanzado].** Si además $\varepsilon_t \sim \mathcal{N}(0,1)$,
-
-$$
-\mathbb{E}[r^4]/\mathbb{E}[r^2]^2 = 3\thinspace\frac{\mathbb{E}[\sigma^4]}{\mathbb{E}[\sigma^2]^2} \ \ge\  3,
-$$
-
-con igualdad sólo si $\sigma$ es constante.
-
-*Demostración.* $\mathbb{E}[r^4] = \mathbb{E}[\sigma^4]\thinspace\mathbb{E}[\varepsilon^4] = 3\thinspace\mathbb{E}[\sigma^4]$
-y $\mathbb{E}[r^2] = \mathbb{E}[\sigma^2]$. La desigualdad es
-$\mathbb{E}[\sigma^4] \ge \mathbb{E}[\sigma^2]^2$, es decir,
-$\mathrm{Var}[\sigma^2] \ge 0$. $\square$
+**[Avanzado]** Proposición: en [Para profundizar, P.1](#pp1).
 
 **Moraleja:** una mezcla de normales con varianzas distintas tiene colas más
 pesadas que una normal. Los hechos 1 ([sesión 1](s01_retornos.md)) y 3 no son
@@ -125,15 +115,7 @@ $$
 \kappa_n = \frac{\kappa_1}{n}.
 $$
 
-*Demostración* **[Avanzado]**. Usamos **cumulantes**: $c_m$ es el coeficiente
-de $s^m/m!$ en $\ln\mathbb{E}[e^{sX}]$. Se cumple $c_2 = \sigma^2$ y
-$c_4 = \kappa\thinspace\sigma^4$. Como el logaritmo de la función generadora de una
-suma de independientes es la suma de los logaritmos, los cumulantes son
-aditivos: $c_m(S_n) = n\thinspace c_m(X)$. Entonces
-
-$$
-\kappa_n = \frac{c_4(S_n)}{c_2(S_n)^2} = \frac{n\thinspace c_4}{n^2 c_2^2} = \frac{\kappa_1}{n}. \quad\square
-$$
+**[Avanzado]** Demostración: en [Para profundizar, P.2](#pp2).
 
 **Contraste con los datos.** En el cuaderno, la curtosis empírica a
 $\Delta t$ días queda **por encima** de la curva $\kappa_1/\Delta t$. Las
@@ -242,6 +224,44 @@ Relaciones con los hechos de la sesión 1:
 - **F6.** Demuestra el valor esperado de $\hat\rho(\tau)$ bajo la permutación
   que se usa en la sección 4. Usa que, si $x_i = r_i - \hat\mu$, entonces
   $\sum_i x_i = 0$.
+
+---
+
+## Para profundizar
+
+Material opcional de la ruta avanzada: demostraciones y temas que no se ven
+en clase. Cada apartado indica de qué sección de las notas viene.
+
+<a id="pp1"></a>
+
+### P.1 Proposición (sección 2)
+
+**Proposición.** Si además $\varepsilon_t \sim \mathcal{N}(0,1)$,
+
+$$
+\mathbb{E}[r^4]/\mathbb{E}[r^2]^2 = 3\thinspace\frac{\mathbb{E}[\sigma^4]}{\mathbb{E}[\sigma^2]^2} \ \ge\  3,
+$$
+
+con igualdad sólo si $\sigma$ es constante.
+
+*Demostración.* $\mathbb{E}[r^4] = \mathbb{E}[\sigma^4]\thinspace\mathbb{E}[\varepsilon^4] = 3\thinspace\mathbb{E}[\sigma^4]$
+y $\mathbb{E}[r^2] = \mathbb{E}[\sigma^2]$. La desigualdad es
+$\mathbb{E}[\sigma^4] \ge \mathbb{E}[\sigma^2]^2$, es decir,
+$\mathrm{Var}[\sigma^2] \ge 0$. $\square$
+
+<a id="pp2"></a>
+
+### P.2 Demostración (sección 3)
+
+*Demostración.* Usamos **cumulantes**: $c_m$ es el coeficiente
+de $s^m/m!$ en $\ln\mathbb{E}[e^{sX}]$. Se cumple $c_2 = \sigma^2$ y
+$c_4 = \kappa\thinspace\sigma^4$. Como el logaritmo de la función generadora de una
+suma de independientes es la suma de los logaritmos, los cumulantes son
+aditivos: $c_m(S_n) = n\thinspace c_m(X)$. Entonces
+
+$$
+\kappa_n = \frac{c_4(S_n)}{c_2(S_n)^2} = \frac{n\thinspace c_4}{n^2 c_2^2} = \frac{\kappa_1}{n}. \quad\square
+$$
 
 ---
 

@@ -1,12 +1,13 @@
 # Sesión 11: Redes: el mercado y la robustez. Notas formales
 
 > **Cómo leer estas notas.** Siguen el orden del programa: primero se observa
-> en el cuaderno (`Code/s11_redes_mercado.jl`), después se formaliza aquí. Lo
-> que no tiene marca es **ruta básica**. Las secciones y demostraciones
-> marcadas **[Avanzado]** son opcionales. Las definiciones de matriz de
+> en el cuaderno (`Code/s11_redes_mercado.jl`), después se formaliza aquí. El
+> cuerpo de las notas es la **ruta básica**. Las demostraciones y los temas de
+> la ruta avanzada, opcionales, están al final, en **Para profundizar**; donde
+> estaban queda una línea que los enlaza. Las definiciones de matriz de
 > adyacencia, agrupamiento y de los tres modelos de redes aleatorias
-> (Erdős-Rényi, Watts-Strogatz y Barabási-Albert) están en las
-> [notas de la sesión 10](s10_redes_modelos.md).
+> (Erdős-Rényi, Watts-Strogatz y Barabási-Albert) están en las [notas de la
+> sesión 10](s10_redes_modelos.md).
 >
 > Repaso recomendado: [F.B4](repaso/fisica_estadistica.md#fb4) (transiciones
 > de fase), [L.I2](repaso/algebra_lineal.md#li2) (matrices simétricas y
@@ -77,145 +78,27 @@ la web: robustas ante fallas, frágiles ante ataques.
 
 ### 2.2 [Avanzado] El criterio de Molloy y Reed
 
-Considera una red aleatoria con distribución de grados $p_k$ y por lo demás
-al azar (el modelo de configuración de la sección 4).
+El desarrollo de esta subsección está en [Para profundizar, P.1](#pp1).
 
-**Proposición.** Hay componente gigante si y sólo si
-
-$$
-\kappa \equiv \frac{\langle k^2\rangle}{\langle k\rangle} > 2 .
-$$
-
-*Argumento.* Exploramos la red desde un nodo, siguiendo enlaces. Al llegar a
-un vecino por un enlace, la probabilidad de llegar a un nodo de grado $k$ es
-proporcional a $k p_k$, porque un nodo con $k$ enlaces tiene $k$ maneras de
-ser alcanzado. Desde ahí puede seguir por $k - 1$ enlaces nuevos (el
-**grado excedente**). El número promedio de enlaces nuevos es
-
-$$
-\sum_k (k - 1)\frac{k p_k}{\langle k\rangle}
-= \frac{\langle k^2\rangle - \langle k\rangle}{\langle k\rangle}
-= \kappa - 1 .
-$$
-
-La exploración es un proceso de ramificación: crece sin límite (componente
-gigante) si cada rama genera en promedio más de una rama nueva, es decir, si
-$\kappa - 1 > 1$. $\square$
-
-Para Erdős-Rényi, $\langle k^2\rangle = c^2 + c$, así que $\kappa = c + 1$ y
-el criterio da $c > 1$, como vimos en la [sesión 10](s10_redes_modelos.md).
 
 ### 2.3 [Avanzado] Umbral de fallas aleatorias
 
-**Proposición** (Cohen et al., 2000). Si se quita al azar una fracción $f$
-de los nodos de una red con parámetro $\kappa$, el componente gigante
-desaparece en ([F.A5](repaso/fisica_estadistica.md#fa5))
+El desarrollo de esta subsección está en [Para profundizar, P.2](#pp2).
 
-$$
-f_c = 1 - \frac{1}{\kappa - 1} .
-$$
-
-*Demostración.* Sea $q = 1 - f$. Cada vecino de un nodo que sobrevive
-sobrevive con probabilidad $q$, así que el nuevo grado $K'$ de ese nodo es
-binomial con parámetros $K$ y $q$:
-$\langle k'\rangle = q\langle k\rangle$ y
-$\langle k'^2\rangle = q^2\langle k^2\rangle + q(1-q)\langle k\rangle$.
-Entonces
-
-$$
-\kappa' = \frac{\langle k'^2\rangle}{\langle k'\rangle} = q\kappa + 1 - q .
-$$
-
-La condición $\kappa' = 2$ da $q(\kappa - 1) = 1$. $\square$
-
-**Consecuencias.**
-
-- Erdős-Rényi: $f_c = 1 - 1/c$. Con $c = 4$, $f_c = 0.75$; la simulación da
-  0.77.
-- Barabási-Albert: $\kappa \approx \frac{m+1}{2}\ln n$ crece sin límite, así
-  que $f_c \to 1$: en una red infinita **no hay umbral**. Con $n = 10^3$,
-  $10^4$ y $10^5$ (y $m = 2$), $\kappa$ vale 11.1, 14.9 y 19.0, y $f_c$ vale
-  0.90, 0.93 y 0.94. Cerca de $f_c$ el componente gigante es diminuto, por
-  eso la simulación lo "pierde" antes.
-- Un **ataque** quita los nodos de mayor grado: corta la cola de $p_k$, y
-  $\langle k^2\rangle$ cae muy rápido. Para Barabási-Albert basta quitar
-  una fracción pequeña de los nodos (Callaway et al., 2000; Cohen et al.,
-  2001).
 
 ---
 
 ## 3. [Avanzado] El Laplaciano
 
-El Laplaciano es $L = D - A$, con $D = \mathrm{diag}(k_1, \dots, k_n)$
-([L.I2](repaso/algebra_lineal.md#li2), [L.A1](repaso/algebra_lineal.md#la1)).
+El desarrollo de esta sección está en [Para profundizar, P.3](#pp3).
 
-**Proposición.**
-
-1. $x^\top L x = \sum_{\text{enlaces } (i,j)} (x_i - x_j)^2 \ge 0$, así que
-   los eigenvalores son reales y no negativos:
-   $0 = \lambda_1 \le \lambda_2 \le \dots \le \lambda_n$.
-2. La multiplicidad del eigenvalor 0 es el número de componentes conexas.
-
-*Demostración.* (1) $x^\top L x = \sum_i k_i x_i^2 - \sum_{i,j} A_{ij}x_ix_j$.
-Cada enlace $(i, j)$ aporta $x_i^2 + x_j^2$ al primer término y $2x_ix_j$ al
-segundo, es decir, $(x_i - x_j)^2$. (2) $Lx = 0$ implica $x^\top L x = 0$,
-así que $x_i = x_j$ en cada enlace: $x$ es constante en cada componente.
-Los vectores indicadores de las componentes son una base de ese espacio. $\square$
-
-**Conectividad algebraica.** Por (1), $\lambda_2 = \min x^\top L x$ sobre los
-$x$ de norma 1 ortogonales a $\mathbf 1$. Si la red se puede partir en dos
-grupos con pocos enlaces entre ellos, el vector que vale $+1$ en un grupo y
-$-1$ en el otro (centrado y normalizado) da un valor pequeño. Por eso el
-eigenvector de $\lambda_2$ (**vector de Fiedler**) sugiere una partición:
-los nodos con componente positiva de un lado, los negativos del otro.
-
-En el cuaderno, la red de umbral del mercado con $u = 0.5$ tiene 11
-componentes (10 son acciones aisladas o pares) y su Laplaciano tiene 11
-ceros. En el componente gigante, el vector de Fiedler separa a las
-acciones defensivas (consumo básico, servicios públicos, buena parte de
-salud) de las cíclicas, igual que el segundo eigenvector de la matriz de
-correlación en la [sesión 7](s07_correlaciones.md).
 
 ---
 
 ## 4. [Avanzado] Modelo de configuración y asortatividad
 
-### 4.1 El modelo de configuración
+El desarrollo de esta sección está en [Para profundizar, P.4](#pp4).
 
-**Modelo.** Se fija una sucesión de grados $k_1, \dots, k_n$. Cada nodo
-recibe $k_i$ "medios enlaces" y se emparejan todos al azar. Es la red más
-aleatoria posible con esos grados; Erdős-Rényi es el caso de grados Poisson.
-
-La probabilidad de un enlace entre $i$ y $j$ es $p_{ij} \approx k_ik_j/(2m)$,
-y el agrupamiento es
-
-$$
-C = \frac{1}{n}\frac{\left(\langle k^2\rangle - \langle k\rangle\right)^2}{\langle k\rangle^3} .
-$$
-
-Tiende a cero si $\langle k^2\rangle$ es finito, pero puede ser apreciable
-con grados muy desiguales y $n$ pequeño. Con los grados del mercado
-($u = 0.5$) la fórmula da 0.35 y la red recableada del cuaderno tiene 0.31,
-contra 0.59 de la red real. El resto del agrupamiento es estructura de
-sectores, no consecuencia de los grados.
-
-En la práctica, la red se muestrea recableando la real: se eligen dos
-enlaces $(a, b)$ y $(c, d)$ y se cambian por $(a, d)$ y $(c, b)$, si eso no
-crea enlaces repetidos ni lazos. Cada cambio conserva todos los grados.
-
-### 4.2 Asortatividad
-
-La **asortatividad** $r$ es el coeficiente de correlación de Pearson entre
-los grados de los dos extremos de un enlace, calculado sobre todos los
-enlaces en los dos sentidos (Newman, 2002). Va de $-1$ a 1.
-
-- $r > 0$: los nodos de grado alto se conectan entre sí. Típico de redes
-  sociales. El mercado tiene $r = 0.12$: un núcleo financiero denso.
-- $r < 0$: los concentradores se conectan con nodos de grado bajo. Típico
-  de redes tecnológicas y biológicas, y de redes simples con grados muy
-  desiguales: si sólo puede haber un enlace por par, los concentradores no
-  encuentran suficientes concentradores. Por eso la red recableada tiene
-  $r = -0.23$.
 
 ---
 
@@ -252,6 +135,163 @@ enlaces en los dos sentidos (Newman, 2002). Va de $-1$ a 1.
   límite $n \to \infty$)?
 - **F4.** Demuestra que $\lambda_2 > 0$ si y sólo si la red es conexa, y
   calcula el espectro del Laplaciano de un anillo de $n$ nodos.
+
+---
+
+## Para profundizar
+
+Material opcional de la ruta avanzada: demostraciones y temas que no se ven
+en clase. Cada apartado indica de qué sección de las notas viene.
+
+<a id="pp1"></a>
+
+### P.1 El criterio de Molloy y Reed (sección 2.2)
+
+
+Considera una red aleatoria con distribución de grados $p_k$ y por lo demás
+al azar (el modelo de configuración de la sección 4).
+
+**Proposición.** Hay componente gigante si y sólo si
+
+$$
+\kappa \equiv \frac{\langle k^2\rangle}{\langle k\rangle} > 2 .
+$$
+
+*Argumento.* Exploramos la red desde un nodo, siguiendo enlaces. Al llegar a
+un vecino por un enlace, la probabilidad de llegar a un nodo de grado $k$ es
+proporcional a $k p_k$, porque un nodo con $k$ enlaces tiene $k$ maneras de
+ser alcanzado. Desde ahí puede seguir por $k - 1$ enlaces nuevos (el
+**grado excedente**). El número promedio de enlaces nuevos es
+
+$$
+\sum_k (k - 1)\frac{k p_k}{\langle k\rangle}
+= \frac{\langle k^2\rangle - \langle k\rangle}{\langle k\rangle}
+= \kappa - 1 .
+$$
+
+La exploración es un proceso de ramificación: crece sin límite (componente
+gigante) si cada rama genera en promedio más de una rama nueva, es decir, si
+$\kappa - 1 > 1$. $\square$
+
+Para Erdős-Rényi, $\langle k^2\rangle = c^2 + c$, así que $\kappa = c + 1$ y
+el criterio da $c > 1$, como vimos en la [sesión 10](s10_redes_modelos.md).
+
+<a id="pp2"></a>
+
+### P.2 Umbral de fallas aleatorias (sección 2.3)
+
+
+**Proposición** (Cohen et al., 2000). Si se quita al azar una fracción $f$
+de los nodos de una red con parámetro $\kappa$, el componente gigante
+desaparece en ([F.A5](repaso/fisica_estadistica.md#fa5))
+
+$$
+f_c = 1 - \frac{1}{\kappa - 1} .
+$$
+
+*Demostración.* Sea $q = 1 - f$. Cada vecino de un nodo que sobrevive
+sobrevive con probabilidad $q$, así que el nuevo grado $K'$ de ese nodo es
+binomial con parámetros $K$ y $q$:
+$\langle k'\rangle = q\langle k\rangle$ y
+$\langle k'^2\rangle = q^2\langle k^2\rangle + q(1-q)\langle k\rangle$.
+Entonces
+
+$$
+\kappa' = \frac{\langle k'^2\rangle}{\langle k'\rangle} = q\kappa + 1 - q .
+$$
+
+La condición $\kappa' = 2$ da $q(\kappa - 1) = 1$. $\square$
+
+**Consecuencias.**
+
+- Erdős-Rényi: $f_c = 1 - 1/c$. Con $c = 4$, $f_c = 0.75$; la simulación da
+  0.77.
+- Barabási-Albert: $\kappa \approx \frac{m+1}{2}\ln n$ crece sin límite, así
+  que $f_c \to 1$: en una red infinita **no hay umbral**. Con $n = 10^3$,
+  $10^4$ y $10^5$ (y $m = 2$), $\kappa$ vale 11.1, 14.9 y 19.0, y $f_c$ vale
+  0.90, 0.93 y 0.94. Cerca de $f_c$ el componente gigante es diminuto, por
+  eso la simulación lo "pierde" antes.
+- Un **ataque** quita los nodos de mayor grado: corta la cola de $p_k$, y
+  $\langle k^2\rangle$ cae muy rápido. Para Barabási-Albert basta quitar
+  una fracción pequeña de los nodos (Callaway et al., 2000; Cohen et al.,
+  2001).
+
+<a id="pp3"></a>
+
+### P.3 El Laplaciano (sección 3)
+
+
+El Laplaciano es $L = D - A$, con $D = \mathrm{diag}(k_1, \dots, k_n)$
+([L.I2](repaso/algebra_lineal.md#li2), [L.A1](repaso/algebra_lineal.md#la1)).
+
+**Proposición.**
+
+1. $x^\top L x = \sum_{\text{enlaces } (i,j)} (x_i - x_j)^2 \ge 0$, así que
+   los eigenvalores son reales y no negativos:
+   $0 = \lambda_1 \le \lambda_2 \le \dots \le \lambda_n$.
+2. La multiplicidad del eigenvalor 0 es el número de componentes conexas.
+
+*Demostración.* (1) $x^\top L x = \sum_i k_i x_i^2 - \sum_{i,j} A_{ij}x_ix_j$.
+Cada enlace $(i, j)$ aporta $x_i^2 + x_j^2$ al primer término y $2x_ix_j$ al
+segundo, es decir, $(x_i - x_j)^2$. (2) $Lx = 0$ implica $x^\top L x = 0$,
+así que $x_i = x_j$ en cada enlace: $x$ es constante en cada componente.
+Los vectores indicadores de las componentes son una base de ese espacio. $\square$
+
+**Conectividad algebraica.** Por (1), $\lambda_2 = \min x^\top L x$ sobre los
+$x$ de norma 1 ortogonales a $\mathbf 1$. Si la red se puede partir en dos
+grupos con pocos enlaces entre ellos, el vector que vale $+1$ en un grupo y
+$-1$ en el otro (centrado y normalizado) da un valor pequeño. Por eso el
+eigenvector de $\lambda_2$ (**vector de Fiedler**) sugiere una partición:
+los nodos con componente positiva de un lado, los negativos del otro.
+
+En el cuaderno, la red de umbral del mercado con $u = 0.5$ tiene 11
+componentes (10 son acciones aisladas o pares) y su Laplaciano tiene 11
+ceros. En el componente gigante, el vector de Fiedler separa a las
+acciones defensivas (consumo básico, servicios públicos, buena parte de
+salud) de las cíclicas, igual que el segundo eigenvector de la matriz de
+correlación en la [sesión 7](s07_correlaciones.md).
+
+<a id="pp4"></a>
+
+### P.4 Modelo de configuración y asortatividad (sección 4)
+
+
+#### 4.1 El modelo de configuración
+
+**Modelo.** Se fija una sucesión de grados $k_1, \dots, k_n$. Cada nodo
+recibe $k_i$ "medios enlaces" y se emparejan todos al azar. Es la red más
+aleatoria posible con esos grados; Erdős-Rényi es el caso de grados Poisson.
+
+La probabilidad de un enlace entre $i$ y $j$ es $p_{ij} \approx k_ik_j/(2m)$,
+y el agrupamiento es
+
+$$
+C = \frac{1}{n}\frac{\left(\langle k^2\rangle - \langle k\rangle\right)^2}{\langle k\rangle^3} .
+$$
+
+Tiende a cero si $\langle k^2\rangle$ es finito, pero puede ser apreciable
+con grados muy desiguales y $n$ pequeño. Con los grados del mercado
+($u = 0.5$) la fórmula da 0.35 y la red recableada del cuaderno tiene 0.31,
+contra 0.59 de la red real. El resto del agrupamiento es estructura de
+sectores, no consecuencia de los grados.
+
+En la práctica, la red se muestrea recableando la real: se eligen dos
+enlaces $(a, b)$ y $(c, d)$ y se cambian por $(a, d)$ y $(c, b)$, si eso no
+crea enlaces repetidos ni lazos. Cada cambio conserva todos los grados.
+
+#### 4.2 Asortatividad
+
+La **asortatividad** $r$ es el coeficiente de correlación de Pearson entre
+los grados de los dos extremos de un enlace, calculado sobre todos los
+enlaces en los dos sentidos (Newman, 2002). Va de $-1$ a 1.
+
+- $r > 0$: los nodos de grado alto se conectan entre sí. Típico de redes
+  sociales. El mercado tiene $r = 0.12$: un núcleo financiero denso.
+- $r < 0$: los concentradores se conectan con nodos de grado bajo. Típico
+  de redes tecnológicas y biológicas, y de redes simples con grados muy
+  desiguales: si sólo puede haber un enlace por par, los concentradores no
+  encuentran suficientes concentradores. Por eso la red recableada tiene
+  $r = -0.23$.
 
 ---
 

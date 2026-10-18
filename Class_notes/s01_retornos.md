@@ -1,9 +1,10 @@
 # Sesión 1: Retornos y colas pesadas. Notas formales
 
 > **Cómo leer estas notas.** Siguen el orden del programa: primero se observa
-> en el cuaderno (`Code/s01_retornos.jl`), después se formaliza aquí. Lo que
-> no tiene marca es **ruta básica**. Las secciones y demostraciones marcadas
-> **[Avanzado]** son opcionales.
+> en el cuaderno (`Code/s01_retornos.jl`), después se formaliza aquí. El
+> cuerpo de las notas es la **ruta básica**. Las demostraciones y los temas de
+> la ruta avanzada, opcionales, están al final, en **Para profundizar**; donde
+> estaban queda una línea que los enlaza.
 >
 > Repaso recomendado: [C.B1](repaso/calculo.md#cb1) (logaritmos),
 > [P.B1–B5](repaso/probabilidad.md#pb1) (variables aleatorias, media,
@@ -147,15 +148,7 @@ desviaciones estándar".
 **Proposición.** Si $Z \sim \mathcal{N}(0,1)$, entonces
 $\mathbb{E}[Z^4] = 3$, es decir, $\kappa = 0$.
 
-*Demostración* **[Avanzado]**. Sea $\varphi(z) = e^{-z^2/2}/\sqrt{2\pi}$, que
-cumple $\varphi'(z) = -z\thinspace\varphi(z)$. Integrando por partes con $u = z^3$,
-$dv = z\varphi(z)\thinspace dz$, $v = -\varphi(z)$:
-
-$$
-\mathbb{E}[Z^4] = \int_{-\infty}^{\infty} z^3 \cdot z\varphi(z)\thinspace dz
-= \big[-z^3\varphi(z)\big]_{-\infty}^{\infty} + 3\int_{-\infty}^{\infty} z^2\varphi(z)\thinspace dz
-= 0 + 3\thinspace\mathbb{E}[Z^2] = 3. \quad\square
-$$
+**[Avanzado]** Demostración: en [Para profundizar, P.1](#pp1).
 
 En general, $\mathbb{E}[Z^{2n}] = (2n-1)!! = 1\cdot 3 \cdot 5 \cdots (2n-1)$.
 
@@ -378,6 +371,27 @@ agrupamiento de volatilidad.
 - **F4.** Demuestra que $\mathbb{E}[Z^6] = 15$ para $Z \sim \mathcal{N}(0,1)$.
 - **F5.** Sea $\mathbb{P}(X > x) = x^{-\alpha}$ para $x \ge 1$ (Pareto).
   Muestra que $\mathbb{E}[X^n] < \infty$ si y sólo si $n < \alpha$.
+
+---
+
+## Para profundizar
+
+Material opcional de la ruta avanzada: demostraciones y temas que no se ven
+en clase. Cada apartado indica de qué sección de las notas viene.
+
+<a id="pp1"></a>
+
+### P.1 Demostración (sección 2.3)
+
+*Demostración.* Sea $\varphi(z) = e^{-z^2/2}/\sqrt{2\pi}$, que
+cumple $\varphi'(z) = -z\thinspace\varphi(z)$. Integrando por partes con $u = z^3$,
+$dv = z\varphi(z)\thinspace dz$, $v = -\varphi(z)$:
+
+$$
+\mathbb{E}[Z^4] = \int_{-\infty}^{\infty} z^3 \cdot z\varphi(z)\thinspace dz
+= \big[-z^3\varphi(z)\big]_{-\infty}^{\infty} + 3\int_{-\infty}^{\infty} z^2\varphi(z)\thinspace dz
+= 0 + 3\thinspace\mathbb{E}[Z^2] = 3. \quad\square
+$$
 
 ---
 

@@ -2,8 +2,9 @@
 
 > **Cómo leer estas notas.** Siguen el orden del programa: primero se observa
 > en el cuaderno (`Code/s06_crecimiento_multiplicativo.jl`), después se
-> formaliza aquí. Lo que no tiene marca es **ruta básica**. Las secciones y
-> demostraciones marcadas **[Avanzado]** son opcionales.
+> formaliza aquí. El cuerpo de las notas es la **ruta básica**. Las
+> demostraciones y los temas de la ruta avanzada, opcionales, están al final,
+> en **Para profundizar**; donde estaban queda una línea que los enlaza.
 >
 > Repaso recomendado: [C.B1](repaso/calculo.md#cb1) (logaritmos),
 > [P.I3](repaso/probabilidad.md#pi3) (TLC), [P.I6](repaso/probabilidad.md#pi6)
@@ -103,25 +104,7 @@ $$
 \alpha = -\frac{2m}{s^2} .
 $$
 
-*Demostración* **[Avanzado]**. Sea $y = \ln(x/x_{\min}) \ge 0$. En tiempo
-continuo, $y$ es una difusión con deriva $m$ y varianza $s^2$ por unidad de
-tiempo, reflejada en $y = 0$. Su densidad cumple la ecuación de Fokker-Planck
-([E.A4](repaso/procesos_estocasticos.md#ea4))
-
-$$
-\frac{\partial p}{\partial t} = -m\frac{\partial p}{\partial y} + \frac{s^2}{2}\frac{\partial^2 p}{\partial y^2}.
-$$
-
-En el estado estacionario con flujo nulo en la barrera,
-$m\thinspace p - \frac{s^2}{2}p' = 0$, de donde
-
-$$
-p(y) = \frac{2\lvert m\rvert}{s^2}\thinspace e^{-2\lvert m\rvert y/s^2}, \qquad y \ge 0 .
-$$
-
-Es decir, $\mathbb{P}(Y > y) = e^{-\alpha y}$ con $\alpha = 2\lvert m\rvert/s^2$.
-Como $Y = \ln(X/x_{\min})$,
-$\mathbb{P}(X > x) = \mathbb{P}\big(Y > \ln(x/x_{\min})\big) = (x/x_{\min})^{-\alpha}$. $\square$
+**[Avanzado]** Demostración: en [Para profundizar, P.1](#pp1).
 
 **Idea clave.** Una distribución **exponencial en el logaritmo** es una
 **ley de potencias** en la variable original
@@ -223,36 +206,8 @@ consistentes con este argumento.
 
 ## 5. [Avanzado] GARCH como proceso de Kesten
 
-En GARCH(1,1), con $r_t = \sigma_t\varepsilon_t$,
+El desarrollo de esta sección está en [Para profundizar, P.2](#pp2).
 
-$$
-\sigma_{t+1}^2 = \left(a\varepsilon_t^2 + b\right)\sigma_t^2 + \omega ,
-$$
-
-que es un proceso de Kesten con factor $a\varepsilon_t^2 + b$ y término
-aditivo $\omega$. Si $\kappa > 0$ resuelve
-$\mathbb{E}\big[(a\varepsilon^2 + b)^{\kappa}\big] = 1$, entonces
-$\mathbb{P}(\sigma^2 > x) \sim C x^{-\kappa}$, así que $\sigma$ tiene exponente
-$2\kappa$. Como $\varepsilon$ es normal (de colas ligeras), el producto
-$r = \sigma\varepsilon$ hereda la cola de $\sigma$:
-
-$$
-\mathbb{P}(\lvert r\rvert > x) \sim C' x^{-2\kappa}.
-$$
-
-Con los parámetros estimados en la sesión 5:
-
-| Activo | $a$ | $b$ | $2\kappa$ (GARCH) | $\alpha$ de los datos |
-|---|---|---|---|---|
-| IPC (BMV) | 0.075 | 0.9125 | 6.0 | 2.8 |
-| USD/MXN | 0.120 | 0.8575 | 4.9 | 3.1 |
-| S&P 500 | 0.125 | 0.8575 | 4.2 | 3.1 |
-| Bitcoin | 0.110 | 0.8475 | 7.5 | 4.0 |
-
-Las colas de GARCH con innovaciones normales son más ligeras que las reales.
-Los exponentes estimados en las simulaciones de la sesión 5 (entre 3.3 y 4.4)
-quedaron por debajo de $2\kappa$ por el mismo efecto de muestra finita de la
-sección 3.
 
 ---
 
@@ -294,6 +249,73 @@ sección 3.
 - **F7.** Calcula numéricamente $2\kappa$ para un GARCH(1,1) con innovaciones
   $t$ de Student con $\nu$ grados de libertad. ¿Puede el modelo reproducir
   $\alpha \approx 3$?
+
+---
+
+## Para profundizar
+
+Material opcional de la ruta avanzada: demostraciones y temas que no se ven
+en clase. Cada apartado indica de qué sección de las notas viene.
+
+<a id="pp1"></a>
+
+### P.1 Demostración (sección 2.2)
+
+*Demostración.* Sea $y = \ln(x/x_{\min}) \ge 0$. En tiempo
+continuo, $y$ es una difusión con deriva $m$ y varianza $s^2$ por unidad de
+tiempo, reflejada en $y = 0$. Su densidad cumple la ecuación de Fokker-Planck
+([E.A4](repaso/procesos_estocasticos.md#ea4))
+
+$$
+\frac{\partial p}{\partial t} = -m\frac{\partial p}{\partial y} + \frac{s^2}{2}\frac{\partial^2 p}{\partial y^2}.
+$$
+
+En el estado estacionario con flujo nulo en la barrera,
+$m\thinspace p - \frac{s^2}{2}p' = 0$, de donde
+
+$$
+p(y) = \frac{2\lvert m\rvert}{s^2}\thinspace e^{-2\lvert m\rvert y/s^2}, \qquad y \ge 0 .
+$$
+
+Es decir, $\mathbb{P}(Y > y) = e^{-\alpha y}$ con $\alpha = 2\lvert m\rvert/s^2$.
+Como $Y = \ln(X/x_{\min})$,
+$\mathbb{P}(X > x) = \mathbb{P}\big(Y > \ln(x/x_{\min})\big) = (x/x_{\min})^{-\alpha}$. $\square$
+
+<a id="pp2"></a>
+
+### P.2 GARCH como proceso de Kesten (sección 5)
+
+
+En GARCH(1,1), con $r_t = \sigma_t\varepsilon_t$,
+
+$$
+\sigma_{t+1}^2 = \left(a\varepsilon_t^2 + b\right)\sigma_t^2 + \omega ,
+$$
+
+que es un proceso de Kesten con factor $a\varepsilon_t^2 + b$ y término
+aditivo $\omega$. Si $\kappa > 0$ resuelve
+$\mathbb{E}\big[(a\varepsilon^2 + b)^{\kappa}\big] = 1$, entonces
+$\mathbb{P}(\sigma^2 > x) \sim C x^{-\kappa}$, así que $\sigma$ tiene exponente
+$2\kappa$. Como $\varepsilon$ es normal (de colas ligeras), el producto
+$r = \sigma\varepsilon$ hereda la cola de $\sigma$:
+
+$$
+\mathbb{P}(\lvert r\rvert > x) \sim C' x^{-2\kappa}.
+$$
+
+Con los parámetros estimados en la sesión 5:
+
+| Activo | $a$ | $b$ | $2\kappa$ (GARCH) | $\alpha$ de los datos |
+|---|---|---|---|---|
+| IPC (BMV) | 0.075 | 0.9125 | 6.0 | 2.8 |
+| USD/MXN | 0.120 | 0.8575 | 4.9 | 3.1 |
+| S&P 500 | 0.125 | 0.8575 | 4.2 | 3.1 |
+| Bitcoin | 0.110 | 0.8475 | 7.5 | 4.0 |
+
+Las colas de GARCH con innovaciones normales son más ligeras que las reales.
+Los exponentes estimados en las simulaciones de la sesión 5 (entre 3.3 y 4.4)
+quedaron por debajo de $2\kappa$ por el mismo efecto de muestra finita de la
+sección 3.
 
 ---
 

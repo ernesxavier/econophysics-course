@@ -49,7 +49,7 @@ formales, añade las I. Para la ruta avanzada, añade las A.
 | 12 | Contagio y riesgo sistémico | [L.B4](algebra_lineal.md#lb4), [C.B5](calculo.md#cb5) | [L.I4](algebra_lineal.md#li4), [C.I5](calculo.md#ci5) | [L.A4–A5](algebra_lineal.md#la4), [F.A5](fisica_estadistica.md#fa5) |
 | 13 | Logit, Boltzmann e Ising | [C.B4](calculo.md#cb4), [F.B3–B4](fisica_estadistica.md#fb3) | [F.I1–I3](fisica_estadistica.md#fi1), [F.I5](fisica_estadistica.md#fi5) | [E.A3](procesos_estocasticos.md#ea3) |
 | 14 | Campo medio e histéresis | [P.B4](probabilidad.md#pb4) | [C.I1](calculo.md#ci1), [C.I5](calculo.md#ci5), [F.I4](fisica_estadistica.md#fi4) | [C.A4](calculo.md#ca4), [F.A1–A4](fisica_estadistica.md#fa1), [S.A1](estadistica.md#sa1) |
-| 15 | Votante y Kirman | [E.B2–B3](procesos_estocasticos.md#eb2), [L.B4](algebra_lineal.md#lb4), [C.B4](calculo.md#cb4), [F.B3–B4](fisica_estadistica.md#fb3) | [E.I2–I3](procesos_estocasticos.md#ei2), [F.I3–I4](fisica_estadistica.md#fi3) | [E.A2–A4](procesos_estocasticos.md#ea2), [E.A6](procesos_estocasticos.md#ea6) |
+| 15 | Votante y Kirman | [E.B2–B3](procesos_estocasticos.md#eb2), [L.B4](algebra_lineal.md#lb4), [C.B4](calculo.md#cb4), [F.B3–B4](fisica_estadistica.md#fb3) | [E.I2–I3](procesos_estocasticos.md#ei2), [F.I3–I4](fisica_estadistica.md#fi3) | [E.A3–A4](procesos_estocasticos.md#ea3), [E.A6](procesos_estocasticos.md#ea6) |
 | 16 | Schelling | [F.B4](fisica_estadistica.md#fb4) | [F.I3](fisica_estadistica.md#fi3) | — |
 | 17 | Replicador y Goodwin | [C.B3](calculo.md#cb3) | [L.I1](algebra_lineal.md#li1), [C.I1](calculo.md#ci1), [C.I3–I4](calculo.md#ci3) | [L.A3](algebra_lineal.md#la3), [C.A2](calculo.md#ca2) |
 | 18 | Cooperación en redes | [L.B4](algebra_lineal.md#lb4), [C.B4](calculo.md#cb4) | — | — |

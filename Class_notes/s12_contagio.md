@@ -1,9 +1,10 @@
 # Sesión 12: Contagio y riesgo sistémico. Notas formales
 
 > **Cómo leer estas notas.** Siguen el orden del programa: primero se observa
-> en el cuaderno (`Code/s12_contagio.jl`), después se formaliza aquí. Lo que
-> no tiene marca es **ruta básica**. Las secciones y demostraciones marcadas
-> **[Avanzado]** son opcionales.
+> en el cuaderno (`Code/s12_contagio.jl`), después se formaliza aquí. El
+> cuerpo de las notas es la **ruta básica**. Las demostraciones y los temas de
+> la ruta avanzada, opcionales, están al final, en **Para profundizar**; donde
+> estaban queda una línea que los enlaza.
 >
 > Repaso recomendado: [L.B4](repaso/algebra_lineal.md#lb4) (matriz de
 > adyacencia), [C.B5](repaso/calculo.md#cb5) (serie geométrica),
@@ -98,9 +99,7 @@ $z \approx 1.02$ y $z \approx 5.76$; con $\varphi = 0.22$ ($K = 4$), 1.11 y
 3.86. Como $K$ es entero, la ventana sólo cambia cuando $1/\varphi$ cruza un
 entero.
 
-**[Avanzado] El borde inferior.** Desarrollando para $z$ pequeño,
-$F(z) = z^2 - z + O(z^3)$, así que el borde inferior es $z \approx 1$: la
-transición de percolación de Erdős-Rényi.
+**[Avanzado]** El borde inferior: en [Para profundizar, P.1](#pp1).
 
 ### 1.4 Robusto pero frágil
 
@@ -238,34 +237,8 @@ del 1% del capital, la pérdida final es del 4%.
 
 ### 3.3 [Avanzado] Estabilidad e inestabilidad
 
-**Proposición.** Si $r(\Lambda) \ge 1$ y $\Lambda$ es irreducible (cualquier
-banco está expuesto, directa o indirectamente, a cualquier otro), entonces
-para todo choque $h(1) \ge 0$ no nulo, por pequeño que sea, algún banco
-llega a $h_i = 1$.
+El desarrollo de esta subsección está en [Para profundizar, P.2](#pp2).
 
-*Idea de la demostración.* Por Perron-Frobenius
-([L.A5](repaso/algebra_lineal.md#la5)), $\Lambda$ tiene un eigenvector
-izquierdo $u > 0$ con eigenvalor $r = r(\Lambda)$. Mientras no haya
-saturación, $u^\top\Delta(t+1) = u^\top\Lambda\Delta(t) = r\thinspace u^\top\Delta(t)$,
-así que $u^\top\Delta(t) = r^{t-1}u^\top h(1)$, y la suma
-$u^\top h(t) = \sum_{s < t} r^s\thinspace u^\top h(1)$ crece sin límite (de forma
-geométrica si $r > 1$, lineal si $r = 1$). Como
-$u^\top h(t) \le u^\top\mathbf 1$ mientras $h \le \mathbf 1$, el crecimiento sin
-saturación no puede durar. $\square$
-
-**Cotas útiles.** Para una matriz no negativa, el radio espectral está entre
-la menor y la mayor suma por filas:
-
-$$
-\min_i \sum_j \Lambda_{ij} \le r(\Lambda) \le \max_i \sum_j \Lambda_{ij} .
-$$
-
-La suma de la fila $i$ es el apalancamiento interbancario de $i$: sus
-préstamos a otros bancos entre su capital. Si **todos** los bancos prestan
-menos que su capital, $r(\Lambda) < 1$ y el sistema es estable en este
-sentido; si todos prestan más, $r(\Lambda) > 1$, sin importar la forma de la
-red. Con
-apalancamientos distintos, la forma de la red decide.
 
 ### 3.4 Demasiado central para caer
 
@@ -282,77 +255,8 @@ eran sistémicamente importantes en el pico de la crisis.
 
 ## 4. [Avanzado] Eisenberg-Noe
 
-### 4.1 El vector de pagos
+El desarrollo de esta sección está en [Para profundizar, P.3](#pp3).
 
-Sea $L_{ij} \ge 0$ la deuda de $i$ con $j$ (sin deudas consigo mismo),
-$\bar p_i = \sum_j L_{ij}$ su deuda interbancaria total y
-$\Pi_{ij} = L_{ij}/\bar p_i$ la proporción que le corresponde a cada
-acreedor. Cada banco tiene activos externos $e_i \ge 0$ y una deuda externa
-$v_i \ge 0$ con prioridad sobre la interbancaria.
-
-Un **vector de pagos** es un $p \in [0, \bar p]$ con $p = \Phi(p)$, donde
-
-$$
-\Phi_i(p) = \max\left\lbrace 0,\ \min\left\lbrace \bar p_i,\ e_i - v_i + \sum_j \Pi_{ji}\thinspace p_j\right\rbrace\right\rbrace .
-$$
-
-Las reglas que codifica son: **responsabilidad limitada** (nadie paga más
-de lo que tiene), **prioridad absoluta** (se paga toda la deuda antes de
-que quede algo para los accionistas) y **proporcionalidad** (un banco en
-quiebra paga a sus acreedores en proporción a lo que les debe).
-
-### 4.2 Existencia y cálculo
-
-**Proposición** (Eisenberg y Noe, 2001). Existe un vector de pagos máximo
-$p^+$ (y uno mínimo $p^-$). La sucesión $p^{(0)} = \bar p$,
-$p^{(t+1)} = \Phi(p^{(t)})$ decrece y converge a $p^+$.
-
-*Demostración.* $\Phi$ es **creciente**: si $p \le q$ componente a
-componente, entonces $\Phi(p) \le \Phi(q)$, porque $\Pi_{ji} \ge 0$ y el
-máximo y el mínimo conservan el orden. Además $\Phi$ manda el intervalo
-$[0, \bar p]$ en sí mismo. Como $p^{(1)} = \Phi(\bar p) \le \bar p = p^{(0)}$,
-aplicando $\Phi$ repetidamente $p^{(t+1)} \le p^{(t)}$. Una sucesión
-decreciente y acotada por abajo converge; por continuidad de $\Phi$ el
-límite es un punto fijo. Si $q$ es cualquier otro punto fijo, $q \le \bar p$
-implica $q = \Phi^t(q) \le \Phi^t(\bar p) = p^{(t)}$ para todo $t$, así que
-el límite es el mayor. (El teorema de Tarski da la existencia de $p^-$.) $\square$
-
-Bajo una condición de regularidad (que de cada grupo de bancos que sólo se
-deben entre sí salga algún activo externo positivo), el punto fijo es
-único.
-
-### 4.3 Anillo contra red completa
-
-Considera $n$ bancos, cada uno con deuda interbancaria total 1 y colchón
-$\delta = e_i - v_i > 0$. Un choque reduce $e_1$ en $\varepsilon$.
-
-**Red completa**, con $L_{ij} = 1/(n-1)$. Si sólo quiebra el banco 1, éste deja
-de pagar $\varepsilon - \delta$ (si es menor que 1), y cada uno de los demás
-pierde $(\varepsilon - \delta)/(n-1)$. Los demás sobreviven si esa pérdida
-no supera su colchón:
-
-$$
-\frac{\varepsilon - \delta}{n - 1} \le \delta
-\quad\Longleftrightarrow\quad
-\varepsilon \le n\delta .
-$$
-
-Si $\varepsilon > n\delta$, el capital conjunto del sistema, $n\delta - \varepsilon$,
-es negativo, así que no puede ser que sólo el banco 1 quiebre; por simetría,
-los otros $n - 1$ quiebran juntos. Con $n = 10$ y $\delta = 0.08$, el salto
-de 1 a 10 quiebras ocurre en $\varepsilon = 0.8$.
-
-**Anillo**, con $L_{i,i+1} = 1$. El banco 1 deja de pagar $\varepsilon - \delta$
-al banco 2, que absorbe $\delta$ y deja de pagar $\varepsilon - 2\delta$ al 3,
-y así. El banco $j$ quiebra si $\varepsilon > j\delta$: el número de quiebras
-crece de uno en uno con $\varepsilon$.
-
-**Conclusión** (Acemoglu, Ozdaglar y Tahbaz-Salehi, 2015). Para choques
-pequeños, la red completa es la más estable y el anillo la menos estable.
-Para choques mayores que el colchón total, la red completa se vuelve tan
-frágil como el anillo: la conexión que reparte los choques pequeños también
-reparte los grandes. Los autores muestran que, en ese régimen, las redes
-débilmente conectadas son más estables que ambas.
 
 ---
 
@@ -400,6 +304,132 @@ débilmente conectadas son más estables que ambas.
 - **F8.** En el anillo de la sección 4.3, ¿qué pasa si el choque supera la
   deuda interbancaria total del banco 1 ($\varepsilon - \delta > 1$)? ¿Quién
   absorbe el exceso?
+
+---
+
+## Para profundizar
+
+Material opcional de la ruta avanzada: demostraciones y temas que no se ven
+en clase. Cada apartado indica de qué sección de las notas viene.
+
+<a id="pp1"></a>
+
+### P.1 El borde inferior (sección 1.3)
+
+**El borde inferior.** Desarrollando para $z$ pequeño,
+$F(z) = z^2 - z + O(z^3)$, así que el borde inferior es $z \approx 1$: la
+transición de percolación de Erdős-Rényi.
+
+<a id="pp2"></a>
+
+### P.2 Estabilidad e inestabilidad (sección 3.3)
+
+
+**Proposición.** Si $r(\Lambda) \ge 1$ y $\Lambda$ es irreducible (cualquier
+banco está expuesto, directa o indirectamente, a cualquier otro), entonces
+para todo choque $h(1) \ge 0$ no nulo, por pequeño que sea, algún banco
+llega a $h_i = 1$.
+
+*Idea de la demostración.* Por Perron-Frobenius
+([L.A5](repaso/algebra_lineal.md#la5)), $\Lambda$ tiene un eigenvector
+izquierdo $u > 0$ con eigenvalor $r = r(\Lambda)$. Mientras no haya
+saturación, $u^\top\Delta(t+1) = u^\top\Lambda\Delta(t) = r\thinspace u^\top\Delta(t)$,
+así que $u^\top\Delta(t) = r^{t-1}u^\top h(1)$, y la suma
+$u^\top h(t) = \sum_{s < t} r^s\thinspace u^\top h(1)$ crece sin límite (de forma
+geométrica si $r > 1$, lineal si $r = 1$). Como
+$u^\top h(t) \le u^\top\mathbf 1$ mientras $h \le \mathbf 1$, el crecimiento sin
+saturación no puede durar. $\square$
+
+**Cotas útiles.** Para una matriz no negativa, el radio espectral está entre
+la menor y la mayor suma por filas:
+
+$$
+\min_i \sum_j \Lambda_{ij} \le r(\Lambda) \le \max_i \sum_j \Lambda_{ij} .
+$$
+
+La suma de la fila $i$ es el apalancamiento interbancario de $i$: sus
+préstamos a otros bancos entre su capital. Si **todos** los bancos prestan
+menos que su capital, $r(\Lambda) < 1$ y el sistema es estable en este
+sentido; si todos prestan más, $r(\Lambda) > 1$, sin importar la forma de la
+red. Con
+apalancamientos distintos, la forma de la red decide.
+
+<a id="pp3"></a>
+
+### P.3 Eisenberg-Noe (sección 4)
+
+
+#### 4.1 El vector de pagos
+
+Sea $L_{ij} \ge 0$ la deuda de $i$ con $j$ (sin deudas consigo mismo),
+$\bar p_i = \sum_j L_{ij}$ su deuda interbancaria total y
+$\Pi_{ij} = L_{ij}/\bar p_i$ la proporción que le corresponde a cada
+acreedor. Cada banco tiene activos externos $e_i \ge 0$ y una deuda externa
+$v_i \ge 0$ con prioridad sobre la interbancaria.
+
+Un **vector de pagos** es un $p \in [0, \bar p]$ con $p = \Phi(p)$, donde
+
+$$
+\Phi_i(p) = \max\left\lbrace 0,\ \min\left\lbrace \bar p_i,\ e_i - v_i + \sum_j \Pi_{ji}\thinspace p_j\right\rbrace\right\rbrace .
+$$
+
+Las reglas que codifica son: **responsabilidad limitada** (nadie paga más
+de lo que tiene), **prioridad absoluta** (se paga toda la deuda antes de
+que quede algo para los accionistas) y **proporcionalidad** (un banco en
+quiebra paga a sus acreedores en proporción a lo que les debe).
+
+#### 4.2 Existencia y cálculo
+
+**Proposición** (Eisenberg y Noe, 2001). Existe un vector de pagos máximo
+$p^+$ (y uno mínimo $p^-$). La sucesión $p^{(0)} = \bar p$,
+$p^{(t+1)} = \Phi(p^{(t)})$ decrece y converge a $p^+$.
+
+*Demostración.* $\Phi$ es **creciente**: si $p \le q$ componente a
+componente, entonces $\Phi(p) \le \Phi(q)$, porque $\Pi_{ji} \ge 0$ y el
+máximo y el mínimo conservan el orden. Además $\Phi$ manda el intervalo
+$[0, \bar p]$ en sí mismo. Como $p^{(1)} = \Phi(\bar p) \le \bar p = p^{(0)}$,
+aplicando $\Phi$ repetidamente $p^{(t+1)} \le p^{(t)}$. Una sucesión
+decreciente y acotada por abajo converge; por continuidad de $\Phi$ el
+límite es un punto fijo. Si $q$ es cualquier otro punto fijo, $q \le \bar p$
+implica $q = \Phi^t(q) \le \Phi^t(\bar p) = p^{(t)}$ para todo $t$, así que
+el límite es el mayor. (El teorema de Tarski da la existencia de $p^-$.) $\square$
+
+Bajo una condición de regularidad (que de cada grupo de bancos que sólo se
+deben entre sí salga algún activo externo positivo), el punto fijo es
+único.
+
+#### 4.3 Anillo contra red completa
+
+Considera $n$ bancos, cada uno con deuda interbancaria total 1 y colchón
+$\delta = e_i - v_i > 0$. Un choque reduce $e_1$ en $\varepsilon$.
+
+**Red completa**, con $L_{ij} = 1/(n-1)$. Si sólo quiebra el banco 1, éste deja
+de pagar $\varepsilon - \delta$ (si es menor que 1), y cada uno de los demás
+pierde $(\varepsilon - \delta)/(n-1)$. Los demás sobreviven si esa pérdida
+no supera su colchón:
+
+$$
+\frac{\varepsilon - \delta}{n - 1} \le \delta
+\quad\Longleftrightarrow\quad
+\varepsilon \le n\delta .
+$$
+
+Si $\varepsilon > n\delta$, el capital conjunto del sistema, $n\delta - \varepsilon$,
+es negativo, así que no puede ser que sólo el banco 1 quiebre; por simetría,
+los otros $n - 1$ quiebran juntos. Con $n = 10$ y $\delta = 0.08$, el salto
+de 1 a 10 quiebras ocurre en $\varepsilon = 0.8$.
+
+**Anillo**, con $L_{i,i+1} = 1$. El banco 1 deja de pagar $\varepsilon - \delta$
+al banco 2, que absorbe $\delta$ y deja de pagar $\varepsilon - 2\delta$ al 3,
+y así. El banco $j$ quiebra si $\varepsilon > j\delta$: el número de quiebras
+crece de uno en uno con $\varepsilon$.
+
+**Conclusión** (Acemoglu, Ozdaglar y Tahbaz-Salehi, 2015). Para choques
+pequeños, la red completa es la más estable y el anillo la menos estable.
+Para choques mayores que el colchón total, la red completa se vuelve tan
+frágil como el anillo: la conexión que reparte los choques pequeños también
+reparte los grandes. Los autores muestran que, en ese régimen, las redes
+débilmente conectadas son más estables que ambas.
 
 ---
 

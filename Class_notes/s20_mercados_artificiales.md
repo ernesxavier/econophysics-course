@@ -2,8 +2,9 @@
 
 > **Cómo leer estas notas.** Siguen el orden del programa: primero se observa
 > en el cuaderno (`Code/s20_mercados_artificiales.jl`), después se formaliza
-> aquí. Lo que no tiene marca es **ruta básica**. Las secciones y
-> demostraciones marcadas **[Avanzado]** son opcionales.
+> aquí. El cuerpo de las notas es la **ruta básica**. Las demostraciones y los
+> temas de la ruta avanzada, opcionales, están al final, en **Para
+> profundizar**; donde estaban queda una línea que los enlaza.
 >
 > Repaso recomendado: [E.B3](repaso/procesos_estocasticos.md#eb3)
 > (estacionariedad y promedios temporales),
@@ -330,7 +331,74 @@ retornos financieros:
 
 ## 5. [Avanzado] Bifurcaciones y caos en el modelo de Brock-Hommes
 
-### 5.1 Puntos fijos y estabilidad lineal del equilibrio fundamental
+El desarrollo de esta sección está en [Para profundizar, P.1](#pp1).
+
+
+---
+
+## Tabla de conceptos clave
+
+| Concepto | Fórmula / condición | Interpretación económica |
+|---|---|---|
+| **Desviación respecto al fundamental** | $x_t = p_t - p^\ast$, con $p^\ast = \bar y / (R - 1)$ | Burbuja positiva ($x_t > 0$) o subvaluación ($x_t < 0$) |
+| **Vaciado de mercado (Brock-Hommes)** | $R\thinspace x_t = \sum_{h=1}^H n_{h,t}\thinspace f_{h,t}$ | El precio de hoy promedia los pronósticos ponderados por su cuota de mercado |
+| **Selección evolutiva logit** | $n_{h,t} = e^{\beta \pi_{h,t-1}} / \sum_k e^{\beta \pi_{k,t-1}}$ | $\beta$ mide qué tan rápido migran los agentes hacia la regla más rentable |
+| **Umbral de inestabilidad ($\beta_c$)** | $g\thinspace n_2^\ast(\beta_c) = R \implies \beta_c = \frac{1}{C}\ln\left(\frac{R}{g-R}\right)$ | Si ser fundamentalista cuesta $C > 0$, la calma hace migrar a los agentes al chartismo y desestabiliza $x^\ast = 0$ |
+| **Agrupamiento de volatilidad endógeno** | $\mathrm{Var}(r_t \mid \mathcal{F}_{t-1}) = \mu^2\bigl[(1-z_{t-1})^2\sigma_f^2 + z_{t-1}^2\sigma_c^2\bigr]$ | Las olas de chartismo ($z_t \uparrow$) crean ráfagas de alta volatilidad y colas pesadas |
+
+---
+
+## Ejercicios
+
+### Ruta básica
+
+**B1. Fracción logit de chartistas (`fraccion_logit_dos`).** Si en un mercado
+conviven fundamentalistas con ganancia neta $\pi_1$ y chartistas con ganancia
+neta $\pi_2$, escribe la expresión de la fracción de chartistas $n_2$ bajo
+elección logit con intensidad $\beta$. ¿Cuánto vale $n_2$ cuando $\beta = 0$?
+¿Y cuando $\pi_1 = -C < 0$ y $\pi_2 = 0$?
+
+**B2. Paso de precio en Brock-Hommes (`paso_precio_bh`).** Con factor libre de
+riesgo $R = 1.01$, fundamentalistas ($f_{1,t} = 0$) y seguidores de tendencia
+($f_{2,t} = g\thinspace x_{t-1}$ con $g = 1.2$), si ayer la desviación fue $x_{t-1} = 2.0$
+y hoy el 85% de los agentes son chartistas ($n_{2,t} = 0.85$), ¿cuál es la
+nueva desviación $x_t$? ¿La burbuja creció o se contrajo?
+
+**B3. Diagnóstico de hechos estilizados.** Explica por qué barajar al azar el
+orden temporal de los retornos simulados de un mercado artificial conserva la
+curtosis en exceso $\kappa$, pero destruye por completo la autocorrelación de la
+volatilidad $\hat\rho_{|r|}(\tau)$.
+
+### Ruta avanzada
+
+**A1. Intensidad crítica de bifurcación (`beta_critico_bh`).** Demuestra que
+cuando $R < g < 2R$ y $C > 0$, la condición $g\thinspace n_2^\ast(\beta_c) = R$ implica
+$\beta_c = \frac{1}{C}\ln\left(\frac{R}{g - R}\right)$. Evalúa $\beta_c$ para
+$R = 1.01$, $g = 1.20$ y $C = 1.0$. ¿Qué ocurre con $\beta_c$ cuando el costo
+de información $C$ tiende a cero?
+
+**A2. Contrarios y duplicación de periodo.** Supón que el segundo grupo de
+agentes no sigue la tendencia sino que es **contrario**: $f_{2,t} = g\thinspace x_{t-1}$
+con $-2R < g < -R$ (por ejemplo, $R = 1.10$ y $g = -1.35$), y que los
+fundamentalistas pagan $C = 1$. Calcula el eigenvalor $\lambda_1 = g\thinspace n_2^\ast / R$
+en el origen, muestra que $\lambda_1 > -1$ cuando $\beta = 0$ y encuentra el
+valor de $\beta$ en que cruza $\lambda_1 = -1$. Explica por qué en ese cruce
+nace un ciclo de **periodo 2** donde la desviación $x_t$ alterna de signo en
+cada paso. ¿Qué pasaría con $C = 0$?
+
+---
+
+## Para profundizar
+
+Material opcional de la ruta avanzada: demostraciones y temas que no se ven
+en clase. Cada apartado indica de qué sección de las notas viene.
+
+<a id="pp1"></a>
+
+### P.1 Bifurcaciones y caos en el modelo de Brock-Hommes (sección 5)
+
+
+#### 5.1 Puntos fijos y estabilidad lineal del equilibrio fundamental
 
 Estudiemos el sistema determinista de Brock y Hommes (1998) de la sección 2 con
 fundamentalistas ($f_{1,t} = 0$, costo $C \ge 0$) y seguidores de tendencia
@@ -385,7 +453,7 @@ sólo si $|\lambda_1| < 1$, es decir, $g\thinspace n_2^\ast < R$.
   cuando $1/(1 + e^{-\beta_c C}) = R/g$, de donde $e^{-\beta_c C} = (g - R)/R$,
   es decir, $\beta_c = \frac{1}{C}\ln\big(\frac{R}{g - R}\big)$. $\square$
 
-### 5.2 Bifurcación pitchfork, ciclos cuasiperiódicos y ruta al caos
+#### 5.2 La bifurcación pitchfork y la ruta al caos
 
 ¿Qué ocurre cuando $\beta$ supera el valor crítico $\beta_c$ en el régimen
 canónico $R < g < R^2$ con $C > 0$ (por ejemplo, $R = 1.10$, $g = 1.20$,
@@ -400,80 +468,17 @@ $C = 1.0$, donde $\beta_c = \ln(11) \approx 2.40$)?
    (x^\ast)^2 = \frac{C - \frac{1}{\beta}\ln\left(\frac{R}{g - R}\right)}{g\thinspace (R - 1)}
    = \frac{C\thinspace \big(1 - \beta_c / \beta\big)}{g\thinspace (R - 1)} > 0 \quad (\text{para } \beta > \beta_c) .
    $$
-2. **Segunda bifurcación (Neimark-Sacker / Hopf discreta) y caos:**
-   Al seguir aumentando $\beta$, los dos puntos fijos no fundamentales $\pm x^\ast$
-   también pierden estabilidad mediante una bifurcación de Neimark-Sacker: nace
-   un ciclo invariante cuasiperiódico alrededor de $\pm x^\ast$. Para valores aún
-   mayores de $\beta$, el atractor se pliega sobre sí mismo: las burbujas
-   crecen hasta que el término cuadrático $R(R - g/R)x_{t-2}^2$ hace rentable
-   volver al fundamentalismo, inyectando la órbita de regreso cerca de $x = 0$ y
-   produciendo **caos determinista**: Brock y Hommes (1998) documentan
-   atractores extraños en este régimen, y Brock y Hommes (1997) explican la
-   ruta al caos para $\beta$ grande con órbitas homoclínicas.
-3. **Exponente de Lyapunov ($\lambda$):** Para cuantificar si la dinámica es
-   convergente a un punto fijo ($\lambda < 0$), cuasiperiódica ($\lambda \approx 0$)
-   o caótica ($\lambda > 0$), seguimos la separación de una perturbación
-   infinitesimal $\delta X_t = J(X_t)\thinspace \delta X_{t-1}$ del vector de estado
-   $X_t = (x_t, x_{t-1}, x_{t-2})^\top$:
-   $$
-   \lambda = \lim_{T \to \infty} \frac{1}{T} \sum_{t=1}^T \ln \frac{\Vert \delta X_t\Vert }{\Vert \delta X_{t-1}\Vert } .
-   $$
-   Cuando $\lambda > 0$, dos mercados idénticos que difieren en una millonésima
-   de centavo en $t = 0$ siguen trayectorias de precios completamente distintas
-   pocos pasos después: la impredecibilidad nace de la propia no linealidad del
-   aprendizaje evolutivo.
-
----
-
-## Tabla de conceptos clave
-
-| Concepto | Fórmula / condición | Interpretación económica |
-|---|---|---|
-| **Desviación respecto al fundamental** | $x_t = p_t - p^\ast$, con $p^\ast = \bar y / (R - 1)$ | Burbuja positiva ($x_t > 0$) o subvaluación ($x_t < 0$) |
-| **Vaciado de mercado (Brock-Hommes)** | $R\thinspace x_t = \sum_{h=1}^H n_{h,t}\thinspace f_{h,t}$ | El precio de hoy promedia los pronósticos ponderados por su cuota de mercado |
-| **Selección evolutiva logit** | $n_{h,t} = e^{\beta \pi_{h,t-1}} / \sum_k e^{\beta \pi_{k,t-1}}$ | $\beta$ mide qué tan rápido migran los agentes hacia la regla más rentable |
-| **Umbral de inestabilidad ($\beta_c$)** | $g\thinspace n_2^\ast(\beta_c) = R \implies \beta_c = \frac{1}{C}\ln\left(\frac{R}{g-R}\right)$ | Si ser fundamentalista cuesta $C > 0$, la calma hace migrar a los agentes al chartismo y desestabiliza $x^\ast = 0$ |
-| **Agrupamiento de volatilidad endógeno** | $\mathrm{Var}(r_t \mid \mathcal{F}_{t-1}) = \mu^2\bigl[(1-z_{t-1})^2\sigma_f^2 + z_{t-1}^2\sigma_c^2\bigr]$ | Las olas de chartismo ($z_t \uparrow$) crean ráfagas de alta volatilidad y colas pesadas |
-
----
-
-## Ejercicios
-
-### Ruta básica
-
-**B1. Fracción logit de chartistas (`fraccion_logit_dos`).** Si en un mercado
-conviven fundamentalistas con ganancia neta $\pi_1$ y chartistas con ganancia
-neta $\pi_2$, escribe la expresión de la fracción de chartistas $n_2$ bajo
-elección logit con intensidad $\beta$. ¿Cuánto vale $n_2$ cuando $\beta = 0$?
-¿Y cuando $\pi_1 = -C < 0$ y $\pi_2 = 0$?
-
-**B2. Paso de precio en Brock-Hommes (`paso_precio_bh`).** Con factor libre de
-riesgo $R = 1.01$, fundamentalistas ($f_{1,t} = 0$) y seguidores de tendencia
-($f_{2,t} = g\thinspace x_{t-1}$ con $g = 1.2$), si ayer la desviación fue $x_{t-1} = 2.0$
-y hoy el 85% de los agentes son chartistas ($n_{2,t} = 0.85$), ¿cuál es la
-nueva desviación $x_t$? ¿La burbuja creció o se contrajo?
-
-**B3. Diagnóstico de hechos estilizados.** Explica por qué barajar al azar el
-orden temporal de los retornos simulados de un mercado artificial conserva la
-curtosis en exceso $\kappa$, pero destruye por completo la autocorrelación de la
-volatilidad $\hat\rho_{|r|}(\tau)$.
-
-### Ruta avanzada
-
-**A1. Intensidad crítica de bifurcación (`beta_critico_bh`).** Demuestra que
-cuando $R < g < 2R$ y $C > 0$, la condición $g\thinspace n_2^\ast(\beta_c) = R$ implica
-$\beta_c = \frac{1}{C}\ln\left(\frac{R}{g - R}\right)$. Evalúa $\beta_c$ para
-$R = 1.01$, $g = 1.20$ y $C = 1.0$. ¿Qué ocurre con $\beta_c$ cuando el costo
-de información $C$ tiende a cero?
-
-**A2. Contrarios y duplicación de periodo.** Supón que el segundo grupo de
-agentes no sigue la tendencia sino que es **contrario**: $f_{2,t} = g\thinspace x_{t-1}$
-con $-2R < g < -R$ (por ejemplo, $R = 1.10$ y $g = -1.35$), y que los
-fundamentalistas pagan $C = 1$. Calcula el eigenvalor $\lambda_1 = g\thinspace n_2^\ast / R$
-en el origen, muestra que $\lambda_1 > -1$ cuando $\beta = 0$ y encuentra el
-valor de $\beta$ en que cruza $\lambda_1 = -1$. Explica por qué en ese cruce
-nace un ciclo de **periodo 2** donde la desviación $x_t$ alterna de signo en
-cada paso. ¿Qué pasaría con $C = 0$?
+2. **Después: ciclos y caos.** Al seguir aumentando $\beta$, los equilibrios
+   $\pm x^\ast$ también pierden estabilidad, aparecen ciclos cuasiperiódicos
+   y, para $\beta$ mayor, **caos determinista**: las burbujas crecen hasta que
+   volver al fundamentalismo se vuelve rentable y la órbita regresa cerca de
+   $x = 0$, una y otra vez, sin repetirse. Es lo que muestra el diagrama de
+   bifurcación del cuaderno. El cuaderno también estima el **exponente de
+   Lyapunov** $\lambda$: si $\lambda > 0$, dos trayectorias que empiezan casi
+   iguales se separan exponencialmente. La clasificación de estas
+   bifurcaciones y la ruta al caos están en Brock y Hommes (1998) y en Hommes
+   (2013); Brock y Hommes (1997) la explican para $\beta$ grande con órbitas
+   homoclínicas.
 
 ---
 
