@@ -20,7 +20,7 @@ repaso](README.md).
 <details>
 <summary>Respuesta</summary>
 
-(a) $+10\%$ y $-10\%$; suman cero, aunque el precio bajó 1%.
+(a) +10% y −10%; suman cero, aunque el precio bajó 1%.
 (b) $\ln(110/100) + \ln(99/110) = \ln(99/100) \approx -0.01$. El logaritmo
 convierte productos en sumas: $\ln(a\thinspace b) = \ln a + \ln b$, así que la
 suma de retornos logarítmicos es el retorno logarítmico total.
@@ -53,16 +53,16 @@ desviación estándar no cambia.
 <details>
 <summary>Respuesta</summary>
 
-(a) Alrededor del 5%: con $z = r/\sigma$, $\mathbb P(\lvert Z\rvert > 2)
-\approx 0.046$.
-(b) Es $z = -5$. Para una normal, $\mathbb P(Z < -5) \approx 3 \times
-10^{-7}$: con unos 250 días de operación al año, una vez cada 10,000 años o
+(a) Alrededor del 5%: con $z = r/\sigma$,
+$\mathbb P(\lvert Z\rvert > 2) \approx 0.046$.
+(b) Es $z = -5$. Para una normal,
+$\mathbb P(Z < -5) \approx 3 \times 10^{-7}$: con unos 250 días de operación al año, una vez cada 10,000 años o
 más. En los mercados reales pasa varias veces por década; ése es el tema de
 la sesión 1.
 </details>
 
-**4. Escalas logarítmicas.** Considera $y = 5\thinspace x^{-2}$ y $y = 5\thinspace
-e^{-2x}$.
+**4. Escalas logarítmicas.** Considera $y = 5\thinspace x^{-2}$ y
+$y = 5\thinspace e^{-2x}$.
 
 - (a) ¿Cuál de las dos se ve como una recta en una gráfica log-log (logaritmo
   en los dos ejes)? ¿Qué pendiente tiene?

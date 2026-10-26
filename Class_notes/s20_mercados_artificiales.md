@@ -221,7 +221,7 @@ interacción entre $x_t$ y $n_{2,t}$ genera una narrativa económica transparent
    reglas ganan casi lo mismo antes de costos ($\pi_1 \approx -C$,
    $\pi_2 \approx 0$). Como investigar fundamentales cuesta $C > 0$, los
    agentes abandonan la regla fundamentalista y se pasan a la regla chartista
-   gratuita ($n_{2,t}$ sube hacia $1/(1 + e^{-\beta C})$).
+   gratuita ($n_{2,t}$ sube hacia $\frac{1}{1 + e^{-\beta C}}$).
 2. **Despegue de la burbuja:** En cuanto la fracción de chartistas supera el
    umbral $n_{2,t} > R/g$, el factor de amplificación $n_{2,t}\thinspace g / R$ se vuelve
    mayor que $1$. Cualquier pequeña perturbación se amplifica: la tendencia se
@@ -367,7 +367,7 @@ El desarrollo de esta sección está en [Para profundizar, P.1](#pp1).
 | **Vaciado de mercado (Brock-Hommes)** | $R\thinspace x_t = \sum_{h=1}^H n_{h,t}\thinspace f_{h,t}$ | El precio de hoy promedia los pronósticos ponderados por su cuota de mercado |
 | **Selección evolutiva logit** | $n_{h,t} = e^{\beta \pi_{h,t-1}} / \sum_k e^{\beta \pi_{k,t-1}}$ | $\beta$ mide qué tan rápido migran los agentes hacia la regla más rentable |
 | **Umbral de inestabilidad ($\beta_c$)** | $g\thinspace n_2^\ast(\beta_c) = R \implies \beta_c = \frac{1}{C}\ln\left(\frac{R}{g-R}\right)$ | Si ser fundamentalista cuesta $C > 0$, la calma hace migrar a los agentes al chartismo y desestabiliza $x^\ast = 0$ |
-| **Agrupamiento de volatilidad endógeno** | $\mathrm{Var}(r_t \mid \mathcal{F}_{t-1}) = \mu^2\bigl[(1-z_{t-1})^2\sigma_f^2 + z_{t-1}^2\sigma_c^2\bigr]$ | Las olas de chartismo ($z_t \uparrow$) crean ráfagas de alta volatilidad y colas pesadas |
+| **Agrupamiento de volatilidad endógeno** | $\mathrm{Var}(r_t \mid \mathcal F_{t-1}) = \mu^2\bigl[(1-z_{t-1})^2\sigma_f^2 + z_{t-1}^2\sigma_c^2\bigr]$ | Las olas de chartismo ($z_t \uparrow$) crean ráfagas de alta volatilidad y colas pesadas |
 
 ---
 

@@ -53,8 +53,8 @@ los pagos esperados son $\pi_C(x) = Rx + S(1-x)$ y $\pi_D(x) = Tx + P(1-x)$.
 Como $T > R$ y $P \ge S$ (con al menos una desigualdad estricta), se cumple
 $\pi_C(x) - \pi_D(x) < 0$ para todo $x \in (0, 1]$, por lo que en la dinámica
 del replicador $\dot x = x(1-x)(\pi_C - \pi_D) < 0$ para todo $x \in (0, 1)$ y
-el único punto fijo estable es la extinción total de la cooperación ($x^\ast =
-0$).
+el único punto fijo estable es la extinción total de la cooperación (
+$x^\ast = 0$).
 
 ---
 
@@ -141,8 +141,8 @@ una retícula regular, mediante un bucle de retroalimentación asimétrico:
   el pago máximo $\le b k_{\text{hoja}}$ de cualquiera de sus vecinos de bajo
   grado. Los vecinos imitan al *hub*, aumentando $q$ y reforzando aún más el
   pago del *hub*.
-- **Si el *hub* es traidor**, obtiene inicialmente un pago alto $\Pi_H^D = b q
-  k_H$. Precisamente por su éxito, sus vecinos copian su estrategia traidora;
+- **Si el *hub* es traidor**, obtiene inicialmente un pago alto
+  $\Pi_H^D = b q k_H$. Precisamente por su éxito, sus vecinos copian su estrategia traidora;
   pero a medida que los vecinos del *hub* se vuelven traidores, $q \to 0$ y el
   pago del *hub* traidor se desploma a $\Pi_H^D \to 0$, haciéndolo vulnerable a
   ser reconvertido por cualquier vecino cooperador conectado a otro grupo.
@@ -198,7 +198,7 @@ El desarrollo de esta sección está en [Para profundizar, P.1](#pp1).
   $b$ donde el bloque se expande ($b < 5/3$) y donde resiste ($b < 8/3$).
 - **F5.** Compara el umbral de tamaño finito $(N-2)/(N/k - 2)$ con el límite
   $k$ para $N = 36$ y $N = 360$ cuando $k = 4$. ¿A qué tamaño $N$ difiere el
-  umbral finito en menos de $5\%$ de $k = 4$?
+  umbral finito en menos de 5% de $k = 4$?
 
 ---
 
@@ -226,8 +226,8 @@ D & b & 0
 \end{array}
 $$
 
-En una red regular de grado $k$, un agente con estrategia $s_i \in \lbrace 0,
-1\rbrace$ y fracción local $q_i = k_i^C / k$ de vecinos cooperadores recibe un
+En una red regular de grado $k$, un agente con estrategia
+$s_i \in \lbrace 0, 1\rbrace$ y fracción local $q_i = k_i^C / k$ de vecinos cooperadores recibe un
 pago medio por vecino $\pi_i = b q_i - c s_i$. Su aptitud reproductiva
 (*fitness*) bajo **selección débil** ($w \ll 1$) es $f_i = 1 + w\pi_i$.
 

@@ -67,8 +67,8 @@ que todos los agentes coinciden, ningún paso posterior puede cambiar ninguna
 opinión.
 
 **Red completa.** Cuando todos son vecinos de todos ($k_i = N - 1$), el estado
-macroscópico queda determinado por el número $k = \sum_{i=1}^N s_i \in
-\lbrace 0, 1, \dots, N\rbrace$ de agentes con opinión $1$ (o la fracción
+macroscópico queda determinado por el número
+$k = \sum_{i=1}^N s_i \in \lbrace 0, 1, \dots, N\rbrace$ de agentes con opinión $1$ (o la fracción
 $x = k/N$). Para que $k$ aumente en una unidad debe elegirse un agente en $0$
 (con probabilidad $(N-k)/N$) y que el vecino elegido esté en $1$, lo que
 ocurre con probabilidad $k/(N-1)$. Para que disminuya en una unidad debe
@@ -102,8 +102,8 @@ $$
 \boxed{\ v_{k_0} = \frac{k_0}{N} = x_0\ }
 $$
 
-*Demostración.* Condicionando en el primer paso desde $k \in
-\lbrace 1, \dots, N-1\rbrace$,
+*Demostración.* Condicionando en el primer paso desde
+$k \in \lbrace 1, \dots, N-1\rbrace$,
 
 $$
 v_k = p_k v_{k+1} + q_k v_{k-1} + (1 - p_k - q_k) v_k .
@@ -125,8 +125,8 @@ El desarrollo de esta subsección está en [Para profundizar, P.1](#pp1).
 
 ### 1.4 Efecto de la topología de la red y leyes de escala
 
-En un grafo arbitrario con matriz de adyacencia $A_{ij}$ y grados $k_i = \sum_j
-A_{ij}$ ([L.B4](repaso/algebra_lineal.md#lb4)), condicionando en el estado
+En un grafo arbitrario con matriz de adyacencia $A_{ij}$ y grados
+$k_i = \sum_j A_{ij}$ ([L.B4](repaso/algebra_lineal.md#lb4)), condicionando en el estado
 actual $s$, la probabilidad de que el nodo $i$ sea elegido y cambie de estado
 en un paso elemental hace que
 
@@ -277,8 +277,8 @@ atrapado temporalmente cerca de la frontera.
   $\bar s_w$ para calcular la probabilidad exacta de que toda la red termine en
   la opinión $1$.
 - **F3.** En el modelo de Kirman con $N = 2$ agentes, escribe explícitamente
-  las probabilidades de transición entre los tres estados $k \in
-  \lbrace 0, 1, 2\rbrace$ y verifica que $P_0 = P_1 = P_2 = 1/3$ cuando
+  las probabilidades de transición entre los tres estados
+  $k \in \lbrace 0, 1, 2\rbrace$ y verifica que $P_0 = P_1 = P_2 = 1/3$ cuando
   $a = 1$.
 
 **Ruta avanzada**
@@ -290,8 +290,8 @@ atrapado temporalmente cerca de la frontera.
   elementales), y compáralo con la aproximación continua
   $-(N-1)[x\ln x + (1-x)\ln(1-x)]$ evaluada en $x = 1/3$.
 - **F5.** Usando que la distribución estacionaria continua del modelo de Kirman
-  es $\mathrm{Beta}(a, a)$ con densidad $p(x) = \frac{1}{\mathrm{B}(a,a)}
-  x^{a-1}(1-x)^{a-1}$, demuestra que $\mathbb E[x] = 1/2$ y que la varianza es
+  es $\mathrm{Beta}(a, a)$ con densidad
+  $p(x) = \frac{1}{\mathrm{B}(a,a)} x^{a-1}(1-x)^{a-1}$, demuestra que $\mathbb E[x] = 1/2$ y que la varianza es
   $\operatorname{Var}(x) = \frac{1}{4(2a + 1)}$. Usa la identidad
   $\mathrm{B}(u+1, v) = \frac{u}{u+v}\mathrm{B}(u, v)$ y verifica los límites
   $a \to 0$, $a = 1$ y $a \to \infty$.
@@ -319,8 +319,8 @@ $$
 \tau(x) = -(N - 1)\bigl[x\ln x + (1 - x)\ln(1 - x)\bigr] .
 $$
 
-En particular, partiendo de una población dividida en partes iguales ($x_0 =
-1/2$), $\tau(1/2) = (N - 1)\ln 2 \approx 0.693\thinspace(N - 1)$ barridos.
+En particular, partiendo de una población dividida en partes iguales (
+$x_0 = 1/2$), $\tau(1/2) = (N - 1)\ln 2 \approx 0.693\thinspace(N - 1)$ barridos.
 
 *Demostración.* En un paso elemental ($\Delta t = 1/N$ de barrido), condicionando
 en el resultado del paso:
@@ -329,8 +329,8 @@ $$
 \tau_k = \frac{1}{N} + p_k \tau_{k+1} + q_k \tau_{k-1} + (1 - 2p_k)\tau_k ,
 $$
 
-con $\tau_0 = \tau_N = 0$. Reordenando y sustituyendo $p_k =
-\frac{k(N-k)}{N(N-1)}$:
+con $\tau_0 = \tau_N = 0$. Reordenando y sustituyendo
+$p_k = \frac{k(N-k)}{N(N-1)}$:
 
 $$
 \tau_{k+1} - 2\tau_k + \tau_{k-1} = -\frac{1}{N p_k}
@@ -347,8 +347,8 @@ $$
 \tau''(x) = -(N - 1)\left(\frac{1}{x} + \frac{1}{1 - x}\right) .
 $$
 
-Integrando dos veces se obtiene $\tau(x) = -(N - 1)[x\ln x + (1-x)\ln(1-x)] +
-C_1 x + C_2$. Las condiciones de frontera $\tau(0) = \tau(1) = 0$ implican
+Integrando dos veces se obtiene
+$\tau(x) = -(N - 1)[x\ln x + (1-x)\ln(1-x)] + C_1 x + C_2$. Las condiciones de frontera $\tau(0) = \tau(1) = 0$ implican
 $C_1 = C_2 = 0$. $\square$
 
 **Fórmula exacta.** La ecuación de diferencias se resuelve sin aproximar,
@@ -407,14 +407,14 @@ P_k = P_0 \prod_{j=0}^{k-1} \frac{N - j}{j + 1}
 = P_0 \binom{N}{k} \frac{\Gamma(k+a)/\Gamma(a)}{\Gamma(N+a)/\Gamma(N-k+a)} .
 $$
 
-Normalizando con la identidad de Pólya $\sum_{k=0}^N \binom{N}{k}
-\mathrm{B}(k+a, N-k+a) = \mathrm{B}(a, a)$, se obtiene la fórmula enunciada.
+Normalizando con la identidad de Pólya
+$\sum_{k=0}^N \binom{N}{k} \mathrm{B}(k+a, N-k+a) = \mathrm{B}(a, a)$, se obtiene la fórmula enunciada.
 $\square$
 
 **Caso crítico $a = 1$.** Cuando $a = 1$, el factor $(a + k)/(a + N - 1 - k)$
 en el cociente $P_{k+1}/P_k$ se cancela con $(N - k)/(k + 1)$ al escribirlo en
-términos de factoriales, o bien observando que $\binom{N}{k}\mathrm{B}(k+1,
-N-k+1) = \frac{N!}{k!(N-k)!}\frac{k!(N-k)!}{(N+1)!} = \frac{1}{N+1}$. Así, en
+términos de factoriales, o bien observando que
+$\binom{N}{k}\mathrm{B}(k+1, N-k+1) = \frac{N!}{k!(N-k)!}\frac{k!(N-k)!}{(N+1)!} = \frac{1}{N+1}$. Así, en
 $a = 1$ la distribución estacionaria es **exactamente uniforme** para todo $N$:
 
 $$
@@ -443,8 +443,8 @@ $$
 En el límite $N \to \infty$ con $a > 0$ fijo (desarrollando hasta orden
 $1/N^2$, expansión de Kramers-Moyal,
 [E.A3](repaso/procesos_estocasticos.md#ea3)), la densidad $p(x, t)$ obedece la
-**ecuación de Fokker-Planck** de la difusión $dx = A(x)\thinspace dt +
-B(x)\thinspace dW_t$ ([E.A4](repaso/procesos_estocasticos.md#ea4); difusión de
+**ecuación de Fokker-Planck** de la difusión
+$dx = A(x)\thinspace dt + B(x)\thinspace dW_t$ ([E.A4](repaso/procesos_estocasticos.md#ea4); difusión de
 Wright-Fisher / Jacobi):
 
 $$
@@ -467,8 +467,8 @@ p_{\text{est}}(x) = \frac{1}{\mathrm{B}(a, a)}\thinspace x^{a - 1}(1 - x)^{a - 1
 \qquad x \in (0, 1) .
 $$
 
-*Demostración.* Con flujo nulo en las fronteras ($J(x) = A(x)p(x) -
-\frac12\frac{d}{dx}[B(x)^2 p(x)] = 0$),
+*Demostración.* Con flujo nulo en las fronteras (
+$J(x) = A(x)p(x) - \frac12\frac{d}{dx}[B(x)^2 p(x)] = 0$),
 
 $$
 \frac{d}{dx}\bigl[x(1-x)p(x)\bigr] = 2a\left(\frac12 - x\right)p(x)

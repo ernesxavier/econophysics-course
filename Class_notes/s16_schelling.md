@@ -52,9 +52,9 @@ vacía ($c_i = 0$) y las celdas restantes están ocupadas en partes iguales por
 agentes de dos grupos, $c_i \in \lbrace 1, 2\rbrace$.
 
 **Vecindad y similitud local.** Cada agente en la celda $i$ observa su vecindad
-de Moore $\mathcal N_i$ (las $8$ celdas adyacentes). Sea $n_i = \sum_{j \in
-\mathcal N_i} \mathbf 1(c_j \ne 0)$ el número de vecinos ocupados y $n_i^{=} =
-\sum_{j \in \mathcal N_i} \mathbf 1(c_j = c_i)$ el número de vecinos del mismo
+de Moore $\mathcal N_i$ (las $8$ celdas adyacentes). Sea
+$n_i = \sum_{j \in \mathcal N_i} \mathbf 1(c_j \ne 0)$ el número de vecinos ocupados y
+$n_i^{=} = \sum_{j \in \mathcal N_i} \mathbf 1(c_j = c_i)$ el número de vecinos del mismo
 grupo. La **similitud local** del agente $i$ es
 
 $$
@@ -151,8 +151,8 @@ pues el número de agentes de cada grupo es fijo):
 **Ruta básica**
 
 - **F1.** Un agente del modelo de Schelling tiene $6$ vecinos ocupados ($2$ de
-  su grupo y $4$ del otro) y $2$ celdas vecinas vacías. Si $\tau = 3/8 =
-  0.375$, ¿está satisfecho? Si uno de sus vecinos del otro grupo se muda y deja
+  su grupo y $4$ del otro) y $2$ celdas vecinas vacías. Si
+  $\tau = 3/8 = 0.375$, ¿está satisfecho? Si uno de sus vecinos del otro grupo se muda y deja
   su celda vacía, ¿cambia el estado de satisfacción de nuestro agente sin que
   él se haya movido?
 - **F2.** En una cuadrícula sin celdas vacías donde los dos grupos se alternan

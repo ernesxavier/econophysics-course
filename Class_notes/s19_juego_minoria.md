@@ -131,8 +131,8 @@ $$
 P = 2^M
 $$
 
-historias distintas, que indexamos con un entero $\mu(t) \in \lbrace 1, 2,
-\dots, P\rbrace$.
+historias distintas, que indexamos con un entero
+$\mu(t) \in \lbrace 1, 2, \dots, P\rbrace$.
 
 **Estrategias y aprendizaje por refuerzo.** Una **estrategia** $s$ es una
 función (tabla de consulta) que asigna a cada una de las $P = 2^M$ historias
@@ -167,8 +167,8 @@ $S$ estrategias (con $U_{i,s}(0) = 0$). En el paso $t$:
    todos los puntajes por $N$ no altera cuál estrategia tiene el máximo). Si la
    estrategia $s$ recomendaba el lado minoritario, $-s(\mu(t))A(t) > 0$ y su
    puntaje sube; si recomendaba la mayoría, su puntaje baja.
-3. La historia avanza incorporando $a_{\text{min}}(t) = -\operatorname{sgn}
-   A(t)$.
+3. La historia avanza incorporando
+   $a_{\text{min}}(t) = -\operatorname{sgn} A(t)$.
 
 > **Desorden congelado (*quenched disorder*).** Las tablas de estrategias
 > $s_{i,s}(\mu)$ quedan fijas desde $t = 0$ para cada agente. Por tanto, para
@@ -235,8 +235,8 @@ $$
 \frac{\sigma^2}{N} = \frac{\bigl\langle A(t)^2\bigr\rangle}{N} .
 $$
 
-**Proposición** (referente aleatorio). Si los $N$ agentes eligen $a_i(t) \in
-\lbrace -1, +1\rbrace$ al azar de manera independiente y simétrica
+**Proposición** (referente aleatorio). Si los $N$ agentes eligen
+$a_i(t) \in \lbrace -1, +1\rbrace$ al azar de manera independiente y simétrica
 ($\mathbb P(a_i = +1) = \mathbb P(a_i = -1) = 1/2$), entonces
 
 $$
@@ -249,8 +249,7 @@ $$
 *Demostración.* Cada $a_i$ tiene media $\mathbb E[a_i] = 0$ y varianza
 $\operatorname{Var}(a_i) = \mathbb E[a_i^2] = 1$. Por independencia entre los
 $N$ agentes ([P.B2](repaso/probabilidad.md#pb2)),
-$\operatorname{Var}\bigl(\sum_{i=1}^N a_i\bigr) = \sum_{i=1}^N
-\operatorname{Var}(a_i) = N$. $\square$
+$\operatorname{Var}\bigl(\sum_{i=1}^N a_i\bigr) = \sum_{i=1}^N \operatorname{Var}(a_i) = N$. $\square$
 
 El valor $\sigma^2/N = 1$ divide el comportamiento colectivo en dos regímenes:
 
@@ -307,13 +306,13 @@ que separa dos fases con propiedades opuestas:
 
    En esta región $\sigma^2/N \gg 1$: el aprendizaje colectivo produce una
    volatilidad mucho mayor que el azar.
-2. **Coordinación óptima cerca del punto crítico ($\alpha \approx \alpha_c
-   \approx 0.34$):** El número de historias $P = 2^M$ guarda una proporción
+2. **Coordinación óptima cerca del punto crítico (
+   $\alpha \approx \alpha_c \approx 0.34$):** El número de historias $P = 2^M$ guarda una proporción
    intermedia con $N$. Los agentes logran diversificar sus acciones sin caer en
    el hacinamiento y la volatilidad cae hasta $\sigma^2/N \approx 0.2 < 1$,
    bastante por debajo del límite aleatorio.
-3. **Fase asimétrica o diluida ($\alpha > \alpha_c$, es decir, $2^M \gtrsim
-   N$):** El número de historias $P$ es tan grande que las $S = 2$ tablas de
+3. **Fase asimétrica o diluida ($\alpha > \alpha_c$, es decir,
+   $2^M \gtrsim N$):** El número de historias $P$ es tan grande que las $S = 2$ tablas de
    cada agente son prácticamente ortogonales a las de los demás. Al crecer
    $\alpha$, las correlaciones entre agentes se diluyen y $\sigma^2/N$ sube
    monótonamente desde su mínimo hacia la asíntota aleatoria
@@ -359,8 +358,8 @@ El desarrollo de esta sección está en [Para profundizar, P.1](#pp1).
   probabilidad $p \in (0, 1)$ y $-1$ con probabilidad $1 - p$ de forma
   independiente, entonces $\mathbb E[A] = N(2p - 1)$ y
   $\operatorname{Var}(A) = 4 N p(1 - p)$. Comprueba que la varianza es máxima
-  en $p = 1/2$ ($\operatorname{Var}(A)/N = 1$), pero que $\langle A^2\rangle/N =
-  4p(1-p) + N(2p-1)^2$ crece como $\mathcal O(N)$ en cuanto $p \ne 1/2$.
+  en $p = 1/2$ ($\operatorname{Var}(A)/N = 1$), pero que
+  $\langle A^2\rangle/N = 4p(1-p) + N(2p-1)^2$ crece como $\mathcal O(N)$ en cuanto $p \ne 1/2$.
 - **F4.** Un agente tiene $S = 2$ estrategias para $M = 2$ ($P = 4$ historias).
   Ante la historia $\mu = 3$, la estrategia $1$ recomienda $s_1(3) = +1$ y la
   estrategia $2$ recomienda $s_2(3) = -1$. Si antes del turno sus puntajes eran
@@ -379,15 +378,15 @@ El desarrollo de esta sección está en [Para profundizar, P.1](#pp1).
   $\bar s_i(\mu)^2 + \xi_i(\mu)^2 = 1$. Si las dos tablas se sortean de manera
   independiente y uniforme, ¿con qué probabilidad ocurre $\xi_i(\mu) = 0$ en una
   historia dada $\mu$?
-- **F6.** En el extremo $\alpha \ll \alpha_c$ (por ejemplo, $M = 1 \Rightarrow
-  P = 2$ historias y $N \gg 1$), existen únicamente $2^P = 4$ tablas posibles:
+- **F6.** En el extremo $\alpha \ll \alpha_c$ (por ejemplo,
+  $M = 1 \Rightarrow P = 2$ historias y $N \gg 1$), existen únicamente $2^P = 4$ tablas posibles:
   dos constantes ($+1,+1$ y $-1,-1$) y dos alternantes ($+1,-1$ y $-1,+1$).
   Explica por qué una fracción finita de los $N$ agentes recibe exactamente el
   mismo par de estrategias y deduce a partir de ello el escalamiento
-  $\operatorname{Var}(A) \propto N^2$, es decir, $\sigma^2 / N \propto N \propto
-  \alpha^{-1}$.
-- **F7.** Usa la descomposición $a_i(t) = \bar s_i(\mu(t)) + \xi_i(\mu(t))
-  \sigma_i(t)$ en el límite $\alpha \to \infty$ ($P \gg N$), donde las
+  $\operatorname{Var}(A) \propto N^2$, es decir,
+  $\sigma^2 / N \propto N \propto \alpha^{-1}$.
+- **F7.** Usa la descomposición
+  $a_i(t) = \bar s_i(\mu(t)) + \xi_i(\mu(t)) \sigma_i(t)$ en el límite $\alpha \to \infty$ ($P \gg N$), donde las
   correlaciones entre agentes desaparecen. Supón que las historias $\mu$ se
   visitan con probabilidad uniforme $1/P$ y que cada $\sigma_i(t) = \pm 1$ no
   depende de las tablas de los demás agentes. Calcula el valor esperado sobre el
@@ -395,10 +394,9 @@ El desarrollo de esta sección está en [Para profundizar, P.1](#pp1).
   con el referente aleatorio $1$. (Pista: usa F5 para obtener
   $\mathbb E[a_i^2] = 1$.)
 - **F8.** Verifica explícitamente que la derivada parcial de la predictibilidad
-  $H(m_1, \dots, m_N) = \frac{1}{P}\sum_{\mu=1}^P \bigl[\Omega(\mu) + \sum_{j=1}^N
-  \xi_j(\mu) m_j\bigr]^2$ respecto a $m_i$ es proporcional a la deriva media del
-  puntaje diferencial $\langle \Delta q_i\rangle = -\frac{1}{PN}\sum_{\mu=1}^P
-  \xi_i(\mu)\langle A \mid \mu\rangle$, demostrando que $H$ es una función de
+  $H(m_1, \dots, m_N) = \frac{1}{P}\sum_{\mu=1}^P \bigl[\Omega(\mu) + \sum_{j=1}^N \xi_j(\mu) m_j\bigr]^2$ respecto a $m_i$ es proporcional a la deriva media del
+  puntaje diferencial
+  $\langle \Delta q_i\rangle = -\frac{1}{PN}\sum_{\mu=1}^P \xi_i(\mu)\langle A \mid \mu\rangle$, demostrando que $H$ es una función de
   Lyapunov de la dinámica de aprendizaje.
 
 ---
@@ -449,8 +447,8 @@ $$
 
 #### 4.2 Descomposición de estrategias y agentes congelados
 
-Para $S = 2$, cada agente $i$ tiene dos estrategias $s_{i,1}(\mu), s_{i,2}(\mu)
-\in \lbrace -1, +1\rbrace$, que podemos reescribir separando su parte común y
+Para $S = 2$, cada agente $i$ tiene dos estrategias
+$s_{i,1}(\mu), s_{i,2}(\mu) \in \lbrace -1, +1\rbrace$, que podemos reescribir separando su parte común y
 su semidiferencia:
 
 $$

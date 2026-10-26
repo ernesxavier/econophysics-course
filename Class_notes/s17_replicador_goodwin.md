@@ -101,8 +101,8 @@ $$
 \dot x = x(1 - x)\thinspace\kappa\bigl[\pi_1(x) - \pi_2(x)\bigr] .
 $$
 
-Reescalando el tiempo ($\kappa = 1$) y observando que $\pi_1 - \bar\pi =
-\pi_1 - [x\pi_1 + (1-x)\pi_2] = (1 - x)(\pi_1 - \pi_2)$, obtenemos las dos
+Reescalando el tiempo ($\kappa = 1$) y observando que
+$\pi_1 - \bar\pi = \pi_1 - [x\pi_1 + (1-x)\pi_2] = (1 - x)(\pi_1 - \pi_2)$, obtenemos las dos
 formas equivalentes de la **ecuación del replicador**
 ([C.I4](repaso/calculo.md#ci4)):
 
@@ -162,8 +162,8 @@ $$
 A_{\text{HP}} = \begin{pmatrix} (V - C)/2 & V \cr 0 & V/2 \end{pmatrix} .
 $$
 
-Con una fracción $x$ de halcones, los pagos esperados son $\pi_H(x) =
-x\frac{V-C}{2} + (1-x)V$ y $\pi_P(x) = (1-x)\frac{V}{2}$, cuya diferencia es
+Con una fracción $x$ de halcones, los pagos esperados son
+$\pi_H(x) = x\frac{V-C}{2} + (1-x)V$ y $\pi_P(x) = (1-x)\frac{V}{2}$, cuya diferencia es
 
 $$
 \Delta\pi(x) = \pi_H(x) - \pi_P(x) = \frac{V - C x}{2} .
@@ -182,8 +182,8 @@ $$
 $$
 
 con $f'(x^\ast) = -\frac{C}{2}x^\ast(1 - x^\ast) = -\frac{V(C - V)}{2C} < 0$.
-Por tanto, $x^\ast = V/C$ es **globalmente asintóticamente estable** en $(0,
-1)$ (y constituye una estrategia evolutivamente estable mixta): cuanto más caro
+Por tanto, $x^\ast = V/C$ es **globalmente asintóticamente estable** en
+$(0, 1)$ (y constituye una estrategia evolutivamente estable mixta): cuanto más caro
 es el conflicto ($C$ grande frente a $V$), menor es la fracción de agresivos que
 puede sostener la población.
 
@@ -217,23 +217,23 @@ fuerza laboral disponible $N$ (todas funciones del tiempo $t$):
    los capitalistas reinvierten todas las ganancias $\Pi = Y - wL = (1 - u)Y$.
    Si el capital se deprecia a tasa $\delta_K \ge 0$, entonces
    $\dot K = (1 - u)Y - \delta_K K$. Como $Y = K/\sigma$, la tasa de
-   crecimiento del producto es $\frac{\dot Y}{Y} = \frac{\dot K}{K} =
-   \frac{1 - u}{\sigma} - \delta_K$. Usando $v = \frac{Y}{a N}$ y la derivada
+   crecimiento del producto es
+   $\frac{\dot Y}{Y} = \frac{\dot K}{K} = \frac{1 - u}{\sigma} - \delta_K$. Usando $v = \frac{Y}{a N}$ y la derivada
    logarítmica ([C.B3](repaso/calculo.md#cb3)),
 
    $$\frac{\dot v}{v} = \frac{\dot Y}{Y} - \frac{\dot a}{a} - \frac{\dot N}{N} = \underset{\alpha_G}{\underbrace{\left(\frac{1}{\sigma} - \delta_K - \alpha - \beta\right)}} - \underset{\beta_G}{\underbrace{\frac{1}{\sigma}}} u .$$
 
 4. **Curva de Phillips real y dinámica salarial.** Cuando el empleo $v$ se
    acerca al pleno empleo, el poder de negociación de los trabajadores sube y
-   el salario real crece a tasa lineal $\frac{\dot w}{w} = -\gamma_0 + \delta_G
-   v$ (con $\gamma_0, \delta_G > 0$). Como $u = w/a$,
+   el salario real crece a tasa lineal
+   $\frac{\dot w}{w} = -\gamma_0 + \delta_G v$ (con $\gamma_0, \delta_G > 0$). Como $u = w/a$,
 
    $$\frac{\dot u}{u} = \frac{\dot w}{w} - \frac{\dot a}{a} = -\underset{\gamma_G}{\underbrace{(\gamma_0 + \alpha)}} + \delta_G v .$$
 
 ### 2.2 El sistema de Lotka-Volterra y su punto fijo
 
-Reuniendo ambas ecuaciones (con parámetros positivos $\alpha_G, \beta_G,
-\gamma_G, \delta_G > 0$), obtenemos el sistema de **Goodwin – Lotka-Volterra**
+Reuniendo ambas ecuaciones (con parámetros positivos
+$\alpha_G, \beta_G, \gamma_G, \delta_G > 0$), obtenemos el sistema de **Goodwin – Lotka-Volterra**
 ([C.A2](repaso/calculo.md#ca2)):
 
 $$
@@ -316,8 +316,8 @@ El desarrollo de esta subsección está en [Para profundizar, P.2](#pp2).
   equilibrio interior $(v^\ast, u^\ast)$ para los parámetros del ejercicio F3
   ($\alpha_G = 0.24$, $\gamma_G = 0.36$). Obtén sus eigenvalores y calcula el
   periodo aproximado $T_{\text{ciclo}}$ (en años) de las oscilaciones pequeñas.
-- **F6.** Demuestra que para oscilaciones pequeñas $(\delta v, \delta u) =
-  (v - v^\ast, u - u^\ast)$ alrededor del punto fijo de Goodwin, el desarrollo
+- **F6.** Demuestra que para oscilaciones pequeñas
+  $(\delta v, \delta u) = (v - v^\ast, u - u^\ast)$ alrededor del punto fijo de Goodwin, el desarrollo
   de Taylor de segundo orden ([C.I1](repaso/calculo.md#ci1)) de la cantidad
   conservada $V(v, u) - V(v^\ast, u^\ast)$ produce la elipse
 
@@ -351,8 +351,8 @@ $$
   ([L.I1](repaso/algebra_lineal.md#li1), $\det J = -\alpha_G\gamma_G < 0$): el
   origen es un **punto silla** inestable.
 - **En el equilibrio interior $(v^\ast, u^\ast)$:** Los términos diagonales se
-  anulan porque $\alpha_G - \beta_G u^\ast = 0$ y $-\gamma_G + \delta_G v^\ast =
-  0$, de modo que
+  anulan porque $\alpha_G - \beta_G u^\ast = 0$ y
+  $-\gamma_G + \delta_G v^\ast = 0$, de modo que
 
 $$
 J(v^\ast, u^\ast) = \begin{pmatrix} 0 & -\beta_G v^\ast \cr \delta_G u^\ast & 0 \end{pmatrix}
@@ -392,8 +392,8 @@ participación salarial $u(t)$.
 ### P.2 Cantidad conservada y órbitas cerradas exactas (sección 2.4)
 
 
-Como los eigenvalores lineales tienen parte real nula ($\operatorname{tr} J =
-0$), el análisis lineal por sí solo no descarta que los términos no lineales
+Como los eigenvalores lineales tienen parte real nula (
+$\operatorname{tr} J = 0$), el análisis lineal por sí solo no descarta que los términos no lineales
 formen una espiral lenta. Para demostrar que las trayectorias son órbitas
 cerradas exactas para cualquier amplitud en el primer cuadrante, separamos
 variables dividiendo una ecuación entre la otra:
