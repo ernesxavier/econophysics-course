@@ -1,10 +1,15 @@
 # Sesión 12: Contagio y riesgo sistémico. Notas formales
 
-> **Cómo leer estas notas.** Siguen el orden del programa: primero se observa
-> en el cuaderno (`Code/s12_contagio.jl`), después se formaliza aquí. El
+> **Cómo usar estas notas.** La clase combina el cuaderno
+> (`Code/s12_contagio.jl`) y el pizarrón. El **plan de clase** de abajo dice
+> qué se proyecta, qué secciones de estas notas se escriben en el pizarrón,
+> cuándo se trabaja en parejas y qué queda para leer. En el pizarrón van las
+> definiciones, las proposiciones y los resultados en recuadro; las
+> demostraciones, sólo donde el plan lo indica. El texto que las rodea se
+> explica de palabra. Como todo está aquí, en clase no hace falta copiar. El
 > cuerpo de las notas es la **ruta básica**. Las demostraciones y los temas de
-> la ruta avanzada, opcionales, están al final, en **Para profundizar**; donde
-> estaban queda una línea que los enlaza.
+> la ruta avanzada, opcionales, están al final, en **Para profundizar**, y no
+> se ven en clase; donde estaban queda una línea que los enlaza.
 >
 > Repaso recomendado: [L.B4](repaso/algebra_lineal.md#lb4) (matriz de
 > adyacencia), [C.B5](repaso/calculo.md#cb5) (serie geométrica),
@@ -17,6 +22,22 @@
 > Lecturas: Battiston et al. (2016). Complementaria: Watts (2002). Ruta
 > avanzada: Eisenberg & Noe (2001); Battiston et al. (2012); de consulta,
 > Acemoglu, Ozdaglar & Tahbaz-Salehi (2015) y Glasserman & Young (2016).
+
+**Plan de clase** (120 minutos)
+
+| Minutos | Dónde | Qué | Secciones |
+|---|---|---|---|
+| 0–10 | Proyector | El fenómeno: de una quiebra a una crisis | Cuaderno, sección 0 |
+| 10–25 | Pizarra | Cascadas de Watts: la regla, los nodos vulnerables y la cascada global; la condición de cascada, con el argumento | 1.1–1.2 |
+| 25–32 | Pizarra | La ventana de cascadas en Erdős-Rényi; robusto pero frágil, de palabra | 1.3–1.4 |
+| 32–40 | Pizarra | El modelo de Gai y Kapadia como cascada de umbral con $\varphi = K/\theta$; diversificación contra contagio | 2.1–2.2 |
+| 40–52 | Pizarra | Repaso: la serie geométrica; DebtRank: la matriz de impacto y la dinámica; la solución sin saturación, con la demostración, y la amplificación $1/(1-\ell)$ | 3.1–3.2 |
+| 52–100 | Parejas | Laboratorio: la ventana de cascadas, Erdős-Rényi contra Barabási-Albert, la red interbancaria y DebtRank; ejercicios de código 1 y 2 | Cuaderno, secciones 1 a 4 y ejercicios 1–2 |
+| 100–120 | Pizarra | Cierre: puesta en común de las preguntas 3 a 5; demasiado central para caer | Cuaderno, preguntas 3–5; notas, 3.4 |
+| Después | Lectura | Las versiones de DebtRank (3.1), el resumen (5) y Para profundizar | |
+
+**Pregunta de la sesión.** ¿Cómo pasa una quiebra a ser una crisis, y por
+qué un sistema puede absorber mil choques y caer con el siguiente?
 
 ---
 
@@ -53,7 +74,7 @@ grados $p_k$, grado promedio $z$ y umbral común $\varphi$, una cascada global
 es posible si
 
 $$
-\sum_{k=1}^{\lfloor 1/\varphi\rfloor} k(k-1)\thinspace p_k > z .
+\boxed{\ \sum_{k=1}^{\lfloor 1/\varphi\rfloor} k(k-1)\thinspace p_k > z\ }
 $$
 
 *Argumento.* En una red grande y dispersa, al principio la cascada sólo
@@ -212,7 +233,7 @@ $$
 Si el radio espectral $r(\Lambda) < 1$, la serie converge a
 
 $$
-h(\infty) = (I - \Lambda)^{-1} h(1)
+\boxed{\ h(\infty) = (I - \Lambda)^{-1} h(1)\ }
 $$
 
 ([L.A4](repaso/algebra_lineal.md#la4)).
@@ -228,7 +249,7 @@ Un choque uniforme $h(1) = s\mathbf 1$ da $\Lambda^t h(1) = \ell^t s\mathbf 1$,
 y
 
 $$
-h(\infty) = \frac{s}{1 - \ell}\thinspace\mathbf 1 \quad (\ell < 1).
+\boxed{\ h(\infty) = \frac{s}{1 - \ell}\thinspace\mathbf 1 \quad (\ell < 1)\ }
 $$
 
 La pérdida se amplifica por $1/(1-\ell)$: la serie geométrica de

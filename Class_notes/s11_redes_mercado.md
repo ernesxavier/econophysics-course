@@ -1,13 +1,19 @@
 # Sesión 11: Redes: el mercado y la robustez. Notas formales
 
-> **Cómo leer estas notas.** Siguen el orden del programa: primero se observa
-> en el cuaderno (`Code/s11_redes_mercado.jl`), después se formaliza aquí. El
-> cuerpo de las notas es la **ruta básica**. Las demostraciones y los temas de
-> la ruta avanzada, opcionales, están al final, en **Para profundizar**; donde
-> estaban queda una línea que los enlaza. Las definiciones de matriz de
-> adyacencia, agrupamiento y de los tres modelos de redes aleatorias
-> (Erdős-Rényi, Watts-Strogatz y Barabási-Albert) están en las [notas de la
-> sesión 10](s10_redes_modelos.md).
+> **Cómo usar estas notas.** La clase combina el cuaderno
+> (`Code/s11_redes_mercado.jl`) y el pizarrón. El **plan de clase** de abajo
+> dice qué se proyecta, qué secciones de estas notas se escriben en el
+> pizarrón, cuándo se trabaja en parejas y qué queda para leer. En el
+> pizarrón van las definiciones, las proposiciones y los resultados en
+> recuadro; las demostraciones, sólo donde el plan lo indica. El texto que las
+> rodea se explica de palabra. Como todo está aquí, en clase no hace falta
+> copiar. El cuerpo de las notas es la **ruta básica**. Las demostraciones y
+> los temas de la ruta avanzada, opcionales, están al final, en **Para
+> profundizar**, y no se ven en clase; donde estaban queda una línea que los
+> enlaza. Esta sesión es sobre todo de laboratorio. Las definiciones de
+> matriz de adyacencia, agrupamiento y de los tres modelos de redes
+> aleatorias (Erdős-Rényi, Watts-Strogatz y Barabási-Albert) están en las
+> [notas de la sesión 10](s10_redes_modelos.md).
 >
 > Repaso recomendado: [F.B4](repaso/fisica_estadistica.md#fb4) (transiciones
 > de fase), [L.I2](repaso/algebra_lineal.md#li2) (matrices simétricas y
@@ -18,6 +24,22 @@
 >
 > Lecturas: Slanina (2014), cap. 6. **[Avanzado]** Newman (2018), caps. 12–13
 > y 15; Jackson (2008), caps. 2–5 (consulta).
+
+**Plan de clase** (120 minutos)
+
+| Minutos | Dónde | Qué | Secciones |
+|---|---|---|---|
+| 0–10 | Proyector | El fenómeno: ¿qué pasa si cae el nodo más conectado? | Cuaderno, sección 0 |
+| 10–20 | Pizarra | La red de umbral del mercado y su diferencia con el árbol de expansión mínima; por qué el agrupamiento es alto, con la desigualdad del triángulo | 1 |
+| 20–25 | Pizarra | Robustez: fallas aleatorias contra ataque dirigido; $S(f)$ como parámetro de orden | 2.1 |
+| 25–60 | Parejas | Laboratorio, primera parte: la red del mercado frente a los modelos; ejercicio de código 1 | Cuaderno, sección 1 y ejercicio 1 |
+| 60–65 | Pizarra | Puesta en común: la tabla del mercado frente a Erdős-Rényi y Barabási-Albert | 1 |
+| 65–100 | Parejas | Laboratorio, segunda parte: fallas aleatorias y ataques dirigidos; ejercicio de código 2 | Cuaderno, sección 2 y ejercicio 2 |
+| 100–120 | Pizarra | Cierre: puesta en común de las preguntas 3 a 5; robustas ante fallas, frágiles ante ataques | Cuaderno, preguntas 3–5; notas, 2.1 |
+| Después | Lectura | El resumen (5) y Para profundizar: el criterio de Molloy y Reed, el umbral de fallas, el Laplaciano y el modelo de configuración | |
+
+**Pregunta de la sesión.** ¿Qué pasa con una red, y con un mercado, si cae
+el nodo más conectado?
 
 ---
 

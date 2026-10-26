@@ -1,10 +1,16 @@
 # Sesión 10: Redes: medidas y modelos. Notas formales
 
-> **Cómo leer estas notas.** Siguen el orden del programa: primero se observa
-> en el cuaderno (`Code/s10_redes_modelos.jl`), después se formaliza aquí. El
-> cuerpo de las notas es la **ruta básica**. Las demostraciones y los temas de
-> la ruta avanzada, opcionales, están al final, en **Para profundizar**; donde
-> estaban queda una línea que los enlaza.
+> **Cómo usar estas notas.** La clase combina el cuaderno
+> (`Code/s10_redes_modelos.jl`) y el pizarrón. El **plan de clase** de abajo
+> dice qué se proyecta, qué secciones de estas notas se escriben en el
+> pizarrón, cuándo se trabaja en parejas y qué queda para leer. En el
+> pizarrón van las definiciones, las proposiciones y los resultados en
+> recuadro; las demostraciones, sólo donde el plan lo indica. El texto que las
+> rodea se explica de palabra. Como todo está aquí, en clase no hace falta
+> copiar. El cuerpo de las notas es la **ruta básica**. Las demostraciones y
+> los temas de la ruta avanzada, opcionales, están al final, en **Para
+> profundizar**, y no se ven en clase; donde estaban queda una línea que los
+> enlaza.
 >
 > Repaso recomendado: [L.B4](repaso/algebra_lineal.md#lb4) (matriz de
 > adyacencia), [P.B1](repaso/probabilidad.md#pb1) (distribuciones),
@@ -18,6 +24,23 @@
 >
 > Lecturas: Newman (2018), cap. 7. Complementaria: Newman (2018), caps. 6 y 11;
 > Requião da Cunha (2021), sec. 8.1.
+
+**Plan de clase** (120 minutos)
+
+| Minutos | Dónde | Qué | Secciones |
+|---|---|---|---|
+| 0–10 | Proyector | El fenómeno: ¿por qué ganaron los Médici? | Cuaderno, sección 0 |
+| 10–20 | Pizarra | Repaso: la matriz de adyacencia; grados y $m = \tfrac12\sum_i k_i$; $[A^\ell]_{ij}$ cuenta caminos, con la demostración, y los triángulos | 1.1–1.2 |
+| 20–30 | Pizarra | Las cuatro centralidades (la tabla) y el agrupamiento local y global | 2.1–2.2 |
+| 30–42 | Pizarra | Erdős-Rényi: grados binomiales y el límite de Poisson (enunciado; es el ejercicio 6 del cuaderno); $C = p$; $\ell \approx \ln n/\ln c$; el componente gigante, con el argumento | 3.1–3.3 |
+| 42–45 | Pizarra | Watts-Strogatz: el agrupamiento del anillo (enunciado; es el ejercicio 7) y el mundo pequeño, de palabra | 4 |
+| 45–55 | Pizarra | Barabási-Albert: la conexión preferencial; el grado por campo medio, con la demostración, y la cola con $\alpha = 2$ | 5.1–5.2 |
+| 55–100 | Parejas | Laboratorio: medir la red de Florencia y comparar los tres modelos; ejercicios de código 1 y 2 | Cuaderno, secciones 2 y 3 y ejercicios 1–2 |
+| 100–120 | Pizarra | Cierre: puesta en común de las preguntas 3 a 5 y la tabla del resumen | Cuaderno, preguntas 3–5; notas, 6 |
+| Después | Lectura | Las familias de Florencia (2.3), el resultado exacto de Barabási-Albert y sus consecuencias (5.2) y Para profundizar | |
+
+**Pregunta de la sesión.** ¿Por qué ganaron los Médici? ¿Qué distingue la
+posición de un nodo en una red, y qué redes producen nodos así?
 
 ---
 
@@ -197,7 +220,7 @@ mientras no se agoten los nodos. Se alcanza a toda la red cuando
 $c^\ell \approx n$:
 
 $$
-\ell \approx \frac{\ln n}{\ln c} .
+\boxed{\ \ell \approx \frac{\ln n}{\ln c}\ }
 $$
 
 Con $n = 10^4$ y $c = 4$ da 6.6; la simulación da 6.8. La distancia crece
@@ -209,7 +232,7 @@ como el **logaritmo** del tamaño: es el efecto de "mundo pequeño".
 Cuando $n \to \infty$, $S$ es la mayor solución en $[0, 1]$ de
 
 $$
-S = 1 - e^{-cS} .
+\boxed{\ S = 1 - e^{-cS}\ }
 $$
 
 Si $c \le 1$, la única solución es $S = 0$; si $c > 1$, hay una solución
@@ -292,7 +315,7 @@ $$
 \frac{dk_i}{dt} = \frac{k_i}{2t},
 \qquad k_i(t_i) = m
 \quad\Longrightarrow\quad
-k_i(t) = m\sqrt{t/t_i} .
+\boxed{\ k_i(t) = m\sqrt{t/t_i}\ }
 $$
 
 Un nodo tiene grado $k_i(t) \ge k$ si llegó antes de $t_i = t m^2/k^2$. Como

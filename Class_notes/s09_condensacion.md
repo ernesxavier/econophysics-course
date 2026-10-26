@@ -1,10 +1,16 @@
 # Sesión 9: Condensación de riqueza y redistribución. Notas formales
 
-> **Cómo leer estas notas.** Siguen el orden del programa: primero se observa
-> en el cuaderno (`Code/s09_condensacion.jl`), después se formaliza aquí. El
-> cuerpo de las notas es la **ruta básica**. Las demostraciones y los temas de
-> la ruta avanzada, opcionales, están al final, en **Para profundizar**; donde
-> estaban queda una línea que los enlaza.
+> **Cómo usar estas notas.** La clase combina el cuaderno
+> (`Code/s09_condensacion.jl`) y el pizarrón. El **plan de clase** de abajo
+> dice qué se proyecta, qué secciones de estas notas se escriben en el
+> pizarrón, cuándo se trabaja en parejas y qué queda para leer. En el
+> pizarrón van las definiciones, las proposiciones y los resultados en
+> recuadro; las demostraciones, sólo donde el plan lo indica. El texto que las
+> rodea se explica de palabra. Como todo está aquí, en clase no hace falta
+> copiar. El cuerpo de las notas es la **ruta básica**. Las demostraciones y
+> los temas de la ruta avanzada, opcionales, están al final, en **Para
+> profundizar**, y no se ven en clase; donde estaban queda una línea que los
+> enlaza.
 >
 > Repaso recomendado: [E.B3](repaso/procesos_estocasticos.md#eb3)
 > (promediar simulaciones), [F.B4](repaso/fisica_estadistica.md#fb4)
@@ -16,6 +22,22 @@
 >
 > Lecturas: Chakrabarti et al. (2013), sec. 4.5. Ruta avanzada: Bouchaud &
 > Mézard (2000); Ribeiro (2020), de consulta.
+
+**Plan de clase** (120 minutos)
+
+| Minutos | Dónde | Qué | Secciones |
+|---|---|---|---|
+| 0–10 | Proyector | El problema: inversión sin intercambio | Cuaderno, sección 0 |
+| 10–22 | Pizarra | El modelo de Bouchaud y Mézard: inversión más intercambio; la riqueza relativa; sin intercambio, Gibrat: un agente acaba con casi todo | 1.1–1.2 |
+| 22–32 | Pizarra | La distribución estacionaria: la gamma inversa con $\mu = 1 + 2J/\sigma^2$ (enunciado) y su lectura; la tabla del Gini | 2.1, 2.3 |
+| 32–42 | Pizarra | La razón de participación $Y_2$ como parámetro de orden; condensación y exponente de la cola: por qué en campo medio no hay condensación | 3.1–3.2 |
+| 42–50 | Pizarra | En una red sí hay transición; el impuesto redistribuido equivale a más intercambio, con la demostración | 3.3, 4.1 |
+| 50–100 | Parejas | Laboratorio: el modelo, la transición de condensación y el efecto de un impuesto; ejercicios de código 1 y 2 | Cuaderno, secciones 1 a 4 y ejercicios 1–2 |
+| 100–120 | Pizarra | Cierre: puesta en común de las preguntas 3 a 5 y la tabla del impuesto en la red | Cuaderno, preguntas 3–5; notas, 4.1 |
+| Después | Lectura | Las convenciones de Itô y Stratonovich (1.1), los resultados en la red (3.3), el resumen (5) y Para profundizar | |
+
+**Pregunta de la sesión.** Con las mismas oportunidades para todos, ¿por qué
+unos pocos acumulan casi toda la riqueza, y qué lo evita?
 
 ---
 
@@ -84,7 +106,7 @@ relativa es la **gamma inversa**
 $$
 p(w) = \frac{(\mu - 1)^{\mu}}{\Gamma(\mu)}\thinspace\frac{e^{-(\mu-1)/w}}{w^{1+\mu}},
 \qquad w > 0,
-\qquad \mu = 1 + \frac{2J}{\sigma^2} .
+\qquad \boxed{\ \mu = 1 + \frac{2J}{\sigma^2}\ }
 $$
 
 Tiene media 1 y cola de Pareto, $\mathbb{P}(w > x) \sim C x^{-\mu}$, con
@@ -200,7 +222,7 @@ todos, agrega a $dW_i$ el término $\varphi(\bar W - W_i)\thinspace dt$.
 intercambio:
 
 $$
-\mu = 1 + \frac{2(J + \varphi)}{\sigma^2} .
+\boxed{\ \mu = 1 + \frac{2(J + \varphi)}{\sigma^2}\ }
 $$
 
 *Demostración.* El término del impuesto tiene la misma forma que el del

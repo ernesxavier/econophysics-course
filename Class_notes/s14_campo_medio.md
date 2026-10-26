@@ -1,10 +1,16 @@
 # Sesión 14: Campo medio, histéresis y crisis. Notas formales
 
-> **Cómo leer estas notas.** Siguen el orden del programa: primero se observa
-> en el cuaderno (`Code/s14_campo_medio.jl`), después se formaliza aquí. El
-> cuerpo de las notas es la **ruta básica**. Las demostraciones y los temas de
-> la ruta avanzada, opcionales, están al final, en **Para profundizar**; donde
-> estaban queda una línea que los enlaza.
+> **Cómo usar estas notas.** La clase combina el cuaderno
+> (`Code/s14_campo_medio.jl`) y el pizarrón. El **plan de clase** de abajo
+> dice qué se proyecta, qué secciones de estas notas se escriben en el
+> pizarrón, cuándo se trabaja en parejas y qué queda para leer. En el
+> pizarrón van las definiciones, las proposiciones y los resultados en
+> recuadro; las demostraciones, sólo donde el plan lo indica. El texto que las
+> rodea se explica de palabra. Como todo está aquí, en clase no hace falta
+> copiar. El cuerpo de las notas es la **ruta básica**. Las demostraciones y
+> los temas de la ruta avanzada, opcionales, están al final, en **Para
+> profundizar**, y no se ven en clase; donde estaban queda una línea que los
+> enlaza.
 >
 > Repaso recomendado: [P.B4](repaso/probabilidad.md#pb4) (distribución normal),
 > [C.I1](repaso/calculo.md#ci1) (Taylor),
@@ -17,6 +23,22 @@
 >
 > Lecturas: Requião da Cunha (2021), cap. 6. Ruta avanzada: Brock & Durlauf
 > (2001); Bouchaud, Marsili & Nadal (2023).
+
+**Plan de clase** (120 minutos)
+
+| Minutos | Dónde | Qué | Secciones |
+|---|---|---|---|
+| 0–10 | Proyector | El fenómeno: cambios abruptos que no se revierten al deshacer la causa | Cuaderno, sección 0 |
+| 10–25 | Pizarra | Campo medio: interacción con el promedio y autoconsistencia; la solución gráfica de $m = \tanh(\beta(h + Jm))$; la proposición, con la demostración; cerca de la transición, $m^\ast \sim (\beta J - 1)^{1/2}$ (la cuenta es el ejercicio 6 del cuaderno) | 1.1, 1.3 |
+| 25–30 | Pizarra | En una red, el campo medio sobreestima el orden: $T_c^{\text{cm}} = Jz$ contra el exacto | 1.3 |
+| 30–42 | Pizarra | Brock y Durlauf: la utilidad, las expectativas racionales y la ecuación de campo medio; equilibrios múltiples y la trampa de coordinación; el multiplicador social | 2.1–2.2 |
+| 42–50 | Pizarra | Histéresis: la tangencia, el salto en $\pm h_s$ y la dependencia de la historia | 3 |
+| 50–100 | Parejas | Laboratorio: la simulación frente a la solución gráfica y el ciclo de histéresis; ejercicios de código 1 y 2 | Cuaderno, secciones 1 y 2 y ejercicios 1–2 |
+| 100–120 | Pizarra | Cierre: puesta en común de las preguntas 3 a 5 y la tabla del resumen | Cuaderno, preguntas 3–5; notas, 5 |
+| Después | Lectura | La identificación (2.2), el frenado crítico (3) y Para profundizar | |
+
+**Pregunta de la sesión.** ¿Por qué un cambio gradual en los incentivos puede
+producir un salto de comportamiento que no se revierte al deshacer la causa?
 
 ---
 
@@ -43,7 +65,7 @@ $$
 $m$ (ley de los grandes números), así que
 
 $$
-m = \tanh\left(\beta(h + Jm)\right) .
+\boxed{\ m = \tanh\left(\beta(h + Jm)\right)\ }
 $$
 
 Es una ecuación de punto fijo ([C.I5](repaso/calculo.md#ci5)).
@@ -133,7 +155,7 @@ hacen. Es una **trampa de coordinación**.
 **Multiplicador social.** Derivando la ecuación en un equilibrio estable,
 
 $$
-\frac{dm}{dh} = \frac{\beta(1 - m^2)}{1 - \beta J(1 - m^2)} .
+\boxed{\ \frac{dm}{dh} = \frac{\beta(1 - m^2)}{1 - \beta J(1 - m^2)}\ }
 $$
 
 El numerador es el efecto de $h$ sin interacciones; el denominador, menor
@@ -158,7 +180,7 @@ se vuelven tangentes: $J(1 - m^2) = 1$, es decir, en
 $m_0 = -\sqrt{1 - 1/J}$. Sustituyendo en $h = \operatorname{atanh}(m) - Jm$,
 
 $$
-h_s = J\sqrt{1 - 1/J} - \operatorname{atanh}\left(\sqrt{1 - 1/J}\right) .
+\boxed{\ h_s = J\sqrt{1 - 1/J} - \operatorname{atanh}\left(\sqrt{1 - 1/J}\right)\ }
 $$
 
 Con $J = 1.5$, $h_s \approx 0.21$. Al subir $h$ lentamente, el sistema salta

@@ -1,10 +1,16 @@
 # Sesión 8: Desigualdad y modelos de intercambio. Notas formales
 
-> **Cómo leer estas notas.** Siguen el orden del programa: primero se observa
-> en el cuaderno (`Code/s08_intercambio.jl`), después se formaliza aquí. El
-> cuerpo de las notas es la **ruta básica**. Las demostraciones y los temas de
-> la ruta avanzada, opcionales, están al final, en **Para profundizar**; donde
-> estaban queda una línea que los enlaza.
+> **Cómo usar estas notas.** La clase combina el cuaderno
+> (`Code/s08_intercambio.jl`) y el pizarrón. El **plan de clase** de abajo
+> dice qué se proyecta, qué secciones de estas notas se escriben en el
+> pizarrón, cuándo se trabaja en parejas y qué queda para leer. En el
+> pizarrón van las definiciones, las proposiciones y los resultados en
+> recuadro; las demostraciones, sólo donde el plan lo indica. El texto que las
+> rodea se explica de palabra. Como todo está aquí, en clase no hace falta
+> copiar. El cuerpo de las notas es la **ruta básica**. Las demostraciones y
+> los temas de la ruta avanzada, opcionales, están al final, en **Para
+> profundizar**, y no se ven en clase; donde estaban queda una línea que los
+> enlaza.
 >
 > Repaso recomendado: [P.B3](repaso/probabilidad.md#pb3) (histogramas),
 > [C.B6](repaso/calculo.md#cb6) (la integral como área),
@@ -19,6 +25,22 @@
 > Lecturas: Yakovenko & Rosser (2009). Complementaria: Requião da Cunha
 > (2021), sec. 8.3; Slanina (2014), sec. 7.2. Ruta avanzada: Chakrabarti et
 > al. (2013), caps. 2–5; Garibaldi & Scalas (2010, consulta).
+
+**Plan de clase** (120 minutos)
+
+| Minutos | Dónde | Qué | Secciones |
+|---|---|---|---|
+| 0–10 | Proyector | El fenómeno: ¿cómo se reparte el ingreso en México? | Cuaderno, sección 0 |
+| 10–20 | Pizarra | La curva de Lorenz y el índice de Gini; el Gini como diferencia promedio entre dos personas (enunciado); $G = 1/2$ para la exponencial (la cuenta es el ejercicio 6 del cuaderno) | 1.1–1.2 |
+| 20–33 | Pizarra | Intercambio con dinero conservado: el modelo y la exponencial; el argumento de conteo: la distribución con más asignaciones es la de Boltzmann | 2.1–2.2 |
+| 33–43 | Pizarra | Ahorro uniforme: el modelo, la varianza estacionaria (enunciado; la cuenta es el ejercicio 7 del cuaderno) y la aproximación gamma | 3.1–3.3 |
+| 43–52 | Pizarra | Ahorro heterogéneo: el dinero promedio de cada agente, con la demostración, y la cola de Pareto | 4 |
+| 52–100 | Parejas | Laboratorio: Lorenz y Gini, los tres modelos de intercambio y su comparación con la ENIGH; ejercicios de código 1 y 2 | Cuaderno, secciones 1 a 5 y ejercicios 1–2 |
+| 100–120 | Pizarra | Cierre: puesta en común de las preguntas 3 a 5; qué modelo ajusta mejor la ENIGH y las tres advertencias | Cuaderno, preguntas 3–5; notas, 5 |
+| Después | Lectura | La demostración de 3.2, los cuidados del ahorro heterogéneo (4), el resumen (6) y Para profundizar | |
+
+**Pregunta de la sesión.** ¿Cómo se reparte el ingreso en México, y cuánta
+desigualdad produce el puro azar de los intercambios?
 
 ---
 
@@ -94,7 +116,7 @@ negativo.
 de un agente es la exponencial
 
 $$
-p(m) = \frac{1}{T}\thinspace e^{-m/T}, \qquad T = \frac{M}{N} .
+\boxed{\ p(m) = \frac{1}{T}\thinspace e^{-m/T}, \qquad T = \frac{M}{N}\ }
 $$
 
 Damos tres argumentos de distinta naturaleza.
@@ -154,7 +176,7 @@ $\mu_2 = \mathbb{E}[m^2]$.
 **Proposición.** En el estado estacionario,
 
 $$
-\mathrm{Var}(m) = \frac{1-\lambda}{1+2\lambda} .
+\boxed{\ \mathrm{Var}(m) = \frac{1-\lambda}{1+2\lambda}\ }
 $$
 
 *Demostración.* $\mathbb{E}[m_i'] = \lambda + (1-\lambda)\thinspace\mathbb{E}[\varepsilon]\cdot 2 = 1$,
@@ -216,7 +238,7 @@ $$
 estado estacionario es
 
 $$
-\langle m_i\rangle = \frac{C}{1 - \lambda_i}, \qquad C = \langle (1-\lambda) m\rangle ,
+\boxed{\ \langle m_i\rangle = \frac{C}{1 - \lambda_i}, \qquad C = \langle (1-\lambda) m\rangle\ }
 $$
 
 donde $C$ es el promedio sobre todos los agentes de lo que cada uno pone en

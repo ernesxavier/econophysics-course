@@ -1,10 +1,16 @@
 # Sesión 13: Logit, Boltzmann e Ising. Notas formales
 
-> **Cómo leer estas notas.** Siguen el orden del programa: primero se observa
-> en el cuaderno (`Code/s13_logit_ising.jl`), después se formaliza aquí. El
-> cuerpo de las notas es la **ruta básica**. Esta sesión no tiene desarrollos
-> avanzados aparte: la ruta avanzada son los ejercicios F4 a F6, y el campo
-> medio formal está en las notas de la [sesión 14](s14_campo_medio.md).
+> **Cómo usar estas notas.** La clase combina el cuaderno
+> (`Code/s13_logit_ising.jl`) y el pizarrón. El **plan de clase** de abajo
+> dice qué se proyecta, qué secciones de estas notas se escriben en el
+> pizarrón, cuándo se trabaja en parejas y qué queda para leer. En el
+> pizarrón van las definiciones, las proposiciones y los resultados en
+> recuadro; las demostraciones, sólo donde el plan lo indica. El texto que las
+> rodea se explica de palabra. Como todo está aquí, en clase no hace falta
+> copiar. El cuerpo de las notas es la **ruta básica**. Esta sesión no tiene
+> desarrollos avanzados aparte: la ruta avanzada son los ejercicios F4 a F6,
+> y el campo medio formal está en las notas de la
+> [sesión 14](s14_campo_medio.md).
 >
 > Repaso recomendado: [C.B4](repaso/calculo.md#cb4) (función logística),
 > [F.B3](repaso/fisica_estadistica.md#fb3) (temperatura),
@@ -17,6 +23,22 @@
 >
 > Lecturas: Sen & Chakrabarti (2014), cap. 2. Ruta avanzada: Brock & Durlauf
 > (2001).
+
+**Plan de clase** (120 minutos)
+
+| Minutos | Dónde | Qué | Secciones |
+|---|---|---|---|
+| 0–10 | Proyector | El fenómeno: mismos incentivos, resultados distintos | Cuaderno, sección 0 |
+| 10–22 | Pizarra | Repaso: la función logística; utilidad aleatoria y la distribución de Gumbel; la fórmula logit de McFadden (enunciado; es el ejercicio 6 del cuaderno) y el caso binario | 1.1 |
+| 22–30 | Pizarra | Logit = Boltzmann: el diccionario entre física estadística y elección discreta | 1.2 |
+| 30–40 | Pizarra | El modelo de Ising: la energía, la magnetización y la ruptura espontánea de simetría; la solución exacta de la red cuadrada (enunciado) | 2.1–2.2 |
+| 40–52 | Pizarra | Metropolis y baño térmico; el baño térmico es la regla logit; balance detallado, con la demostración | 2.3 |
+| 52–100 | Parejas | Laboratorio: logit y Boltzmann, Ising y el algoritmo de Metropolis; la transición con el deslizador; ejercicios de código 1 y 2 | Cuaderno, secciones 2 a 4 y ejercicios 1–2 |
+| 100–120 | Pizarra | Cierre: puesta en común de las preguntas 3 a 5; la lectura económica de la dinámica logit | Cuaderno, preguntas 3–5; notas, 2.3 |
+| Después | Lectura | La fórmula *log-sum* (1.2), el resumen (3) y los ejercicios F4 a F6 | |
+
+**Pregunta de la sesión.** Dos poblaciones con los mismos incentivos, ¿por
+qué terminan eligiendo distinto?
 
 ---
 
@@ -43,7 +65,7 @@ exponencial (teoría de valores extremos).
 distribución de Gumbel de escala $1/\beta$,
 
 $$
-\mathbb P(\text{elige } i) = \frac{e^{\beta u_i}}{\sum_j e^{\beta u_j}} .
+\boxed{\ \mathbb P(\text{elige } i) = \frac{e^{\beta u_i}}{\sum_j e^{\beta u_j}}\ }
 $$
 
 *Demostración.* La opción $i$ gana si $\varepsilon_j < u_i - u_j + \varepsilon_i$
@@ -147,7 +169,7 @@ $\Delta E = 2s_ih_i^{\text{loc}}$ el cambio de energía si $i$ cambia de opción
 la distribución de Boltzmann: si $s'$ difiere de $s$ sólo en el agente $i$,
 
 $$
-\mathbb P(s)\thinspace W(s \to s') = \mathbb P(s')\thinspace W(s' \to s) .
+\boxed{\ \mathbb P(s)\thinspace W(s \to s') = \mathbb P(s')\thinspace W(s' \to s)\ }
 $$
 
 Por lo tanto la distribución de Boltzmann es estacionaria
