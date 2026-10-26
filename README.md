@@ -91,6 +91,7 @@ Matemáticas), con simulaciones en Julia.
 ├── src/                       → Fuentes de los cuadernos de Pluto (formato #%%)
 │   ├── construir_cuaderno.jl  → Genera y ejecuta un cuaderno a partir de su fuente
 │   ├── revisar_material.jl    → Revisa claves de repaso, enlaces y referencias a sesiones
+│   ├── revisar_formulas.jl    → Revisa que GitHub muestre bien las fórmulas de los .md
 │   ├── sNN_tema.jl            → Fuente de Code/sNN_tema.jl (20 fuentes, sesiones 1 a 20)
 │   └── tallerN_tema.jl        → Fuente de Code/tallerN_tema.jl (talleres de los tres módulos)
 └── README.md
@@ -146,6 +147,17 @@ pasar el cambio a la fuente antes de volver a generarlo.
 julia --project=Code Code/descargar_datos.jl
 julia --project=Code Code/descargar_sp100.jl
 julia --project=Code Code/descargar_enigh.jl
+```
+
+**Revisar el material** antes de cada commit: la consistencia (claves del
+repaso, enlaces y números de sesión) y las fórmulas tal como las muestra
+GitHub. La segunda revisión usa `gh` con sesión iniciada y tarda unos
+20 segundos; también acepta archivos sueltos.
+
+```
+julia src/revisar_material.jl
+julia src/revisar_formulas.jl
+julia src/revisar_formulas.jl Class_notes/s04_caminata_markov.md
 ```
 
 **Actualizar paquetes** (por ejemplo, al cambiar de versión de Julia):
