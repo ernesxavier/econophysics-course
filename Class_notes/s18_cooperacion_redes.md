@@ -1,10 +1,16 @@
 # Sesión 18: Cooperación en redes. Notas formales
 
-> **Cómo leer estas notas.** Siguen el orden del programa: primero se observa
-> en el cuaderno (`Code/s18_cooperacion_redes.jl`), después se formaliza aquí.
-> El cuerpo de las notas es la **ruta básica**. Las demostraciones y los temas
-> de la ruta avanzada, opcionales, están al final, en **Para profundizar**;
-> donde estaban queda una línea que los enlaza.
+> **Cómo usar estas notas.** La clase combina el cuaderno
+> (`Code/s18_cooperacion_redes.jl`) y el pizarrón. El **plan de clase** de
+> abajo dice qué se proyecta, qué secciones de estas notas se escriben en el
+> pizarrón, cuándo se trabaja en parejas y qué queda para leer. En el
+> pizarrón van las definiciones, las proposiciones y los resultados en
+> recuadro; las demostraciones, sólo donde el plan lo indica. El texto que las
+> rodea se explica de palabra. Como todo está aquí, en clase no hace falta
+> copiar. El cuerpo de las notas es la **ruta básica**. Las demostraciones y
+> los temas de la ruta avanzada, opcionales, están al final, en **Para
+> profundizar**, y no se ven en clase; donde estaban queda una línea que los
+> enlaza.
 >
 > Repaso recomendado: [L.B4](repaso/algebra_lineal.md#lb4) (matriz de adyacencia
 > y grado) y [C.B4](repaso/calculo.md#cb4) (función logística).
@@ -12,6 +18,21 @@
 > Lecturas: Nowak & May (1992). Complementaria: Slanina (2014), sec. 8.1. Ruta
 > avanzada: Santos & Pacheco (2005); Ohtsuki et al. (2006); de consulta:
 > Schecter & Gintis (2016).
+
+**Plan de clase** (120 minutos)
+
+| Minutos | Dónde | Qué | Secciones |
+|---|---|---|---|
+| 0–10 | Proyector | El fenómeno: cooperación entre egoístas cuando traicionar paga más | Cuaderno, sección 0 |
+| 10–18 | Pizarra | El dilema del prisionero; en una población bien mezclada la cooperación se extingue, con el argumento del replicador | 1 |
+| 18–35 | Pizarra | El juego de Nowak y May: la matriz, el pago $\Pi_i$ y las reglas de imitación; por qué sobreviven los clústeres: el bloque en la retícula de 4 vecinos (el caso de Moore es el ejercicio 6 del cuaderno) | 2 |
+| 35–45 | Pizarra | Redes libres de escala: el *hub* cooperador estabiliza su vecindario y el traidor destruye su propio pago; la regla $b/c > k$, sólo el enunciado (la usan el ejercicio 2 y la pregunta 5) | 3–4 |
+| 45–100 | Parejas | Laboratorio: mezcla global frente a red local, clústeres en la retícula y la retícula frente a Barabási-Albert; ejercicios de código 1 y 2 | Cuaderno, secciones 1 a 3 y ejercicios 1–2 |
+| 100–120 | Pizarra | Cierre: puesta en común de las preguntas 3 a 5 y la tabla del resumen | Cuaderno, preguntas 3–5; notas, 5 |
+| Después | Lectura | El bloque con vecindad de Moore (2) y Para profundizar | |
+
+**Pregunta de la sesión.** ¿Cómo sobrevive la cooperación entre egoístas
+cuando traicionar paga más?
 
 ---
 
@@ -53,10 +74,9 @@ En una red $G = (V, E)$ con matriz de adyacencia $A_{ij}$
    el pago total (en la convención original de Nowak y May también juega
    consigo mismo, lo que desplaza los umbrales de $b$ pero no cambia la
    formación de clústeres; el cuaderno usa sólo a los vecinos):
-   $$
-   \Pi_i = \sum_{j \in \mathcal N_i} \bigl[s_i s_j + b(1 - s_i)s_j\bigr]
-   = \bigl[s_i + b(1 - s_i)\bigr] k_i^C ,
-   $$
+
+   $$\Pi_i = \sum_{j \in \mathcal N_i} \bigl[s_i s_j + b(1 - s_i)s_j\bigr] = \bigl[s_i + b(1 - s_i)\bigr] k_i^C ,$$
+
    donde $k_i^C = \sum_{j \in \mathcal N_i} s_j$ es el número de vecinos
    cooperadores de $i$.
 2. **Actualización por imitación:** Cada nodo compara su pago con el de sus
@@ -70,10 +90,8 @@ En una red $G = (V, E)$ con matriz de adyacencia $A_{ij}$
    - *Imitación de Fermi (logit por pares, Szabó & Tőke, 1998):* $i$ elige un
      vecino $j$ al azar y copia su estrategia con probabilidad logística
      ([C.B4](repaso/calculo.md#cb4)):
-     $$
-     \mathbb P(s_i \leftarrow s_j) = \sigma\bigl(\beta(\Pi_j - \Pi_i)\bigr)
-     = \frac{1}{1 + e^{-\beta(\Pi_j - \Pi_i)}} .
-     $$
+
+     $$\mathbb P(s_i \leftarrow s_j) = \sigma\bigl(\beta(\Pi_j - \Pi_i)\bigr) = \frac{1}{1 + e^{-\beta(\Pi_j - \Pi_i)}} .$$
 
 **Estabilidad de clústeres de cooperadores en una cuadrícula.** ¿Por qué no se
 extinguen los cooperadores en la retícula cuando $b > 1$? En una población bien
@@ -91,7 +109,14 @@ y grande de cooperadores rodeado de traidores:
 Bajo imitación del mejor vecino, el traidor de la frontera se convierte en
 cooperador cuando $3 > b$, así que el bloque **se expande** por sus caras planas
 si $b < 3$; el cooperador de la frontera ve a un vecino interior con pago $4$,
-así que el bloque **resiste** mientras $b < 4$. En vecindad de Moore ($8$
+así que el bloque **resiste** mientras $b < 4$:
+
+$$
+\boxed{\ \text{retícula con } k = 4\text{: el bloque crece si } b < 3
+\text{ y resiste si } b < 4\ }
+$$
+
+En vecindad de Moore ($8$
 vecinos) y un bloque de $3 \times 3$, el cooperador del centro obtiene $8$, el
 del borde plano $5$, y el traidor pegado a ese borde toca a $3$ cooperadores
 ($3b$): el bloque crece por sus caras si $5 > 3b$, es decir, $b < 5/3$, y

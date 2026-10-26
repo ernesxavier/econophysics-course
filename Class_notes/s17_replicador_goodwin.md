@@ -1,10 +1,16 @@
 # Sesión 17: Replicador y ciclo de Goodwin. Notas formales
 
-> **Cómo leer estas notas.** Siguen el orden del programa: primero se observa
-> en el cuaderno (`Code/s17_replicador_goodwin.jl`), después se formaliza
-> aquí. El cuerpo de las notas es la **ruta básica**. Las demostraciones y los
-> temas de la ruta avanzada, opcionales, están al final, en **Para
-> profundizar**; donde estaban queda una línea que los enlaza.
+> **Cómo usar estas notas.** La clase combina el cuaderno
+> (`Code/s17_replicador_goodwin.jl`) y el pizarrón. El **plan de clase** de
+> abajo dice qué se proyecta, qué secciones de estas notas se escriben en el
+> pizarrón, cuándo se trabaja en parejas y qué queda para leer. En el
+> pizarrón van las definiciones, las proposiciones y los resultados en
+> recuadro; las demostraciones, sólo donde el plan lo indica. El texto que las
+> rodea se explica de palabra. Como todo está aquí, en clase no hace falta
+> copiar. El cuerpo de las notas es la **ruta básica**. Las demostraciones y
+> los temas de la ruta avanzada, opcionales, están al final, en **Para
+> profundizar**, y no se ven en clase; donde estaban queda una línea que los
+> enlaza.
 >
 > Repaso recomendado: [C.B3](repaso/calculo.md#cb3) (la derivada como tasa de
 > cambio), [C.I1](repaso/calculo.md#ci1) (desarrollo de Taylor),
@@ -18,6 +24,21 @@
 >
 > Lecturas: Requião da Cunha (2021), cap. 7. Ruta avanzada: Goodwin (1967); de
 > consulta: Strogatz (2018), caps. 5–6; Schecter & Gintis (2016).
+
+**Plan de clase** (120 minutos)
+
+| Minutos | Dónde | Qué | Secciones |
+|---|---|---|---|
+| 0–10 | Proyector | El fenómeno: ¿por qué no todos son agresivos? ¿Y por qué la economía oscila sin choques? | Cuaderno, sección 0 |
+| 10–28 | Pizarra | Repaso: una ecuación diferencial como regla de actualización; juegos de $2 \times 2$ y pagos esperados; la ecuación del replicador por imitación, con la derivación | 1.1–1.2 |
+| 28–40 | Pizarra | Los puntos fijos y los tres regímenes (la tabla); Halcón-Paloma: $x^\ast = V/C$ y su estabilidad | 1.3 |
+| 40–55 | Pizarra | Goodwin: los cuatro supuestos y la derivación de $\dot v/v$ y $\dot u/u$; el sistema de Lotka-Volterra, el diccionario y el punto fijo | 2.1–2.2 |
+| 55–100 | Parejas | Laboratorio: Halcón-Paloma por la ecuación y por agentes; el ciclo de Goodwin en el tiempo y en el plano de fase; ejercicios de código 1 y 2 | Cuaderno, secciones 2 y 3 y ejercicios 1–2 |
+| 100–120 | Pizarra | Cierre: puesta en común de las preguntas 3 a 5 y la tabla del resumen | Cuaderno, preguntas 3–5; notas, 3 |
+| Después | Lectura | Para profundizar: el jacobiano y el periodo del ciclo, y la cantidad conservada de Goodwin | |
+
+**Pregunta de la sesión.** ¿Por qué no todos son agresivos? ¿Y por qué la
+economía oscila sin choques externos?
 
 ---
 
@@ -86,8 +107,8 @@ formas equivalentes de la **ecuación del replicador**
 ([C.I4](repaso/calculo.md#ci4)):
 
 $$
-\dot x = x\bigl[\pi_1(x) - \bar\pi(x)\bigr]
-= x(1 - x)\bigl[\pi_1(x) - \pi_2(x)\bigr] .
+\boxed{\ \dot x = x\bigl[\pi_1(x) - \bar\pi(x)\bigr]
+= x(1 - x)\bigl[\pi_1(x) - \pi_2(x)\bigr]\ }
 $$
 
 La primera expresión dice que la tasa de crecimiento relativa $\dot x / x$ de
@@ -157,7 +178,7 @@ $$
 Como $C > V > 0$, existe un único equilibrio interior en
 
 $$
-x^\ast = \frac{V}{C} \in (0, 1) ,
+\boxed{\ x^\ast = \frac{V}{C} \in (0, 1)\ }
 $$
 
 con $f'(x^\ast) = -\frac{C}{2}x^\ast(1 - x^\ast) = -\frac{V(C - V)}{2C} < 0$.
@@ -184,15 +205,14 @@ fuerza laboral disponible $N$ (todas funciones del tiempo $t$):
    $\sigma = K/Y > 0$ es constante. La productividad del trabajo $a(t) = Y/L$ y
    la oferta laboral $N(t)$ crecen exponencialmente a tasas constantes
    $\alpha > 0$ y $\beta > 0$:
-   $$
-   \frac{\dot a}{a} = \alpha, \qquad \frac{\dot N}{N} = \beta .
-   $$
+
+   $$\frac{\dot a}{a} = \alpha, \qquad \frac{\dot N}{N} = \beta .$$
+
 2. **Las dos variables de estado.** Definimos la **tasa de empleo** $v$ y la
    **participación salarial** $u$ en el ingreso nacional (con salario real $w$):
-   $$
-   v = \frac{L}{N} \in (0, 1), \qquad
-   u = \frac{w L}{Y} = \frac{w}{a} \in (0, 1) .
-   $$
+
+   $$v = \frac{L}{N} \in (0, 1), \qquad u = \frac{w L}{Y} = \frac{w}{a} \in (0, 1) .$$
+
 3. **Inversión y dinámica del empleo.** Los trabajadores consumen su salario y
    los capitalistas reinvierten todas las ganancias $\Pi = Y - wL = (1 - u)Y$.
    Si el capital se deprecia a tasa $\delta_K \ge 0$, entonces
@@ -200,19 +220,15 @@ fuerza laboral disponible $N$ (todas funciones del tiempo $t$):
    crecimiento del producto es $\frac{\dot Y}{Y} = \frac{\dot K}{K} =
    \frac{1 - u}{\sigma} - \delta_K$. Usando $v = \frac{Y}{a N}$ y la derivada
    logarítmica ([C.B3](repaso/calculo.md#cb3)),
-   $$
-   \frac{\dot v}{v} = \frac{\dot Y}{Y} - \frac{\dot a}{a} - \frac{\dot N}{N}
-   = \underbrace{\left(\frac{1}{\sigma} - \delta_K - \alpha - \beta\right)}_{\alpha_G}
-   - \underbrace{\frac{1}{\sigma}}_{\beta_G} u .
-   $$
+
+   $$\frac{\dot v}{v} = \frac{\dot Y}{Y} - \frac{\dot a}{a} - \frac{\dot N}{N} = \underset{\alpha_G}{\underbrace{\left(\frac{1}{\sigma} - \delta_K - \alpha - \beta\right)}} - \underset{\beta_G}{\underbrace{\frac{1}{\sigma}}} u .$$
+
 4. **Curva de Phillips real y dinámica salarial.** Cuando el empleo $v$ se
    acerca al pleno empleo, el poder de negociación de los trabajadores sube y
    el salario real crece a tasa lineal $\frac{\dot w}{w} = -\gamma_0 + \delta_G
    v$ (con $\gamma_0, \delta_G > 0$). Como $u = w/a$,
-   $$
-   \frac{\dot u}{u} = \frac{\dot w}{w} - \frac{\dot a}{a}
-   = -\underbrace{(\gamma_0 + \alpha)}_{\gamma_G} + \delta_G v .
-   $$
+
+   $$\frac{\dot u}{u} = \frac{\dot w}{w} - \frac{\dot a}{a} = -\underset{\gamma_G}{\underbrace{(\gamma_0 + \alpha)}} + \delta_G v .$$
 
 ### 2.2 El sistema de Lotka-Volterra y su punto fijo
 
@@ -240,8 +256,8 @@ Las **ceroclinas** ($\dot v = 0$ y $\dot u = 0$) se cruzan en el origen
 $(0, 0)$ y en un único **punto fijo interior**:
 
 $$
-v^\ast = \frac{\gamma_G}{\delta_G}, \qquad
-u^\ast = \frac{\alpha_G}{\beta_G} .
+\boxed{\ v^\ast = \frac{\gamma_G}{\delta_G}, \qquad
+u^\ast = \frac{\alpha_G}{\beta_G}\ }
 $$
 
 ### 2.3 Linealización con el jacobiano y periodo del ciclo [Avanzado]
@@ -304,11 +320,8 @@ El desarrollo de esta subsección está en [Para profundizar, P.2](#pp2).
   (v - v^\ast, u - u^\ast)$ alrededor del punto fijo de Goodwin, el desarrollo
   de Taylor de segundo orden ([C.I1](repaso/calculo.md#ci1)) de la cantidad
   conservada $V(v, u) - V(v^\ast, u^\ast)$ produce la elipse
-  $$
-  V(v, u) - V(v^\ast, u^\ast) \approx
-  \frac{\delta_G^2}{2\gamma_G}(\delta v)^2 +
-  \frac{\beta_G^2}{2\alpha_G}(\delta u)^2 .
-  $$
+
+  $$V(v, u) - V(v^\ast, u^\ast) \approx \frac{\delta_G^2}{2\gamma_G}(\delta v)^2 + \frac{\beta_G^2}{2\alpha_G}(\delta u)^2 .$$
 
 ---
 
@@ -340,16 +353,11 @@ $$
 - **En el equilibrio interior $(v^\ast, u^\ast)$:** Los términos diagonales se
   anulan porque $\alpha_G - \beta_G u^\ast = 0$ y $-\gamma_G + \delta_G v^\ast =
   0$, de modo que
-  $$
-  J(v^\ast, u^\ast) = \begin{pmatrix}
-  0 & -\beta_G v^\ast \cr
-  \delta_G u^\ast & 0
-  \end{pmatrix}
-  = \begin{pmatrix}
-  0 & -\frac{\beta_G \gamma_G}{\delta_G} \cr
-  \frac{\alpha_G \delta_G}{\beta_G} & 0
-  \end{pmatrix} .
-  $$
+
+$$
+J(v^\ast, u^\ast) = \begin{pmatrix} 0 & -\beta_G v^\ast \cr \delta_G u^\ast & 0 \end{pmatrix}
+= \begin{pmatrix} 0 & -\frac{\beta_G \gamma_G}{\delta_G} \cr \frac{\alpha_G \delta_G}{\beta_G} & 0 \end{pmatrix} .
+$$
 
 La traza y el determinante en $(v^\ast, u^\ast)$ son
 

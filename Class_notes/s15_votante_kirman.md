@@ -1,10 +1,16 @@
 # Sesión 15: Votante y Kirman: imitación y herding. Notas formales
 
-> **Cómo leer estas notas.** Siguen el orden del programa: primero se observa
-> en el cuaderno (`Code/s15_votante_kirman.jl`), después se formaliza aquí. El
-> cuerpo de las notas es la **ruta básica**. Las demostraciones y los temas de
-> la ruta avanzada, opcionales, están al final, en **Para profundizar**; donde
-> estaban queda una línea que los enlaza.
+> **Cómo usar estas notas.** La clase combina el cuaderno
+> (`Code/s15_votante_kirman.jl`) y el pizarrón. El **plan de clase** de abajo
+> dice qué se proyecta, qué secciones de estas notas se escriben en el
+> pizarrón, cuándo se trabaja en parejas y qué queda para leer. En el
+> pizarrón van las definiciones, las proposiciones y los resultados en
+> recuadro; las demostraciones, sólo donde el plan lo indica. El texto que las
+> rodea se explica de palabra. Como todo está aquí, en clase no hace falta
+> copiar. El cuerpo de las notas es la **ruta básica**. Las demostraciones y
+> los temas de la ruta avanzada, opcionales, están al final, en **Para
+> profundizar**, y no se ven en clase; donde estaban queda una línea que los
+> enlaza.
 >
 > Repaso recomendado: [E.B2](repaso/procesos_estocasticos.md#eb2) (caminata
 > aleatoria), [E.B3](repaso/procesos_estocasticos.md#eb3) (promedios),
@@ -24,6 +30,21 @@
 > Lecturas: Sen & Chakrabarti (2014), cap. 3. Complementaria: Kirman (2011),
 > caps. 2–3. Ruta avanzada: Slanina (2014), cap. 3; Castellano, Fortunato &
 > Loreto (2009); Kirman (1993); Sood & Redner (2005).
+
+**Plan de clase** (120 minutos)
+
+| Minutos | Dónde | Qué | Secciones |
+|---|---|---|---|
+| 0–10 | Proyector | El fenómeno: dos restaurantes idénticos; uno se llena y el otro no | Cuaderno, sección 0 |
+| 10–25 | Pizarra | Repaso: estados absorbentes frente a ruido; el modelo de votante y sus consensos absorbentes; en la red completa, $p_k = q_k$ y la martingala; la probabilidad de victoria $x_0$, con el argumento de la martingala (la recurrencia es el ejercicio 6 del cuaderno) | 1.1–1.2 |
+| 25–35 | Pizarra | En una red cualquiera: la martingala ponderada por el grado (enunciado; es el ejercicio 8) y la tabla del tiempo al consenso según la topología | 1.4 |
+| 35–48 | Pizarra | El modelo de Kirman: cambio autónomo e imitación, las tasas de transición; la estacionaria $\propto [x(1-x)]^{a-1}$ (enunciado) y los tres regímenes según $a$ | 2.1, 2.4 |
+| 48–100 | Parejas | Laboratorio: el votante en la red completa y en redes, y Kirman con el deslizador; ejercicios de código 1 y 2 | Cuaderno, secciones 2 y 3 y ejercicios 1–2 |
+| 100–120 | Pizarra | Cierre: puesta en común de las preguntas 3 a 5; Kirman frente a Ising: la bimodalidad inducida por el ruido | Cuaderno, preguntas 3–5; notas, 2.4 |
+| Después | Lectura | La comparación completa con Ising (2.4), el resumen (3) y Para profundizar | |
+
+**Pregunta de la sesión.** Dos restaurantes idénticos: ¿por qué uno se llena y
+el otro no?
 
 ---
 
@@ -78,7 +99,7 @@ con opinión $1$, la probabilidad $v_{k_0}$ de que toda la población termine en
 el consenso $1$ es
 
 $$
-v_{k_0} = \frac{k_0}{N} = x_0 .
+\boxed{\ v_{k_0} = \frac{k_0}{N} = x_0\ }
 $$
 
 *Demostración.* Condicionando en el primer paso desde $k \in
@@ -123,7 +144,7 @@ Miguel, 2005; Sood & Redner, 2005). En cualquier grafo conexo no dirigido, la
 opinión media ponderada por el grado
 
 $$
-\bar s_w = \frac{\sum_{i=1}^N k_i s_i}{\sum_{i=1}^N k_i}
+\boxed{\ \bar s_w = \frac{\sum_{i=1}^N k_i s_i}{\sum_{i=1}^N k_i}\ }
 $$
 
 es una martingala. Por tanto, la probabilidad de alcanzar el consenso $1$ desde

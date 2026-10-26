@@ -1,10 +1,16 @@
 # Sesión 19: Juego de la minoría. Notas formales
 
-> **Cómo leer estas notas.** Siguen el orden del programa: primero se observa
-> en el cuaderno (`Code/s19_juego_minoria.jl`), después se formaliza aquí. El
-> cuerpo de las notas es la **ruta básica**. Las demostraciones y los temas de
-> la ruta avanzada, opcionales, están al final, en **Para profundizar**; donde
-> estaban queda una línea que los enlaza.
+> **Cómo usar estas notas.** La clase combina el cuaderno
+> (`Code/s19_juego_minoria.jl`) y el pizarrón. El **plan de clase** de abajo
+> dice qué se proyecta, qué secciones de estas notas se escriben en el
+> pizarrón, cuándo se trabaja en parejas y qué queda para leer. En el
+> pizarrón van las definiciones, las proposiciones y los resultados en
+> recuadro; las demostraciones, sólo donde el plan lo indica. El texto que las
+> rodea se explica de palabra. Como todo está aquí, en clase no hace falta
+> copiar. El cuerpo de las notas es la **ruta básica**. Las demostraciones y
+> los temas de la ruta avanzada, opcionales, están al final, en **Para
+> profundizar**, y no se ven en clase; donde estaban queda una línea que los
+> enlaza.
 >
 > Repaso recomendado: [P.B2](repaso/probabilidad.md#pb2) (media y varianza de
 > una suma de variables independientes),
@@ -22,6 +28,23 @@
 > (2014), sec. 5.2; Savit, Manuca & Riolo (1999); Challet & Marsili (1999);
 > Challet, Marsili & Zecchina (2000); de consulta: Challet, Marsili & Zhang
 > (2005).
+
+**Plan de clase** (120 minutos)
+
+| Minutos | Dónde | Qué | Secciones |
+|---|---|---|---|
+| 0–10 | Proyector | El fenómeno: el bar El Farol y la trampa de pensar igual | Cuaderno, sección 0 |
+| 10–18 | Pizarra | El problema de El Farol: por qué no puede haber una regla predictiva compartida; la racionalidad inductiva | 1.1 |
+| 18–33 | Pizarra | Las reglas del juego de la minoría: acción agregada y minoría ganadora; historias, $P = 2^M$; estrategias y puntajes virtuales | 1.2 |
+| 33–40 | Pizarra | El juego como modelo de mercado: exceso de demanda y por qué gana la minoría | 2.1 |
+| 40–50 | Pizarra | Repaso: la varianza de una suma; el número de ganadores y el referente aleatorio $\sigma^2/N = 1$, con la demostración | 2.2 |
+| 50–100 | Parejas | Laboratorio: del efecto manada a la coordinación espontánea, y la curva $\sigma^2/N$ contra $\alpha$ para varios $N$; ejercicios de código 1 y 2 | Cuaderno, secciones 2 y 3 y ejercicios 1–2 |
+| 100–112 | Pizarra | Lo que mostró el laboratorio: el colapso con $\alpha = 2^M/N$ y las tres fases | 3.1–3.2 |
+| 112–120 | Pizarra | Cierre: puesta en común de las preguntas 3 a 5 | Cuaderno, preguntas 3–5 |
+| Después | Lectura | El desorden congelado (1.2), el resumen (5) y Para profundizar | |
+
+**Pregunta de la sesión.** Si conviene estar en la minoría, ¿pueden muchos
+agentes que aprenden coordinarse mejor que el azar?
 
 ---
 
@@ -131,15 +154,15 @@ $S$ estrategias (con $U_{i,s}(0) = 0$). En el paso $t$:
 1. Observada la historia $\mu = \mu(t)$, cada agente elige su estrategia activa
    $s_i^\ast(t) = \arg\max_{s \in \lbrace 1,\dots,S\rbrace} U_{i,s}(t)$ (si hay
    empate, elige al azar entre las empatadas) y ejecuta la acción
-   $$
-   a_i(t) = s_{i, s_i^\ast(t)}\bigl(\mu(t)\bigr) .
-   $$
+
+   $$a_i(t) = s_{i, s_i^\ast(t)}\bigl(\mu(t)\bigr) .$$
+
 2. Se calcula la acción agregada $A(t) = \sum_{i=1}^N a_i(t)$ y todos los
    agentes actualizan los puntajes de **todas** sus $S$ estrategias (tanto la
    que usaron como las que no usaron):
-   $$
-   U_{i,s}(t + 1) = U_{i,s}(t) - s_{i,s}\bigl(\mu(t)\bigr)\thinspace\frac{A(t)}{N}
-   $$
+
+   $$U_{i,s}(t + 1) = U_{i,s}(t) - s_{i,s}\bigl(\mu(t)\bigr)\thinspace\frac{A(t)}{N}$$
+
    (o de forma equivalente sumando $-s_{i,s}(\mu(t)) A(t)$, ya que multiplicar
    todos los puntajes por $N$ no altera cuál estrategia tiene el máximo). Si la
    estrategia $s$ recomendaba el lado minoritario, $-s(\mu(t))A(t) > 0$ y su
@@ -220,7 +243,7 @@ $$
 \langle A\rangle = 0, \qquad
 \sigma_{\text{azar}}^2 = \operatorname{Var}(A) = N
 \quad\Longrightarrow\quad
-\frac{\sigma_{\text{azar}}^2}{N} = 1 .
+\boxed{\ \frac{\sigma_{\text{azar}}^2}{N} = 1\ }
 $$
 
 *Demostración.* Cada $a_i$ tiene media $\mathbb E[a_i] = 0$ y varianza
@@ -251,7 +274,7 @@ $\sigma^2/N$ contra $M$ se desplazan hacia la derecha al crecer $N$, pero
 parámetro adimensional
 
 $$
-\alpha = \frac{P}{N} = \frac{2^M}{N} .
+\boxed{\ \alpha = \frac{P}{N} = \frac{2^M}{N}\ }
 $$
 
 El parámetro de control $\alpha$ ([F.B4](repaso/fisica_estadistica.md#fb4))
@@ -279,9 +302,9 @@ que separa dos fases con propiedades opuestas:
    provoca grandes avalanchas de órdenes del mismo signo ($A(t) \propto N$).
    Por tanto, $\operatorname{Var}(A) \propto N^2 / P$ y la volatilidad
    reescalada diverge como una ley de potencias al disminuir $\alpha$:
-   $$
-   \frac{\sigma^2}{N} \sim C\thinspace\alpha^{-1} \qquad (\alpha \to 0) .
-   $$
+
+   $$\frac{\sigma^2}{N} \sim C\thinspace\alpha^{-1} \qquad (\alpha \to 0) .$$
+
    En esta región $\sigma^2/N \gg 1$: el aprendizaje colectivo produce una
    volatilidad mucho mayor que el azar.
 2. **Coordinación óptima cerca del punto crítico ($\alpha \approx \alpha_c

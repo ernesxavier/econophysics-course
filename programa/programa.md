@@ -34,13 +34,14 @@ que ya se observó numéricamente, no como requisito para empezar.
 | Laboratorio | 50 min | En parejas, con el cuaderno de Pluto: completar código, simular, medir |
 | Cierre | 20 min | Pregunta de medición o interpretación; es lo que se evalúa |
 
-**Pizarrón y cuaderno (piloto en los módulos I y II).** El fenómeno se
-proyecta desde el cuaderno, el modelo se da en el pizarrón siguiendo las
-notas de la sesión y el laboratorio se hace en parejas con el cuaderno. Cada
-nota de las sesiones 1 a 14 abre con un plan de clase de 120 minutos que dice
-qué se proyecta, qué se escribe en el pizarrón (definiciones, proposiciones y
-los resultados en recuadro) y qué queda para leer. Al terminar el Módulo I se
-evalúa el piloto y se decide si el formato se extiende al Módulo III.
+**Pizarrón y cuaderno.** El fenómeno se proyecta desde el cuaderno, el modelo
+se da en el pizarrón siguiendo las notas de la sesión y el laboratorio se hace
+en parejas con el cuaderno. Cada una de las 20 notas abre con un plan de clase
+de 120 minutos que dice qué se proyecta, qué se escribe en el pizarrón
+(definiciones, proposiciones y los resultados en recuadro) y qué queda para
+leer. En las sesiones con poca matemática en la ruta básica (11 y 16) el
+pizarrón ocupa menos tiempo y el laboratorio, más. El formato se evalúa al
+terminar el Módulo I y se ajusta, si hace falta, para los módulos II y III.
 
 **Dos rutas.** Todo el contenido sin marca es la **ruta básica**: obligatoria,
 basada en simulación, medición e interpretación económica, y es lo único que se

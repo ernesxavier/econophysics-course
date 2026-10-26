@@ -1,10 +1,17 @@
 # Sesión 16: Schelling: segregación. Notas formales
 
-> **Cómo leer estas notas.** Siguen el orden del programa: primero se observa
-> en el cuaderno (`Code/s16_schelling.jl`), después se formaliza aquí. El
+> **Cómo usar estas notas.** La clase combina el cuaderno
+> (`Code/s16_schelling.jl`) y el pizarrón. El **plan de clase** de abajo dice
+> qué se proyecta, qué secciones de estas notas se escriben en el pizarrón,
+> cuándo se trabaja en parejas y qué queda para leer. En el pizarrón van las
+> definiciones, las proposiciones y los resultados en recuadro; las
+> demostraciones, sólo donde el plan lo indica. El texto que las rodea se
+> explica de palabra. Como todo está aquí, en clase no hace falta copiar. El
 > cuerpo de las notas es la **ruta básica**. Las demostraciones y los temas de
-> la ruta avanzada, opcionales, están al final, en **Para profundizar**; donde
-> estaban queda una línea que los enlaza.
+> la ruta avanzada, opcionales, están al final, en **Para profundizar**, y no
+> se ven en clase; donde estaban queda una línea que los enlaza. Esta sesión
+> es sobre todo de laboratorio: las tres fases se descubren en el cuaderno y
+> se formalizan en el cierre.
 >
 > Repaso recomendado: [F.B4](repaso/fisica_estadistica.md#fb4) (transiciones de
 > fase) y [F.I3](repaso/fisica_estadistica.md#fi3) (modelo de Ising).
@@ -13,6 +20,21 @@
 > cap. 4; Schelling (1971); Wilensky & Rand (2015, consulta). Ruta avanzada:
 > Slanina (2014), sec. 8.2; Sen & Chakrabarti (2014), cap. 6; Vinković &
 > Kirman (2006); Grauwin et al. (2009).
+
+**Plan de clase** (120 minutos)
+
+| Minutos | Dónde | Qué | Secciones |
+|---|---|---|---|
+| 0–10 | Proyector | El fenómeno: barrios segregados sin intolerancia | Cuaderno, sección 0 |
+| 10–22 | Pizarra | El modelo de Schelling: la cuadrícula, la vecindad de Moore, la similitud local, el umbral de tolerancia y la similitud media como medida de segregación | 1.1 |
+| 22–28 | Pizarra | La pregunta para el laboratorio: con $\tau = 3/8$ cada agente acepta hasta 62.5% de vecinos del otro grupo; ¿qué ciudad resulta? | 2 |
+| 28–90 | Parejas | Laboratorio: de las preferencias individuales a la ciudad segregada; el barrido del umbral de tolerancia; ejercicios de código 1 y 2 | Cuaderno, secciones 1 y 2 y ejercicios 1–2 |
+| 90–105 | Pizarra | Las tres fases y la externalidad de vecindario; la analogía con Ising con espín conservado y el óptimo individual frente al social | 2–3; cuaderno, sección 3 |
+| 105–120 | Pizarra | Cierre: puesta en común de las preguntas 3 a 5 | Cuaderno, preguntas 3–5; notas, 4 |
+| Después | Lectura | El resumen (4) y Para profundizar | |
+
+**Pregunta de la sesión.** ¿Cómo salen barrios segregados de preferencias
+individuales que casi no son intolerantes?
 
 ---
 

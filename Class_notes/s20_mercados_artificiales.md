@@ -1,10 +1,16 @@
 # Sesión 20: Mercados artificiales y expectativas heterogéneas. Notas formales
 
-> **Cómo leer estas notas.** Siguen el orden del programa: primero se observa
-> en el cuaderno (`Code/s20_mercados_artificiales.jl`), después se formaliza
-> aquí. El cuerpo de las notas es la **ruta básica**. Las demostraciones y los
-> temas de la ruta avanzada, opcionales, están al final, en **Para
-> profundizar**; donde estaban queda una línea que los enlaza.
+> **Cómo usar estas notas.** La clase combina el cuaderno
+> (`Code/s20_mercados_artificiales.jl`) y el pizarrón. El **plan de clase** de
+> abajo dice qué se proyecta, qué secciones de estas notas se escriben en el
+> pizarrón, cuándo se trabaja en parejas y qué queda para leer. En el
+> pizarrón van las definiciones, las proposiciones y los resultados en
+> recuadro; las demostraciones, sólo donde el plan lo indica. El texto que las
+> rodea se explica de palabra. Como todo está aquí, en clase no hace falta
+> copiar. El cuerpo de las notas es la **ruta básica**. Las demostraciones y
+> los temas de la ruta avanzada, opcionales, están al final, en **Para
+> profundizar**, y no se ven en clase; donde estaban queda una línea que los
+> enlaza.
 >
 > Repaso recomendado: [E.B3](repaso/procesos_estocasticos.md#eb3)
 > (estacionariedad y promedios temporales),
@@ -23,6 +29,23 @@
 > Marchesi (1999). Ruta avanzada: Hommes (2013), caps. 2 y 6; Slanina (2014),
 > sec. 3.2; Giardina & Bouchaud (2003); Brock & Hommes (1998). De consulta:
 > Hommes (2006); Franke & Westerhoff (2012).
+
+**Plan de clase** (120 minutos)
+
+| Minutos | Dónde | Qué | Secciones |
+|---|---|---|---|
+| 0–10 | Proyector | El fenómeno: calma y tormenta generadas desde dentro del mercado | Cuaderno, sección 0 |
+| 10–15 | Pizarra | El problema abierto desde las sesiones 1 y 2, y las piezas de los módulos anteriores que se reúnen, de palabra | 1 |
+| 15–30 | Pizarra | Brock y Hommes: la demanda, el precio que vacía el mercado, el fundamental y la ecuación $R\thinspace x_t = \sum_h n_{h,t} f_{h,t}$; fundamentalistas contra seguidores de tendencia | 2.1–2.2 |
+| 30–42 | Pizarra | La selección evolutiva logit (las ganancias realizadas, sin la cuenta) y el ciclo de calma, burbuja y corrección: el umbral $n_{2,t} > R/g$ | 2.3–2.4 |
+| 42–50 | Pizarra | Franke y Westerhoff: el precio, las dos demandas y las tres fuerzas del atractivo; la varianza condicional y por qué genera los hechos estilizados | 3.1–3.2 |
+| 50–90 | Parejas | Laboratorio: burbujas en Brock-Hommes y volatilidad en Franke-Westerhoff; ejercicios de código 1 y 2 | Cuaderno, secciones 1 y 2 y ejercicios 1–2 |
+| 90–105 | Proyector | Cierre del ciclo: el análisis de las sesiones 1 y 2 aplicado a las series simuladas y a las reales | Cuaderno, sección 3 |
+| 105–120 | Pizarra | Cierre del curso: puesta en común de las preguntas 3 a 5 y la tabla de qué hechos estilizados explica cada modelo | Cuaderno, preguntas 3–5; notas, 4 |
+| Después | Lectura | La tabla de conceptos clave, Para profundizar y el taller del Módulo III | |
+
+**Pregunta de la sesión.** ¿Pueden la calma y la tormenta de los mercados
+salir de la interacción entre agentes, sin choques de fuera?
 
 ---
 
@@ -124,16 +147,16 @@ El caso canónico de Brock y Hommes (1998) enfrenta dos reglas de predicción:
 
 1. **Fundamentalistas ($h = 1$):** creen que el precio regresará al valor
    fundamental $p^\ast$ ($x = 0$), por lo que pronostican
-   $$
-   f_{1,t} = 0 .
-   $$
+
+   $$f_{1,t} = 0 .$$
+
    Obtener y procesar la información fundamental tiene un costo fijo $C \ge 0$
    por periodo.
 2. **Chartistas / seguidores de tendencia ($h = 2$):** extrapolan la última
    desviación observada con un coeficiente de tendencia $g > 0$:
-   $$
-   f_{2,t} = g\thinspace x_{t-1} .
-   $$
+
+   $$f_{2,t} = g\thinspace x_{t-1} .$$
+
    Mirar el gráfico de precios no tiene costo de información ($C_2 = 0$).
 
 Con estas dos reglas, el precio en el periodo $t$ queda determinado por la
@@ -285,7 +308,7 @@ Escribimos $z_t = n^c_t$ para la fracción de chartistas. La varianza condiciona
 del retorno $r_t = p_t - p_{t-1}$ dado el estado del mercado en $t-1$ es
 
 $$
-\mathrm{Var}(r_t \mid \mathcal{F}_{t-1}) = \mu^2\bigl[(1 - z_{t-1})^2\thinspace\sigma_f^2 + z_{t-1}^2\thinspace\sigma_c^2\bigr] .
+\boxed{\ \mathrm{Var}(r_t \mid \mathcal{F}_{t-1}) = \mu^2\bigl[(1 - z_{t-1})^2\thinspace\sigma_f^2 + z_{t-1}^2\thinspace\sigma_c^2\bigr]\ }
 $$
 
 Como $\sigma_c > \sigma_f$ y la fracción de chartistas $z_t$ cambia lentamente
@@ -426,9 +449,7 @@ Además:
    para todo $\beta \ge 0$.
 2. Si $R < g < 2R$ y $C > 0$, existe una intensidad de elección crítica
 
-   $$
-   \boxed{\beta_c = \frac{1}{C}\thinspace \ln\left(\frac{R}{g - R}\right)}
-   $$
+   $$\boxed{\beta_c = \frac{1}{C}\thinspace \ln\left(\frac{R}{g - R}\right)}$$
 
    tal que $x^\ast = 0$ es localmente asintóticamente estable para $\beta < \beta_c$
    y se vuelve **inestable** para $\beta > \beta_c$ (donde $n_2^\ast > R/g$).
@@ -463,11 +484,9 @@ $C = 1.0$, donde $\beta_c = \ln(11) \approx 2.40$)?
    se vuelve inestable y nacen dos puntos fijos simétricos no fundamentales
    $\pm x^\ast \ne 0$ en los cuales la fracción de chartistas se equilibra en
    $n_2^\ast = R/g$:
-   $$
-   n_2^\ast = \frac{R}{g} \quad\Longleftrightarrow\quad
-   (x^\ast)^2 = \frac{C - \frac{1}{\beta}\ln\left(\frac{R}{g - R}\right)}{g\thinspace (R - 1)}
-   = \frac{C\thinspace \big(1 - \beta_c / \beta\big)}{g\thinspace (R - 1)} > 0 \quad (\text{para } \beta > \beta_c) .
-   $$
+
+   $$n_2^\ast = \frac{R}{g} \quad\Longleftrightarrow\quad (x^\ast)^2 = \frac{C - \frac{1}{\beta}\ln\left(\frac{R}{g - R}\right)}{g\thinspace (R - 1)} = \frac{C\thinspace \big(1 - \beta_c / \beta\big)}{g\thinspace (R - 1)} > 0 \quad (\text{para } \beta > \beta_c) .$$
+
 2. **Después: ciclos y caos.** Al seguir aumentando $\beta$, los equilibrios
    $\pm x^\ast$ también pierden estabilidad, aparecen ciclos cuasiperiódicos
    y, para $\beta$ mayor, **caos determinista**: las burbujas crecen hasta que
