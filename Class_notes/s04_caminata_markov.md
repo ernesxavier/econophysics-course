@@ -1,10 +1,16 @@
 # Sesión 4: Caminata aleatoria y cadenas de Markov. Notas formales
 
-> **Cómo leer estas notas.** Siguen el orden del programa: primero se observa
-> en el cuaderno (`Code/s04_caminata_markov.jl`), después se formaliza aquí.
-> El cuerpo de las notas es la **ruta básica**. Las demostraciones y los temas
-> de la ruta avanzada, opcionales, están al final, en **Para profundizar**;
-> donde estaban queda una línea que los enlaza.
+> **Cómo usar estas notas.** La clase combina el cuaderno
+> (`Code/s04_caminata_markov.jl`) y el pizarrón. El **plan de clase** de
+> abajo dice qué se proyecta, qué secciones de estas notas se escriben en el
+> pizarrón, cuándo se trabaja en parejas y qué queda para leer. En el
+> pizarrón van las definiciones, las proposiciones y los resultados en
+> recuadro; las demostraciones, sólo donde el plan lo indica. El texto que las
+> rodea se explica de palabra. Como todo está aquí, en clase no hace falta
+> copiar. El cuerpo de las notas es la **ruta básica**. Las demostraciones y
+> los temas de la ruta avanzada, opcionales, están al final, en **Para
+> profundizar**, y no se ven en clase; donde estaban queda una línea que los
+> enlaza.
 >
 > Repaso recomendado: [E.B2–B3](repaso/procesos_estocasticos.md#eb2)
 > (caminata aleatoria y promediar simulaciones),
@@ -20,6 +26,22 @@
 > Lecturas: Slanina (2014), sec. 2.1. Complementaria: Requião da Cunha
 > (2021), sec. 3.1.
 
+**Plan de clase** (120 minutos)
+
+| Minutos | Dónde | Qué | Secciones |
+|---|---|---|---|
+| 0–10 | Proyector | El fenómeno: ¿qué proceso genera estas series? | Cuaderno, sección 0 |
+| 10–22 | Pizarra | Repaso: la varianza de una suma; la caminata aleatoria, su media y su varianza, con la demostración; la difusión: la dispersión crece como $\sqrt{n}$ | 1 |
+| 22–40 | Pizarra | Cadenas de Markov: matriz de transición y $\pi = \pi P$; dos estados: $\pi$, con la demostración, la convergencia como $\lambda^t$ (enunciado; es el ejercicio 7 del cuaderno) y la duración media $1/q$ | 2.1–2.2 |
+| 40–45 | Pizarra | Dos regímenes de volatilidad: el modelo y la proposición, sin la demostración; qué reproduce y qué no | 2.3 |
+| 45–50 | Pizarra | Una corrida no basta: la varianza inflada y el tamaño efectivo de muestra, sin la demostración | 3 |
+| 50–100 | Parejas | Laboratorio: caminatas contra $\sqrt{t}$, el mercado de dos estados y promediar corridas; ejercicios de código 1 y 2 | Cuaderno, secciones 2 a 4 y ejercicios 1–2 |
+| 100–120 | Pizarra | Cierre: puesta en común de las preguntas 3 a 6 y la tabla del resumen | Cuaderno, preguntas 3–6; notas, 5 |
+| Después | Lectura | Las demostraciones de 2.3 y 3, y Para profundizar | |
+
+**Pregunta de la sesión.** Un mercado que alterna entre calma y crisis: ¿qué
+proceso aleatorio genera series así?
+
 ---
 
 ## 1. La caminata aleatoria
@@ -31,7 +53,7 @@ $S_n = \xi_1 + \dots + \xi_n$, con $S_0 = 0$.
 **Proposición.**
 
 $$
-\mathbb{E}[S_n] = n(2p - 1), \qquad \mathrm{Var}[S_n] = 4np(1 - p).
+\boxed{\ \mathbb{E}[S_n] = n(2p - 1), \qquad \mathrm{Var}[S_n] = 4np(1 - p)\ }
 $$
 
 *Demostración.* $\mathbb{E}[\xi] = p - (1 - p) = 2p - 1$ y
@@ -89,6 +111,12 @@ que es $(1, -1)$, así que $(\pi_0 - \pi)P^t = \lambda^t(\pi_0 - \pi)$.
 (3) Cada día en T se sale con probabilidad $q$, independientemente del
 pasado. $\square$
 
+$$
+\boxed{\ \pi = \left(\frac{q}{p+q},\ \frac{p}{p+q}\right),
+\qquad
+\pi_t - \pi = (1 - p - q)^t(\pi_0 - \pi)\ }
+$$
+
 ### 2.3 Un mercado con dos regímenes de volatilidad
 
 Sea $r_t = \sigma_{X_t}\varepsilon_t$, con $\varepsilon_t$ i.i.d.
@@ -128,8 +156,8 @@ observaciones independientes ([E.B3](repaso/procesos_estocasticos.md#eb3),
 **Proposición.** Para $n$ grande,
 
 $$
-\mathrm{Var}[\bar I_n] \approx \frac{\pi_C\pi_T}{n}\thinspace\frac{1 + \lambda}{1 - \lambda},
-\qquad \lambda = 1 - p - q .
+\boxed{\ \mathrm{Var}[\bar I_n] \approx \frac{\pi_C\pi_T}{n}\thinspace\frac{1 + \lambda}{1 - \lambda},
+\qquad \lambda = 1 - p - q\ }
 $$
 
 *Demostración.* Por la proposición de 2.3, $\mathrm{Cov}(I_s, I_t) = \pi_C\pi_T\lambda^{|t-s|}$.

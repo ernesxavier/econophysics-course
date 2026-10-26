@@ -1,10 +1,16 @@
 # Sesión 3: Colas pesadas y leyes de potencias. Notas formales
 
-> **Cómo leer estas notas.** Siguen el orden del programa: primero se observa
-> en el cuaderno (`Code/s03_colas_pesadas.jl`), después se formaliza aquí. El
-> cuerpo de las notas es la **ruta básica**. Las demostraciones y los temas de
-> la ruta avanzada, opcionales, están al final, en **Para profundizar**; donde
-> estaban queda una línea que los enlaza.
+> **Cómo usar estas notas.** La clase combina el cuaderno
+> (`Code/s03_colas_pesadas.jl`) y el pizarrón. El **plan de clase** de abajo
+> dice qué se proyecta, qué secciones de estas notas se escriben en el
+> pizarrón, cuándo se trabaja en parejas y qué queda para leer. En el
+> pizarrón van las definiciones, las proposiciones y los resultados en
+> recuadro; las demostraciones, sólo donde el plan lo indica. El texto que las
+> rodea se explica de palabra. Como todo está aquí, en clase no hace falta
+> copiar. El cuerpo de las notas es la **ruta básica**. Las demostraciones y
+> los temas de la ruta avanzada, opcionales, están al final, en **Para
+> profundizar**, y no se ven en clase; donde estaban queda una línea que los
+> enlaza.
 >
 > Repaso recomendado: [P.I5](repaso/probabilidad.md#pi5) (leyes de potencias),
 > [C.B2](repaso/calculo.md#cb2) (escalas logarítmicas),
@@ -16,6 +22,22 @@
 > (2009); Thurner, Klimek & Hanel (2018), cap. 3. Ruta avanzada: Mantegna &
 > Stanley (1999), caps. 3–4; Requião da Cunha (2021), secs. 2.2.5–2.2.6;
 > Clauset, Shalizi & Newman (2009).
+
+**Plan de clase** (120 minutos)
+
+| Minutos | Dónde | Qué | Secciones |
+|---|---|---|---|
+| 0–10 | Proyector | El fenómeno: un mundo sin tamaño típico | Cuaderno, sección 0 |
+| 10–20 | Pizarra | Repaso: por qué una ley de potencias es una recta en log-log; la distribución de Pareto | 1.1 |
+| 20–30 | Pizarra | Los momentos: cuándo son infinitos, con la integral; la tabla por exponente | 1.3 |
+| 30–37 | Pizarra | Rango y CCDF; la ley de Zipf | 2.1 |
+| 37–45 | Pizarra | El estimador de Hill como receta y la elección de $k$; por qué no ajustar una recta, de palabra | 4.2–4.3 |
+| 45–100 | Parejas | Laboratorio: Zipf de las localidades, ley de potencias o lognormal, la ley cúbica inversa y el estimador de Hill; ejercicios de código 1 y 2 | Cuaderno, secciones 2 a 6 y ejercicios 1–2 |
+| 100–120 | Pizarra | Cierre: puesta en común de las preguntas 3 a 5; la regla de duplicación, $2^{-\alpha} = 1/8$ | Cuaderno, preguntas 3–5; notas, 5 |
+| Después | Lectura | La invariancia de escala (1.2), la concentración (1.4), la medición en México (2.2), la lognormal (3), la máxima verosimilitud y el método de Clauset (4.1, 4.4), el resumen (7) y Para profundizar | |
+
+**Pregunta de la sesión.** ¿Por qué no hay un tamaño típico de localidad, de
+fortuna o de caída del mercado?
 
 ---
 
@@ -68,7 +90,8 @@ $1/\lambda$, y una normal, la escala $\sigma$.
 $\mathbb{E}[X^n] < \infty$ si y sólo si $n < \alpha$, y en ese caso
 
 $$
-\mathbb{E}[X^n] = \frac{\alpha}{\alpha - n}\thinspace x_{\min}^{n}.
+\boxed{\ \mathbb{E}[X^n] = \frac{\alpha}{\alpha - n}\thinspace x_{\min}^{n}
+\quad (n < \alpha)\ }
 $$
 
 *Demostración.*
@@ -234,7 +257,7 @@ desconocido.
 **Definición (Hill, 1975).** Con los datos ordenados de mayor a menor,
 
 $$
-\hat\alpha_k = \frac{k}{\sum_{i=1}^{k} \ln\left(x_{(i)}/x_{(k+1)}\right)}.
+\boxed{\ \hat\alpha_k = \frac{k}{\sum_{i=1}^{k} \ln\left(x_{(i)}/x_{(k+1)}\right)}\ }
 $$
 
 Es el estimador de máxima verosimilitud de la sección 4.1 aplicado a los $k$

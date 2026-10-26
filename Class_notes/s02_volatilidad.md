@@ -1,12 +1,17 @@
 # Sesión 2: Volatilidad y modelos nulos. Notas formales
 
-> **Cómo leer estas notas.** Siguen el orden del programa: primero se observa
-> en el cuaderno (`Code/s02_volatilidad.jl`), después se formaliza aquí. El
-> cuerpo de las notas es la **ruta básica**. Las demostraciones y los temas de
-> la ruta avanzada, opcionales, están al final, en **Para profundizar**; donde
-> estaban queda una línea que los enlaza. La función de autocorrelación y la
-> hipótesis de mercado eficiente están en las [notas de la sesión
-> 1](s01_retornos.md).
+> **Cómo usar estas notas.** La clase combina el cuaderno
+> (`Code/s02_volatilidad.jl`) y el pizarrón. El **plan de clase** de abajo
+> dice qué se proyecta, qué secciones de estas notas se escriben en el
+> pizarrón, cuándo se trabaja en parejas y qué queda para leer. En el
+> pizarrón van las definiciones, las proposiciones y los resultados en
+> recuadro; las demostraciones, sólo donde el plan lo indica. El texto que las
+> rodea se explica de palabra. Como todo está aquí, en clase no hace falta
+> copiar. El cuerpo de las notas es la **ruta básica**. Las demostraciones y
+> los temas de la ruta avanzada, opcionales, están al final, en **Para
+> profundizar**, y no se ven en clase; donde estaban queda una línea que los
+> enlaza. La función de autocorrelación y la hipótesis de mercado eficiente
+> están en las [notas de la sesión 1](s01_retornos.md).
 >
 > Repaso recomendado: [P.B3–B4](repaso/probabilidad.md#pb3) (histogramas y la
 > normal), [S.B5](repaso/estadistica.md#sb5) (permutaciones),
@@ -20,6 +25,22 @@
 >
 > Lecturas: Cont (2001), secs. 1–3. Complementaria: Mantegna & Stanley (1999),
 > caps. 5 y 7; Requião da Cunha (2021), sec. 2.4.
+
+**Plan de clase** (120 minutos)
+
+| Minutos | Dónde | Qué | Secciones |
+|---|---|---|---|
+| 0–10 | Proyector | El fenómeno: los días malos llegan juntos | Cuaderno, sección 0 |
+| 10–20 | Pizarra | Incorrelación no es independencia: el ejemplo de $X$ y $X^2$ | 1 |
+| 20–35 | Pizarra | Hecho 3: el enunciado; el modelo $r_t = \sigma_t\varepsilon_t$ y su proposición, con la demostración; la volatilidad fluctuante genera colas pesadas | 2 |
+| 35–45 | Pizarra | Hecho 4: el teorema del límite central y $\kappa_n = \kappa_1/n$ (enunciado); por qué los datos quedan por encima | 3 |
+| 45–50 | Pizarra | Los dos modelos nulos y su tabla | 4 |
+| 50–100 | Parejas | Laboratorio: autocorrelación de $\lvert r\rvert$, agregación, modelos nulos y universalidad; ejercicios de código 1 y 2 | Cuaderno, secciones 2 a 6 y ejercicios 1–2 |
+| 100–120 | Pizarra | Cierre: puesta en común de las preguntas 3 a 6 y las relaciones entre los cuatro hechos | Cuaderno, preguntas 3–6; notas, 6 |
+| Después | Lectura | Universalidad (5) y Para profundizar | |
+
+**Pregunta de la sesión.** Si la dirección del mercado no tiene memoria, ¿por
+qué los días malos llegan juntos?
 
 ---
 
@@ -80,6 +101,12 @@ entre los $\varepsilon$:
 2. $\mathbb{E}[r_t^2 r_{t+\tau}^2] = \mathbb{E}[\sigma_t^2\sigma_{t+\tau}^2]\thinspace\mathbb{E}[\varepsilon_t^2]\thinspace\mathbb{E}[\varepsilon_{t+\tau}^2] = \mathbb{E}[\sigma_t^2\sigma_{t+\tau}^2]$
    y $\mathbb{E}[r_t^2] = \mathbb{E}[\sigma_t^2]$. $\square$
 
+$$
+\boxed{\ \mathrm{Cov}(r_t, r_{t+\tau}) = 0,
+\qquad
+\mathrm{Cov}(r_t^2, r_{t+\tau}^2) = \mathrm{Cov}(\sigma_t^2, \sigma_{t+\tau}^2)\ }
+$$
+
 Este es el ejemplo de la sección 1 en versión financiera: incorrelación sin
 independencia. Los modelos GARCH (sesión 5) son una forma concreta de
 especificar $\sigma_t$, con la diferencia de que $\sigma_t$ depende de los
@@ -112,7 +139,7 @@ $$
 $\kappa_1$ (finita), la curtosis en exceso de la suma de $n$ de ellos es
 
 $$
-\kappa_n = \frac{\kappa_1}{n}.
+\boxed{\ \kappa_n = \frac{\kappa_1}{n}\ }
 $$
 
 **[Avanzado]** Demostración: en [Para profundizar, P.2](#pp2).

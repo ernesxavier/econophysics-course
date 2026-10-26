@@ -1,10 +1,16 @@
 # Sesión 6: Crecimiento multiplicativo. Notas formales
 
-> **Cómo leer estas notas.** Siguen el orden del programa: primero se observa
-> en el cuaderno (`Code/s06_crecimiento_multiplicativo.jl`), después se
-> formaliza aquí. El cuerpo de las notas es la **ruta básica**. Las
-> demostraciones y los temas de la ruta avanzada, opcionales, están al final,
-> en **Para profundizar**; donde estaban queda una línea que los enlaza.
+> **Cómo usar estas notas.** La clase combina el cuaderno
+> (`Code/s06_crecimiento_multiplicativo.jl`) y el pizarrón. El **plan de
+> clase** de abajo dice qué se proyecta, qué secciones de estas notas se
+> escriben en el pizarrón, cuándo se trabaja en parejas y qué queda para leer.
+> En el pizarrón van las definiciones, las proposiciones y los resultados en
+> recuadro; las demostraciones, sólo donde el plan lo indica. El texto que las
+> rodea se explica de palabra. Como todo está aquí, en clase no hace falta
+> copiar. El cuerpo de las notas es la **ruta básica**. Las demostraciones y
+> los temas de la ruta avanzada, opcionales, están al final, en **Para
+> profundizar**, y no se ven en clase; donde estaban queda una línea que los
+> enlaza.
 >
 > Repaso recomendado: [C.B1](repaso/calculo.md#cb1) (logaritmos),
 > [P.I3](repaso/probabilidad.md#pi3) (TLC), [P.I6](repaso/probabilidad.md#pi6)
@@ -15,6 +21,22 @@
 >
 > Lecturas: Slanina (2014), sec. 7.1. Complementaria: Slanina (2014), sec. 7.3.
 > Ruta avanzada (de consulta): Gabaix (1999); Sornette & Cont (1997).
+
+**Plan de clase** (120 minutos)
+
+| Minutos | Dónde | Qué | Secciones |
+|---|---|---|---|
+| 0–12 | Proyector | El fenómeno: ¿crecen igual los municipios grandes y los pequeños? | Cuaderno, sección 0; notas, 1.3 |
+| 12–22 | Pizarra | La ley de Gibrat; repaso: el logaritmo de un producto es una suma; la lognormal, con la demostración; sin estado estacionario; promedio contra trayectoria típica | 1.1–1.2 |
+| 22–32 | Pizarra | Gibrat con una barrera: el modelo y $\alpha = -2m/s^2$ (enunciado); una exponencial en el logaritmo es una ley de potencias | 2 |
+| 32–45 | Pizarra | Procesos de Kesten: la definición, el teorema (enunciado) y el argumento heurístico de $\mathbb{E}[a^\alpha] = 1$; el caso lognormal da el mismo exponente (la cuenta es el ejercicio 7 del cuaderno) | 3 |
+| 45–50 | Pizarra | El argumento de Gabaix: por qué $\alpha \to 1$ en las ciudades | 4 |
+| 50–100 | Parejas | Laboratorio: Gibrat puro, Gibrat con barrera y su exponente; por qué $\alpha \approx 1$ en las ciudades; ejercicios de código 1 y 2 | Cuaderno, secciones 2 a 4 y ejercicios 1–2 |
+| 100–120 | Pizarra | Cierre: puesta en común de las preguntas 3 a 5 y la tabla del resumen | Cuaderno, preguntas 3–5; notas, 6 |
+| Después | Lectura | Las muestras finitas en Kesten (3), los cuidados del argumento de Gabaix (4) y Para profundizar | |
+
+**Pregunta de la sesión.** ¿Crecen igual las empresas y las ciudades grandes
+que las pequeñas? ¿Qué mecanismo produce la ley de Zipf?
 
 ---
 
@@ -101,7 +123,7 @@ barrera impide que los tamaños se dispersen hacia cero.
 una Pareto con $x_{\min}$ y exponente
 
 $$
-\alpha = -\frac{2m}{s^2} .
+\boxed{\ \alpha = -\frac{2m}{s^2}\ }
 $$
 
 **[Avanzado]** Demostración: en [Para profundizar, P.1](#pp1).
@@ -133,7 +155,7 @@ $\mathbb{E}[\ln a] < 0$, que $\mathbb{P}(a > 1) > 0$ y que la distribución de
 $\ln a$ no está concentrada en una red de puntos. Si existe $\alpha > 0$ con
 
 $$
-\mathbb{E}\left[a^{\alpha}\right] = 1,
+\boxed{\ \mathbb{E}\left[a^{\alpha}\right] = 1\ }
 $$
 
 y $\mathbb{E}[a^\alpha \ln^{+} a]$ y $\mathbb{E}[b^\alpha]$ son finitos, entonces
@@ -181,7 +203,7 @@ $\bar x$ es constante.
 $x_{\min}$ y media $\bar x$, entonces
 
 $$
-\alpha = \frac{1}{1 - x_{\min}/\bar x}.
+\boxed{\ \alpha = \frac{1}{1 - x_{\min}/\bar x}\ }
 $$
 
 *Demostración.* La media de una Pareto con $\alpha > 1$ es

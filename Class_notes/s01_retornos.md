@@ -1,10 +1,15 @@
 # Sesión 1: Retornos y colas pesadas. Notas formales
 
-> **Cómo leer estas notas.** Siguen el orden del programa: primero se observa
-> en el cuaderno (`Code/s01_retornos.jl`), después se formaliza aquí. El
+> **Cómo usar estas notas.** La clase combina el cuaderno
+> (`Code/s01_retornos.jl`) y el pizarrón. El **plan de clase** de abajo dice
+> qué se proyecta, qué secciones de estas notas se escriben en el pizarrón,
+> cuándo se trabaja en parejas y qué queda para leer. En el pizarrón van las
+> definiciones, las proposiciones y los resultados en recuadro; las
+> demostraciones, sólo donde el plan lo indica. El texto que las rodea se
+> explica de palabra. Como todo está aquí, en clase no hace falta copiar. El
 > cuerpo de las notas es la **ruta básica**. Las demostraciones y los temas de
-> la ruta avanzada, opcionales, están al final, en **Para profundizar**; donde
-> estaban queda una línea que los enlaza.
+> la ruta avanzada, opcionales, están al final, en **Para profundizar**, y no
+> se ven en clase; donde estaban queda una línea que los enlaza.
 >
 > Repaso recomendado: [C.B1](repaso/calculo.md#cb1) (logaritmos),
 > [P.B1–B5](repaso/probabilidad.md#pb1) (variables aleatorias, media,
@@ -18,6 +23,20 @@
 >
 > Lecturas: Mantegna & Stanley (1999), caps. 1–2. Complementaria: Slanina
 > (2014), secs. 1.1–1.2.
+
+**Plan de clase** (120 minutos)
+
+| Minutos | Dónde | Qué | Secciones |
+|---|---|---|---|
+| 0–25 | Individual | Diagnóstico de matemáticas (no cuenta para la calificación) | [Diagnóstico](repaso/diagnostico_inicial.md) |
+| 25–35 | Proyector | El fenómeno: el peor día del S&P 500; qué es la econofísica y qué es un hecho estilizado | Cuaderno, sección 0 |
+| 35–50 | Pizarra | Retornos simple y logarítmico; la aditividad, con la suma telescópica, y la regla $\sigma\sqrt{\Delta t}$; la curtosis en exceso y la normal de referencia | 1.1–1.3, 2.1, 2.3 |
+| 50–65 | Pizarra | La autocorrelación y la franja $\pm 1.96/\sqrt{N}$; el mercado eficiente como martingala y por qué implica $\rho(\tau) = 0$, con la demostración; lo que no dice | 3.2, 4.1–4.2 |
+| 65–105 | Parejas | Laboratorio: los cuatro activos, colas pesadas y autocorrelación; ejercicios de código 1 y 2 | Cuaderno, secciones 1 a 4 y ejercicios 1–2 |
+| 105–120 | Pizarra | Cierre: puesta en común de las preguntas 3 a 6 y la tabla de los hechos 1 y 2 | Cuaderno, preguntas 3–6; notas, 6 |
+| Después | Lectura | Los estimadores y su advertencia (2.2), la estacionariedad (3.1), los hechos estilizados con la tabla de periodos de retorno (5) y Para profundizar | |
+
+**Pregunta de la sesión.** ¿El mercado es un volado?
 
 ---
 
@@ -59,8 +78,8 @@ $r_t \le R_t$ siempre, porque $\ln(1+x) \le x$.
 la suma de los retornos diarios:
 
 $$
-r_t(\Delta t) \equiv \ln\frac{P_{t+\Delta t}}{P_t}
-= \sum_{s=1}^{\Delta t} r_{t+s}.
+\boxed{\ r_t(\Delta t) \equiv \ln\frac{P_{t+\Delta t}}{P_t}
+= \sum_{s=1}^{\Delta t} r_{t+s}\ }
 $$
 
 *Demostración.* Suma telescópica:
@@ -82,7 +101,7 @@ proposición anterior
 $$
 \mathrm{Var}[r_t(\Delta t)] = \Delta t\thinspace\sigma^2
 \quad\Longrightarrow\quad
-\sigma(\Delta t) = \sigma\sqrt{\Delta t}.
+\boxed{\ \sigma(\Delta t) = \sigma\sqrt{\Delta t}\ }
 $$
 
 Con unos 252 días hábiles al año, la **volatilidad anualizada** se reporta
@@ -262,6 +281,12 @@ $$
 \mathbb{E}[x_t\thinspace x_{t+\tau}]
 = \mathbb{E}\big[\thinspace x_t\thinspace\mathbb{E}[x_{t+\tau} \mid \mathcal F_{t+\tau-1}]\thinspace\big]
 = \mathbb{E}[x_t \cdot 0] = 0. \quad\square
+$$
+
+$$
+\boxed{\ \mathbb{E}[r_{t+1} - \mu \mid \mathcal F_t] = 0
+\quad\Longrightarrow\quad
+\rho(\tau) = 0 \quad (\tau \ge 1)\ }
 $$
 
 **Lo que la proposición NO dice.** La martingala restringe sólo la

@@ -1,10 +1,16 @@
 # Sesión 7: Correlaciones y matrices aleatorias. Notas formales
 
-> **Cómo leer estas notas.** Siguen el orden del programa: primero se observa
-> en el cuaderno (`Code/s07_correlaciones.jl`), después se formaliza aquí. El
-> cuerpo de las notas es la **ruta básica**. Las demostraciones y los temas de
-> la ruta avanzada, opcionales, están al final, en **Para profundizar**; donde
-> estaban queda una línea que los enlaza.
+> **Cómo usar estas notas.** La clase combina el cuaderno
+> (`Code/s07_correlaciones.jl`) y el pizarrón. El **plan de clase** de abajo
+> dice qué se proyecta, qué secciones de estas notas se escriben en el
+> pizarrón, cuándo se trabaja en parejas y qué queda para leer. En el
+> pizarrón van las definiciones, las proposiciones y los resultados en
+> recuadro; las demostraciones, sólo donde el plan lo indica. El texto que las
+> rodea se explica de palabra. Como todo está aquí, en clase no hace falta
+> copiar. El cuerpo de las notas es la **ruta básica**. Las demostraciones y
+> los temas de la ruta avanzada, opcionales, están al final, en **Para
+> profundizar**, y no se ven en clase; donde estaban queda una línea que los
+> enlaza.
 >
 > Repaso recomendado: [P.B2](repaso/probabilidad.md#pb2) (covarianza y
 > correlación), [L.B1–B3](repaso/algebra_lineal.md#lb1) (vectores y matrices),
@@ -17,6 +23,22 @@
 > Lecturas: Mantegna & Stanley (1999), caps. 12–13. Complementaria: Slanina
 > (2014), sec. 1.4; Mantegna (1999). Ruta avanzada: Requião da Cunha (2021),
 > sec. 5.2; Laloux et al. (1999).
+
+**Plan de clase** (120 minutos)
+
+| Minutos | Dónde | Qué | Secciones |
+|---|---|---|---|
+| 0–10 | Proyector | El fenómeno: las acciones se mueven juntas | Cuaderno, sección 0 |
+| 10–22 | Pizarra | Repaso: eigenvalores como direcciones principales; la matriz de correlación y sus propiedades; cada eigenvalor es la varianza de una cartera, y $\lambda_1$ es la máxima, con la demostración | 1.1–1.2 |
+| 22–35 | Pizarra | El modelo de un factor: $\rho_{ij} = \beta_i\beta_j$ y $\lambda_1 = 1 + (N-1)\rho$, con la cuenta de $C\mathbf{1}$ (el resto es el ejercicio 6 del cuaderno); $\lambda_1/N$ mide la correlación promedio | 2.1 |
+| 35–45 | Pizarra | El ruido: la prueba por permutación y el ancho del espectro, $1/Q$ | 3.1–3.2 |
+| 45–50 | Pizarra | La distancia $d_{ij}$ y el algoritmo de Kruskal | 4.1–4.2 |
+| 50–100 | Parejas | Laboratorio: ¿señal o ruido?, el modo de mercado, los sectores y el árbol de expansión mínima; ejercicios de código 1 y 2 | Cuaderno, secciones 2 a 5 y ejercicios 1–2 |
+| 100–120 | Pizarra | Cierre: puesta en común de las preguntas 3 a 5; ¿respeta el árbol los sectores? | Cuaderno, preguntas 3–5; notas, 4.3 |
+| Después | Lectura | Los pesos del modo de mercado (2.2), los sectores en los eigenvectores (2.3), el resumen (5) y Para profundizar | |
+
+**Pregunta de la sesión.** Las acciones se mueven juntas: ¿cuánto de eso es
+señal y cuánto es ruido de estimación?
 
 ---
 
@@ -84,7 +106,7 @@ carteras $Zv_k$ y $Zv_l$ no están correlacionadas si $k \ne l$.
 **Proposición (dirección de máxima varianza).**
 
 $$
-\lambda_1 = \max_{\Vert w\Vert = 1} w^\top C w,
+\boxed{\ \lambda_1 = \max_{\Vert w\Vert = 1} w^\top C w\ }
 $$
 
 y el máximo se alcanza en $w = v_1$.
@@ -120,6 +142,8 @@ $i \ne j$. Si además todos los $\beta_i$ valen $\beta$, con $\rho = \beta^2$,
 
 $$
 C = (1-\rho)\thinspace I + \rho\thinspace\mathbf{1}\mathbf{1}^\top,
+\qquad
+\boxed{\ \lambda_1 = 1 + (N-1)\rho\ }
 $$
 
 cuyo mayor eigenvalor es $\lambda_1 = 1 + (N-1)\rho$, con
@@ -236,8 +260,8 @@ Si los activos son independientes, $\mathbb{E}[\rho_{ij}^2] \approx 1/T$, así q
 varianza de los eigenvalores es aproximadamente
 
 $$
-\frac{1}{N}\sum_{k} \lambda_k^2 - 1 \approx \frac{N-1}{T} \approx \frac{1}{Q},
-\qquad Q = \frac{T}{N}.
+\boxed{\ \frac{1}{N}\sum_{k} \lambda_k^2 - 1 \approx \frac{N-1}{T} \approx \frac{1}{Q},
+\qquad Q = \frac{T}{N}\ }
 $$
 
 *Demostración.* $\operatorname{tr} C^2 = \sum_k \lambda_k^2$ porque los

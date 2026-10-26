@@ -1,10 +1,15 @@
 # Sesión 5: Langevin, GBM y GARCH. Notas formales
 
-> **Cómo leer estas notas.** Siguen el orden del programa: primero se observa
-> en el cuaderno (`Code/s05_gbm_garch.jl`), después se formaliza aquí. El
+> **Cómo usar estas notas.** La clase combina el cuaderno
+> (`Code/s05_gbm_garch.jl`) y el pizarrón. El **plan de clase** de abajo dice
+> qué se proyecta, qué secciones de estas notas se escriben en el pizarrón,
+> cuándo se trabaja en parejas y qué queda para leer. En el pizarrón van las
+> definiciones, las proposiciones y los resultados en recuadro; las
+> demostraciones, sólo donde el plan lo indica. El texto que las rodea se
+> explica de palabra. Como todo está aquí, en clase no hace falta copiar. El
 > cuerpo de las notas es la **ruta básica**. Las demostraciones y los temas de
-> la ruta avanzada, opcionales, están al final, en **Para profundizar**; donde
-> estaban queda una línea que los enlaza.
+> la ruta avanzada, opcionales, están al final, en **Para profundizar**, y no
+> se ven en clase; donde estaban queda una línea que los enlaza.
 >
 > Repaso recomendado: [C.B3](repaso/calculo.md#cb3) (la derivada como tasa de
 > cambio), [C.I4](repaso/calculo.md#ci4) (ecuaciones diferenciales),
@@ -18,6 +23,22 @@
 > Lecturas: Requião da Cunha (2021), sec. 2.3.5. Complementaria: Slanina
 > (2014), sec. 2.2. Ruta avanzada: Mantegna & Stanley (1999), cap. 10;
 > Requião da Cunha (2021), secs. 3.3 y 4.3; Gardiner (consulta).
+
+**Plan de clase** (120 minutos)
+
+| Minutos | Dónde | Qué | Secciones |
+|---|---|---|---|
+| 0–10 | Proyector | El fenómeno: un precio que no puede ser negativo y una volatilidad con memoria | Cuaderno, sección 0 |
+| 10–22 | Pizarra | Repaso: la derivada como regla de actualización; la ecuación de Langevin como tendencia + ruido; Euler-Maruyama y por qué el ruido escala con $\sqrt{\Delta t}$ | 1.1–1.2 |
+| 22–30 | Pizarra | Ornstein-Uhlenbeck: media, varianza y distribución estacionaria (enunciado); la relación con AR(1) | 2 |
+| 30–37 | Pizarra | El browniano geométrico: la solución, sin el lema de Itô; media contra mediana; los hechos estilizados que no reproduce | 3 |
+| 37–50 | Pizarra | GARCH(1,1): la definición y la proposición, con la demostración de la varianza incondicional; la persistencia y la vida media; la curtosis (enunciado) | 4.1–4.2 |
+| 50–100 | Parejas | Laboratorio: Ornstein-Uhlenbeck, browniano geométrico y GARCH; ¿reproduce GARCH los hechos estilizados?; ejercicios de código 1 y 2 | Cuaderno, secciones 2 a 4 y ejercicios 1–2 |
+| 100–120 | Pizarra | Cierre: puesta en común de las preguntas 3 a 6; qué reproduce GARCH y qué no | Cuaderno, preguntas 3–6; notas, 4.4 |
+| Después | Lectura | La estimación (4.3), la pista para la sesión 6 (4.4), el resumen (6) y Para profundizar | |
+
+**Pregunta de la sesión.** ¿Qué proceso genera un precio que no puede ser
+negativo y una volatilidad con memoria?
 
 ---
 
@@ -42,7 +63,7 @@ moleculares.
 Con paso $\Delta t$ y $Z_k$ i.i.d. $\mathcal{N}(0, 1)$,
 
 $$
-X_{k+1} = X_k + A(X_k)\thinspace\Delta t + B(X_k)\sqrt{\Delta t}\thinspace Z_k .
+\boxed{\ X_{k+1} = X_k + A(X_k)\thinspace\Delta t + B(X_k)\sqrt{\Delta t}\thinspace Z_k\ }
 $$
 
 El término de ruido es $B\thinspace\Delta W$, con
@@ -123,6 +144,10 @@ $$
 $\varepsilon_t$ es independiente del pasado. (3) Tomando esperanzas y usando
 $\mathbb{E}[r_{t-1}^2] = \mathbb{E}[\sigma_{t-1}^2]$, la varianza estacionaria
 $v$ cumple $v = \omega + (a + b)v$. $\square$
+
+$$
+\boxed{\ \bar\sigma^2 = \frac{\omega}{1 - a - b} \quad (a + b < 1)\ }
+$$
 
 **Persistencia.** Como
 $\mathbb{E}[\sigma_{t+h}^2 \mid \mathcal F_t] - \bar\sigma^2 = (a+b)^{h-1}(\sigma_{t+1}^2 - \bar\sigma^2)$,

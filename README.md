@@ -165,6 +165,10 @@ Plan completo en [docs/plan_reestructuracion.md](docs/plan_reestructuracion.md).
 - [x] Fases 4 a 6: aligerar sesiones, notas en dos capas, conceptos transversales.
 - [x] Fase 7: talleres para casa de los tres módulos y guía del proyecto final.
 - [x] Diagnóstico de matemáticas para la sesión 1.
+- [x] Piloto del formato de pizarrón en el Módulo I: plan de clase de 120
+      minutos y resultados en recuadro en las notas de las sesiones 1 a 7.
+- [ ] Evaluar el piloto al terminar la sesión 7 y decidir si se extiende a
+      los módulos II y III.
 - [ ] Lista de artículos para presentaciones.
 - [ ] Módulo compartido con funciones comunes (`gini`, `ccdf`, `hill`, ...), por ejemplo `Code/comun.jl`.
 - [ ] Notebooks anteriores: en `sesion_1` la celda 31 grafica `Normal(...)`
