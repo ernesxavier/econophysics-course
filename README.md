@@ -76,15 +76,6 @@ Matemáticas), con simulaciones en Julia.
 │   ├── simular_condensacion.jl → Regenera los datos de condensación de la sesión 9 (tarda minutos)
 │   ├── descargar_inegi.jl     → Regenera los datos de INEGI (localidades y municipios)
 │   ├── figuras_repaso.jl      → Regenera las figuras de Class_notes/repaso/figuras/
-│   │   Notebooks del semestre anterior:
-│   ├── sesion_1.ipynb         → Caminata aleatoria, colas pesadas, TLC, datos financieros
-│   ├── sesion_3.ipynb         → Redes: medidas básicas, familia Medici
-│   ├── sesion_4.ipynb         → Redes aleatorias: ER, WS, BA
-│   ├── sesion_5.ipynb         → Teoría de juegos clásica y evolutiva
-│   ├── sesion_6.ipynb         → Juegos de coordinación en redes
-│   ├── sesion_7.ipynb         → Dilema del prisionero en red
-│   ├── sesion_8.ipynb         → Introducción a modelos de agentes: Schelling
-│   ├── sesion_9.ipynb         → Modelo de Axelrod
 │   ├── Project.toml
 │   └── Manifest.toml
 ├── src/                       → Fuentes de los cuadernos de Pluto (formato #%%)
@@ -132,9 +123,6 @@ julia --project=Code -e 'using Pluto; Pluto.run()'
 ```
 
 y en el navegador abrir `Code/s01_retornos.jl`.
-
-**Notebooks de Jupyter del semestre anterior:** abrir `Code/sesion_*.ipynb` en
-VS Code o Jupyter con el entorno `Code`.
 
 **Construir un cuaderno desde su fuente.** Cada cuaderno de Pluto tiene una
 fuente en `src/` con marcadores `#%%` (celda visible) y `#%% hide` (código
