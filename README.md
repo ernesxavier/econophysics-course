@@ -84,6 +84,7 @@ Matemáticas), con simulaciones en Julia.
 │   ├── revisar_formulas.jl    → Revisa que GitHub muestre bien las fórmulas de los .md
 │   ├── sNN_tema.jl            → Fuente de Code/sNN_tema.jl (20 fuentes, sesiones 1 a 20)
 │   └── tallerN_tema.jl        → Fuente de Code/tallerN_tema.jl (talleres de los tres módulos)
+├── CITATION.cff           → Cómo citar el curso (botón "Cite this repository" de GitHub)
 ├── LICENSE                → Licencia MIT (código)
 ├── LICENSE-CC-BY-4.0      → Licencia CC BY 4.0 (notas, programa y documentos)
 └── README.md

@@ -1,0 +1,26 @@
+cff-version: 1.2.0
+message: "Si usas este material, por favor cítalo así."
+type: software
+title: "Econofísica: curso con simulaciones en Julia"
+abstract: >-
+  Material de un curso de licenciatura de Econofísica en 20 sesiones: notas
+  formales, repaso de matemáticas por niveles, cuadernos de Pluto en Julia,
+  talleres para casa y guía del proyecto final.
+authors:
+  - family-names: "Vera Gómez"
+    given-names: "Ernesto X."
+    affiliation: "Universidad Autónoma de Coahuila"
+repository-code: "https://github.com/ernesxavier/econophysics-course"
+license:
+  - MIT
+  - CC-BY-4.0
+version: "2026.11"
+date-released: "2026-11-16"
+keywords:
+  - econophysics
+  - econofísica
+  - julia
+  - pluto
+  - agent-based modeling
+  - complex systems
+  - statistical physics
