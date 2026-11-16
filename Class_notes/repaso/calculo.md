@@ -23,10 +23,10 @@ $e^x$: $\ln e^x = x$ y $e^{\ln x} = x$ para $x > 0$.
 
 | Regla | Ejemplo en el curso |
 |---|---|
-| $\ln(ab) = \ln a + \ln b$ | Un producto de factores de crecimiento se vuelve una suma (sem. 4) |
-| $\ln(a/b) = \ln a - \ln b$ | Retorno logarítmico $r_t = \ln P_t - \ln P_{t-1}$ (sem. 1) |
-| $\ln(a^b) = b\ln a$ | Una ley de potencias $y = Cx^{-\alpha}$ se vuelve $\ln y = \ln C - \alpha\ln x$ (sem. 2) |
-| $e^{a+b} = e^a e^b$ | Factores de Boltzmann $e^{-\beta E}$ (sem. 6, 10) |
+| $\ln(ab) = \ln a + \ln b$ | Un producto de factores de crecimiento se vuelve una suma (sesión 6) |
+| $\ln(a/b) = \ln a - \ln b$ | Retorno logarítmico $r_t = \ln P_t - \ln P_{t-1}$ (sesión 1) |
+| $\ln(a^b) = b\ln a$ | Una ley de potencias $y = Cx^{-\alpha}$ se vuelve $\ln y = \ln C - \alpha\ln x$ (sesión 3) |
+| $e^{a+b} = e^a e^b$ | Factores de Boltzmann $e^{-\beta E}$ (sesiones 8 y 13) |
 | $\log_{10} x = \ln x / \ln 10$ | Ejes de las gráficas: cambiar de base sólo reescala |
 
 - $\ln x$ crece muy despacio: $\ln 10^6 \approx 13.8$. Por eso comprime
@@ -47,6 +47,7 @@ Elegir bien la escala permite **reconocer la forma** de una relación:
 | $y = a + bx$ | escala lineal | $b$ |
 | $y = Ce^{-\lambda x}$ (exponencial) | **semilog**: eje $y$ logarítmico | $-\lambda$ |
 | $y = Cx^{-\alpha}$ (ley de potencias) | **log-log**: ambos ejes logarítmicos | $-\alpha$ |
+
 ![Exponencial y ley de potencias en escala lineal, semilog y log-log](figuras/escalas.png)
 
 *La misma exponencial y la misma ley de potencias en tres escalas. Cada una se vuelve recta sólo en su escala: semilog para la exponencial, log-log para la ley de potencias.*

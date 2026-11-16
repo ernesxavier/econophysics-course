@@ -319,8 +319,8 @@ $$
 \tau(x) = -(N - 1)\bigl[x\ln x + (1 - x)\ln(1 - x)\bigr] .
 $$
 
-En particular, partiendo de una población dividida en partes iguales (
-$x_0 = 1/2$), $\tau(1/2) = (N - 1)\ln 2 \approx 0.693\thinspace(N - 1)$ barridos.
+En particular, partiendo de una población dividida en partes iguales, con
+$x_0 = 1/2$, se tiene $\tau(1/2) = (N - 1)\ln 2 \approx 0.693\thinspace(N - 1)$ barridos.
 
 *Demostración.* En un paso elemental ($\Delta t = 1/N$ de barrido), condicionando
 en el resultado del paso:
@@ -467,8 +467,8 @@ p_{\text{est}}(x) = \frac{1}{\mathrm{B}(a, a)}\thinspace x^{a - 1}(1 - x)^{a - 1
 \qquad x \in (0, 1) .
 $$
 
-*Demostración.* Con flujo nulo en las fronteras (
-$J(x) = A(x)p(x) - \frac12\frac{d}{dx}[B(x)^2 p(x)] = 0$),
+*Demostración.* Con flujo nulo en las fronteras, es decir,
+$J(x) = A(x)p(x) - \frac12\frac{d}{dx}[B(x)^2 p(x)] = 0$,
 
 $$
 \frac{d}{dx}\bigl[x(1-x)p(x)\bigr] = 2a\left(\frac12 - x\right)p(x)

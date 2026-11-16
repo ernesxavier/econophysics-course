@@ -260,7 +260,7 @@ Empleo inicial ``v_0``: $(@bind v0_gw Slider([0.82, 0.85, 0.88, 0.94, 0.96], def
 # ╔═╡ 69249b3c-ca99-11f1-8d65-73cfb15d56fe
 md"""
 En la gráfica izquierda, el pico de la tasa de empleo ``v(t)`` (azul) ocurre
-siempre **un cuarto de ciclo antes** que el pico de la participación salarial
+alrededor de **un cuarto de ciclo antes** que el pico de la participación salarial
 ``u(t)`` (naranja). En la gráfica derecha, la economía gira en sentido
 **antihorario** alrededor del punto fijo ``(v^\ast, u^\ast)`` sin caer en él
 ni alejarse: con ``v > v^\ast`` la participación salarial sube, y con

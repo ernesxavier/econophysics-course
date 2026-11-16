@@ -55,7 +55,7 @@ peor_sp = let
     z_sp = (r_sp .- mean(r_sp)) ./ std(r_sp)
     i = argmin(r_sp)
     (fechas = sp.fecha, r = r_sp, i = i, fecha = sp.fecha[i + 1],
-     caida = round(-100r_sp[i], digits = 1), z = round(abs(z_sp[i]), digits = 1),
+     caida = round(-100expm1(r_sp[i]), digits = 1), z = round(abs(z_sp[i]), digits = 1),
      frec = frecuencia_normal(abs(z_sp[i]), 252))
 end;
 

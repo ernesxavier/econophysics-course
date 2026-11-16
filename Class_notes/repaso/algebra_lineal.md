@@ -344,9 +344,10 @@ $\Delta > 0$: eigenvalores imaginarios puros y órbitas cerradas.
 **Tiempo discreto.** Para $x_{t+1} = F(x_t)$, el punto fijo es estable si
 todos los eigenvalores del jacobiano de $F$ cumplen $|\lambda| < 1$. Al
 variar un parámetro, el punto fijo pierde estabilidad cuando un eigenvalor
-sale del círculo unitario: por $+1$ (bifurcación de horquilla), por $-1$
-(duplicación de periodo: aparece un ciclo de periodo 2) o un par complejo
-(bifurcación de Hopf: aparecen oscilaciones). El modelo de Brock-Hommes
+sale del círculo unitario: por $+1$ (por ejemplo, una bifurcación de
+horquilla), por $-1$ (duplicación de periodo: aparece un ciclo de periodo 2)
+o un par complejo (bifurcación de Neimark-Sacker, la versión discreta de la
+de Hopf: aparecen oscilaciones). El modelo de Brock-Hommes
 (sesión 20) pasa por varias de ellas al aumentar la intensidad de elección.
 
 <a id="la4"></a>

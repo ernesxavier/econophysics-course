@@ -64,20 +64,25 @@ sobre econofísica y distribución del ingreso en México.
 
 No se encontraron programas de Oxford/INET, Universidad de Chile, UBA ni CINVESTAV.
 
-## Conclusiones para nuestro curso
+## Qué tomó el rediseño de esta revisión
 
-1. **Falta análisis multivariado.** Matrices de correlación, Marchenko-Pastur y
-   árbol de expansión mínima aparecen en Leiden, UIB y Mantegna-Stanley. Sirve
-   además de puente entre datos y redes.
-2. **Colas pesadas más serias.** Lévy, estables y GARCH (UIB, UFSC).
-3. **Crecimiento multiplicativo e Ising como elección binaria** son el núcleo
-   del programa de Bouchaud.
-4. **Black-Scholes** aparece en casi todos los cursos de física; para un público
-   mixto basta media sesión como "es la ecuación de difusión".
-5. **Evaluación:** la tendencia es hacia proyectos y lectura de artículos.
-   Falta la presentación de artículos de investigación.
-6. **Lo que nos distingue:** juegos evolutivos en redes, Schelling y Axelrod.
-   Conviene conservarlo, más compacto.
+La revisión se hizo para rediseñar el curso. Esto es lo que se incorporó:
 
-Libros recurrentes que no están en Zotero: Sinha et al. (2010) y N. F. Johnson,
-*Financial Market Complexity*.
+1. **Análisis multivariado.** Matrices de correlación, Marchenko-Pastur y
+   árbol de expansión mínima (Leiden, UIB, Mantegna y Stanley) forman la
+   sesión 7, que además sirve de puente entre datos y redes (sesiones 10 y 11).
+2. **Colas pesadas con más cuidado.** Estables, estimación de exponentes y
+   GARCH (UIB, UFSC), en las sesiones 3 y 5.
+3. **Crecimiento multiplicativo e Ising como elección binaria**, el núcleo del
+   programa de Bouchaud, en las sesiones 6, 13 y 14.
+4. **Black-Scholes**, presente en casi todos los cursos de física, entra sólo
+   como "es la ecuación de difusión", en la ruta avanzada de la sesión 5: para
+   un público mixto no hace falta más.
+5. **Evaluación** basada en proyectos y en lectura de artículos: presentación
+   de un artículo de investigación y proyecto final de réplica y extensión.
+6. **Lo que distingue al curso:** juegos evolutivos en redes y Schelling se
+   conservan, más compactos (sesiones 16 a 18); Axelrod queda como idea de
+   proyecto final.
+
+Libros recurrentes en otros programas que no están en la bibliografía del
+curso: Sinha et al. (2010) y N. F. Johnson, *Financial Market Complexity*.

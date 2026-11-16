@@ -241,13 +241,13 @@ mean(z), std(z), kurtosis(z)   # ≈ 0, 1 y algo cercano a 6/50 = 0.12 (la curto
 
 | Distribución | Densidad o masa | Media | Varianza | Julia | Dónde |
 |---|---|---|---|---|---|
-| Binomial $(n, p)$ | $\binom{n}{k}p^k(1-p)^{n-k}$ | $np$ | $np(1-p)$ | `Binomial(n, p)` | Caminata aleatoria (sem. 3) |
-| Uniforme $(a, b)$ | $\frac{1}{b-a}$ en $[a,b]$ | $\frac{a+b}{2}$ | $\frac{(b-a)^2}{12}$ | `Uniform(a, b)` | Ahorro aleatorio (sem. 6) |
+| Binomial $(n, p)$ | $\binom{n}{k}p^k(1-p)^{n-k}$ | $np$ | $np(1-p)$ | `Binomial(n, p)` | Caminata aleatoria, grados de Erdős-Rényi (sesiones 4 y 10) |
+| Uniforme $(a, b)$ | $\frac{1}{b-a}$ en $[a,b]$ | $\frac{a+b}{2}$ | $\frac{(b-a)^2}{12}$ | `Uniform(a, b)` | Ahorro aleatorio (sesión 8) |
 | Normal $(\mu, \sigma^2)$ | ver [P.B4](#pb4) | $\mu$ | $\sigma^2$ | `Normal(μ, σ)` | Referencia general |
-| Exponencial $(\lambda)$ | $\lambda e^{-\lambda x}$, $x \ge 0$ | $1/\lambda$ | $1/\lambda^2$ | `Exponential(1/λ)` | Dinero conservado (sem. 6) |
-| Gamma $(k, \theta)$ | $\frac{x^{k-1}e^{-x/\theta}}{\Gamma(k)\theta^k}$ | $k\theta$ | $k\theta^2$ | `Gamma(k, θ)` | Modelo con ahorro (sem. 6) |
-| Lognormal $(\mu, \sigma)$ | $\frac{1}{x\sigma\sqrt{2\pi}}e^{-(\ln x-\mu)^2/2\sigma^2}$ | $e^{\mu+\sigma^2/2}$ | $(e^{\sigma^2}-1)e^{2\mu+\sigma^2}$ | `LogNormal(μ, σ)` | Gibrat (sem. 4) |
-| Pareto $(\alpha, x_m)$ | $\frac{\alpha x_m^\alpha}{x^{\alpha+1}}$, $x \ge x_m$ | $\frac{\alpha x_m}{\alpha-1}$ si $\alpha>1$ | finita sólo si $\alpha>2$ | `Pareto(α, xm)` | Colas, riqueza (sem. 2, 6, 7) |
+| Exponencial $(\lambda)$ | $\lambda e^{-\lambda x}$, $x \ge 0$ | $1/\lambda$ | $1/\lambda^2$ | `Exponential(1/λ)` | Dinero conservado (sesión 8) |
+| Gamma $(k, \theta)$ | $\frac{x^{k-1}e^{-x/\theta}}{\Gamma(k)\theta^k}$ | $k\theta$ | $k\theta^2$ | `Gamma(k, θ)` | Modelo con ahorro (sesión 8) |
+| Lognormal $(\mu, \sigma)$ | $\frac{1}{x\sigma\sqrt{2\pi}}e^{-(\ln x-\mu)^2/2\sigma^2}$ | $e^{\mu+\sigma^2/2}$ | $(e^{\sigma^2}-1)e^{2\mu+\sigma^2}$ | `LogNormal(μ, σ)` | Gibrat (sesión 6) |
+| Pareto $(\alpha, x_m)$ | $\frac{\alpha x_m^\alpha}{x^{\alpha+1}}$, $x \ge x_m$ | $\frac{\alpha x_m}{\alpha-1}$ si $\alpha>1$ | finita sólo si $\alpha>2$ | `Pareto(α, xm)` | Colas, riqueza (sesiones 3, 8 y 9) |
 | $t$ de Student $(\nu)$ | $\propto (1 + x^2/\nu)^{-(\nu+1)/2}$ | $0$ si $\nu>1$ | $\frac{\nu}{\nu-2}$ si $\nu>2$ | `TDist(ν)` | Modelo simple de retornos con colas pesadas |
 
 **Ojo con Julia:** `Exponential(θ)` usa la **escala** $\theta = 1/\lambda$,
@@ -256,7 +256,7 @@ no la tasa. `Normal(μ, σ)` recibe la desviación estándar, no la varianza.
 Notas:
 
 - La **exponencial** es la distribución de máxima entropía con media fija
-  en $[0, \infty)$; por eso aparece cuando se conserva el dinero (sem. 6).
+  en $[0, \infty)$; por eso aparece cuando se conserva el dinero (sesión 8).
   Su CCDF es $e^{-\lambda x}$: una **recta en escala semilog**.
 - La **Pareto** tiene CCDF $(x_m/x)^\alpha$: una **recta en escala log-log**.
 - La **$t$ de Student** tiene colas $\sim x^{-\nu}$ (en la CCDF) y se

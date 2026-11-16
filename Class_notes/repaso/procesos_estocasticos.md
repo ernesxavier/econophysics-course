@@ -61,8 +61,10 @@ $$
 - La distancia típica al origen crece como $\sqrt{n}$, no como $n$. Es la
   firma de la **difusión**.
 - Por el TLC, $S_n$ es aproximadamente normal para $n$ grande.
-- El logaritmo del precio como caminata aleatoria ($\ln P_t = \ln P_0 + \sum r_i$)
-  es el modelo de Bachelier (1900), el punto de partida de la econofísica.
+- El precio como caminata aleatoria es el modelo de Bachelier (1900), el
+  punto de partida de la econofísica. La versión moderna aplica la caminata
+  al logaritmo del precio, $\ln P_t = \ln P_0 + \sum r_i$, para que el precio
+  no pueda ser negativo (sesión 5).
 
 ![Treinta caminatas aleatorias con las curvas más y menos dos raíz de n](figuras/caminata.png)
 

@@ -216,9 +216,9 @@ caminos cruzan algún concentrador, y la cascada no pasa.)
 
 Cerca del borde superior las dos redes se parecen, y con ``z = 8`` la de
 Barabási-Albert todavía tiene alguna cascada global y la de Erdős-Rényi ya
-no. En Barabási-Albert todos los nodos tienen al menos ``z/2`` enlaces, pero
-la mayoría tiene exactamente ese número: con ``z = 8``, muchos nodos de grado
-4, todavía vulnerables. La forma de la red cambia **dónde** está la ventana,
+no. En Barabási-Albert todos los nodos tienen al menos ``z/2`` enlaces, y ése
+es el grado más frecuente: con ``z = 8``, un tercio de los nodos tiene grado 4
+y casi otro quinto grado 5, ambos todavía vulnerables. La forma de la red cambia **dónde** está la ventana,
 no sólo su tamaño.
 """
 

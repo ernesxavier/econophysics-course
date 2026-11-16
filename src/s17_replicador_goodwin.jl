@@ -311,7 +311,7 @@ end
 #%% hide
 md"""
 En la gráfica izquierda, el pico de la tasa de empleo ``v(t)`` (azul) ocurre
-siempre **un cuarto de ciclo antes** que el pico de la participación salarial
+alrededor de **un cuarto de ciclo antes** que el pico de la participación salarial
 ``u(t)`` (naranja). En la gráfica derecha, la economía gira en sentido
 **antihorario** alrededor del punto fijo ``(v^\ast, u^\ast)`` sin caer en él
 ni alejarse: con ``v > v^\ast`` la participación salarial sube, y con

@@ -225,9 +225,10 @@ días entre activos. Bajo la hipótesis nula, todas esas permutaciones son
 igual de probables ([S.B5](repaso/estadistica.md#sb5)).
 
 **Resultado.** Con los datos barajados, los eigenvalores quedan
-aproximadamente entre 0.7 y 1.35 (los valores exactos cambian un poco con
-cada permutación). Con los datos reales, 8 eigenvalores quedan por encima de
-ese máximo y explican juntos el 58% de la varianza.
+aproximadamente entre 0.7 y 1.4 (los valores exactos cambian un poco con
+cada permutación). Con los datos reales, 7 eigenvalores quedan por encima de
+ese máximo y explican juntos el 57% de la varianza; el octavo, 1.38, queda
+en el borde.
 
 Dos observaciones:
 

@@ -296,7 +296,7 @@ md"""
 |---|---|---|
 | **Juego de la minoría** | ``N`` agentes con ``S=2`` tablas sobre ``P = 2^M`` historias; gana ``-\mathrm{sgn}(A(t))`` | Aprendizaje inductivo sin equilibrio deductivo común |
 | **Referente aleatorio** | Elección independiente ``a_i = \pm 1`` con probabilidad ``1/2`` | ``\sigma_{\text{azar}}^2 / N = 1`` |
-| **Fase hacinada (``\alpha = 2^M/N < \alpha_c``)** | Pocas historias frente al número de agentes (``P \ll N``) | Efecto manada: ``\sigma^2/N \sim \alpha^{-1} > 1``, pero mercado impredecible (``H/N = 0``) |
+| **Fase hacinada (``\alpha = 2^M/N < \alpha_c``)** | Pocas historias frente al número de agentes (``P < \alpha_c N``) | Efecto manada: ``\sigma^2/N \sim \alpha^{-1} > 1``, pero mercado impredecible (``H/N = 0``) |
 | **Punto crítico (``\alpha_c \approx 0.3374``)** | Grados de libertad libres igualan restricciones: ``1 - \phi(\alpha_c) = \alpha_c`` | Mínimo global de volatilidad (``\sigma^2/N \approx 0.2 < 1``) y máxima eficiencia |
 | **Fase diluida (``\alpha > \alpha_c``)** | Muchas historias frente al número de agentes (``P \gtrsim N``) | ``\sigma^2/N < 1`` tiende a ``1``; quedan patrones predecibles (``H/N > 0``) y agentes congelados |
 """

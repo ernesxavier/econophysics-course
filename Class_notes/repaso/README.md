@@ -92,6 +92,7 @@ siempre decide; en caso de duda, esta tabla dice dónde aparece cada uso.
 | $\beta$ | Temperatura inversa o intensidad de elección, $1/T$ · exponente de decaimiento $\tau^{-\beta}$ de la autocorrelación de $\lvert r\rvert$ | F, sesiones 8 y 13 · [sesión 2](../s02_volatilidad.md) |
 | $\lambda$ | Eigenvalor · tasa de la exponencial · fracción de ahorro · multiplicador de Lagrange · exponente de Lyapunov | L · [P.I4](probabilidad.md#pi4) · [F.I6](fisica_estadistica.md#fi6) · [C.A1](calculo.md#ca1) · [C.A5](calculo.md#ca5) |
 | $\rho$ | Correlación $\rho_{xy}$ y autocorrelación $\rho(\tau)$ · densidad de eigenvalores $\rho(\lambda)$ | [P.I1](probabilidad.md#pi1), [E.I1](procesos_estocasticos.md#ei1) · [L.A2](algebra_lineal.md#la2) |
+| $\pi$ | El número 3.14159… · distribución estacionaria $\pi$ de una cadena de Markov · pagos $\pi_i$ de una estrategia | [P.B4](probabilidad.md#pb4) · [E.I3](procesos_estocasticos.md#ei3) · [C.A2](calculo.md#ca2), sesiones 17 y 20 |
 | $\sigma$ | Desviación estándar, volatilidad · función logística $\sigma(x)$ | [P.B2](probabilidad.md#pb2) · [C.B4](calculo.md#cb4) |
 | $\varphi$, $\phi$ | Densidad normal estándar $\varphi(z)$ · función característica $\varphi(s)$ · coeficiente $\phi$ de un AR(1) | [P.B4](probabilidad.md#pb4) · [P.A1](probabilidad.md#pa1) · [E.I1](procesos_estocasticos.md#ei1) |
 | $\theta$ | Parámetro genérico · escala de la gamma y de `Exponential(θ)` en Julia · velocidad de reversión en Ornstein-Uhlenbeck | [P.A3](probabilidad.md#pa3) · [P.I4](probabilidad.md#pi4) · [E.I5](procesos_estocasticos.md#ei5) |

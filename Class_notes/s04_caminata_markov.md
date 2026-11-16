@@ -128,6 +128,9 @@ $\sigma_C < \sigma_T$.
 1. $\mathrm{Cov}(r_t, r_{t+\tau}) = 0$ para $\tau \ge 1$;
 2. $\mathrm{Cov}(\lvert r_t\rvert, \lvert r_{t+\tau}\rvert) = \frac{2}{\pi}(\sigma_T - \sigma_C)^2\thinspace\pi_C\pi_T\thinspace\lambda^\tau$.
 
+En el factor $2/\pi$, $\pi \approx 3.1416$ es el número; $\pi_C$ y $\pi_T$ son
+la distribución estacionaria.
+
 *Demostración.* (1) Los $\varepsilon$ son independientes y de media cero.
 (2) Sea $I_t$ el indicador de turbulencia, de modo que
 $\sigma_{X_t} = \sigma_C + (\sigma_T - \sigma_C) I_t$. Como
@@ -213,7 +216,8 @@ El desarrollo de esta sección está en [Para profundizar, P.2](#pp2).
 **Ruta avanzada**
 
 - **F4.** Muestra que el modelo de dos regímenes con $\sigma_C = \sigma$ y
-  $\sigma_T = 3\sigma$ tiene curtosis $3(\pi_C + 81\pi_T)/(\pi_C + 9\pi_T)^2$.
+  $\sigma_T = 3\sigma$ tiene curtosis (sin restar 3)
+  $3(\pi_C + 81\pi_T)/(\pi_C + 9\pi_T)^2$.
   ¿Para qué $\pi_T$ es máxima?
 - **F5.** Demuestra que la ecuación de difusión de la sección 4 tiene como
   solución, desde un punto, una normal con varianza $2Dt$.

@@ -292,8 +292,9 @@ $$
 
 que separa dos fases con propiedades opuestas:
 
-1. **Fase simétrica o hacinada ($\alpha < \alpha_c$, es decir, $2^M \ll N$):**
-   Hay muy pocas historias posibles frente al número de agentes. En
+1. **Fase simétrica o hacinada ($\alpha < \alpha_c$, es decir,
+   $2^M < \alpha_c N \approx N/3$):** Hay pocas historias posibles frente al
+   número de agentes. En
    consecuencia, el espacio de estrategias relevantes está **sobrepoblado**
    (*crowded*): muchos agentes poseen estrategias idénticas o muy parecidas,
    evalúan los mismos puntajes y cambian al mismo tiempo hacia la misma acción
@@ -306,13 +307,13 @@ que separa dos fases con propiedades opuestas:
 
    En esta región $\sigma^2/N \gg 1$: el aprendizaje colectivo produce una
    volatilidad mucho mayor que el azar.
-2. **Coordinación óptima cerca del punto crítico (
-   $\alpha \approx \alpha_c \approx 0.34$):** El número de historias $P = 2^M$ guarda una proporción
+2. **Coordinación óptima cerca del punto crítico,
+   $\alpha \approx \alpha_c \approx 0.34$:** El número de historias $P = 2^M$ guarda una proporción
    intermedia con $N$. Los agentes logran diversificar sus acciones sin caer en
    el hacinamiento y la volatilidad cae hasta $\sigma^2/N \approx 0.2 < 1$,
    bastante por debajo del límite aleatorio.
 3. **Fase asimétrica o diluida ($\alpha > \alpha_c$, es decir,
-   $2^M \gtrsim N$):** El número de historias $P$ es tan grande que las $S = 2$ tablas de
+   $2^M > \alpha_c N$):** El número de historias $P$ es tan grande que las $S = 2$ tablas de
    cada agente son prácticamente ortogonales a las de los demás. Al crecer
    $\alpha$, las correlaciones entre agentes se diluyen y $\sigma^2/N$ sube
    monótonamente desde su mínimo hacia la asíntota aleatoria

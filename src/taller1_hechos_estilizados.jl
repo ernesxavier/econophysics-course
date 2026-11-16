@@ -41,7 +41,7 @@ trimestre el taller se resuelve en casa.
 
 **Repaso recomendado** (en `Class_notes/repaso/`): P.B2–B4 (media, varianza,
 histogramas y la normal), C.B2 (escalas logarítmicas), S.B5 (permutaciones).
-Para la ruta avanzada: S.I2 (Ljung-Box) y S.I5 (estimación de colas).
+Para la ruta avanzada: S.I2 (Ljung-Box) y S.I3 (estimación de colas).
 """
 
 #%% hide

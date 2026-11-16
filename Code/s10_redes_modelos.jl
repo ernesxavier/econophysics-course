@@ -185,9 +185,9 @@ Grado promedio ``c``: $(@bind c_er Slider([0.5, 0.8, 1.0, 1.2, 1.5, 2.0, 3.0], d
 
 # ╔═╡ d737dc0a-ca92-11f1-8228-693bc7941264
 md"""
-Con ``c < 1`` la red está hecha de islas pequeñas. En ``c = 1``, en promedio
-**un vecino por nodo**, aparece de golpe un componente gigante que contiene
-una fracción finita de todos los nodos. Es una **transición de fase**
+Con ``c < 1`` la red está hecha de islas pequeñas. A partir de ``c = 1``, en
+promedio **un vecino por nodo**, aparece un componente gigante que contiene
+una fracción finita de todos los nodos y crece rápido con ``c``. Es una **transición de fase**
 (repaso F.B4), como la condensación de la sesión 9: la fracción en el
 componente gigante es el parámetro de orden y ``c`` el parámetro de control.
 

@@ -53,8 +53,8 @@ los pagos esperados son $\pi_C(x) = Rx + S(1-x)$ y $\pi_D(x) = Tx + P(1-x)$.
 Como $T > R$ y $P \ge S$ (con al menos una desigualdad estricta), se cumple
 $\pi_C(x) - \pi_D(x) < 0$ para todo $x \in (0, 1]$, por lo que en la dinámica
 del replicador $\dot x = x(1-x)(\pi_C - \pi_D) < 0$ para todo $x \in (0, 1)$ y
-el único punto fijo estable es la extinción total de la cooperación (
-$x^\ast = 0$).
+el único punto fijo estable es la extinción total de la cooperación,
+$x^\ast = 0$.
 
 ---
 

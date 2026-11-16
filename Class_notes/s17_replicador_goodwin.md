@@ -392,8 +392,8 @@ participación salarial $u(t)$.
 ### P.2 Cantidad conservada y órbitas cerradas exactas (sección 2.4)
 
 
-Como los eigenvalores lineales tienen parte real nula (
-$\operatorname{tr} J = 0$), el análisis lineal por sí solo no descarta que los términos no lineales
+Como los eigenvalores lineales tienen parte real nula, porque
+$\operatorname{tr} J = 0$, el análisis lineal por sí solo no descarta que los términos no lineales
 formen una espiral lenta. Para demostrar que las trayectorias son órbitas
 cerradas exactas para cualquier amplitud en el primer cuadrante, separamos
 variables dividiendo una ecuación entre la otra:
