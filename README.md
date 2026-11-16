@@ -3,13 +3,14 @@
 Material del curso de Econofísica (licenciatura en Economía, Física o
 Matemáticas), con simulaciones en Julia.
 
+**Autor:** Ernesto X. Vera Gómez, Universidad Autónoma de Coahuila.
+
 ## Estructura
 
 ```
 ├── programa/
 │   ├── programa.md            → Programa rediseñado (20 sesiones; semestre o trimestre)
-│   ├── proyecto_final.md      → Guía y rúbrica del proyecto final
-│   └── programa-anterior.md   → Programa del semestre anterior
+│   └── proyecto_final.md      → Guía y rúbrica del proyecto final
 ├── Class_notes/
 │   ├── s01_retornos.md            → Notas formales, sesión 1
 │   ├── s02_volatilidad.md         → Notas formales, sesión 2
@@ -35,12 +36,10 @@ Matemáticas), con simulaciones en Julia.
 │       ├── diagnostico_inicial.md → Diagnóstico de matemáticas de la sesión 1
 │       └── figuras/           → Figuras de las notas (generadas con Code/figuras_repaso.jl)
 ├── docs/
-│   ├── diagnostico.md         → Revisión del curso anterior
-│   ├── benchmark.md           → Econofísica en otras universidades
-│   └── plan_reestructuracion.md → Plan para pasar de 14 a 20 sesiones
+│   └── benchmark.md           → Econofísica en otras universidades
 ├── Data/
-│   ├── precios.csv            → IPC, USD/MXN, S&P 500 y Bitcoin (2000–sep 2026)
-│   ├── sp100_precios.csv      → 95 acciones del S&P 100 (2015–sep 2026)
+│   ├── precios.csv            → IPC, USD/MXN, S&P 500 y Bitcoin (2000–sep 2026); no incluido, ver Uso
+│   ├── sp100_precios.csv      → 95 acciones del S&P 100 (2015–sep 2026); no incluido, ver Uso
 │   ├── sp100_sectores.csv     → Nombre y sector GICS de esas acciones
 │   ├── enigh2024_hogares.csv  → Ingreso mensual por hogar, ENIGH 2024 (INEGI)
 │   ├── condensacion_bm.csv    → Barrido simulado del modelo de Bouchaud-Mézard (sesión 9)
@@ -94,6 +93,8 @@ Matemáticas), con simulaciones en Julia.
 │   ├── revisar_formulas.jl    → Revisa que GitHub muestre bien las fórmulas de los .md
 │   ├── sNN_tema.jl            → Fuente de Code/sNN_tema.jl (20 fuentes, sesiones 1 a 20)
 │   └── tallerN_tema.jl        → Fuente de Code/tallerN_tema.jl (talleres de los tres módulos)
+├── LICENSE                → Licencia MIT (código)
+├── LICENSE-CC-BY-4.0      → Licencia CC BY 4.0 (notas, programa y documentos)
 └── README.md
 ```
 
@@ -110,11 +111,19 @@ celda de paquetes (`Pkg.activate(@__DIR__)`).
 
 ## Uso
 
-Desde la raíz del repositorio, la primera vez:
+Desde la raíz del repositorio, la primera vez, instalar los paquetes y
+descargar los precios de Yahoo Finance (tarda unos minutos):
 
 ```
 julia --project=Code -e 'using Pkg; Pkg.instantiate()'
+julia --project=Code Code/descargar_datos.jl
+julia --project=Code Code/descargar_sp100.jl
 ```
+
+Los precios no vienen en el repositorio porque los términos de Yahoo Finance
+no permiten redistribuirlos. Las fechas de descarga están fijas, así que todos
+obtienen los mismos rendimientos. Los datos de INEGI y las simulaciones sí
+vienen incluidos en `Data/`.
 
 **Cuadernos de Pluto:**
 
@@ -141,12 +150,11 @@ La fuente y el cuaderno deben coincidir. Los cambios grandes se hacen en la
 fuente y se regenera el cuaderno; si se edita el cuaderno en Pluto, hay que
 pasar el cambio a la fuente antes de volver a generarlo.
 
-**Actualizar los datos:**
+**Regenerar los datos de INEGI** (ya vienen incluidos):
 
 ```
-julia --project=Code Code/descargar_datos.jl
-julia --project=Code Code/descargar_sp100.jl
 julia --project=Code Code/descargar_enigh.jl
+julia --project=Code Code/descargar_inegi.jl
 ```
 
 **Revisar el material** antes de cada commit: la consistencia (claves del
@@ -166,23 +174,16 @@ julia src/revisar_formulas.jl Class_notes/s04_caminata_markov.md
 julia -e 'using Pkg; Pkg.activate("Code"); Pkg.update()'
 ```
 
-## Pendientes
+## Licencia
 
-Plan completo en [docs/plan_reestructuracion.md](docs/plan_reestructuracion.md).
+© 2026 Ernesto X. Vera Gómez, Universidad Autónoma de Coahuila.
 
-- [x] Cuadernos de Pluto y notas formales de las 14 sesiones originales.
-- [x] Fase 1: programa de 20 sesiones.
-- [x] Fase 2: renumeración de archivos y referencias.
-- [x] Fase 3: dividir las sesiones 1, 4, 10, 13, 15 y 17 (cada una en dos).
-- [x] Fases 4 a 6: aligerar sesiones, notas en dos capas, conceptos transversales.
-- [x] Fase 7: talleres para casa de los tres módulos y guía del proyecto final.
-- [x] Diagnóstico de matemáticas para la sesión 1.
-- [x] Formato de pizarrón en los tres módulos: plan de clase de 120 minutos
-      y resultados en recuadro en las notas de las 20 sesiones.
-- [ ] Evaluar el formato al terminar la sesión 7 y ajustar los planes de los
-      módulos II y III si hace falta.
-- [ ] Lista de artículos para presentaciones.
-- [ ] Módulo compartido con funciones comunes (`gini`, `ccdf`, `hill`, ...), por ejemplo `Code/comun.jl`.
-- [ ] Notebooks anteriores: en `sesion_1` la celda 31 grafica `Normal(...)`
-      antes de cargar `StatsPlots`; en `sesion_8` la celda 16 da error
-      (`agentes.feliz`), igual que en el original.
+- **Notas, programa y documentos** (`Class_notes/`, `programa/`, `docs/`,
+  este README y las figuras): [CC BY 4.0](LICENSE-CC-BY-4.0). Puedes
+  copiarlos, adaptarlos y redistribuirlos, incluso con fines comerciales,
+  siempre que cites la fuente e indiques si hiciste cambios.
+- **Código** (`Code/` y `src/`, incluidos los cuadernos de Pluto y Jupyter
+  con su texto): [MIT](LICENSE).
+- **Datos** (`Data/`): los descargados conservan los términos de su fuente
+  (INEGI, Yahoo Finance); los generados por simulación (`condensacion_*.csv`)
+  están bajo CC BY 4.0.

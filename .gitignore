@@ -4,6 +4,13 @@ notas*.xlsx
 
 # Datos descargados (se regeneran con los scripts)
 Data/raw/
+# Precios de Yahoo Finance: sus términos no permiten redistribuirlos.
+# Se generan con Code/descargar_datos.jl y Code/descargar_sp100.jl.
+Data/precios.csv
+Data/sp100_precios.csv
+
+# Documentos internos del profesor: no se publican
+interno/
 
 # Jupyter / editores
 .ipynb_checkpoints/
