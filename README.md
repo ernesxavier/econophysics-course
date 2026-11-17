@@ -3,7 +3,8 @@
 Material del curso de Econofísica (licenciatura en Economía, Física o
 Matemáticas), con simulaciones en Julia.
 
-**Autor:** Ernesto X. Vera Gómez, Universidad Autónoma de Coahuila.
+**Autor:** Ernesto X. Vera Gómez, Centro de Investigaciones Socioeconómicas (CISE),
+Universidad Autónoma de Coahuila.
 
 ## Estructura
 
@@ -171,7 +172,8 @@ responsabilidad del autor.
 
 ## Licencia
 
-© 2026 Ernesto X. Vera Gómez, Universidad Autónoma de Coahuila.
+© 2026 Ernesto X. Vera Gómez, Centro de Investigaciones Socioeconómicas (CISE),
+Universidad Autónoma de Coahuila.
 
 - **Notas, programa y documentos** (`Class_notes/`, `programa/`, `docs/`,
   este README y las figuras): [CC BY 4.0](LICENSE-CC-BY-4.0). Puedes

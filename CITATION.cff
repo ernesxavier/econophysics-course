@@ -9,7 +9,7 @@ abstract: >-
 authors:
   - family-names: "Vera Gómez"
     given-names: "Ernesto X."
-    affiliation: "Universidad Autónoma de Coahuila"
+    affiliation: "Centro de Investigaciones Socioeconómicas (CISE), Universidad Autónoma de Coahuila"
 repository-code: "https://github.com/ernesxavier/econophysics-course"
 license:
   - MIT
