@@ -163,6 +163,12 @@ julia src/revisar_formulas.jl Class_notes/s04_caminata_markov.md
 julia -e 'using Pkg; Pkg.activate("Code"); Pkg.update()'
 ```
 
+## Uso de inteligencia artificial
+
+Se utilizó Claude (Anthropic) como apoyo en la revisión del código y del
+material del curso. El contenido, las decisiones y cualquier error son
+responsabilidad del autor.
+
 ## Licencia
 
 © 2026 Ernesto X. Vera Gómez, Universidad Autónoma de Coahuila.
