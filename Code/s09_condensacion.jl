@@ -325,7 +325,7 @@ end
 
 # ╔═╡ d3536330-ca9b-11f1-88cd-cba2b814f0c1
 md"""
-**2.** Escribe `exponente_pareto(J, φ, σ)`, que devuelva el exponente ``\mu``
+**2.** *Si alcanza (margen de la clase).* Escribe `exponente_pareto(J, φ, σ)`, que devuelva el exponente ``\mu``
 de la cola en campo medio con intercambio ``J``, impuesto redistribuido
 ``\varphi`` y volatilidad ``\sigma``.
 """

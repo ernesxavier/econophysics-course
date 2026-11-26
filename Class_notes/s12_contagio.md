@@ -11,6 +11,9 @@
 > la ruta avanzada, opcionales, están al final, en **Para profundizar**, y no
 > se ven en clase; donde estaban queda una línea que los enlaza.
 >
+> Las secciones marcadas con ★ son el **núcleo** que se ve en clase; las
+> demás se leen por cuenta propia y se evalúan igual.
+>
 > Repaso recomendado: [L.B4](repaso/algebra_lineal.md#lb4) (matriz de
 > adyacencia), [C.B5](repaso/calculo.md#cb5) (serie geométrica),
 > [L.I4](repaso/algebra_lineal.md#li4) (potencias de matrices),
@@ -23,18 +26,23 @@
 > avanzada: Eisenberg & Noe (2001); Battiston et al. (2012); de consulta,
 > Acemoglu, Ozdaglar & Tahbaz-Salehi (2015) y Glasserman & Young (2016).
 
-**Plan de clase** (120 minutos)
+**Plan de clase** (120 minutos: 105 de núcleo y 15 de margen). El núcleo:
+las cascadas de umbral y su ventana, el contagio interbancario y DebtRank.
 
 | Minutos | Dónde | Qué | Secciones |
 |---|---|---|---|
-| 0–10 | Proyector | El fenómeno: de una quiebra a una crisis | Cuaderno, sección 0 |
-| 10–25 | Pizarra | Cascadas de Watts: la regla, los nodos vulnerables y la cascada global; la condición de cascada, con el argumento | 1.1–1.2 |
-| 25–32 | Pizarra | La ventana de cascadas en Erdős-Rényi; robusto pero frágil, de palabra | 1.3–1.4 |
-| 32–40 | Pizarra | El modelo de Gai y Kapadia como cascada de umbral con $\varphi = K/\theta$; diversificación contra contagio | 2.1–2.2 |
-| 40–52 | Pizarra | Repaso: la serie geométrica; DebtRank: la matriz de impacto y la dinámica; la solución sin saturación, con la demostración, y la amplificación $1/(1-\ell)$ | 3.1–3.2 |
-| 52–100 | Parejas | Laboratorio: la ventana de cascadas, Erdős-Rényi contra Barabási-Albert, la red interbancaria y DebtRank; ejercicios de código 1 y 2 | Cuaderno, secciones 1 a 4 y ejercicios 1–2 |
-| 100–120 | Pizarra | Cierre: puesta en común de las preguntas 3 a 5; demasiado central para caer | Cuaderno, preguntas 3–5; notas, 3.4 |
-| Después | Lectura | Las versiones de DebtRank (3.1), el resumen (5) y Para profundizar | |
+| 0–8 | Proyector | El fenómeno: de una quiebra a una crisis | Cuaderno, sección 0 |
+| 8–22 | Pizarra | Cascadas de Watts: la regla, los nodos vulnerables y la cascada global; la condición de cascada, con el argumento | 1.1–1.2 |
+| 22–28 | Pizarra | La ventana de cascadas en Erdős-Rényi; robusto pero frágil, de palabra | 1.3–1.4 |
+| 28–36 | Pizarra | El modelo de Gai y Kapadia como cascada de umbral con $\varphi = K/\theta$; diversificación contra contagio | 2.1–2.2 |
+| 36–48 | Pizarra | Repaso: la serie geométrica; DebtRank: la matriz de impacto y la dinámica; la solución sin saturación, con la demostración, y la amplificación $1/(1-\ell)$ | 3.1–3.2 |
+| 48–92 | Parejas | Laboratorio: la ventana de cascadas, Erdős-Rényi contra Barabási-Albert, la red interbancaria y DebtRank; ejercicio de código 1 | Cuaderno, secciones 1 a 4 y ejercicio 1 |
+| 92–105 | Pizarra | Cierre: puesta en común de las preguntas 3 a 5; demasiado central para caer | Cuaderno, preguntas 3–5; notas, 3.4 |
+| 105–120 | Margen | Si alcanza: el ejercicio de código 2 (la matriz de impacto) y DebtRank con ella en la red del laboratorio | |
+| Después | Lectura | Lo que no entró del margen; las versiones de DebtRank (3.1), el resumen (5) y Para profundizar | |
+
+Lo del **margen** se ve sólo si sobra tiempo, en el orden indicado; lo
+que no se vea pasa a la lectura y se evalúa igual.
 
 **Pregunta de la sesión.** ¿Cómo pasa una quiebra a ser una crisis, y por
 qué un sistema puede absorber mil choques y caer con el siguiente?
@@ -43,7 +51,7 @@ qué un sistema puede absorber mil choques y caer con el siguiente?
 
 ## 1. Cascadas de umbral
 
-### 1.1 El modelo de Watts
+### 1.1 El modelo de Watts ★
 
 **Modelo** (Watts, 2002). En una red no dirigida, cada nodo $i$ está en uno
 de dos estados, 0 (en pie) o 1 (caído), y tiene un umbral $\varphi_i$. Un
@@ -67,7 +75,7 @@ menos dos vecinos caídos.
 alcanza una fracción finita de la red cuando $n \to \infty$. En una
 simulación se usa un corte: en el cuaderno, más del 5% de los nodos.
 
-### 1.2 La condición de cascada
+### 1.2 La condición de cascada ★
 
 **Proposición** (Watts, 2002). En una red aleatoria con distribución de
 grados $p_k$, grado promedio $z$ y umbral común $\varphi$, una cascada global
@@ -99,7 +107,7 @@ Si la cascada arranca, puede alcanzar también a nodos no vulnerables que
 tengan varios vecinos en el grupo vulnerable. Por eso las cascadas globales
 suelen abarcar mucho más que los nodos vulnerables.
 
-### 1.3 La ventana de cascadas
+### 1.3 La ventana de cascadas ★
 
 Para Erdős-Rényi, $p_k = e^{-z}z^k/k!$ y la condición queda
 
@@ -137,9 +145,9 @@ locales se absorben una y otra vez, hasta que uno no se absorbe.
 
 ---
 
-## 2. Contagio interbancario
+## 2. Contagio interbancario ★
 
-### 2.1 El modelo de Gai y Kapadia
+### 2.1 El modelo de Gai y Kapadia ★
 
 Cada banco $i$ tiene, como fracción de sus activos totales:
 
@@ -165,7 +173,7 @@ cualitativamente el mismo: una ventana de contagio. En el cuaderno, con
 $\theta = 0.2$ y $K = 0.04$ ($\varphi = 0.2$), la ventana va de $z \approx 1$
 a $z \approx 7$.
 
-### 2.2 Diversificación contra contagio
+### 2.2 Diversificación contra contagio ★
 
 Aumentar el número de contrapartes $k$ tiene dos efectos:
 
@@ -184,7 +192,7 @@ $\theta$ (menos exposición interbancaria). Ambas suben $\varphi = K/\theta$.
 
 ## 3. DebtRank
 
-### 3.1 Definición
+### 3.1 Definición ★
 
 Sea $A_{ij} \ge 0$ el préstamo del banco $i$ al banco $j$ y $E_i > 0$ el
 capital de $i$. Sea $h_i \in [0, 1]$ la fracción del capital de $i$ que se
@@ -220,7 +228,7 @@ deja que cada banco transmita su deterioro una sola vez, lo que evita que
 las pérdidas den vueltas en ciclos. La versión lineal de estas notas, que
 es la del cuaderno, deja que reverberen.
 
-### 3.2 Solución sin saturación
+### 3.2 Solución sin saturación ★
 
 **Proposición.** Mientras ningún banco llegue a $h_i = 1$, los incrementos
 $\Delta(t) = h(t) - h(t-1)$ cumplen $\Delta(t+1) = \Lambda\thinspace\Delta(t)$,
@@ -261,7 +269,7 @@ del 1% del capital, la pérdida final es del 4%.
 El desarrollo de esta subsección está en [Para profundizar, P.2](#pp2).
 
 
-### 3.4 Demasiado central para caer
+### 3.4 Demasiado central para caer ★
 
 $R_j$ depende de cuánto le deben a $j$ (su tamaño como deudor), del capital
 de sus acreedores y de lo que éstos a su vez transmiten. En el cuaderno,

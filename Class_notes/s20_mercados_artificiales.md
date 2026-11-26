@@ -12,6 +12,9 @@
 > profundizar**, y no se ven en clase; donde estaban queda una línea que los
 > enlaza.
 >
+> Las secciones marcadas con ★ son el **núcleo** que se ve en clase; las
+> demás se leen por cuenta propia y se evalúan igual.
+>
 > Repaso recomendado: [E.B3](repaso/procesos_estocasticos.md#eb3)
 > (estacionariedad y promedios temporales),
 > [S.B5](repaso/estadistica.md#sb5) (pruebas de permutación),
@@ -30,19 +33,25 @@
 > sec. 3.2; Giardina & Bouchaud (2003); Brock & Hommes (1998). De consulta:
 > Hommes (2006); Franke & Westerhoff (2012).
 
-**Plan de clase** (120 minutos)
+**Plan de clase** (120 minutos: 105 de núcleo y 15 de margen). El núcleo:
+los modelos de Brock y Hommes y de Franke y Westerhoff, y el cierre del
+ciclo con los hechos estilizados.
 
 | Minutos | Dónde | Qué | Secciones |
 |---|---|---|---|
-| 0–10 | Proyector | El fenómeno: calma y tormenta generadas desde dentro del mercado | Cuaderno, sección 0 |
-| 10–15 | Pizarra | El problema abierto desde las sesiones 1 y 2, y las piezas de los módulos anteriores que se reúnen, de palabra | 1 |
-| 15–30 | Pizarra | Brock y Hommes: la demanda, el precio que vacía el mercado, el fundamental y la ecuación $R\thinspace x_t = \sum_h n_{h,t} f_{h,t}$; fundamentalistas contra seguidores de tendencia | 2.1–2.2 |
-| 30–42 | Pizarra | La selección evolutiva logit (las ganancias realizadas, sin la cuenta) y el ciclo de calma, burbuja y corrección: el umbral $n_{2,t} > R/g$ | 2.3–2.4 |
-| 42–50 | Pizarra | Franke y Westerhoff: el precio, las dos demandas y las tres fuerzas del atractivo; la varianza condicional y por qué genera los hechos estilizados | 3.1–3.2 |
-| 50–90 | Parejas | Laboratorio: burbujas en Brock-Hommes y volatilidad en Franke-Westerhoff; ejercicios de código 1 y 2 | Cuaderno, secciones 1 y 2 y ejercicios 1–2 |
-| 90–105 | Proyector | Cierre del ciclo: el análisis de las sesiones 1 y 2 aplicado a las series simuladas y a las reales | Cuaderno, sección 3 |
-| 105–120 | Pizarra | Cierre del curso: puesta en común de las preguntas 3 a 5 y la tabla de qué hechos estilizados explica cada modelo | Cuaderno, preguntas 3–5; notas, 4 |
-| Después | Lectura | La tabla de conceptos clave, Para profundizar y el taller del Módulo III | |
+| 0–8 | Proyector | El fenómeno: calma y tormenta generadas desde dentro del mercado | Cuaderno, sección 0 |
+| 8–12 | Pizarra | El problema abierto desde las sesiones 1 y 2, y las piezas de los módulos anteriores que se reúnen, de palabra | 1 |
+| 12–26 | Pizarra | Brock y Hommes: la demanda, el precio que vacía el mercado, el fundamental y la ecuación $R\thinspace x_t = \sum_h n_{h,t} f_{h,t}$; fundamentalistas contra seguidores de tendencia | 2.1–2.2 |
+| 26–37 | Pizarra | La selección evolutiva logit (las ganancias realizadas, sin la cuenta) y el ciclo de calma, burbuja y corrección: el umbral $n_{2,t} > R/g$ | 2.3–2.4 |
+| 37–45 | Pizarra | Franke y Westerhoff: el precio, las dos demandas y las tres fuerzas del atractivo; la varianza condicional y por qué genera los hechos estilizados | 3.1–3.2 |
+| 45–80 | Parejas | Laboratorio: burbujas en Brock-Hommes y volatilidad en Franke-Westerhoff; ejercicio de código 1 | Cuaderno, secciones 1 y 2 y ejercicio 1 |
+| 80–92 | Proyector | Cierre del ciclo: el análisis de las sesiones 1 y 2 aplicado a las series simuladas y a las reales | Cuaderno, sección 3 |
+| 92–105 | Pizarra | Cierre del curso: puesta en común de las preguntas 3 a 5 y la tabla de qué hechos estilizados explica cada modelo | Cuaderno, preguntas 3–5; notas, 4 |
+| 105–120 | Margen | Si alcanza: el ejercicio de código 2 (un paso del precio de Brock-Hommes) | |
+| Después | Lectura | Lo que no entró del margen; la tabla de conceptos clave, Para profundizar y el taller del Módulo III | |
+
+Lo del **margen** se ve sólo si sobra tiempo, en el orden indicado; lo
+que no se vea pasa a la lectura y se evalúa igual.
 
 **Pregunta de la sesión.** ¿Pueden la calma y la tormenta de los mercados
 salir de la interacción entre agentes, sin choques de fuera?
@@ -96,9 +105,9 @@ módulos anteriores:
 
 ---
 
-## 2. El modelo de Brock y Hommes (1998): selección evolutiva de expectativas
+## 2. El modelo de Brock y Hommes (1998): selección evolutiva de expectativas ★
 
-### 2.1 Equilibrio temporal de mercado con creencias heterogéneas
+### 2.1 Equilibrio temporal de mercado con creencias heterogéneas ★
 
 Consideremos un mercado con un activo libre de riesgo que paga un factor bruto
 constante $R = 1 + r > 1$ por periodo, y un activo riesgoso con precio $p_t$ y
@@ -141,7 +150,7 @@ $$
 (o $R\thinspace x_t = \sum_{h=1}^H n_{h,t}\thinspace f_{h,t} + \varepsilon_t$ en presencia de
 demanda ruidosa $\varepsilon_t$).
 
-### 2.2 Fundamentalistas contra seguidores de tendencia
+### 2.2 Fundamentalistas contra seguidores de tendencia ★
 
 El caso canónico de Brock y Hommes (1998) enfrenta dos reglas de predicción:
 
@@ -166,7 +175,7 @@ $$
 R\thinspace x_t = n_{2,t}\thinspace g\thinspace x_{t-1} .
 $$
 
-### 2.3 Ganancias realizadas y actualización evolutiva logit
+### 2.3 Ganancias realizadas y actualización evolutiva logit ★
 
 ¿Cómo deciden los agentes qué regla usar en el periodo $t$? Mirando qué regla
 ganó más dinero en el periodo anterior.
@@ -211,7 +220,7 @@ $$
 - Si $\beta \to \infty$, todos los agentes saltan instantáneamente a la regla
   que tuvo mayor ganancia en el paso previo.
 
-### 2.4 El ciclo endógeno de calma, burbuja y corrección
+### 2.4 El ciclo endógeno de calma, burbuja y corrección ★
 
 Cuando $R < g < R^2$ (por ejemplo, con $R = 1.10$, $g = 1.20 < R^2 = 1.21$ y
 costo fundamentalista $C = 1.0$, como en el cuaderno), la
@@ -238,9 +247,9 @@ interacción entre $x_t$ y $n_{2,t}$ genera una narrativa económica transparent
 
 ---
 
-## 3. Fundamentalistas, chartistas y contagio estocástico
+## 3. Fundamentalistas, chartistas y contagio estocástico ★
 
-### 3.1 De Lux-Marchesi a un modelo estimable: Franke y Westerhoff (2012)
+### 3.1 De Lux-Marchesi a un modelo estimable: Franke y Westerhoff (2012) ★
 
 En un mercado con un número finito $N$ de agentes y órdenes estocásticas, el
 cambio entre estrategias no ocurre sólo de manera determinista: incluye
@@ -302,7 +311,7 @@ Los valores estimados son $\mu = 0.01$, $\beta = 1$, $\phi = 0.12$,
 $\chi = 1.5$, $\sigma_f = 0.758$, $\sigma_c = 2.087$, $\alpha_0 = -0.327$,
 $\alpha_n = 1.79$ y $\alpha_p = 18.43$.
 
-### 3.2 Por qué este mecanismo genera los hechos estilizados
+### 3.2 Por qué este mecanismo genera los hechos estilizados ★
 
 Escribimos $z_t = n^c_t$ para la fracción de chartistas. La varianza condicional
 del retorno $r_t = p_t - p_{t-1}$ dado el estado del mercado en $t-1$ es
@@ -336,7 +345,7 @@ en el tiempo:
 
 ---
 
-## 4. Cierre del ciclo: qué hechos estilizados explica cada modelo
+## 4. Cierre del ciclo: qué hechos estilizados explica cada modelo ★
 
 Al llegar al final del curso podemos evaluar los modelos estudiados desde la
 sesión 1 hasta la 20 frente a los tres hechos estilizados fundamentales de los

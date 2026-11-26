@@ -13,6 +13,9 @@
 > enlaza. La función de autocorrelación y la hipótesis de mercado eficiente
 > están en las [notas de la sesión 1](s01_retornos.md).
 >
+> Las secciones marcadas con ★ son el **núcleo** que se ve en clase; las
+> demás se leen por cuenta propia y se evalúan igual.
+>
 > Repaso recomendado: [P.B3–B4](repaso/probabilidad.md#pb3) (histogramas y la
 > normal), [S.B5](repaso/estadistica.md#sb5) (permutaciones),
 > [P.I1](repaso/probabilidad.md#pi1) (independencia y correlación),
@@ -26,25 +29,30 @@
 > Lecturas: Cont (2001), secs. 1–3. Complementaria: Mantegna & Stanley (1999),
 > caps. 5 y 7; Requião da Cunha (2021), sec. 2.4.
 
-**Plan de clase** (120 minutos)
+**Plan de clase** (120 minutos: 105 de núcleo y 15 de margen). El núcleo:
+incorrelación no es independencia, los hechos 3 y 4 y los modelos nulos.
 
 | Minutos | Dónde | Qué | Secciones |
 |---|---|---|---|
-| 0–10 | Proyector | El fenómeno: los días malos llegan juntos | Cuaderno, sección 0 |
-| 10–20 | Pizarra | Incorrelación no es independencia: el ejemplo de $X$ y $X^2$ | 1 |
-| 20–35 | Pizarra | Hecho 3: el enunciado; el modelo $r_t = \sigma_t\varepsilon_t$ y su proposición, con la demostración; la volatilidad fluctuante genera colas pesadas | 2 |
-| 35–45 | Pizarra | Hecho 4: el teorema del límite central y $\kappa_n = \kappa_1/n$ (enunciado); por qué los datos quedan por encima | 3 |
-| 45–50 | Pizarra | Los dos modelos nulos y su tabla | 4 |
-| 50–100 | Parejas | Laboratorio: autocorrelación de $\lvert r\rvert$, agregación, modelos nulos y universalidad; ejercicios de código 1 y 2 | Cuaderno, secciones 2 a 6 y ejercicios 1–2 |
-| 100–120 | Pizarra | Cierre: puesta en común de las preguntas 3 a 6 y las relaciones entre los cuatro hechos | Cuaderno, preguntas 3–6; notas, 6 |
-| Después | Lectura | Universalidad (5) y Para profundizar | |
+| 0–8 | Proyector | El fenómeno: los días malos llegan juntos | Cuaderno, sección 0 |
+| 8–15 | Pizarra | Incorrelación no es independencia: el ejemplo de $X$ y $X^2$ | 1 |
+| 15–30 | Pizarra | Hecho 3: el enunciado; el modelo $r_t = \sigma_t\varepsilon_t$ y su proposición, con la demostración; la volatilidad fluctuante genera colas pesadas | 2 |
+| 30–40 | Pizarra | Hecho 4: el teorema del límite central y $\kappa_n = \kappa_1/n$ (enunciado); por qué los datos quedan por encima | 3 |
+| 40–45 | Pizarra | Los dos modelos nulos y su tabla | 4 |
+| 45–90 | Parejas | Laboratorio: autocorrelación de $\lvert r\rvert$, agregación y modelos nulos; ejercicio de código 1 | Cuaderno, secciones 2 a 5 y ejercicio 1 |
+| 90–105 | Pizarra | Cierre: puesta en común de las preguntas 3 a 5 y las relaciones entre los cuatro hechos | Cuaderno, preguntas 3–5; notas, 6 |
+| 105–120 | Margen | Si alcanza, en este orden: la universalidad (cuaderno, sección 6; notas, 5) y la pregunta 6; el ejercicio de código 2 | |
+| Después | Lectura | Lo que no entró del margen; universalidad (5) y Para profundizar | |
+
+Lo del **margen** se ve sólo si sobra tiempo, en el orden indicado; lo
+que no se vea pasa a la lectura y se evalúa igual.
 
 **Pregunta de la sesión.** Si la dirección del mercado no tiene memoria, ¿por
 qué los días malos llegan juntos?
 
 ---
 
-## 1. Incorrelación no es independencia
+## 1. Incorrelación no es independencia ★
 
 **Definición.** $X$ e $Y$ son **independientes** si
 $\mathbb{E}[f(X)\thinspace g(Y)] = \mathbb{E}[f(X)]\thinspace\mathbb{E}[g(Y)]$ para todo par de
@@ -62,7 +70,7 @@ no (sección 2).
 
 ---
 
-## 2. Hecho 3: agrupamiento de volatilidad
+## 2. Hecho 3: agrupamiento de volatilidad ★
 
 **Enunciado.** La autocorrelación de los retornos absolutos es positiva y
 decae lentamente:
@@ -119,7 +127,7 @@ pesadas que una normal. Los hechos 1 ([sesión 1](s01_retornos.md)) y 3 no son
 independientes entre sí: **las fluctuaciones de la volatilidad generan colas
 pesadas**.
 
-## 3. Hecho 4: normalidad agregacional
+## 3. Hecho 4: normalidad agregacional ★
 
 **Enunciado.** Al aumentar el horizonte $\Delta t$, la distribución de
 $r_t(\Delta t)$ se parece cada vez más a la normal. Su curtosis disminuye,
@@ -157,7 +165,7 @@ dos hipótesis de la proposición pueden fallar:
 
 ---
 
-## 4. Modelos nulos
+## 4. Modelos nulos ★
 
 Un patrón empírico sólo es interesante si no aparece en una versión de los
 datos donde, por construcción, no debería existir.

@@ -346,7 +346,7 @@ end
 
 # ╔═╡ 69249b66-ca99-11f1-8973-65c9e9ff2932
 md"""
-**2.** Escribe `equilibrio_goodwin(α, β, γ, δ)`, que devuelva la tupla
+**2.** *Si alcanza (margen de la clase).* Escribe `equilibrio_goodwin(α, β, γ, δ)`, que devuelva la tupla
 `(v_est, u_est)` con la tasa de empleo ``v^\ast`` y la participación salarial
 ``u^\ast`` en el punto fijo interior del modelo de Goodwin
 ``\dot{v} = v(\alpha - \beta u)``, ``\dot{u} = u(-\gamma + \delta v)``.

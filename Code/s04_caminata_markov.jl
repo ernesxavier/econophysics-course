@@ -209,7 +209,7 @@ end
 
 # ╔═╡ 850b888c-ca92-11f1-89e2-09f104c3988c
 md"""
-**2.** Escribe `estacionaria_dos_estados(p, q)`, que devuelva el vector
+**2.** *Si alcanza (margen de la clase).* Escribe `estacionaria_dos_estados(p, q)`, que devuelva el vector
 ``(\pi_C, \pi_T)`` con la fracción de días en calma y en turbulencia a la
 larga.
 """

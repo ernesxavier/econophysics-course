@@ -12,6 +12,9 @@
 > profundizar**, y no se ven en clase; donde estaban queda una línea que los
 > enlaza.
 >
+> Las secciones marcadas con ★ son el **núcleo** que se ve en clase; las
+> demás se leen por cuenta propia y se evalúan igual.
+>
 > Repaso recomendado: [L.B4](repaso/algebra_lineal.md#lb4) (matriz de adyacencia
 > y grado) y [C.B4](repaso/calculo.md#cb4) (función logística).
 >
@@ -19,24 +22,30 @@
 > avanzada: Santos & Pacheco (2005); Ohtsuki et al. (2006); de consulta:
 > Schecter & Gintis (2016).
 
-**Plan de clase** (120 minutos)
+**Plan de clase** (120 minutos: 105 de núcleo y 15 de margen). El núcleo:
+el dilema del prisionero, el juego espacial de Nowak y May y la cooperación
+en redes libres de escala.
 
 | Minutos | Dónde | Qué | Secciones |
 |---|---|---|---|
-| 0–10 | Proyector | El fenómeno: cooperación entre egoístas cuando traicionar paga más | Cuaderno, sección 0 |
-| 10–18 | Pizarra | El dilema del prisionero; en una población bien mezclada la cooperación se extingue, con el argumento del replicador | 1 |
-| 18–35 | Pizarra | El juego de Nowak y May: la matriz, el pago $\Pi_i$ y las reglas de imitación; por qué sobreviven los clústeres: el bloque en la retícula de 4 vecinos (el caso de Moore es el ejercicio 6 del cuaderno) | 2 |
-| 35–45 | Pizarra | Redes libres de escala: el *hub* cooperador estabiliza su vecindario y el traidor destruye su propio pago; la regla $b/c > k$, sólo el enunciado (la usan el ejercicio 2 y la pregunta 5) | 3–4 |
-| 45–100 | Parejas | Laboratorio: mezcla global frente a red local, clústeres en la retícula y la retícula frente a Barabási-Albert; ejercicios de código 1 y 2 | Cuaderno, secciones 1 a 3 y ejercicios 1–2 |
-| 100–120 | Pizarra | Cierre: puesta en común de las preguntas 3 a 5 y la tabla del resumen | Cuaderno, preguntas 3–5; notas, 5 |
-| Después | Lectura | El bloque con vecindad de Moore (2) y Para profundizar | |
+| 0–8 | Proyector | El fenómeno: cooperación entre egoístas cuando traicionar paga más | Cuaderno, sección 0 |
+| 8–15 | Pizarra | El dilema del prisionero; en una población bien mezclada la cooperación se extingue, con el argumento del replicador | 1 |
+| 15–30 | Pizarra | El juego de Nowak y May: la matriz, el pago $\Pi_i$ y las reglas de imitación; por qué sobreviven los clústeres: el bloque en la retícula de 4 vecinos (el caso de Moore es el ejercicio 6 del cuaderno) | 2 |
+| 30–39 | Pizarra | Redes libres de escala: el *hub* cooperador estabiliza su vecindario y el traidor destruye su propio pago; la regla $b/c > k$, sólo el enunciado (la usan el ejercicio 2 y la pregunta 5) | 3–4 |
+| 39–90 | Parejas | Laboratorio: mezcla global frente a red local, clústeres en la retícula y la retícula frente a Barabási-Albert; ejercicio de código 1 | Cuaderno, secciones 1 a 3 y ejercicio 1 |
+| 90–105 | Pizarra | Cierre: puesta en común de las preguntas 3 a 5 y la tabla del resumen | Cuaderno, preguntas 3–5; notas, 5 |
+| 105–120 | Margen | Si alcanza: el ejercicio de código 2 (la regla $b/c > k$) y su lectura en el anillo, la cuadrícula y la red densa | |
+| Después | Lectura | Lo que no entró del margen; el bloque con vecindad de Moore (2) y Para profundizar | |
+
+Lo del **margen** se ve sólo si sobra tiempo, en el orden indicado; lo
+que no se vea pasa a la lectura y se evalúa igual.
 
 **Pregunta de la sesión.** ¿Cómo sobrevive la cooperación entre egoístas
 cuando traicionar paga más?
 
 ---
 
-## 1. El dilema del prisionero y su extinción en población bien mezclada
+## 1. El dilema del prisionero y su extinción en población bien mezclada ★
 
 En el **dilema del prisionero**, cada agente elige entre **cooperar** ($C$,
 $s_i = 1$) o **traicionar** ($D$, $s_i = 0$). Dos cooperadores reciben la
@@ -58,7 +67,7 @@ $x^\ast = 0$.
 
 ---
 
-## 2. El juego espacial de Nowak y May: reciprocidad en retículas
+## 2. El juego espacial de Nowak y May: reciprocidad en retículas ★
 
 Nowak y May (1992) estudiaron la versión débil de un solo parámetro ($R = 1$,
 $T = b > 1$, $P = S = 0$):
@@ -128,7 +137,7 @@ estabilidad (**reciprocidad espacial**).
 
 ---
 
-## 3. Cooperación en redes libres de escala
+## 3. Cooperación en redes libres de escala ★
 
 En una red libre de escala de Barabási-Albert ([sesión 10](s10_redes_modelos.md)),
 la distribución de grados $P(k) \sim k^{-3}$ produce concentradores (*hubs*) con

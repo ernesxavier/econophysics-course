@@ -257,7 +257,7 @@ proponen:
 md"""
 ## 6. Universalidad de las colas
 
-La tabla resume los exponentes estimados para los cuatro activos (por separado
+*Si alcanza (margen de la clase).* La tabla resume los exponentes estimados para los cuatro activos (por separado
 para caídas, subidas y valor absoluto) y para las localidades de México:
 """
 
@@ -334,7 +334,7 @@ end
 
 # ╔═╡ 7634512c-ca92-11f1-b79f-9d78ddc934fa
 md"""
-**2.** Escribe la función `pendiente_loglog(x, y)` que devuelva la pendiente
+**2.** *Si alcanza (margen de la clase).* Escribe la función `pendiente_loglog(x, y)` que devuelva la pendiente
 de la recta de mínimos cuadrados de ``\ln y`` contra ``\ln x``
 (repaso S.B4).
 """

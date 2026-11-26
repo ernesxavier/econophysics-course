@@ -11,6 +11,9 @@
 > la ruta avanzada, opcionales, están al final, en **Para profundizar**, y no
 > se ven en clase; donde estaban queda una línea que los enlaza.
 >
+> Las secciones marcadas con ★ son el **núcleo** que se ve en clase; las
+> demás se leen por cuenta propia y se evalúan igual.
+>
 > Repaso recomendado: [C.B1](repaso/calculo.md#cb1) (logaritmos),
 > [P.B1–B5](repaso/probabilidad.md#pb1) (variables aleatorias, media,
 > varianza, normal), [E.B1](repaso/procesos_estocasticos.md#eb1) (procesos
@@ -24,25 +27,31 @@
 > Lecturas: Mantegna & Stanley (1999), caps. 1–2. Complementaria: Slanina
 > (2014), secs. 1.1–1.2.
 
-**Plan de clase** (120 minutos)
+**Plan de clase** (120 minutos: 105 de núcleo y 15 de margen). El núcleo:
+los retornos, la curtosis, la autocorrelación y el mercado eficiente, y medir
+los hechos 1 y 2 en los datos.
 
 | Minutos | Dónde | Qué | Secciones |
 |---|---|---|---|
 | 0–25 | Individual | Diagnóstico de matemáticas (no cuenta para la calificación) | [Diagnóstico](repaso/diagnostico_inicial.md) |
-| 25–35 | Proyector | El fenómeno: el peor día del S&P 500; qué es la econofísica y qué es un hecho estilizado | Cuaderno, sección 0 |
-| 35–50 | Pizarra | Retornos simple y logarítmico; la aditividad, con la suma telescópica, y la regla $\sigma\sqrt{\Delta t}$; la curtosis en exceso y la normal de referencia | 1.1–1.3, 2.1, 2.3 |
-| 50–65 | Pizarra | La autocorrelación y la franja $\pm 1.96/\sqrt{N}$; el mercado eficiente como martingala y por qué implica $\rho(\tau) = 0$, con la demostración; lo que no dice | 3.2, 4.1–4.2 |
-| 65–105 | Parejas | Laboratorio: los cuatro activos, colas pesadas y autocorrelación; ejercicios de código 1 y 2 | Cuaderno, secciones 1 a 4 y ejercicios 1–2 |
-| 105–120 | Pizarra | Cierre: puesta en común de las preguntas 3 a 6 y la tabla de los hechos 1 y 2 | Cuaderno, preguntas 3–6; notas, 6 |
-| Después | Lectura | Los estimadores y su advertencia (2.2), la estacionariedad (3.1), los hechos estilizados con la tabla de periodos de retorno (5) y Para profundizar | |
+| 25–33 | Proyector | El fenómeno: el peor día del S&P 500; qué es la econofísica y qué es un hecho estilizado | Cuaderno, sección 0 |
+| 33–47 | Pizarra | Retornos simple y logarítmico; la aditividad, con la suma telescópica; la curtosis en exceso y la normal de referencia | 1.1–1.2, 2.1, 2.3 |
+| 47–61 | Pizarra | La autocorrelación y la franja $\pm 1.96/\sqrt{N}$; el mercado eficiente como martingala y por qué implica $\rho(\tau) = 0$, con la demostración; lo que no dice | 3.2, 4.1–4.2 |
+| 61–95 | Parejas | Laboratorio: los cuatro activos, colas pesadas y autocorrelación; ejercicio de código 1 | Cuaderno, secciones 1 a 4 y ejercicio 1 |
+| 95–105 | Pizarra | Cierre: puesta en común de las preguntas 3, 4 y 6 y la tabla de los hechos 1 y 2 | Cuaderno, preguntas 3, 4 y 6; notas, 6 |
+| 105–120 | Margen | Si alcanza, en este orden: la regla $\sigma\sqrt{\Delta t}$ y la volatilidad anualizada (1.3); el ejercicio de código 2; la pregunta 5 (la autocorrelación del IPC) | |
+| Después | Lectura | Lo que no entró del margen; los estimadores y su advertencia (2.2), la estacionariedad (3.1), los hechos estilizados con la tabla de periodos de retorno (5) y Para profundizar | |
+
+Lo del **margen** se ve sólo si sobra tiempo, en el orden indicado; lo
+que no se vea pasa a la lectura y se evalúa igual.
 
 **Pregunta de la sesión.** ¿El mercado es un volado?
 
 ---
 
-## 1. Precios y retornos
+## 1. Precios y retornos ★
 
-### 1.1 Definiciones
+### 1.1 Definiciones ★
 
 Sea $P_t > 0$ el precio de cierre de un activo en el día $t = 0, 1, \dots, N$.
 
@@ -72,7 +81,7 @@ de modo que $r_t \approx R_t$ cuando $|R_t| \ll 1$. Con retornos diarios
 típicos ($|R_t| \sim 0.01$, es decir, 1%) la diferencia es del orden de $10^{-5}$. Además
 $r_t \le R_t$ siempre, porque $\ln(1+x) \le x$.
 
-### 1.2 Aditividad temporal
+### 1.2 Aditividad temporal ★
 
 **Proposición.** El retorno logarítmico en un horizonte de $\Delta t$ días es
 la suma de los retornos diarios:
@@ -114,7 +123,7 @@ econofísica pone a prueba.
 
 ## 2. Los retornos como variable aleatoria
 
-### 2.1 Momentos
+### 2.1 Momentos ★
 
 Tratamos $r_t$ como realización de una variable aleatoria $X$ con media
 $\mu = \mathbb{E}[X]$ y varianza $\sigma^2 = \mathbb{E}[(X-\mu)^2]$.
@@ -158,7 +167,7 @@ de ley de potencias con exponente $\alpha \le 4$, el cuarto momento **no
 existe** y $\hat\kappa$ no converge al crecer $N$. Por eso en la sesión 3
 pasaremos a medir las colas directamente.
 
-### 2.3 Estandarización y la normal de referencia
+### 2.3 Estandarización y la normal de referencia ★
 
 **Definición.** El retorno estandarizado es $z_t = (r_t - \hat\mu)/\hat\sigma$.
 Tiene media $0$ y varianza $1$; $z = k$ significa "un movimiento de $k$
@@ -193,7 +202,7 @@ Los **precios** claramente no son estacionarios (crecen y su varianza
 aumenta con el horizonte); los **retornos** son estacionarios en buena
 aproximación. Esta es otra razón para trabajar con $r_t$.
 
-### 3.2 Función de autocorrelación
+### 3.2 Función de autocorrelación ★
 
 **Definición.** Para un proceso débilmente estacionario, la función de
 autocorrelación (ACF) es
@@ -239,9 +248,9 @@ evidencia (al 5%) de correlación en ese rezago.
 
 ---
 
-## 4. Hipótesis de mercado eficiente
+## 4. Hipótesis de mercado eficiente ★
 
-### 4.1 Formulación como martingala
+### 4.1 Formulación como martingala ★
 
 Sea $\mathcal F_t$ la información disponible al cierre del día $t$ (todos
 los precios hasta $t$, como mínimo).
@@ -269,7 +278,7 @@ El argumento económico es de arbitraje: si existiera una regla del tipo "si
 hoy subió, mañana sube", los agentes comprarían hoy, el precio subiría hoy y
 la regularidad desaparecería.
 
-### 4.2 Consecuencia: ausencia de autocorrelación lineal
+### 4.2 Consecuencia: ausencia de autocorrelación lineal ★
 
 **Proposición.** Si $\lbrace r_t - \mu\rbrace$ es una diferencia de martingala con
 varianza finita, entonces $\rho(\tau) = 0$ para todo $\tau \ge 1$.

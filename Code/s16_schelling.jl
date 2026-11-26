@@ -193,7 +193,7 @@ end
 
 # ╔═╡ 5fd8dd90-ca99-11f1-aced-4789e029f1f1
 md"""
-**2.** Escribe `satisfecho(iguales, totales, τ)`, que devuelva `true` si un
+**2.** *Si alcanza (margen de la clase).* Escribe `satisfecho(iguales, totales, τ)`, que devuelva `true` si un
 agente de Schelling con `iguales` vecinos de su mismo grupo, de un total de
 `totales` vecinos ocupados, cumple el umbral `τ` (si `totales == 0`, devuelve
 `true`).

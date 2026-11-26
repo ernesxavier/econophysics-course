@@ -258,7 +258,7 @@ end
 
 # ╔═╡ a0ae0540-ca96-11f1-b91d-4bdc201bb6bd
 md"""
-**2.** Escribe `multiplicador_social(J, m)`, el factor ``1 / (1 - J(1 - m^2))``
+**2.** *Si alcanza (margen de la clase).* Escribe `multiplicador_social(J, m)`, el factor ``1 / (1 - J(1 - m^2))``
 por el que la interacción social ``J`` (con ``\beta = 1``) amplifica el efecto
 de un cambio pequeño en el incentivo ``h`` alrededor de un equilibrio `m`.
 """

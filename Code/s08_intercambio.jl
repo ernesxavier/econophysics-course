@@ -256,7 +256,7 @@ end
 
 # ╔═╡ bb4677d6-ca92-11f1-bad9-2d58708083bf
 md"""
-**2.** Escribe `intercambio(mi, mj, λ, ε)`, que devuelva el dinero de los dos
+**2.** *Si alcanza (margen de la clase).* Escribe `intercambio(mi, mj, λ, ε)`, que devuelva el dinero de los dos
 agentes después de una transacción con ahorro ``\lambda`` (sección 3), como
 un vector `[mi_nuevo, mj_nuevo]`.
 """

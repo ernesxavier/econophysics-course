@@ -12,6 +12,9 @@
 > profundizar**, y no se ven en clase; donde estaban queda una línea que los
 > enlaza.
 >
+> Las secciones marcadas con ★ son el **núcleo** que se ve en clase; las
+> demás se leen por cuenta propia y se evalúan igual.
+>
 > Repaso recomendado: [L.B4](repaso/algebra_lineal.md#lb4) (matriz de
 > adyacencia), [P.B1](repaso/probabilidad.md#pb1) (distribuciones),
 > [C.B2](repaso/calculo.md#cb2) (escalas log-log),
@@ -25,28 +28,34 @@
 > Lecturas: Newman (2018), cap. 7. Complementaria: Newman (2018), caps. 6 y 11;
 > Requião da Cunha (2021), sec. 8.1.
 
-**Plan de clase** (120 minutos)
+**Plan de clase** (120 minutos: 105 de núcleo y 15 de margen). El núcleo:
+la matriz de adyacencia, las centralidades y el agrupamiento, y los tres
+modelos de redes aleatorias.
 
 | Minutos | Dónde | Qué | Secciones |
 |---|---|---|---|
-| 0–10 | Proyector | El fenómeno: ¿por qué ganaron los Médici? | Cuaderno, sección 0 |
-| 10–20 | Pizarra | Repaso: la matriz de adyacencia; grados y $m = \tfrac12\sum_i k_i$; $[A^\ell]_{ij}$ cuenta caminos, con la demostración, y los triángulos | 1.1–1.2 |
-| 20–30 | Pizarra | Las cuatro centralidades (la tabla) y el agrupamiento local y global | 2.1–2.2 |
-| 30–42 | Pizarra | Erdős-Rényi: grados binomiales y el límite de Poisson (enunciado; es el ejercicio 6 del cuaderno); $C = p$; $\ell \approx \ln n/\ln c$; el componente gigante, con el argumento | 3.1–3.3 |
-| 42–45 | Pizarra | Watts-Strogatz: el agrupamiento del anillo (enunciado; es el ejercicio 7) y el mundo pequeño, de palabra | 4 |
-| 45–55 | Pizarra | Barabási-Albert: la conexión preferencial; el grado por campo medio, con la demostración, y la cola con $\alpha = 2$ | 5.1–5.2 |
-| 55–100 | Parejas | Laboratorio: medir la red de Florencia y comparar los tres modelos; ejercicios de código 1 y 2 | Cuaderno, secciones 2 y 3 y ejercicios 1–2 |
-| 100–120 | Pizarra | Cierre: puesta en común de las preguntas 3 a 5 y la tabla del resumen | Cuaderno, preguntas 3–5; notas, 6 |
-| Después | Lectura | Las familias de Florencia (2.3), el resultado exacto de Barabási-Albert y sus consecuencias (5.2) y Para profundizar | |
+| 0–8 | Proyector | El fenómeno: ¿por qué ganaron los Médici? | Cuaderno, sección 0 |
+| 8–17 | Pizarra | Repaso: la matriz de adyacencia; grados y $m = \tfrac12\sum_i k_i$; $[A^\ell]_{ij}$ cuenta caminos, con la demostración, y los triángulos | 1.1–1.2 |
+| 17–26 | Pizarra | Las cuatro centralidades (la tabla) y el agrupamiento local y global | 2.1–2.2 |
+| 26–37 | Pizarra | Erdős-Rényi: grados binomiales y el límite de Poisson (enunciado; es el ejercicio 6 del cuaderno); $C = p$; $\ell \approx \ln n/\ln c$; el componente gigante, con el argumento | 3.1–3.3 |
+| 37–40 | Pizarra | Watts-Strogatz: el agrupamiento del anillo (enunciado; es el ejercicio 7) y el mundo pequeño, de palabra | 4 |
+| 40–50 | Pizarra | Barabási-Albert: la conexión preferencial; el grado por campo medio, con la demostración, y la cola con $\alpha = 2$ | 5.1–5.2 |
+| 50–92 | Parejas | Laboratorio: medir la red de Florencia y comparar los tres modelos; ejercicio de código 1 | Cuaderno, secciones 2 y 3 y ejercicio 1 |
+| 92–105 | Pizarra | Cierre: puesta en común de las preguntas 3 a 5 y la tabla del resumen | Cuaderno, preguntas 3–5; notas, 6 |
+| 105–120 | Margen | Si alcanza, en este orden: las familias de Florencia (2.3); el ejercicio de código 2 | |
+| Después | Lectura | Lo que no entró del margen; el resultado exacto de Barabási-Albert y sus consecuencias (5.2) y Para profundizar | |
+
+Lo del **margen** se ve sólo si sobra tiempo, en el orden indicado; lo
+que no se vea pasa a la lectura y se evalúa igual.
 
 **Pregunta de la sesión.** ¿Por qué ganaron los Médici? ¿Qué distingue la
 posición de un nodo en una red, y qué redes producen nodos así?
 
 ---
 
-## 1. Representación
+## 1. Representación ★
 
-### 1.1 Matriz de adyacencia y grados
+### 1.1 Matriz de adyacencia y grados ★
 
 Una **red** (o grafo) tiene $n$ nodos y un conjunto de enlaces entre pares
 de nodos. En estas notas las redes son **simples**: no dirigidas, sin pesos,
@@ -61,7 +70,7 @@ $i$ y $j$ están conectados y $A_{ii} = 0$.
 - **Distribución de grados**: $p_k$, la fracción de nodos con grado $k$. Su
   CCDF es $P(K \ge k) = \sum_{j \ge k} p_j$.
 
-### 1.2 Caminos, distancias y componentes
+### 1.2 Caminos, distancias y componentes ★
 
 Un **camino** de longitud $\ell$ es una sucesión de $\ell$ enlaces
 consecutivos. La **distancia** $d_{ij}$ es la longitud del camino más corto
@@ -106,7 +115,7 @@ tr(A^3) ÷ 6               # 1 triángulo
 
 ## 2. Medidas
 
-### 2.1 Centralidades
+### 2.1 Centralidades ★
 
 | Centralidad | Definición | Idea |
 |---|---|---|
@@ -130,7 +139,7 @@ para interpretarlo como importancia.
 Si la red no es conexa, la centralidad de eigenvector es cero fuera de la
 componente con mayor $\lambda_1$: conviene calcularla por componente.
 
-### 2.2 Agrupamiento
+### 2.2 Agrupamiento ★
 
 El **coeficiente de agrupamiento local** del nodo $i$, con $k_i \ge 2$, es
 la fracción de pares de vecinos de $i$ que están conectados entre sí:
@@ -172,9 +181,9 @@ son intermediarios: sus vecinos se conocen entre sí.
 
 ---
 
-## 3. Erdős-Rényi
+## 3. Erdős-Rényi ★
 
-### 3.1 Definición y grados
+### 3.1 Definición y grados ★
 
 **Modelo** $G(n, p)$: cada uno de los $\binom{n}{2}$ pares se conecta con
 probabilidad $p$, independientemente. El grado de un nodo es una suma de
@@ -205,7 +214,7 @@ que cualquier potencia: el grado máximo en una red de $n$ nodos crece como
 $\ln n / \ln\ln n$, muy despacio. En el cuaderno, con $n = 10^4$ y $c = 4$,
 el grado máximo es 14.
 
-### 3.2 Agrupamiento y distancias
+### 3.2 Agrupamiento y distancias ★
 
 **Agrupamiento.** Dos vecinos de un nodo están conectados con probabilidad
 $p$, independientemente de todo lo demás, así que
@@ -226,7 +235,7 @@ $$
 Con $n = 10^4$ y $c = 4$ da 6.6; la simulación da 6.8. La distancia crece
 como el **logaritmo** del tamaño: es el efecto de "mundo pequeño".
 
-### 3.3 El componente gigante
+### 3.3 El componente gigante ★
 
 **Proposición.** Sea $S$ la fracción de nodos en el componente más grande.
 Cuando $n \to \infty$, $S$ es la mayor solución en $[0, 1]$ de
@@ -254,7 +263,7 @@ Con $u = 1 - S$ queda $S = 1 - e^{-cS}$. $\square$
 
 ---
 
-## 4. Watts-Strogatz
+## 4. Watts-Strogatz ★
 
 **Modelo.** Se parte de un anillo de $n$ nodos, cada uno conectado con sus
 $K$ vecinos más cercanos ($K$ par, $K/2$ de cada lado). Cada enlace se
@@ -281,9 +290,9 @@ Erdős-Rényi: el régimen de **mundo pequeño**.
 
 ---
 
-## 5. Barabási-Albert
+## 5. Barabási-Albert ★
 
-### 5.1 Definición
+### 5.1 Definición ★
 
 **Modelo.** Se parte de una red pequeña. En cada paso llega un nodo nuevo
 con $m$ enlaces, que se conectan a nodos existentes con probabilidad
@@ -296,7 +305,7 @@ $$
 Después de $t$ pasos hay $n \approx t$ nodos y $\sum_j k_j \approx 2mt$, así
 que $\langle k\rangle = 2m$.
 
-### 5.2 Distribución de grados (campo medio)
+### 5.2 Distribución de grados (campo medio) ★
 
 **Proposición (aproximación continua).** El nodo que llegó en el paso $t_i$
 tiene, en el paso $t$, grado

@@ -214,7 +214,7 @@ diferir del asintótico.
 md"""
 ## 4. ¿Por qué ``\alpha \approx 1`` en las ciudades?
 
-El mecanismo de la sección 3 produce cualquier exponente. ¿Por qué las
+*Si alcanza (margen de la clase).* El mecanismo de la sección 3 produce cualquier exponente. ¿Por qué las
 ciudades eligen justamente ``\alpha = 1``? Gabaix (1999) observó que si
 medimos cada ciudad como **fracción de la población total**, el tamaño
 promedio es fijo porque las fracciones suman 1. Con crecimiento de Gibrat y
@@ -287,7 +287,7 @@ end
 
 # ╔═╡ 523f00e4-ca99-11f1-95ba-ad7123f5bef9
 md"""
-**2.** Escribe `alpha_barrera(m, s)`, que devuelva el exponente teórico de la
+**2.** *Si alcanza (margen de la clase).* Escribe `alpha_barrera(m, s)`, que devuelva el exponente teórico de la
 sección 3.
 """
 

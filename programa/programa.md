@@ -29,23 +29,25 @@ que ya se observó numéricamente, no como requisito para empezar.
 
 | Momento | Tiempo | Qué ocurre |
 |---|---|---|
-| Fenómeno | 15 min | Un dato real o una paradoja que motiva la pregunta de la sesión |
+| Fenómeno | 10 min | Un dato real o una paradoja que motiva la pregunta de la sesión |
 | Modelo | 35 min | Reglas en palabras, la ecuación central y a lo más una derivación corta |
-| Laboratorio | 50 min | En parejas, con el cuaderno de Pluto: completar código, simular, medir |
-| Cierre | 20 min | Pregunta de medición o interpretación; es lo que se evalúa |
+| Laboratorio | 45 min | En parejas, con el cuaderno de Pluto: completar código, simular, medir |
+| Cierre | 15 min | Pregunta de medición o interpretación; es lo que se evalúa |
+| Margen | 15 min | Sólo si sobra tiempo, en el orden del plan; lo que no se ve pasa a la lectura |
 
 **Pizarrón y cuaderno.** El fenómeno se proyecta desde el cuaderno, el modelo
 se da en el pizarrón siguiendo las notas de la sesión y el laboratorio se hace
 en parejas con el cuaderno. Cada una de las 20 notas abre con un plan de clase
-de 120 minutos que dice qué se proyecta, qué se escribe en el pizarrón
-(definiciones, proposiciones y los resultados en recuadro) y qué queda para
-leer. En las sesiones con poca matemática en la ruta básica (11 y 16) el
+de 120 minutos (105 de núcleo y 15 de margen) que dice qué se proyecta, qué se
+escribe en el pizarrón (definiciones, proposiciones y los resultados en
+recuadro) y qué queda para leer. Las secciones del núcleo llevan ★ en las
+notas; las demás se leen por cuenta propia y se evalúan igual. En las sesiones con poca matemática en la ruta básica (11 y 16) el
 pizarrón ocupa menos tiempo y el laboratorio, más. El formato se evalúa al
 terminar el Módulo I y se ajusta, si hace falta, para los módulos II y III.
 
 **Dos rutas.** Todo el contenido sin marca es la **ruta básica**: obligatoria,
 basada en simulación, medición e interpretación económica, y es lo único que se
-ve en clase. Los puntos marcados **[Avanzado]** forman la **ruta avanzada**:
+ve en clase (su núcleo, marcado con ★). Los puntos marcados **[Avanzado]** forman la **ruta avanzada**:
 derivaciones analíticas y su comparación con la simulación. Se estudia fuera
 de clase en la sección "Para profundizar" de las notas, es opcional y da
 puntos extra (ver Evaluación).

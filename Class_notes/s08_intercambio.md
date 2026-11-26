@@ -12,6 +12,9 @@
 > profundizar**, y no se ven en clase; donde estaban queda una línea que los
 > enlaza.
 >
+> Las secciones marcadas con ★ son el **núcleo** que se ve en clase; las
+> demás se leen por cuenta propia y se evalúan igual.
+>
 > Repaso recomendado: [P.B3](repaso/probabilidad.md#pb3) (histogramas),
 > [C.B6](repaso/calculo.md#cb6) (la integral como área),
 > [F.B1–B3](repaso/fisica_estadistica.md#fb1) (de lo micro a lo macro,
@@ -26,27 +29,33 @@
 > (2021), sec. 8.3; Slanina (2014), sec. 7.2. Ruta avanzada: Chakrabarti et
 > al. (2013), caps. 2–5; Garibaldi & Scalas (2010, consulta).
 
-**Plan de clase** (120 minutos)
+**Plan de clase** (120 minutos: 105 de núcleo y 15 de margen). El núcleo:
+medir la desigualdad, los tres modelos de intercambio y su comparación con
+la ENIGH.
 
 | Minutos | Dónde | Qué | Secciones |
 |---|---|---|---|
-| 0–10 | Proyector | El fenómeno: ¿cómo se reparte el ingreso en México? | Cuaderno, sección 0 |
-| 10–20 | Pizarra | La curva de Lorenz y el índice de Gini; el Gini como diferencia promedio entre dos personas (enunciado); $G = 1/2$ para la exponencial (la cuenta es el ejercicio 6 del cuaderno) | 1.1–1.2 |
-| 20–33 | Pizarra | Intercambio con dinero conservado: el modelo y la exponencial; el argumento de conteo: la distribución con más asignaciones es la de Boltzmann | 2.1–2.2 |
-| 33–43 | Pizarra | Ahorro uniforme: el modelo, la varianza estacionaria (enunciado; la cuenta es el ejercicio 7 del cuaderno) y la aproximación gamma | 3.1–3.3 |
-| 43–52 | Pizarra | Ahorro heterogéneo: el dinero promedio de cada agente, con la demostración, y la cola de Pareto | 4 |
-| 52–100 | Parejas | Laboratorio: Lorenz y Gini, los tres modelos de intercambio y su comparación con la ENIGH; ejercicios de código 1 y 2 | Cuaderno, secciones 1 a 5 y ejercicios 1–2 |
-| 100–120 | Pizarra | Cierre: puesta en común de las preguntas 3 a 5; qué modelo ajusta mejor la ENIGH y las tres advertencias | Cuaderno, preguntas 3–5; notas, 5 |
-| Después | Lectura | La demostración de 3.2, los cuidados del ahorro heterogéneo (4), el resumen (6) y Para profundizar | |
+| 0–8 | Proyector | El fenómeno: ¿cómo se reparte el ingreso en México? | Cuaderno, sección 0 |
+| 8–17 | Pizarra | La curva de Lorenz y el índice de Gini; el Gini como diferencia promedio entre dos personas (enunciado); $G = 1/2$ para la exponencial (la cuenta es el ejercicio 6 del cuaderno) | 1.1–1.2 |
+| 17–29 | Pizarra | Intercambio con dinero conservado: el modelo y la exponencial; el argumento de conteo: la distribución con más asignaciones es la de Boltzmann | 2.1–2.2 |
+| 29–38 | Pizarra | Ahorro uniforme: el modelo, la varianza estacionaria (enunciado; la cuenta es el ejercicio 7 del cuaderno) y la aproximación gamma | 3.1–3.3 |
+| 38–46 | Pizarra | Ahorro heterogéneo: el dinero promedio de cada agente, con la demostración, y la cola de Pareto | 4 |
+| 46–92 | Parejas | Laboratorio: Lorenz y Gini, los tres modelos de intercambio y su comparación con la ENIGH; ejercicio de código 1 | Cuaderno, secciones 1 a 5 y ejercicio 1 |
+| 92–105 | Pizarra | Cierre: puesta en común de las preguntas 3 y 4; qué modelo ajusta mejor la ENIGH y las tres advertencias | Cuaderno, preguntas 3–4; notas, 5 |
+| 105–120 | Margen | Si alcanza, en este orden: la pregunta 5 (por qué la ENIGH subestima la cola); el ejercicio de código 2 | |
+| Después | Lectura | Lo que no entró del margen; la demostración de 3.2, los cuidados del ahorro heterogéneo (4), el resumen (6) y Para profundizar | |
+
+Lo del **margen** se ve sólo si sobra tiempo, en el orden indicado; lo
+que no se vea pasa a la lectura y se evalúa igual.
 
 **Pregunta de la sesión.** ¿Cómo se reparte el ingreso en México, y cuánta
 desigualdad produce el puro azar de los intercambios?
 
 ---
 
-## 1. Medir la desigualdad
+## 1. Medir la desigualdad ★
 
-### 1.1 Curva de Lorenz
+### 1.1 Curva de Lorenz ★
 
 Sea $X \ge 0$ un ingreso con distribución acumulada $F$ y media
 $\mu = \mathbb{E}[X] < \infty$.
@@ -66,7 +75,7 @@ pares $\left(\sum_{k \le i} w_k / \sum_k w_k,\ \sum_{k \le i} w_k x_k / \sum_k w
 pendiente en $p$ es $F^{-1}(p)/\mu$, que crece con $p$), y $L(p) \le p$. La
 igualdad $L(p) = p$ sólo ocurre si todos tienen el mismo ingreso.
 
-### 1.2 Índice de Gini
+### 1.2 Índice de Gini ★
 
 **Definición.** $G = 1 - 2\int_0^1 L(p)\thinspace dp$: el doble del área
 entre la diagonal y la curva de Lorenz ([C.B6](repaso/calculo.md#cb6)).
@@ -98,7 +107,7 @@ ingreso recibe el 23% del ingreso total.
 
 ## 2. Intercambio con dinero conservado
 
-### 2.1 El modelo
+### 2.1 El modelo ★
 
 **Modelo (Dragulescu y Yakovenko, 2000).** $N$ agentes tienen dinero
 $m_1, \dots, m_N \ge 0$, con total $M = \sum_i m_i$ fijo. En cada paso se
@@ -121,7 +130,7 @@ $$
 
 Damos tres argumentos de distinta naturaleza.
 
-### 2.2 Primer argumento: conteo (entropía)
+### 2.2 Primer argumento: conteo (entropía) ★
 
 Divide el dinero en unidades: el agente $i$ tiene $k_i$ unidades y
 $\sum_i k_i = K$. Una **distribución** es la lista $n_0, n_1, n_2, \dots$, donde
@@ -153,9 +162,9 @@ El desarrollo de esta subsección está en [Para profundizar, P.3](#pp3).
 
 ---
 
-## 3. Ahorro uniforme
+## 3. Ahorro uniforme ★
 
-### 3.1 El modelo
+### 3.1 El modelo ★
 
 **Modelo (Chakraborti y Chakrabarti, 2000).** Cada agente guarda una fracción
 $\lambda \in [0, 1)$ de su dinero y sólo pone en juego el resto:
@@ -167,7 +176,7 @@ $$
 
 Con $\lambda = 0$ es el modelo de la sección 2.
 
-### 3.2 La varianza estacionaria
+### 3.2 La varianza estacionaria ★
 
 Tomemos dinero promedio 1 y supongamos, como aproximación de campo medio,
 que $m_i$ y $m_j$ son independientes con la distribución estacionaria. Sea
@@ -198,7 +207,7 @@ Con $\lambda = 0$ la varianza es 1, la de la exponencial con media 1. Al
 aumentar $\lambda$ la varianza baja hasta 0: con ahorro total no hay
 intercambio.
 
-### 3.3 La aproximación gamma
+### 3.3 La aproximación gamma ★
 
 **Aproximación (Patriarca, Chakraborti y Kaski, 2004).** La distribución
 estacionaria es muy cercana a una gamma con media 1,
@@ -222,7 +231,7 @@ densidad vale cero en $m = 0$: casi nadie queda en la ruina.
 
 ---
 
-## 4. Ahorro heterogéneo y la cola de Pareto
+## 4. Ahorro heterogéneo y la cola de Pareto ★
 
 **Modelo (Chatterjee, Chakrabarti y Manna, 2004).** Cada agente tiene su
 propio ahorro $\lambda_i$, fijo, tomado de una distribución $\rho(\lambda)$
@@ -278,7 +287,7 @@ exactamente $\rho(\lambda) = a(1-\lambda)^{a-1}$.
 
 ---
 
-## 5. Comparación con la ENIGH 2024
+## 5. Comparación con la ENIGH 2024 ★
 
 Datos: 91,414 hogares que representan 38.8 millones; ingreso corriente
 mensual dividido entre su media ponderada.

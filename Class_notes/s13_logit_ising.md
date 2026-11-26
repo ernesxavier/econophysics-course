@@ -12,6 +12,9 @@
 > y el campo medio formal está en las notas de la
 > [sesión 14](s14_campo_medio.md).
 >
+> Las secciones marcadas con ★ son el **núcleo** que se ve en clase; las
+> demás se leen por cuenta propia y se evalúan igual.
+>
 > Repaso recomendado: [C.B4](repaso/calculo.md#cb4) (función logística),
 > [F.B3](repaso/fisica_estadistica.md#fb3) (temperatura),
 > [F.B4](repaso/fisica_estadistica.md#fb4) (transiciones de fase),
@@ -24,27 +27,33 @@
 > Lecturas: Sen & Chakrabarti (2014), cap. 2. Ruta avanzada: Brock & Durlauf
 > (2001).
 
-**Plan de clase** (120 minutos)
+**Plan de clase** (120 minutos: 105 de núcleo y 15 de margen). El núcleo:
+el modelo logit, su equivalencia con Boltzmann, el modelo de Ising y el
+algoritmo de Metropolis.
 
 | Minutos | Dónde | Qué | Secciones |
 |---|---|---|---|
-| 0–10 | Proyector | El fenómeno: mismos incentivos, resultados distintos | Cuaderno, sección 0 |
-| 10–22 | Pizarra | Repaso: la función logística; utilidad aleatoria y la distribución de Gumbel; la fórmula logit de McFadden (enunciado; es el ejercicio 6 del cuaderno) y el caso binario | 1.1 |
-| 22–30 | Pizarra | Logit = Boltzmann: el diccionario entre física estadística y elección discreta | 1.2 |
-| 30–40 | Pizarra | El modelo de Ising: la energía, la magnetización y la ruptura espontánea de simetría; la solución exacta de la red cuadrada (enunciado) | 2.1–2.2 |
-| 40–52 | Pizarra | Metropolis y baño térmico; el baño térmico es la regla logit; balance detallado, con la demostración | 2.3 |
-| 52–100 | Parejas | Laboratorio: logit y Boltzmann, Ising y el algoritmo de Metropolis; la transición con el deslizador; ejercicios de código 1 y 2 | Cuaderno, secciones 2 a 4 y ejercicios 1–2 |
-| 100–120 | Pizarra | Cierre: puesta en común de las preguntas 3 a 5; la lectura económica de la dinámica logit | Cuaderno, preguntas 3–5; notas, 2.3 |
-| Después | Lectura | La fórmula *log-sum* (1.2), el resumen (3) y los ejercicios F4 a F6 | |
+| 0–8 | Proyector | El fenómeno: mismos incentivos, resultados distintos | Cuaderno, sección 0 |
+| 8–19 | Pizarra | Repaso: la función logística; utilidad aleatoria y la distribución de Gumbel; la fórmula logit de McFadden (enunciado; es el ejercicio 6 del cuaderno) y el caso binario | 1.1 |
+| 19–26 | Pizarra | Logit = Boltzmann: el diccionario entre física estadística y elección discreta | 1.2 |
+| 26–34 | Pizarra | El modelo de Ising: la energía, la magnetización y la ruptura espontánea de simetría | 2.1 |
+| 34–46 | Pizarra | Metropolis y baño térmico; el baño térmico es la regla logit; balance detallado, con la demostración | 2.3 |
+| 46–90 | Parejas | Laboratorio: logit y Boltzmann, Ising y el algoritmo de Metropolis; la transición con el deslizador; ejercicio de código 1 | Cuaderno, secciones 2 a 4 y ejercicio 1 |
+| 90–105 | Pizarra | Cierre: puesta en común de las preguntas 3 a 5; la lectura económica de la dinámica logit | Cuaderno, preguntas 3–5; notas, 2.3 |
+| 105–120 | Margen | Si alcanza, en este orden: la solución exacta de la red cuadrada (2.2, enunciado) frente a la transición del laboratorio; el ejercicio de código 2 | |
+| Después | Lectura | Lo que no entró del margen; la fórmula *log-sum* (1.2), el resumen (3) y los ejercicios F4 a F6 | |
+
+Lo del **margen** se ve sólo si sobra tiempo, en el orden indicado; lo
+que no se vea pasa a la lectura y se evalúa igual.
 
 **Pregunta de la sesión.** Dos poblaciones con los mismos incentivos, ¿por
 qué terminan eligiendo distinto?
 
 ---
 
-## 1. El modelo logit
+## 1. El modelo logit ★
 
-### 1.1 Utilidad aleatoria
+### 1.1 Utilidad aleatoria ★
 
 Un agente elige una opción de un conjunto finito. La opción $i$ le da
 utilidad $U_i = u_i + \varepsilon_i$, donde $u_i$ es la parte que observa el
@@ -91,7 +100,7 @@ $$
 $\mathbb P(A) = \sigma\left(\beta(u_A - u_B)\right)$, con
 $\sigma(x) = 1/(1 + e^{-x})$ ([C.B4](repaso/calculo.md#cb4)).
 
-### 1.2 Logit = Boltzmann
+### 1.2 Logit = Boltzmann ★
 
 La distribución de Boltzmann a temperatura $T = 1/\beta$
 ([F.I1](repaso/fisica_estadistica.md#fi1)) asigna al estado $i$, de energía
@@ -115,7 +124,7 @@ libre con el signo cambiado, que veremos en la sesión 14.
 
 ## 2. El modelo de Ising
 
-### 2.1 Definición
+### 2.1 Definición ★
 
 $N$ agentes en los nodos de una red eligen $s_i \in \lbrace -1, +1\rbrace$. La
 energía de una configuración $s$ es
@@ -152,7 +161,7 @@ y $m = 0$ para $T \ge T_c$. Cerca de $T_c$, $m \sim (T_c - T)^{1/8}$; en la
 sesión 14 compararemos esta transición exacta con la aproximación de campo
 medio.
 
-### 2.3 Dinámicas: Metropolis y baño térmico
+### 2.3 Dinámicas: Metropolis y baño térmico ★
 
 Ambas son cadenas de Markov que cambian un agente a la vez
 ([F.I5](repaso/fisica_estadistica.md#fi5)). Sea

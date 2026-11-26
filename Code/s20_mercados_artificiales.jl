@@ -315,7 +315,7 @@ end
 
 # ╔═╡ 720459e2-ca99-11f1-b4d4-7dcd4aeface8
 md"""
-**2.** Escribe `paso_precio_bh(x_ant, n2, g, R)`, que calcule la nueva
+**2.** *Si alcanza (margen de la clase).* Escribe `paso_precio_bh(x_ant, n2, g, R)`, que calcule la nueva
 desviación del precio ``x_t`` en el modelo de Brock-Hommes con fundamentalistas
 (``f_{1,t} = 0``) y seguidores de tendencia (``f_{2,t} = g\,x_{t-1}``) a partir
 de la ecuación de vaciado de mercado ``R\,x_t = n_2\,g\,x_{t-1}``.

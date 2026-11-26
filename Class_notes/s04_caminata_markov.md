@@ -12,6 +12,9 @@
 > profundizar**, y no se ven en clase; donde estaban queda una línea que los
 > enlaza.
 >
+> Las secciones marcadas con ★ son el **núcleo** que se ve en clase; las
+> demás se leen por cuenta propia y se evalúan igual.
+>
 > Repaso recomendado: [E.B2–B3](repaso/procesos_estocasticos.md#eb2)
 > (caminata aleatoria y promediar simulaciones),
 > [P.B2](repaso/probabilidad.md#pb2) (varianza de una suma),
@@ -26,25 +29,31 @@
 > Lecturas: Slanina (2014), sec. 2.1. Complementaria: Requião da Cunha
 > (2021), sec. 3.1.
 
-**Plan de clase** (120 minutos)
+**Plan de clase** (120 minutos: 105 de núcleo y 15 de margen). El núcleo:
+la caminata aleatoria y la difusión, las cadenas de Markov de dos estados y
+por qué una corrida no basta.
 
 | Minutos | Dónde | Qué | Secciones |
 |---|---|---|---|
-| 0–10 | Proyector | El fenómeno: ¿qué proceso genera estas series? | Cuaderno, sección 0 |
-| 10–22 | Pizarra | Repaso: la varianza de una suma; la caminata aleatoria, su media y su varianza, con la demostración; la difusión: la dispersión crece como $\sqrt{n}$ | 1 |
-| 22–40 | Pizarra | Cadenas de Markov: matriz de transición y $\pi = \pi P$; dos estados: $\pi$, con la demostración, la convergencia como $\lambda^t$ (enunciado; es el ejercicio 7 del cuaderno) y la duración media $1/q$ | 2.1–2.2 |
-| 40–45 | Pizarra | Dos regímenes de volatilidad: el modelo y la proposición, sin la demostración; qué reproduce y qué no | 2.3 |
-| 45–50 | Pizarra | Una corrida no basta: la varianza inflada y el tamaño efectivo de muestra, sin la demostración | 3 |
-| 50–100 | Parejas | Laboratorio: caminatas contra $\sqrt{t}$, el mercado de dos estados y promediar corridas; ejercicios de código 1 y 2 | Cuaderno, secciones 2 a 4 y ejercicios 1–2 |
-| 100–120 | Pizarra | Cierre: puesta en común de las preguntas 3 a 6 y la tabla del resumen | Cuaderno, preguntas 3–6; notas, 5 |
-| Después | Lectura | Las demostraciones de 2.3 y 3, y Para profundizar | |
+| 0–8 | Proyector | El fenómeno: ¿qué proceso genera estas series? | Cuaderno, sección 0 |
+| 8–20 | Pizarra | Repaso: la varianza de una suma; la caminata aleatoria, su media y su varianza, con la demostración; la difusión: la dispersión crece como $\sqrt{n}$ | 1 |
+| 20–36 | Pizarra | Cadenas de Markov: matriz de transición y $\pi = \pi P$; dos estados: $\pi$, con la demostración, la convergencia como $\lambda^t$ (enunciado; es el ejercicio 7 del cuaderno) y la duración media $1/q$ | 2.1–2.2 |
+| 36–41 | Pizarra | Dos regímenes de volatilidad: el modelo y la proposición, sin la demostración; qué reproduce y qué no | 2.3 |
+| 41–46 | Pizarra | Una corrida no basta: la varianza inflada y el tamaño efectivo de muestra, sin la demostración | 3 |
+| 46–90 | Parejas | Laboratorio: caminatas contra $\sqrt{t}$, el mercado de dos estados y promediar corridas; ejercicio de código 1 | Cuaderno, secciones 2 a 4 y ejercicio 1 |
+| 90–105 | Pizarra | Cierre: puesta en común de las preguntas 3 a 5 y la tabla del resumen | Cuaderno, preguntas 3–5; notas, 5 |
+| 105–120 | Margen | Si alcanza, en este orden: la pregunta 6 (lo que el modelo de dos regímenes no reproduce); el ejercicio de código 2 | |
+| Después | Lectura | Lo que no entró del margen; las demostraciones de 2.3 y 3, y Para profundizar | |
+
+Lo del **margen** se ve sólo si sobra tiempo, en el orden indicado; lo
+que no se vea pasa a la lectura y se evalúa igual.
 
 **Pregunta de la sesión.** Un mercado que alterna entre calma y crisis: ¿qué
 proceso aleatorio genera series así?
 
 ---
 
-## 1. La caminata aleatoria
+## 1. La caminata aleatoria ★
 
 **Definición.** Sean $\xi_1, \xi_2, \dots$ i.i.d. con $\mathbb{P}(\xi = 1) = p$ y
 $\mathbb{P}(\xi = -1) = 1 - p$. La **caminata aleatoria** es
@@ -71,9 +80,9 @@ $\sigma\sqrt{\Delta t}$ de la sesión 1.
 
 ---
 
-## 2. Cadenas de Markov
+## 2. Cadenas de Markov ★
 
-### 2.1 Definición y distribución estacionaria
+### 2.1 Definición y distribución estacionaria ★
 
 **Definición.** Un proceso $\lbrace X_t\rbrace$ con estados $\lbrace 1, \dots, K\rbrace$ es una
 **cadena de Markov** si
@@ -87,7 +96,7 @@ izquierdo de $P$ con eigenvalor 1 ([L.I1](repaso/algebra_lineal.md#li1)). Si
 la cadena es irreducible y aperiódica, es única y $\pi_t \to \pi$ desde
 cualquier $\pi_0$ ([L.A5](repaso/algebra_lineal.md#la5)).
 
-### 2.2 El caso de dos estados
+### 2.2 El caso de dos estados ★
 
 Con estados calma (C) y turbulencia (T),
 
@@ -117,7 +126,7 @@ $$
 \pi_t - \pi = (1 - p - q)^t(\pi_0 - \pi)\ }
 $$
 
-### 2.3 Un mercado con dos regímenes de volatilidad
+### 2.3 Un mercado con dos regímenes de volatilidad ★
 
 Sea $r_t = \sigma_{X_t}\varepsilon_t$, con $\varepsilon_t$ i.i.d.
 $\mathcal{N}(0, 1)$ independientes de la cadena, y volatilidades
@@ -148,7 +157,7 @@ mientras que en los datos decae como una ley de potencias.
 
 ---
 
-## 3. Promediar simulaciones: el error de una corrida
+## 3. Promediar simulaciones: el error de una corrida ★
 
 Sea $I_t$ el indicador de turbulencia y $\bar I_n = \frac1n\sum_{t=1}^n I_t$ la
 fracción de días turbulentos medida en una corrida de $n$ días, empezando en

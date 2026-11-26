@@ -12,6 +12,9 @@
 > profundizar**, y no se ven en clase; donde estaban queda una línea que los
 > enlaza.
 >
+> Las secciones marcadas con ★ son el **núcleo** que se ve en clase; las
+> demás se leen por cuenta propia y se evalúan igual.
+>
 > Repaso recomendado: [E.B2](repaso/procesos_estocasticos.md#eb2) (caminata
 > aleatoria), [E.B3](repaso/procesos_estocasticos.md#eb3) (promedios),
 > [L.B4](repaso/algebra_lineal.md#lb4) (matriz de adyacencia y grado),
@@ -31,17 +34,23 @@
 > caps. 2–3. Ruta avanzada: Slanina (2014), cap. 3; Castellano, Fortunato &
 > Loreto (2009); Kirman (1993); Sood & Redner (2005).
 
-**Plan de clase** (120 minutos)
+**Plan de clase** (120 minutos: 105 de núcleo y 15 de margen). El núcleo:
+el modelo de votante, su martingala y el efecto de la red, y el modelo de
+Kirman con sus tres regímenes.
 
 | Minutos | Dónde | Qué | Secciones |
 |---|---|---|---|
-| 0–10 | Proyector | El fenómeno: dos restaurantes idénticos; uno se llena y el otro no | Cuaderno, sección 0 |
-| 10–25 | Pizarra | Repaso: estados absorbentes frente a ruido; el modelo de votante y sus consensos absorbentes; en la red completa, $p_k = q_k$ y la martingala; la probabilidad de victoria $x_0$, con el argumento de la martingala (la recurrencia es el ejercicio 6 del cuaderno) | 1.1–1.2 |
-| 25–35 | Pizarra | En una red cualquiera: la martingala ponderada por el grado (enunciado; es el ejercicio 8) y la tabla del tiempo al consenso según la topología | 1.4 |
-| 35–48 | Pizarra | El modelo de Kirman: cambio autónomo e imitación, las tasas de transición; la estacionaria $\propto [x(1-x)]^{a-1}$ (enunciado) y los tres regímenes según $a$ | 2.1, 2.4 |
-| 48–100 | Parejas | Laboratorio: el votante en la red completa y en redes, y Kirman con el deslizador; ejercicios de código 1 y 2 | Cuaderno, secciones 2 y 3 y ejercicios 1–2 |
-| 100–120 | Pizarra | Cierre: puesta en común de las preguntas 3 a 5; Kirman frente a Ising: la bimodalidad inducida por el ruido | Cuaderno, preguntas 3–5; notas, 2.4 |
-| Después | Lectura | La comparación completa con Ising (2.4), el resumen (3) y Para profundizar | |
+| 0–8 | Proyector | El fenómeno: dos restaurantes idénticos; uno se llena y el otro no | Cuaderno, sección 0 |
+| 8–22 | Pizarra | Repaso: estados absorbentes frente a ruido; el modelo de votante y sus consensos absorbentes; en la red completa, $p_k = q_k$ y la martingala; la probabilidad de victoria $x_0$, con el argumento de la martingala (la recurrencia es el ejercicio 6 del cuaderno) | 1.1–1.2 |
+| 22–30 | Pizarra | En una red cualquiera: la martingala ponderada por el grado (enunciado; es el ejercicio 8) y la tabla del tiempo al consenso según la topología | 1.4 |
+| 30–42 | Pizarra | El modelo de Kirman: cambio autónomo e imitación, las tasas de transición; la estacionaria $\propto [x(1-x)]^{a-1}$ (enunciado) y los tres regímenes según $a$ | 2.1, 2.4 |
+| 42–90 | Parejas | Laboratorio: el votante en la red completa y en redes, y Kirman con el deslizador; ejercicio de código 1 | Cuaderno, secciones 2 y 3 y ejercicio 1 |
+| 90–105 | Pizarra | Cierre: puesta en común de las preguntas 3 a 5; Kirman frente a Ising: la bimodalidad inducida por el ruido | Cuaderno, preguntas 3–5; notas, 2.4 |
+| 105–120 | Margen | Si alcanza: el ejercicio de código 2 (la tasa de Kirman) y su comparación con la simulación | |
+| Después | Lectura | Lo que no entró del margen; la comparación completa con Ising (2.4), el resumen (3) y Para profundizar | |
+
+Lo del **margen** se ve sólo si sobra tiempo, en el orden indicado; lo
+que no se vea pasa a la lectura y se evalúa igual.
 
 **Pregunta de la sesión.** Dos restaurantes idénticos: ¿por qué uno se llena y
 el otro no?
@@ -50,7 +59,7 @@ el otro no?
 
 ## 1. El modelo de votante
 
-### 1.1 Definición y cadena de Markov en la red completa
+### 1.1 Definición y cadena de Markov en la red completa ★
 
 $N$ agentes ocupan los nodos de un grafo conexo $G = (V, E)$. Cada agente
 $i \in V$ tiene una opinión binaria $s_i \in \lbrace 0, 1\rbrace$. En cada paso
@@ -82,7 +91,7 @@ $$
 
 y $\mathbb P(k \to k) = 1 - 2p_k$.
 
-### 1.2 Martingala y probabilidad de victoria
+### 1.2 Martingala y probabilidad de victoria ★
 
 Como $p_k = q_k$ para todo $k$, el cambio esperado en un paso es nulo:
 
@@ -123,7 +132,7 @@ $\mathbb E[x_T] = 1\cdot v_{k_0} + 0\cdot(1 - v_{k_0}) = x_0$. $\square$
 El desarrollo de esta subsección está en [Para profundizar, P.1](#pp1).
 
 
-### 1.4 Efecto de la topología de la red y leyes de escala
+### 1.4 Efecto de la topología de la red y leyes de escala ★
 
 En un grafo arbitrario con matriz de adyacencia $A_{ij}$ y grados
 $k_i = \sum_j A_{ij}$ ([L.B4](repaso/algebra_lineal.md#lb4)), condicionando en el estado
@@ -175,7 +184,7 @@ de grados cambian el escalamiento del tiempo medio al consenso $\langle\tau\rang
 
 ## 2. El modelo de hormigas de Kirman
 
-### 2.1 Tasas de transición: cambio autónomo e imitación
+### 2.1 Tasas de transición: cambio autónomo e imitación ★
 
 Kirman (1993) propuso un modelo estocástico inspirado en experimentos con
 hormigas que eligen entre dos fuentes de alimento idénticas, el mismo
@@ -217,7 +226,7 @@ El desarrollo de esta subsección está en [Para profundizar, P.2](#pp2).
 El desarrollo de esta subsección está en [Para profundizar, P.3](#pp3).
 
 
-### 2.4 Transición entre unimodalidad y bimodalidad: Kirman frente a Ising
+### 2.4 Transición entre unimodalidad y bimodalidad: Kirman frente a Ising ★
 
 La forma de $p_{\text{est}}(x) \propto [x(1-x)]^{a-1}$ cambia cualitativamente
 en $a = 1$ ([F.B4](repaso/fisica_estadistica.md#fb4)):

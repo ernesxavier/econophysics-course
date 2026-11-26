@@ -236,7 +236,7 @@ se estima con menos días.
 md"""
 ## 4. Sectores en los eigenvectores
 
-Los demás eigenvectores significativos son ortogonales a ``v_1``: describen
+*Si alcanza (margen de la clase).* Los demás eigenvectores significativos son ortogonales a ``v_1``: describen
 cómo se mueven unas acciones **respecto a otras**, una vez descontado el
 mercado. Mueve ``k`` para ver los eigenvectores que salieron del ruido. El
 signo de cada eigenvector es arbitrario: lo que importa es qué acciones
@@ -350,7 +350,7 @@ end
 
 # ╔═╡ 9080950c-ca96-11f1-9af7-c30d92682a08
 md"""
-**2.** Escribe `distancia(ρ)`, que convierta una correlación en la distancia
+**2.** *Si alcanza (margen de la clase).* Escribe `distancia(ρ)`, que convierta una correlación en la distancia
 de la sección 5.
 """
 

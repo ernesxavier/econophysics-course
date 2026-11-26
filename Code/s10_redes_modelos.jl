@@ -304,7 +304,7 @@ end
 
 # ╔═╡ d737dc50-ca92-11f1-8eab-55e3191f9c86
 md"""
-**2.** Escribe `agrupamiento(A, i)`, el coeficiente de agrupamiento del nodo
+**2.** *Si alcanza (margen de la clase).* Escribe `agrupamiento(A, i)`, el coeficiente de agrupamiento del nodo
 ``i``. Pista: ``(A^3)_{ii}`` es el doble del número de enlaces entre los
 vecinos de ``i``. Si el grado es menor que 2, devuelve `0.0`.
 """

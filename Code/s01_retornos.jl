@@ -285,7 +285,7 @@ end
 
 # ╔═╡ 5c27064e-ca92-11f1-be9c-076a076f3a17
 md"""
-**2.** Escribe la función `curtosis_exceso(x)` usando la fórmula de la sección 1.
+**2.** *Si alcanza (margen de la clase).* Escribe la función `curtosis_exceso(x)` usando la fórmula de la sección 1.
 """
 
 # ╔═╡ 5c270658-ca92-11f1-9a43-fba29ab635f1

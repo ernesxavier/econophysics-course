@@ -285,7 +285,7 @@ end
 
 # ╔═╡ e17a2248-ca9b-11f1-9706-71d981da5b8b
 md"""
-**2.** Escribe `cambio_energia(s, suma_vecinos, J, h)`, el cambio de energía
+**2.** *Si alcanza (margen de la clase).* Escribe `cambio_energia(s, suma_vecinos, J, h)`, el cambio de energía
 ``\Delta E`` si el agente con elección `s` cambia de opción, cuando la suma de
 las elecciones de sus vecinos es `suma_vecinos`.
 """

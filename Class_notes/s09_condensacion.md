@@ -12,6 +12,9 @@
 > profundizar**, y no se ven en clase; donde estaban queda una línea que los
 > enlaza.
 >
+> Las secciones marcadas con ★ son el **núcleo** que se ve en clase; las
+> demás se leen por cuenta propia y se evalúan igual.
+>
 > Repaso recomendado: [E.B3](repaso/procesos_estocasticos.md#eb3)
 > (promediar simulaciones), [F.B4](repaso/fisica_estadistica.md#fb4)
 > (transiciones de fase), [E.I6](repaso/procesos_estocasticos.md#ei6)
@@ -23,27 +26,33 @@
 > Lecturas: Chakrabarti et al. (2013), sec. 4.5. Ruta avanzada: Bouchaud &
 > Mézard (2000); Ribeiro (2020), de consulta.
 
-**Plan de clase** (120 minutos)
+**Plan de clase** (120 minutos: 105 de núcleo y 15 de margen). El núcleo:
+el modelo de Bouchaud y Mézard, su distribución estacionaria, la
+condensación y el efecto de un impuesto redistribuido.
 
 | Minutos | Dónde | Qué | Secciones |
 |---|---|---|---|
-| 0–10 | Proyector | El problema: inversión sin intercambio | Cuaderno, sección 0 |
-| 10–22 | Pizarra | El modelo de Bouchaud y Mézard: inversión más intercambio; la riqueza relativa; sin intercambio, Gibrat: un agente acaba con casi todo | 1.1–1.2 |
-| 22–32 | Pizarra | La distribución estacionaria: la gamma inversa con $\mu = 1 + 2J/\sigma^2$ (enunciado) y su lectura; la tabla del Gini | 2.1, 2.3 |
-| 32–42 | Pizarra | La razón de participación $Y_2$ como parámetro de orden; condensación y exponente de la cola: por qué en campo medio no hay condensación | 3.1–3.2 |
-| 42–50 | Pizarra | En una red sí hay transición; el impuesto redistribuido equivale a más intercambio, con la demostración | 3.3, 4.1 |
-| 50–100 | Parejas | Laboratorio: el modelo, la transición de condensación y el efecto de un impuesto; ejercicios de código 1 y 2 | Cuaderno, secciones 1 a 4 y ejercicios 1–2 |
-| 100–120 | Pizarra | Cierre: puesta en común de las preguntas 3 a 5 y la tabla del impuesto en la red | Cuaderno, preguntas 3–5; notas, 4.1 |
-| Después | Lectura | Las convenciones de Itô y Stratonovich (1.1), los resultados en la red (3.3), el resumen (5) y Para profundizar | |
+| 0–8 | Proyector | El problema: inversión sin intercambio | Cuaderno, sección 0 |
+| 8–19 | Pizarra | El modelo de Bouchaud y Mézard: inversión más intercambio; la riqueza relativa; sin intercambio, Gibrat: un agente acaba con casi todo | 1.1–1.2 |
+| 19–28 | Pizarra | La distribución estacionaria: la gamma inversa con $\mu = 1 + 2J/\sigma^2$ (enunciado) y su lectura; la tabla del Gini | 2.1, 2.3 |
+| 28–37 | Pizarra | La razón de participación $Y_2$ como parámetro de orden; condensación y exponente de la cola: por qué en campo medio no hay condensación | 3.1–3.2 |
+| 37–45 | Pizarra | En una red sí hay transición; el impuesto redistribuido equivale a más intercambio, con la demostración | 3.3, 4.1 |
+| 45–90 | Parejas | Laboratorio: el modelo, la transición de condensación y el efecto de un impuesto; ejercicio de código 1 | Cuaderno, secciones 1 a 4 y ejercicio 1 |
+| 90–105 | Pizarra | Cierre: puesta en común de las preguntas 3 a 5 y la tabla del impuesto en la red | Cuaderno, preguntas 3–5; notas, 4.1 |
+| 105–120 | Margen | Si alcanza: el ejercicio de código 2 (el exponente de Pareto) y su comparación con la cola de la simulación | |
+| Después | Lectura | Lo que no entró del margen; las convenciones de Itô y Stratonovich (1.1), los resultados en la red (3.3), el resumen (5) y Para profundizar | |
+
+Lo del **margen** se ve sólo si sobra tiempo, en el orden indicado; lo
+que no se vea pasa a la lectura y se evalúa igual.
 
 **Pregunta de la sesión.** Con las mismas oportunidades para todos, ¿por qué
 unos pocos acumulan casi toda la riqueza, y qué lo evita?
 
 ---
 
-## 1. El modelo de Bouchaud y Mézard
+## 1. El modelo de Bouchaud y Mézard ★
 
-### 1.1 Definición
+### 1.1 Definición ★
 
 **Modelo.** $N$ agentes con riquezas $W_1, \dots, W_N > 0$ evolucionan según
 
@@ -80,7 +89,7 @@ $\sigma_{BM}^2$ por $\sigma^2/2$.
 multiplican por el mismo factor. Las propiedades de largo plazo sólo
 dependen del cociente $J/\sigma^2$; en el cuaderno, $\sigma = 1$.
 
-### 1.2 Sin intercambio: Gibrat
+### 1.2 Sin intercambio: Gibrat ★
 
 Con $J = 0$, cada $W_i$ es un movimiento browniano geométrico:
 $\ln W_i(t) = \ln W_i(0) - \sigma^2 t/2 + \sigma B_i(t)$
@@ -98,7 +107,7 @@ tiene casi el 100% hacia $t = 100$.
 
 ## 2. La distribución estacionaria
 
-### 2.1 Solución de Fokker-Planck
+### 2.1 Solución de Fokker-Planck ★
 
 **Proposición.** Para $J > 0$, la densidad estacionaria de la riqueza
 relativa es la **gamma inversa**
@@ -126,7 +135,7 @@ exponente $\mu$.
 El desarrollo de esta subsección está en [Para profundizar, P.2](#pp2).
 
 
-### 2.3 El índice de Gini
+### 2.3 El índice de Gini ★
 
 **Proposición.** El Gini de la gamma inversa con exponente $\mu > 1$ es igual
 al de una gamma con forma $\mu - 1$ (sesión 8):
@@ -143,9 +152,9 @@ $$
 
 ---
 
-## 3. Condensación
+## 3. Condensación ★
 
-### 3.1 El parámetro de orden
+### 3.1 El parámetro de orden ★
 
 **Definición.** La **razón de participación inversa** es
 
@@ -162,7 +171,7 @@ finita de la riqueza total, por grande que sea la población.
 $\mathbb{E}[Y_2]$ es el **parámetro de orden**
 ([F.B4](repaso/fisica_estadistica.md#fb4)).
 
-### 3.2 Condensación y exponente de la cola
+### 3.2 Condensación y exponente de la cola ★
 
 Supongamos que las riquezas son independientes con cola de Pareto de
 exponente $\mu$. El mayor de $N$ valores es del orden de $N^{1/\mu}$
@@ -183,7 +192,7 @@ condensación**. Pero con $J$ pequeño, $Y_2$ baja muy lentamente con $N$,
 como se ve en el cuaderno (con $J = 0.05$, de 0.10 a 0.06 al pasar de 1,000
 a 20,000 agentes).
 
-### 3.3 Condensación en una red
+### 3.3 Condensación en una red ★
 
 Si cada agente sólo intercambia con sus $c_i$ socios en una red,
 
@@ -213,7 +222,7 @@ ven suavizadas, y ubicarlas con precisión exige tamaños cada vez mayores.
 
 ## 4. Impuestos y redistribución
 
-### 4.1 Impuesto a la riqueza redistribuido
+### 4.1 Impuesto a la riqueza redistribuido ★
 
 Un impuesto con tasa $\varphi$ sobre la riqueza, repartido por igual entre
 todos, agrega a $dW_i$ el término $\varphi(\bar W - W_i)\thinspace dt$.

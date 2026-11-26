@@ -324,7 +324,7 @@ end
 
 # ╔═╡ 6a015d5e-ca82-11f1-9292-47ce3dd078f0
 md"""
-**2.** Escribe `umbral_fallas(k)`, que reciba el vector de grados `k` de una
+**2.** *Si alcanza (margen de la clase).* Escribe `umbral_fallas(k)`, que reciba el vector de grados `k` de una
 red y devuelva el umbral teórico de fallas aleatorias
 ``f_c = 1 - \frac{1}{\kappa - 1}``, donde ``\kappa = \frac{\langle k^2\rangle}{\langle k\rangle}``.
 """

@@ -413,7 +413,7 @@ end
 
 # ╔═╡ eaac563a-ca92-11f1-9422-8157d6cbf46f
 md"""
-**2.** Escribe `matriz_impacto(A, E)`, que devuelva ``\Lambda_{ij} = A_{ij}/E_i``:
+**2.** *Si alcanza (margen de la clase).* Escribe `matriz_impacto(A, E)`, que devuelva ``\Lambda_{ij} = A_{ij}/E_i``:
 cada fila de ``A`` dividida entre el capital del banco de esa fila.
 """
 

@@ -209,7 +209,7 @@ usaremos en la sesión 20 para evaluar mercados artificiales.
 md"""
 ## 6. Universalidad
 
-Hasta ahora miramos un activo a la vez. La tabla resume los mismos indicadores
+*Si alcanza (margen de la clase).* Hasta ahora miramos un activo a la vez. La tabla resume los mismos indicadores
 para los cuatro.
 """
 
@@ -265,7 +265,7 @@ end
 
 # ╔═╡ 44d4a486-ca99-11f1-bbc4-4df98d1a6013
 md"""
-**2.** Escribe `prob_racha_mia(z, k)`: entre los días con ``|z_t| > k`` (que tengan
+**2.** *Si alcanza (margen de la clase).* Escribe `prob_racha_mia(z, k)`: entre los días con ``|z_t| > k`` (que tengan
 un día siguiente), la fracción en que también ``|z_{t+1}| > k``. Es el número
 de la sección 0.
 """

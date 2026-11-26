@@ -278,7 +278,7 @@ end
 
 # ╔═╡ 90df8288-ca92-11f1-b9d6-2fbf306babaf
 md"""
-**2.** Escribe `garch_varianza(r, ω, a, b)`, que reciba una serie de retornos
+**2.** *Si alcanza (margen de la clase).* Escribe `garch_varianza(r, ω, a, b)`, que reciba una serie de retornos
 y devuelva el vector de varianzas condicionales ``\sigma_1^2, \dots, \sigma_n^2``
 del GARCH(1,1). Empieza con la varianza de largo plazo,
 ``\sigma_1^2 = \omega/(1 - a - b)``.

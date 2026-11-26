@@ -11,6 +11,9 @@
 > la ruta avanzada, opcionales, están al final, en **Para profundizar**, y no
 > se ven en clase; donde estaban queda una línea que los enlaza.
 >
+> Las secciones marcadas con ★ son el **núcleo** que se ve en clase; las
+> demás se leen por cuenta propia y se evalúan igual.
+>
 > Repaso recomendado: [C.B3](repaso/calculo.md#cb3) (la derivada como tasa de
 > cambio), [C.I4](repaso/calculo.md#ci4) (ecuaciones diferenciales),
 > [E.I1](repaso/procesos_estocasticos.md#ei1) (autocorrelación),
@@ -24,27 +27,33 @@
 > (2014), sec. 2.2. Ruta avanzada: Mantegna & Stanley (1999), cap. 10;
 > Requião da Cunha (2021), secs. 3.3 y 4.3; Gardiner (consulta).
 
-**Plan de clase** (120 minutos)
+**Plan de clase** (120 minutos: 105 de núcleo y 15 de margen). El núcleo:
+la ecuación de Langevin y Euler-Maruyama, Ornstein-Uhlenbeck, el browniano
+geométrico y GARCH(1,1).
 
 | Minutos | Dónde | Qué | Secciones |
 |---|---|---|---|
-| 0–10 | Proyector | El fenómeno: un precio que no puede ser negativo y una volatilidad con memoria | Cuaderno, sección 0 |
-| 10–22 | Pizarra | Repaso: la derivada como regla de actualización; la ecuación de Langevin como tendencia + ruido; Euler-Maruyama y por qué el ruido escala con $\sqrt{\Delta t}$ | 1.1–1.2 |
-| 22–30 | Pizarra | Ornstein-Uhlenbeck: media, varianza y distribución estacionaria (enunciado); la relación con AR(1) | 2 |
-| 30–37 | Pizarra | El browniano geométrico: la solución, sin el lema de Itô; media contra mediana; los hechos estilizados que no reproduce | 3 |
-| 37–50 | Pizarra | GARCH(1,1): la definición y la proposición, con la demostración de la varianza incondicional; la persistencia y la vida media; la curtosis (enunciado) | 4.1–4.2 |
-| 50–100 | Parejas | Laboratorio: Ornstein-Uhlenbeck, browniano geométrico y GARCH; ¿reproduce GARCH los hechos estilizados?; ejercicios de código 1 y 2 | Cuaderno, secciones 2 a 4 y ejercicios 1–2 |
-| 100–120 | Pizarra | Cierre: puesta en común de las preguntas 3 a 6; qué reproduce GARCH y qué no | Cuaderno, preguntas 3–6; notas, 4.4 |
-| Después | Lectura | La estimación (4.3), la pista para la sesión 6 (4.4), el resumen (6) y Para profundizar | |
+| 0–8 | Proyector | El fenómeno: un precio que no puede ser negativo y una volatilidad con memoria | Cuaderno, sección 0 |
+| 8–20 | Pizarra | Repaso: la derivada como regla de actualización; la ecuación de Langevin como tendencia + ruido; Euler-Maruyama y por qué el ruido escala con $\sqrt{\Delta t}$ | 1.1–1.2 |
+| 20–27 | Pizarra | Ornstein-Uhlenbeck: media, varianza y distribución estacionaria (enunciado); la relación con AR(1) | 2 |
+| 27–34 | Pizarra | El browniano geométrico: la solución, sin el lema de Itô; media contra mediana; los hechos estilizados que no reproduce | 3 |
+| 34–46 | Pizarra | GARCH(1,1): la definición y la proposición, con la demostración de la varianza incondicional; la persistencia y la vida media; la curtosis (enunciado) | 4.1–4.2 |
+| 46–90 | Parejas | Laboratorio: Ornstein-Uhlenbeck, browniano geométrico y GARCH; ¿reproduce GARCH los hechos estilizados?; ejercicio de código 1 | Cuaderno, secciones 2 a 4 y ejercicio 1 |
+| 90–105 | Pizarra | Cierre: puesta en común de las preguntas 3 a 5; qué reproduce GARCH y qué no | Cuaderno, preguntas 3–5; notas, 4.4 |
+| 105–120 | Margen | Si alcanza, en este orden: la pregunta 6 (Ornstein-Uhlenbeck con $\theta$ y $\sigma$ duplicados); el ejercicio de código 2 | |
+| Después | Lectura | Lo que no entró del margen; la estimación (4.3), el resumen (6) y Para profundizar | |
+
+Lo del **margen** se ve sólo si sobra tiempo, en el orden indicado; lo
+que no se vea pasa a la lectura y se evalúa igual.
 
 **Pregunta de la sesión.** ¿Qué proceso genera un precio que no puede ser
 negativo y una volatilidad con memoria?
 
 ---
 
-## 1. Ecuaciones diferenciales estocásticas
+## 1. Ecuaciones diferenciales estocásticas ★
 
-### 1.1 La ecuación de Langevin
+### 1.1 La ecuación de Langevin ★
 
 Una **ecuación diferencial estocástica** (EDE) es
 
@@ -58,7 +67,7 @@ segunda integral es la integral de Itô. Langevin (1908) la introdujo para una
 partícula browniana: la tendencia es la fricción y el ruido, los choques
 moleculares.
 
-### 1.2 El método de Euler-Maruyama
+### 1.2 El método de Euler-Maruyama ★
 
 Con paso $\Delta t$ y $Z_k$ i.i.d. $\mathcal{N}(0, 1)$,
 
@@ -72,7 +81,7 @@ $\sqrt{\Delta t}$.
 
 **[Avanzado]** Convergencia: en [Para profundizar, P.1](#pp1).
 
-## 2. Ornstein-Uhlenbeck
+## 2. Ornstein-Uhlenbeck ★
 
 **Definición.** $dX_t = -\theta X_t\thinspace dt + \sigma\thinspace dW_t$, con
 $\theta, \sigma > 0$ (Uhlenbeck & Ornstein, 1930).
@@ -96,7 +105,7 @@ y $\eta_t$ normal independiente: es un AR(1)
 ([E.I1](repaso/procesos_estocasticos.md#ei1)). El tiempo $1/\theta$ es la
 escala característica en la que el proceso olvida su estado.
 
-## 3. El movimiento browniano geométrico
+## 3. El movimiento browniano geométrico ★
 
 **Definición.** $dP_t = \mu P_t\thinspace dt + \sigma P_t\thinspace dW_t$.
 
@@ -122,7 +131,7 @@ ausencia de autocorrelación lineal.
 
 ## 4. GARCH(1,1)
 
-### 4.1 Definición y propiedades
+### 4.1 Definición y propiedades ★
 
 **Definición** (Bollerslev, 1986). Con $\varepsilon_t$ i.i.d.
 $\mathcal{N}(0, 1)$, $\omega > 0$ y $a, b \ge 0$,
@@ -154,7 +163,7 @@ $\mathbb{E}[\sigma_{t+h}^2 \mid \mathcal F_t] - \bar\sigma^2 = (a+b)^{h-1}(\sigm
 un choque de volatilidad decae geométricamente con razón $a + b$, y su
 **vida media** es $\ln(1/2)/\ln(a+b)$.
 
-### 4.2 Curtosis
+### 4.2 Curtosis ★
 
 **Proposición.** Si $(a+b)^2 + 2a^2 < 1$,
 
@@ -182,7 +191,7 @@ $$
 con $\sigma_t^2$ calculada con la recursión. El cuaderno la maximiza en una
 cuadrícula de valores de $(a, b)$ ([S.A1](repaso/estadistica.md#sa1)).
 
-### 4.4 Resultados del laboratorio
+### 4.4 Resultados del laboratorio ★
 
 GARCH(1,1) ajustado a cada activo y comparado con 20 series simuladas del
 modelo ajustado, del mismo largo que los datos:

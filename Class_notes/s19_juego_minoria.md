@@ -12,6 +12,9 @@
 > profundizar**, y no se ven en clase; donde estaban queda una línea que los
 > enlaza.
 >
+> Las secciones marcadas con ★ son el **núcleo** que se ve en clase; las
+> demás se leen por cuenta propia y se evalúan igual.
+>
 > Repaso recomendado: [P.B2](repaso/probabilidad.md#pb2) (media y varianza de
 > una suma de variables independientes),
 > [E.B3](repaso/procesos_estocasticos.md#eb3) (estacionariedad y promedios
@@ -29,28 +32,34 @@
 > Challet, Marsili & Zecchina (2000); de consulta: Challet, Marsili & Zhang
 > (2005).
 
-**Plan de clase** (120 minutos)
+**Plan de clase** (120 minutos: 105 de núcleo y 15 de margen). El núcleo:
+el problema de El Farol, las reglas del juego de la minoría, el referente
+aleatorio y la curva universal contra $\alpha$.
 
 | Minutos | Dónde | Qué | Secciones |
 |---|---|---|---|
-| 0–10 | Proyector | El fenómeno: el bar El Farol y la trampa de pensar igual | Cuaderno, sección 0 |
-| 10–18 | Pizarra | El problema de El Farol: por qué no puede haber una regla predictiva compartida; la racionalidad inductiva | 1.1 |
-| 18–33 | Pizarra | Las reglas del juego de la minoría: acción agregada y minoría ganadora; historias, $P = 2^M$; estrategias y puntajes virtuales | 1.2 |
-| 33–40 | Pizarra | El juego como modelo de mercado: exceso de demanda y por qué gana la minoría | 2.1 |
-| 40–50 | Pizarra | Repaso: la varianza de una suma; el número de ganadores y el referente aleatorio $\sigma^2/N = 1$, con la demostración | 2.2 |
-| 50–100 | Parejas | Laboratorio: del efecto manada a la coordinación espontánea, y la curva $\sigma^2/N$ contra $\alpha$ para varios $N$; ejercicios de código 1 y 2 | Cuaderno, secciones 2 y 3 y ejercicios 1–2 |
-| 100–112 | Pizarra | Lo que mostró el laboratorio: el colapso con $\alpha = 2^M/N$ y las tres fases | 3.1–3.2 |
-| 112–120 | Pizarra | Cierre: puesta en común de las preguntas 3 a 5 | Cuaderno, preguntas 3–5 |
-| Después | Lectura | El desorden congelado (1.2), el resumen (5) y Para profundizar | |
+| 0–8 | Proyector | El fenómeno: el bar El Farol y la trampa de pensar igual | Cuaderno, sección 0 |
+| 8–15 | Pizarra | El problema de El Farol: por qué no puede haber una regla predictiva compartida; la racionalidad inductiva | 1.1 |
+| 15–29 | Pizarra | Las reglas del juego de la minoría: acción agregada y minoría ganadora; historias, $P = 2^M$; estrategias y puntajes virtuales | 1.2 |
+| 29–35 | Pizarra | El juego como modelo de mercado: exceso de demanda y por qué gana la minoría | 2.1 |
+| 35–44 | Pizarra | Repaso: la varianza de una suma; el número de ganadores y el referente aleatorio $\sigma^2/N = 1$, con la demostración | 2.2 |
+| 44–88 | Parejas | Laboratorio: del efecto manada a la coordinación espontánea, y la curva $\sigma^2/N$ contra $\alpha$ para varios $N$; ejercicio de código 1 | Cuaderno, secciones 2 y 3 y ejercicio 1 |
+| 88–98 | Pizarra | Lo que mostró el laboratorio: el colapso con $\alpha = 2^M/N$ y las tres fases | 3.1–3.2 |
+| 98–105 | Pizarra | Cierre: puesta en común de las preguntas 3 y 4 | Cuaderno, preguntas 3–4 |
+| 105–120 | Margen | Si alcanza, en este orden: la pregunta 5 (por qué promediar sobre sorteos de estrategias); el ejercicio de código 2 | |
+| Después | Lectura | Lo que no entró del margen; el desorden congelado (1.2), el resumen (5) y Para profundizar | |
+
+Lo del **margen** se ve sólo si sobra tiempo, en el orden indicado; lo
+que no se vea pasa a la lectura y se evalúa igual.
 
 **Pregunta de la sesión.** Si conviene estar en la minoría, ¿pueden muchos
 agentes que aprenden coordinarse mejor que el azar?
 
 ---
 
-## 1. Del problema del bar El Farol al juego de la minoría
+## 1. Del problema del bar El Farol al juego de la minoría ★
 
-### 1.1 El problema del bar El Farol y el razonamiento inductivo
+### 1.1 El problema del bar El Farol y el razonamiento inductivo ★
 
 En los juegos de coordinación y en el modelo de Ising (sesiones 13, 14 y 17), a
 cada agente le convenía hacer lo mismo que la mayoría. Sin embargo, en muchos
@@ -88,7 +97,7 @@ Marsili & Ottino (2004) mostraron que con reglas de este tipo (tablas sobre las
 asistencia media converge al cupo, que es lo que muestra la sección 0 del
 cuaderno.
 
-### 1.2 Formulación del juego de la minoría
+### 1.2 Formulación del juego de la minoría ★
 
 Challet & Zhang (1997) destilaron el problema de El Farol en un modelo
 binario simétrico que puede analizarse con las herramientas de la mecánica
@@ -180,9 +189,9 @@ $S$ estrategias (con $U_{i,s}(0) = 0$). En el paso $t$:
 
 ---
 
-## 2. El juego de la minoría como modelo de mercado
+## 2. El juego de la minoría como modelo de mercado ★
 
-### 2.1 Exceso de demanda, impacto en el precio y ganancia de la minoría
+### 2.1 Exceso de demanda, impacto en el precio y ganancia de la minoría ★
 
 En un mercado financiero estilizado, en cada periodo $t$ el agente $i$ envía
 una orden de mercado de tamaño unitario:
@@ -210,7 +219,7 @@ vender a un precio elevado. De manera simétrica, cuando casi todos venden
 ($A(t) < 0$), el precio se desploma y la minoría compradora adquiere el activo
 con descuento.
 
-### 2.2 Eficiencia colectiva, volatilidad y el referente aleatorio
+### 2.2 Eficiencia colectiva, volatilidad y el referente aleatorio ★
 
 Si en el paso $t$ exactamente $k$ agentes eligen $+1$ y $N - k$ eligen $-1$,
 entonces $A(t) = 2k - N$ y el número de agentes en el grupo minoritario (los
@@ -262,9 +271,9 @@ El valor $\sigma^2/N = 1$ divide el comportamiento colectivo en dos regímenes:
 
 ---
 
-## 3. Escalamiento con $\alpha = 2^M/N$ y las dos fases del modelo
+## 3. Escalamiento con $\alpha = 2^M/N$ y las dos fases del modelo ★
 
-### 3.1 El parámetro de control $\alpha = P/N = 2^M/N$
+### 3.1 El parámetro de control $\alpha = P/N = 2^M/N$ ★
 
 Savit, Manuca & Riolo (1999) descubrieron que al simular el juego de la minoría
 para distintos tamaños de población $N$ y distintas memorias $M$, las curvas de
@@ -281,7 +290,7 @@ mide el cociente entre la **complejidad de la información disponible** ($P = 2^
 historias distinguibles) y el **número de agentes** $N$ que compiten usando esa
 información.
 
-### 3.2 Fase hacinada, punto óptimo y fase diluida
+### 3.2 Fase hacinada, punto óptimo y fase diluida ★
 
 Para un número fijo de estrategias por agente ($S = 2$), la curva universal de
 $\sigma^2/N$ contra $\alpha$ presenta un mínimo pronunciado en un valor crítico

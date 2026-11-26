@@ -12,6 +12,9 @@
 > profundizar**, y no se ven en clase; donde estaban queda una línea que los
 > enlaza.
 >
+> Las secciones marcadas con ★ son el **núcleo** que se ve en clase; las
+> demás se leen por cuenta propia y se evalúan igual.
+>
 > Repaso recomendado: [P.B2](repaso/probabilidad.md#pb2) (covarianza y
 > correlación), [L.B1–B3](repaso/algebra_lineal.md#lb1) (vectores y matrices),
 > [S.B5](repaso/estadistica.md#sb5) (pruebas por permutación),
@@ -24,27 +27,33 @@
 > (2014), sec. 1.4; Mantegna (1999). Ruta avanzada: Requião da Cunha (2021),
 > sec. 5.2; Laloux et al. (1999).
 
-**Plan de clase** (120 minutos)
+**Plan de clase** (120 minutos: 105 de núcleo y 15 de margen). El núcleo:
+la matriz de correlación y su espectro, el modo de mercado, el ruido de
+estimación y el árbol de expansión mínima.
 
 | Minutos | Dónde | Qué | Secciones |
 |---|---|---|---|
-| 0–10 | Proyector | El fenómeno: las acciones se mueven juntas | Cuaderno, sección 0 |
-| 10–22 | Pizarra | Repaso: eigenvalores como direcciones principales; la matriz de correlación y sus propiedades; cada eigenvalor es la varianza de una cartera, y $\lambda_1$ es la máxima, con la demostración | 1.1–1.2 |
-| 22–35 | Pizarra | El modelo de un factor: $\rho_{ij} = \beta_i\beta_j$ y $\lambda_1 = 1 + (N-1)\rho$, con la cuenta de $C\mathbf{1}$ (el resto es el ejercicio 6 del cuaderno); $\lambda_1/N$ mide la correlación promedio | 2.1 |
-| 35–45 | Pizarra | El ruido: la prueba por permutación y el ancho del espectro, $1/Q$ | 3.1–3.2 |
-| 45–50 | Pizarra | La distancia $d_{ij}$ y el algoritmo de Kruskal | 4.1–4.2 |
-| 50–100 | Parejas | Laboratorio: ¿señal o ruido?, el modo de mercado, los sectores y el árbol de expansión mínima; ejercicios de código 1 y 2 | Cuaderno, secciones 2 a 5 y ejercicios 1–2 |
-| 100–120 | Pizarra | Cierre: puesta en común de las preguntas 3 a 5; ¿respeta el árbol los sectores? | Cuaderno, preguntas 3–5; notas, 4.3 |
-| Después | Lectura | Los pesos del modo de mercado (2.2), los sectores en los eigenvectores (2.3), el resumen (5) y Para profundizar | |
+| 0–8 | Proyector | El fenómeno: las acciones se mueven juntas | Cuaderno, sección 0 |
+| 8–20 | Pizarra | Repaso: eigenvalores como direcciones principales; la matriz de correlación y sus propiedades; cada eigenvalor es la varianza de una cartera, y $\lambda_1$ es la máxima, con la demostración | 1.1–1.2 |
+| 20–32 | Pizarra | El modelo de un factor: $\rho_{ij} = \beta_i\beta_j$ y $\lambda_1 = 1 + (N-1)\rho$, con la cuenta de $C\mathbf{1}$ (el resto es el ejercicio 6 del cuaderno); $\lambda_1/N$ mide la correlación promedio | 2.1 |
+| 32–41 | Pizarra | El ruido: la prueba por permutación y el ancho del espectro, $1/Q$ | 3.1–3.2 |
+| 41–46 | Pizarra | La distancia $d_{ij}$ y el algoritmo de Kruskal | 4.1–4.2 |
+| 46–90 | Parejas | Laboratorio: ¿señal o ruido?, el modo de mercado y el árbol de expansión mínima; ejercicio de código 1 | Cuaderno, secciones 2, 3 y 5 y ejercicio 1 |
+| 90–105 | Pizarra | Cierre: puesta en común de las preguntas 3 a 5; ¿respeta el árbol los sectores? | Cuaderno, preguntas 3–5; notas, 4.3 |
+| 105–120 | Margen | Si alcanza, en este orden: los sectores en los eigenvectores (cuaderno, sección 4; notas, 2.3); el ejercicio de código 2 | |
+| Después | Lectura | Lo que no entró del margen; los pesos del modo de mercado (2.2), el resumen (5) y Para profundizar | |
+
+Lo del **margen** se ve sólo si sobra tiempo, en el orden indicado; lo
+que no se vea pasa a la lectura y se evalúa igual.
 
 **Pregunta de la sesión.** Las acciones se mueven juntas: ¿cuánto de eso es
 señal y cuánto es ruido de estimación?
 
 ---
 
-## 1. La matriz de correlación
+## 1. La matriz de correlación ★
 
-### 1.1 Definición y propiedades
+### 1.1 Definición y propiedades ★
 
 Sean $r_{ti}$ los rendimientos logarítmicos de $N$ activos durante $T$ días
 ($t = 1, \dots, T$, $i = 1, \dots, N$). Estandarizamos cada columna,
@@ -86,7 +95,7 @@ cero: hay carteras con varianza muestral nula aunque ningún activo sea
 constante. Para estudiar $N$ activos hacen falta bastantes más de $N$ días.
 En el cuaderno, $N = 95$ y $T = 2952$.
 
-### 1.2 Descomposición espectral
+### 1.2 Descomposición espectral ★
 
 Por el teorema espectral ([L.I2](repaso/algebra_lineal.md#li2)), $C$ tiene
 eigenvalores reales $\lambda_1 \ge \dots \ge \lambda_N \ge 0$ y eigenvectores
@@ -124,7 +133,7 @@ de la varianza.
 
 ## 2. El modo de mercado
 
-### 2.1 El modelo de un factor
+### 2.1 El modelo de un factor ★
 
 **Modelo.** Cada rendimiento estandarizado es la suma de un factor común
 $f_t$ y un ruido propio:
@@ -206,7 +215,7 @@ software, en lugar de un eigenvector por sector.
 
 ## 3. Ruido de estimación
 
-### 3.1 La prueba por permutación
+### 3.1 La prueba por permutación ★
 
 Aunque los activos fueran independientes, la $C$ muestral no sería la
 identidad. Para cada par independiente, $\rho_{ij}$ tiene media
@@ -244,7 +253,7 @@ $\rho_{ij} \ne 0$ es un problema de pruebas múltiples
 ([S.I2](repaso/estadistica.md#si2)). Mirar el espectro completo evita ese
 problema: es una sola prueba sobre la estructura de toda la matriz.
 
-### 3.2 El ancho del espectro de ruido
+### 3.2 El ancho del espectro de ruido ★
 
 Un cálculo elemental explica por qué los eigenvalores del ruido se dispersan
 alrededor de 1.
@@ -281,9 +290,9 @@ El desarrollo de esta subsección está en [Para profundizar, P.1](#pp1).
 
 ---
 
-## 4. Del mercado a una red
+## 4. Del mercado a una red ★
 
-### 4.1 Distancia entre activos
+### 4.1 Distancia entre activos ★
 
 **Definición.** $d_{ij} = \sqrt{2(1 - \rho_{ij})}$.
 
@@ -299,7 +308,7 @@ todas las propiedades ([L.I5](repaso/algebra_lineal.md#li5)). $\square$
 Va de 0 ($\rho = 1$) a 2 ($\rho = -1$); dos activos no correlacionados están a
 distancia $\sqrt{2}$.
 
-### 4.2 El árbol de expansión mínima
+### 4.2 El árbol de expansión mínima ★
 
 Consideramos la red completa con $N$ nodos (los activos) y peso $d_{ij}$ en
 cada enlace.
@@ -320,7 +329,7 @@ pesos.
 
 **[Avanzado]** Proposición (ultramétrica subdominante): en [Para profundizar, P.3](#pp3).
 
-### 4.3 ¿Respeta el árbol los sectores?
+### 4.3 ¿Respeta el árbol los sectores? ★
 
 Sea $X$ el número de enlaces del MST que unen dos acciones del mismo sector.
 

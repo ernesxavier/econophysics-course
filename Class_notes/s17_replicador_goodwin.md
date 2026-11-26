@@ -12,6 +12,9 @@
 > profundizar**, y no se ven en clase; donde estaban queda una línea que los
 > enlaza.
 >
+> Las secciones marcadas con ★ son el **núcleo** que se ve en clase; las
+> demás se leen por cuenta propia y se evalúan igual.
+>
 > Repaso recomendado: [C.B3](repaso/calculo.md#cb3) (la derivada como tasa de
 > cambio), [C.I1](repaso/calculo.md#ci1) (desarrollo de Taylor),
 > [C.I3](repaso/calculo.md#ci3) (funciones de varias variables y derivadas
@@ -25,26 +28,32 @@
 > Lecturas: Requião da Cunha (2021), cap. 7. Ruta avanzada: Goodwin (1967); de
 > consulta: Strogatz (2018), caps. 5–6; Schecter & Gintis (2016).
 
-**Plan de clase** (120 minutos)
+**Plan de clase** (120 minutos: 105 de núcleo y 15 de margen). El núcleo:
+la ecuación del replicador y Halcón-Paloma, y el ciclo distributivo de
+Goodwin como sistema de Lotka-Volterra.
 
 | Minutos | Dónde | Qué | Secciones |
 |---|---|---|---|
-| 0–10 | Proyector | El fenómeno: ¿por qué no todos son agresivos? ¿Y por qué la economía oscila sin choques? | Cuaderno, sección 0 |
-| 10–28 | Pizarra | Repaso: una ecuación diferencial como regla de actualización; juegos de $2 \times 2$ y pagos esperados; la ecuación del replicador por imitación, con la derivación | 1.1–1.2 |
-| 28–40 | Pizarra | Los puntos fijos y los tres regímenes (la tabla); Halcón-Paloma: $x^\ast = V/C$ y su estabilidad | 1.3 |
-| 40–55 | Pizarra | Goodwin: los cuatro supuestos y la derivación de $\dot v/v$ y $\dot u/u$; el sistema de Lotka-Volterra, el diccionario y el punto fijo | 2.1–2.2 |
-| 55–100 | Parejas | Laboratorio: Halcón-Paloma por la ecuación y por agentes; el ciclo de Goodwin en el tiempo y en el plano de fase; ejercicios de código 1 y 2 | Cuaderno, secciones 2 y 3 y ejercicios 1–2 |
-| 100–120 | Pizarra | Cierre: puesta en común de las preguntas 3 a 5 y la tabla del resumen | Cuaderno, preguntas 3–5; notas, 3 |
-| Después | Lectura | Para profundizar: el jacobiano y el periodo del ciclo, y la cantidad conservada de Goodwin | |
+| 0–8 | Proyector | El fenómeno: ¿por qué no todos son agresivos? ¿Y por qué la economía oscila sin choques? | Cuaderno, sección 0 |
+| 8–24 | Pizarra | Repaso: una ecuación diferencial como regla de actualización; juegos de $2 \times 2$ y pagos esperados; la ecuación del replicador por imitación, con la derivación | 1.1–1.2 |
+| 24–34 | Pizarra | Los puntos fijos y los tres regímenes (la tabla); Halcón-Paloma: $x^\ast = V/C$ y su estabilidad | 1.3 |
+| 34–48 | Pizarra | Goodwin: los cuatro supuestos y la derivación de $\dot v/v$ y $\dot u/u$; el sistema de Lotka-Volterra, el diccionario y el punto fijo | 2.1–2.2 |
+| 48–92 | Parejas | Laboratorio: Halcón-Paloma por la ecuación y por agentes; el ciclo de Goodwin en el tiempo y en el plano de fase; ejercicio de código 1 | Cuaderno, secciones 2 y 3 y ejercicio 1 |
+| 92–105 | Pizarra | Cierre: puesta en común de las preguntas 3 y 5 y la tabla del resumen | Cuaderno, preguntas 3 y 5; notas, 3 |
+| 105–120 | Margen | Si alcanza, en este orden: la pregunta 4 (un halcón mutante en una población de palomas); el ejercicio de código 2 | |
+| Después | Lectura | Lo que no entró del margen; Para profundizar: el jacobiano y el periodo del ciclo, y la cantidad conservada de Goodwin | |
+
+Lo del **margen** se ve sólo si sobra tiempo, en el orden indicado; lo
+que no se vea pasa a la lectura y se evalúa igual.
 
 **Pregunta de la sesión.** ¿Por qué no todos son agresivos? ¿Y por qué la
 economía oscila sin choques externos?
 
 ---
 
-## 1. Juegos evolutivos y la ecuación del replicador
+## 1. Juegos evolutivos y la ecuación del replicador ★
 
-### 1.1 Juegos simétricos de $2 \times 2$ y pagos esperados
+### 1.1 Juegos simétricos de $2 \times 2$ y pagos esperados ★
 
 Consideremos una población grande de agentes que interactúan en pares y eligen
 entre dos estrategias puras, $E_1$ y $E_2$. Los pagos de una interacción se
@@ -77,7 +86,7 @@ $$
 \bar\pi(x) = x\pi_1(x) + (1 - x)\pi_2(x) .
 $$
 
-### 1.2 Derivación de la ecuación del replicador por imitación
+### 1.2 Derivación de la ecuación del replicador por imitación ★
 
 En lugar de suponer que los agentes calculan equilibrios de Nash de antemano,
 la teoría de juegos evolutivos modela el **aprendizaje social por imitación**
@@ -119,7 +128,7 @@ $$
 \Delta\pi(x) = \pi_1(x) - \pi_2(x) = (b - d) + \bigl[(a - c) - (b - d)\bigr]x .
 $$
 
-### 1.3 Los tres regímenes de los juegos de $2 \times 2$
+### 1.3 Los tres regímenes de los juegos de $2 \times 2$ ★
 
 Los estados homogéneos $x^\ast = 0$ (todos usan $E_2$) y $x^\ast = 1$ (todos
 usan $E_1$) son **siempre puntos fijos** de la ecuación del replicador, porque
@@ -191,7 +200,7 @@ puede sostener la población.
 
 ## 2. De Lotka-Volterra al ciclo distributivo de Goodwin
 
-### 2.1 Derivación económica del modelo de Goodwin
+### 2.1 Derivación económica del modelo de Goodwin ★
 
 Goodwin (1967) formuló en ecuaciones diferenciales la explicación de Marx sobre
 el ciclo económico impulsado por el conflicto distributivo entre salarios y
@@ -230,7 +239,7 @@ fuerza laboral disponible $N$ (todas funciones del tiempo $t$):
 
    $$\frac{\dot u}{u} = \frac{\dot w}{w} - \frac{\dot a}{a} = -\underset{\gamma_G}{\underbrace{(\gamma_0 + \alpha)}} + \delta_G v .$$
 
-### 2.2 El sistema de Lotka-Volterra y su punto fijo
+### 2.2 El sistema de Lotka-Volterra y su punto fijo ★
 
 Reuniendo ambas ecuaciones (con parámetros positivos
 $\alpha_G, \beta_G, \gamma_G, \delta_G > 0$), obtenemos el sistema de **Goodwin – Lotka-Volterra**

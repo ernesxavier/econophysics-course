@@ -12,6 +12,9 @@
 > profundizar**, y no se ven en clase; donde estaban queda una línea que los
 > enlaza.
 >
+> Las secciones marcadas con ★ son el **núcleo** que se ve en clase; las
+> demás se leen por cuenta propia y se evalúan igual.
+>
 > Repaso recomendado: [C.B1](repaso/calculo.md#cb1) (logaritmos),
 > [P.I3](repaso/probabilidad.md#pi3) (TLC), [P.I6](repaso/probabilidad.md#pi6)
 > (lognormal), [E.I6](repaso/procesos_estocasticos.md#ei6) (Gibrat y Kesten);
@@ -22,27 +25,32 @@
 > Lecturas: Slanina (2014), sec. 7.1. Complementaria: Slanina (2014), sec. 7.3.
 > Ruta avanzada (de consulta): Gabaix (1999); Sornette & Cont (1997).
 
-**Plan de clase** (120 minutos)
+**Plan de clase** (120 minutos: 105 de núcleo y 15 de margen). El núcleo:
+la ley de Gibrat y la lognormal, Gibrat con una barrera y los procesos de
+Kesten.
 
 | Minutos | Dónde | Qué | Secciones |
 |---|---|---|---|
-| 0–12 | Proyector | El fenómeno: ¿crecen igual los municipios grandes y los pequeños? | Cuaderno, sección 0; notas, 1.3 |
-| 12–22 | Pizarra | La ley de Gibrat; repaso: el logaritmo de un producto es una suma; la lognormal, con la demostración; sin estado estacionario; promedio contra trayectoria típica | 1.1–1.2 |
-| 22–32 | Pizarra | Gibrat con una barrera: el modelo y $\alpha = -2m/s^2$ (enunciado); una exponencial en el logaritmo es una ley de potencias | 2 |
-| 32–45 | Pizarra | Procesos de Kesten: la definición, el teorema (enunciado) y el argumento heurístico de $\mathbb{E}[a^\alpha] = 1$; el caso lognormal da el mismo exponente (la cuenta es el ejercicio 7 del cuaderno) | 3 |
-| 45–50 | Pizarra | El argumento de Gabaix: por qué $\alpha \to 1$ en las ciudades | 4 |
-| 50–100 | Parejas | Laboratorio: Gibrat puro, Gibrat con barrera y su exponente; por qué $\alpha \approx 1$ en las ciudades; ejercicios de código 1 y 2 | Cuaderno, secciones 2 a 4 y ejercicios 1–2 |
-| 100–120 | Pizarra | Cierre: puesta en común de las preguntas 3 a 5 y la tabla del resumen | Cuaderno, preguntas 3–5; notas, 6 |
-| Después | Lectura | Las muestras finitas en Kesten (3), los cuidados del argumento de Gabaix (4) y Para profundizar | |
+| 0–10 | Proyector | El fenómeno: ¿crecen igual los municipios grandes y los pequeños? | Cuaderno, sección 0; notas, 1.3 |
+| 10–20 | Pizarra | La ley de Gibrat; repaso: el logaritmo de un producto es una suma; la lognormal, con la demostración; sin estado estacionario; promedio contra trayectoria típica | 1.1–1.2 |
+| 20–30 | Pizarra | Gibrat con una barrera: el modelo y $\alpha = -2m/s^2$ (enunciado); una exponencial en el logaritmo es una ley de potencias | 2 |
+| 30–42 | Pizarra | Procesos de Kesten: la definición, el teorema (enunciado) y el argumento heurístico de $\mathbb{E}[a^\alpha] = 1$; el caso lognormal da el mismo exponente (la cuenta es el ejercicio 7 del cuaderno) | 3 |
+| 42–90 | Parejas | Laboratorio: Gibrat puro y Gibrat con barrera y su exponente; ejercicio de código 1 | Cuaderno, secciones 2 y 3 y ejercicio 1 |
+| 90–105 | Pizarra | Cierre: puesta en común de las preguntas 3 a 5 y la tabla del resumen | Cuaderno, preguntas 3–5; notas, 6 |
+| 105–120 | Margen | Si alcanza, en este orden: el argumento de Gabaix, por qué $\alpha \to 1$ en las ciudades (4; cuaderno, sección 4); el ejercicio de código 2 | |
+| Después | Lectura | Lo que no entró del margen; las muestras finitas en Kesten (3), los cuidados del argumento de Gabaix (4) y Para profundizar | |
+
+Lo del **margen** se ve sólo si sobra tiempo, en el orden indicado; lo
+que no se vea pasa a la lectura y se evalúa igual.
 
 **Pregunta de la sesión.** ¿Crecen igual las empresas y las ciudades grandes
 que las pequeñas? ¿Qué mecanismo produce la ley de Zipf?
 
 ---
 
-## 1. La ley de Gibrat
+## 1. La ley de Gibrat ★
 
-### 1.1 Definición
+### 1.1 Definición ★
 
 **Definición (ley de Gibrat, 1931).** El tamaño $x_t$ de una unidad (empresa,
 ciudad) sigue la ley de Gibrat si
@@ -56,7 +64,7 @@ $x_t$. Equivalentemente, la tasa de crecimiento $\ln(x_{t+1}/x_t) = \ln a_t$
 tiene la misma distribución para unidades grandes y pequeñas: misma media y
 misma dispersión.
 
-### 1.2 Consecuencia: la lognormal
+### 1.2 Consecuencia: la lognormal ★
 
 **Proposición.** Si $\ln a_t$ tiene media $m$ y varianza $s^2 < \infty$,
 entonces
@@ -88,7 +96,7 @@ por la desigualdad de Jensen ([P.A5](repaso/probabilidad.md#pa5)). El promedio
 puede crecer mientras la unidad típica se encoge
 ([E.I6](repaso/procesos_estocasticos.md#ei6)).
 
-### 1.3 Prueba con los municipios de México
+### 1.3 Prueba con los municipios de México ★
 
 Con la población de los 2 456 municipios presentes en los censos de 2010 y
 2020 (INEGI), sea $g_i = \ln(P_{i,2020}/P_{i,2010})$ la tasa de crecimiento.
@@ -106,9 +114,9 @@ exacta.
 
 ---
 
-## 2. Gibrat con una barrera inferior
+## 2. Gibrat con una barrera inferior ★
 
-### 2.1 El modelo
+### 2.1 El modelo ★
 
 $$
 x_{t+1} = \max\left(a_t\thinspace x_t,\ x_{\min}\right), \qquad \ln a_t \sim \mathcal{N}(m, s^2),\quad m < 0 .
@@ -117,7 +125,7 @@ $$
 La deriva negativa empuja hacia la barrera; el ruido aleja de ella. La
 barrera impide que los tamaños se dispersen hacia cero.
 
-### 2.2 El exponente
+### 2.2 El exponente ★
 
 **Proposición.** En la aproximación continua, la distribución estacionaria es
 una Pareto con $x_{\min}$ y exponente
@@ -139,7 +147,7 @@ menor) dan $\alpha$ menor: colas más pesadas.
 
 ---
 
-## 3. Procesos de Kesten
+## 3. Procesos de Kesten ★
 
 **Definición.** Un **proceso de Kesten** es
 

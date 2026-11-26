@@ -15,6 +15,9 @@
 > aleatorias (Erdős-Rényi, Watts-Strogatz y Barabási-Albert) están en las
 > [notas de la sesión 10](s10_redes_modelos.md).
 >
+> Las secciones marcadas con ★ son el **núcleo** que se ve en clase; las
+> demás se leen por cuenta propia y se evalúan igual.
+>
 > Repaso recomendado: [F.B4](repaso/fisica_estadistica.md#fb4) (transiciones
 > de fase), [L.I2](repaso/algebra_lineal.md#li2) (matrices simétricas y
 > teorema espectral), [L.I5](repaso/algebra_lineal.md#li5) (distancia entre
@@ -25,25 +28,31 @@
 > Lecturas: Slanina (2014), cap. 6. **[Avanzado]** Newman (2018), caps. 12–13
 > y 15; Jackson (2008), caps. 2–5 (consulta).
 
-**Plan de clase** (120 minutos)
+**Plan de clase** (120 minutos: 105 de núcleo y 15 de margen). El núcleo:
+la red de umbral del mercado frente a los modelos y su robustez ante fallas
+y ataques.
 
 | Minutos | Dónde | Qué | Secciones |
 |---|---|---|---|
-| 0–10 | Proyector | El fenómeno: ¿qué pasa si cae el nodo más conectado? | Cuaderno, sección 0 |
-| 10–20 | Pizarra | La red de umbral del mercado y su diferencia con el árbol de expansión mínima; por qué el agrupamiento es alto, con la desigualdad del triángulo | 1 |
-| 20–25 | Pizarra | Robustez: fallas aleatorias contra ataque dirigido; $S(f)$ como parámetro de orden | 2.1 |
-| 25–60 | Parejas | Laboratorio, primera parte: la red del mercado frente a los modelos; ejercicio de código 1 | Cuaderno, sección 1 y ejercicio 1 |
-| 60–65 | Pizarra | Puesta en común: la tabla del mercado frente a Erdős-Rényi y Barabási-Albert | 1 |
-| 65–100 | Parejas | Laboratorio, segunda parte: fallas aleatorias y ataques dirigidos; ejercicio de código 2 | Cuaderno, sección 2 y ejercicio 2 |
-| 100–120 | Pizarra | Cierre: puesta en común de las preguntas 3 a 5; robustas ante fallas, frágiles ante ataques | Cuaderno, preguntas 3–5; notas, 2.1 |
-| Después | Lectura | El resumen (5) y Para profundizar: el criterio de Molloy y Reed, el umbral de fallas, el Laplaciano y el modelo de configuración | |
+| 0–8 | Proyector | El fenómeno: ¿qué pasa si cae el nodo más conectado? | Cuaderno, sección 0 |
+| 8–17 | Pizarra | La red de umbral del mercado y su diferencia con el árbol de expansión mínima; por qué el agrupamiento es alto, con la desigualdad del triángulo | 1 |
+| 17–22 | Pizarra | Robustez: fallas aleatorias contra ataque dirigido; $S(f)$ como parámetro de orden | 2.1 |
+| 22–52 | Parejas | Laboratorio, primera parte: la red del mercado frente a los modelos; ejercicio de código 1 | Cuaderno, sección 1 y ejercicio 1 |
+| 52–56 | Pizarra | Puesta en común: la tabla del mercado frente a Erdős-Rényi y Barabási-Albert | 1 |
+| 56–90 | Parejas | Laboratorio, segunda parte: fallas aleatorias y ataques dirigidos | Cuaderno, sección 2 |
+| 90–105 | Pizarra | Cierre: puesta en común de las preguntas 3 a 5; robustas ante fallas, frágiles ante ataques | Cuaderno, preguntas 3–5; notas, 2.1 |
+| 105–120 | Margen | Si alcanza: el ejercicio de código 2, el umbral teórico de fallas, y su comparación con la curva $S(f)$ del laboratorio | |
+| Después | Lectura | Lo que no entró del margen; el resumen (5) y Para profundizar: el criterio de Molloy y Reed, el umbral de fallas, el Laplaciano y el modelo de configuración | |
+
+Lo del **margen** se ve sólo si sobra tiempo, en el orden indicado; lo
+que no se vea pasa a la lectura y se evalúa igual.
 
 **Pregunta de la sesión.** ¿Qué pasa con una red, y con un mercado, si cae
 el nodo más conectado?
 
 ---
 
-## 1. Una red de correlaciones del mercado
+## 1. Una red de correlaciones del mercado ★
 
 A partir de la matriz de correlación $C$ de los rendimientos
 ([sesión 7](s07_correlaciones.md)) se define la **red de umbral**
@@ -80,7 +89,7 @@ con el del árbol de expansión mínima.
 
 ## 2. Robustez y percolación
 
-### 2.1 El problema
+### 2.1 El problema ★
 
 Se quita una fracción $f$ de los nodos, con todos sus enlaces, y se mide la
 fracción $S(f)$ de los $n$ nodos originales que sigue en el componente

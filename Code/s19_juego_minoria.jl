@@ -318,7 +318,7 @@ end
 
 # ╔═╡ ed7693c2-ca9b-11f1-9046-d3f3af5b9cc8
 md"""
-**2.** Escribe `actualizar_puntaje(U, s_mu, A)`, que devuelva el nuevo puntaje
+**2.** *Si alcanza (margen de la clase).* Escribe `actualizar_puntaje(U, s_mu, A)`, que devuelva el nuevo puntaje
 virtual de una estrategia cuyo puntaje actual es `U`, que ante la historia
 actual recomendó la acción `s_mu` (``\pm 1``), cuando la acción agregada fue `A`
 (usando la regla ``U_{\text{nuevo}} = U - s(\mu)\,A``).

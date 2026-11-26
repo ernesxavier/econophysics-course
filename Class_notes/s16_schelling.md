@@ -13,6 +13,9 @@
 > es sobre todo de laboratorio: las tres fases se descubren en el cuaderno y
 > se formalizan en el cierre.
 >
+> Las secciones marcadas con ★ son el **núcleo** que se ve en clase; las
+> demás se leen por cuenta propia y se evalúan igual.
+>
 > Repaso recomendado: [F.B4](repaso/fisica_estadistica.md#fb4) (transiciones de
 > fase) y [F.I3](repaso/fisica_estadistica.md#fi3) (modelo de Ising).
 >
@@ -21,26 +24,32 @@
 > Slanina (2014), sec. 8.2; Sen & Chakrabarti (2014), cap. 6; Vinković &
 > Kirman (2006); Grauwin et al. (2009).
 
-**Plan de clase** (120 minutos)
+**Plan de clase** (120 minutos: 105 de núcleo y 15 de margen). El núcleo:
+el modelo de Schelling, el laboratorio de la ciudad segregada y la analogía
+con Ising.
 
 | Minutos | Dónde | Qué | Secciones |
 |---|---|---|---|
-| 0–10 | Proyector | El fenómeno: barrios segregados sin intolerancia | Cuaderno, sección 0 |
-| 10–22 | Pizarra | El modelo de Schelling: la cuadrícula, la vecindad de Moore, la similitud local, el umbral de tolerancia y la similitud media como medida de segregación | 1.1 |
-| 22–28 | Pizarra | La pregunta para el laboratorio: con $\tau = 3/8$ cada agente acepta hasta 62.5% de vecinos del otro grupo; ¿qué ciudad resulta? | 2 |
-| 28–90 | Parejas | Laboratorio: de las preferencias individuales a la ciudad segregada; el barrido del umbral de tolerancia; ejercicios de código 1 y 2 | Cuaderno, secciones 1 y 2 y ejercicios 1–2 |
-| 90–105 | Pizarra | Las tres fases y la externalidad de vecindario; la analogía con Ising con espín conservado y el óptimo individual frente al social | 2–3; cuaderno, sección 3 |
-| 105–120 | Pizarra | Cierre: puesta en común de las preguntas 3 a 5 | Cuaderno, preguntas 3–5; notas, 4 |
-| Después | Lectura | El resumen (4) y Para profundizar | |
+| 0–8 | Proyector | El fenómeno: barrios segregados sin intolerancia | Cuaderno, sección 0 |
+| 8–20 | Pizarra | El modelo de Schelling: la cuadrícula, la vecindad de Moore, la similitud local, el umbral de tolerancia y la similitud media como medida de segregación | 1.1 |
+| 20–25 | Pizarra | La pregunta para el laboratorio: con $\tau = 3/8$ cada agente acepta hasta 62.5% de vecinos del otro grupo; ¿qué ciudad resulta? | 2 |
+| 25–77 | Parejas | Laboratorio: de las preferencias individuales a la ciudad segregada; el barrido del umbral de tolerancia; ejercicio de código 1 | Cuaderno, secciones 1 y 2 y ejercicio 1 |
+| 77–92 | Pizarra | Las tres fases y la externalidad de vecindario; la analogía con Ising con espín conservado | 2–3; cuaderno, sección 3 |
+| 92–105 | Pizarra | Cierre: puesta en común de las preguntas 3 a 5 | Cuaderno, preguntas 3–5; notas, 4 |
+| 105–120 | Margen | Si alcanza, en este orden: el óptimo individual frente al social, el tablero de ajedrez y las franjas (3); el ejercicio de código 2 | |
+| Después | Lectura | Lo que no entró del margen; el resumen (4) y Para profundizar | |
+
+Lo del **margen** se ve sólo si sobra tiempo, en el orden indicado; lo
+que no se vea pasa a la lectura y se evalúa igual.
 
 **Pregunta de la sesión.** ¿Cómo salen barrios segregados de preferencias
 individuales que casi no son intolerantes?
 
 ---
 
-## 1. El modelo de segregación de Schelling
+## 1. El modelo de segregación de Schelling ★
 
-### 1.1 Reglas, similitud y satisfacción
+### 1.1 Reglas, similitud y satisfacción ★
 
 Schelling (1971) estudió cómo preferencias individuales moderadas por no ser
 una minoría extrema en el propio vecindario generan una fuerte segregación
@@ -76,7 +85,7 @@ entre dominios).
 
 ---
 
-## 2. Umbral crítico, cascadas de mudanza y frustración
+## 2. Umbral crítico, cascadas de mudanza y frustración ★
 
 Como una vecindad de Moore tiene a lo sumo $8$ vecinos, el umbral $\tau$
 opera en escalones discretos ($1/8 = 0.125$, $2/8 = 0.25$, $3/8 = 0.375$,
@@ -108,7 +117,7 @@ vacías). Al variar $\tau$ aparecen tres regímenes bien diferenciados
 
 ---
 
-## 3. Analogía física: Ising a temperatura cero con magnetización conservada
+## 3. Analogía física: Ising a temperatura cero con magnetización conservada ★
 
 El modelo de Schelling es el análogo fuera del equilibrio de un **modelo de
 Ising ferromagnético con espín conservado** ([F.I3](repaso/fisica_estadistica.md#fi3);

@@ -249,7 +249,7 @@ end
 
 # ╔═╡ 27353400-ca93-11f1-922b-c97257668e17
 md"""
-**2.** Escribe `coop_favorecida(b, c, k)`, que devuelva `true` si la razón
+**2.** *Si alcanza (margen de la clase).* Escribe `coop_favorecida(b, c, k)`, que devuelva `true` si la razón
 beneficio-costo `b / c` supera el grado `k` de la red (regla ``b/c > k`` de
 Ohtsuki et al. para redes grandes), y `false` en caso contrario.
 """

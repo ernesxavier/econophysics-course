@@ -319,7 +319,7 @@ end
 
 # ╔═╡ 13cb84be-ca93-11f1-a711-4bf0162b7a40
 md"""
-**2.** Escribe `tasa_kirman(k, N, a)`, la probabilidad ``W(k \to k+1)`` de que
+**2.** *Si alcanza (margen de la clase).* Escribe `tasa_kirman(k, N, a)`, la probabilidad ``W(k \to k+1)`` de que
 en un paso del modelo de Kirman el número de agentes con opinión 1 suba de
 `k` a `k + 1`, usando la fórmula de la sección 3.
 """
